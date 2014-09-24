@@ -1,0 +1,40 @@
+# Audio
+af.resampler.quality=255
+
+ro.qc.sdk.audio.fluencetype=fluence
+
+# Bluetooth
+ro.qualcomm.bt.hci_transport=smd
+
+# Display
+debug.composition.type=dyn
+persist.hwc.mdpcomp.enable=true
+ro.opengles.version=196608
+ro.sf.lcd_density=320
+
+# GPS
+persist.gps.qc_nlp_in_use=0
+ro.gps.agps_provider=1
+ro.qc.sdk.izat.premium.enabled=0
+ro.qc.sdk.izat.service_mask=0x0
+
+# NITZ
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+
+# Radio
+rild.libargs=-d /dev/smd0
+rild.libpath=/system/lib/libril-qc-qmi-1.so
+
+ro.telephony.default_network=10
+ro.use_data_netmgrd=true
+
+# Time
+persist.timed.enable=true
