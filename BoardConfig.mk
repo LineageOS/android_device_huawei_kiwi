@@ -14,11 +14,11 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/qrd/cp8675/BoardConfigVendor.mk
+-include vendor/micromax/tomato/BoardConfigVendor.mk
 
-LOCAL_PATH := device/qrd/cp8675
+LOCAL_PATH := device/micromax/tomato
 
-BOARD_VENDOR := coolpad
+BOARD_VENDOR := micromax
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
@@ -45,8 +45,8 @@ BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --dt $(LOCAL_PATH)/dt.img
-TARGET_KERNEL_SOURCE := kernel/qrd/msm8916
-TARGET_KERNEL_CONFIG := cp8675_defconfig
+TARGET_KERNEL_SOURCE := kernel/micromax/msm8916
+TARGET_KERNEL_CONFIG := cyanogenmod_cp8675_defconfig
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true

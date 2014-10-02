@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DEVICE=cp8675
-VENDOR=qrd
+DEVICE=tomato
+VENDOR=micromax
 
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
@@ -112,7 +112,7 @@ EOF
 
 LOCAL_PATH := \$(call my-dir)
 
-ifeq (\$(TARGET_DEVICE),cp8675)
+ifeq (\$(TARGET_DEVICE),tomato)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := com.qualcomm.location

@@ -1,1 +1,1 @@
-# Proprietary files for cp8675
+# Proprietary files for tomato

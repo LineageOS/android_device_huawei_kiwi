@@ -17,12 +17,12 @@
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from cp8675 device
-$(call inherit-product, device/qrd/cp8675/device.mk)
+# Inherit from tomato device
+$(call inherit-product, device/micromax/tomato/device.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := cp8675
-PRODUCT_NAME := full_cp8675
-PRODUCT_BRAND := qrd
+PRODUCT_DEVICE := tomato
+PRODUCT_NAME := full_tomato
+PRODUCT_BRAND := micromax
 PRODUCT_MODEL := cp8675
-PRODUCT_MANUFACTURER := qrd
+PRODUCT_MANUFACTURER := Micromax

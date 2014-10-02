@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #set -e
-export DEVICE=cp8675
-export VENDOR=qrd
+export DEVICE=tomato
+export VENDOR=micromax
 
 if [ $# -eq 0 ]; then
   SRC=adb

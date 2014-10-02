@@ -15,7 +15,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),cp8675)
+ifeq ($(TARGET_DEVICE),tomato)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 

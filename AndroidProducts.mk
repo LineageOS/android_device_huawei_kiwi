@@ -14,4 +14,4 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/full_cp8675.mk
+    $(LOCAL_DIR)/full_tomato.mk
