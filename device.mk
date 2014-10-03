@@ -175,10 +175,6 @@ PRODUCT_PACKAGES += \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
 
-# Thermal
-PRODUCT_PACKAGES += \
-    thermal-engine.conf
-
 # Torch
 PRODUCT_PACKAGES += \
     Torch
