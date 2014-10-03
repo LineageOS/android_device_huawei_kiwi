@@ -41,7 +41,6 @@ on fs
 service qcom-usb-sh /system/bin/sh /init.qcom.usb.sh
     class core
     user root
-    group root
     oneshot
 
 # Following are the parameters required for usb functionality. They provide configurable options like
@@ -603,8 +602,8 @@ on property:sys.usb.config=rndis
 
 on property:sys.usb.config=rndis,none
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 6880
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct F00E
     write /sys/class/android_usb/android0/functions rndis
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state rndis
@@ -616,8 +615,8 @@ on property:sys.usb.config=rndis,adb
 on property:sys.usb.config=rndis,none,adb
     stop adbd
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 707F
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct 9024
     write /sys/class/android_usb/android0/functions rndis,adb
     write /sys/class/android_usb/android0/enable 1
     start adbd
@@ -685,8 +684,8 @@ on property:sys.usb.config=rndis,diag,diag_mdm,diag_qsc,adb
 
 on property:sys.usb.config=ptp
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 6821
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct 904D
     write /sys/class/android_usb/android0/functions ptp
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
@@ -694,8 +693,8 @@ on property:sys.usb.config=ptp
 on property:sys.usb.config=ptp,adb
     stop adbd
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 7043
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct 904E
     write /sys/class/android_usb/android0/functions ptp,adb
     write /sys/class/android_usb/android0/enable 1
     start adbd
@@ -703,23 +702,19 @@ on property:sys.usb.config=ptp,adb
 
 on property:sys.usb.config=mtp
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 707D
-    write /sys/class/android_usb/android0/functions mtp,mass_storage
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct F003
+    write /sys/class/android_usb/android0/functions mtp
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/android_usb/android0/f_mass_storage/lun/ro 1
-    write /sys/class/android_usb/android0/f_mass_storage/lun/file /etc/CoolpadInstall.iso
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,adb
     stop adbd
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 702A
-    write /sys/class/android_usb/android0/functions mtp,adb,mass_storage
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct 9039
+    write /sys/class/android_usb/android0/functions mtp,adb
     write /sys/class/android_usb/android0/enable 1
-    write /sys/class/android_usb/android0/f_mass_storage/lun/ro 1
-    write /sys/class/android_usb/android0/f_mass_storage/lun/file /etc/CoolpadInstall.iso
     start adbd
     setprop sys.usb.state ${sys.usb.config}
 
@@ -806,8 +801,8 @@ on property:sys.usb.config=diag,diag_mdm,ccid,adb
 on property:sys.usb.config=mass_storage,adb
     stop adbd
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 7011
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct 9015
     write /sys/class/android_usb/android0/functions adb,mass_storage
     write /sys/class/android_usb/android0/enable 1
     start adbd
@@ -816,21 +811,11 @@ on property:sys.usb.config=mass_storage,adb
 #Mass-storage only composition
 on property:sys.usb.config=mass_storage
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 6803
+    write /sys/class/android_usb/android0/idVendor 05C6
+    write /sys/class/android_usb/android0/idProduct F000
     write /sys/class/android_usb/android0/functions mass_storage
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
-
-#simu fastboot composition
-on property:sys.usb.config=simu_fastboot
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 7001
-    write /sys/class/android_usb/android0/functions adb
-    write /sys/class/android_usb/android0/enable 1
-#    start fastboot_service
-    setprop sys.usb.state adb
 
 on property:sys.usb.config=diag,qdss
     write /sys/class/android_usb/android0/enable 0
@@ -1022,68 +1007,4 @@ on property:sys.usb.config=charging
     write /sys/class/android_usb/android0/idProduct F006
     write /sys/class/android_usb/android0/functions charging
     write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state ${sys.usb.config}
-
-
-on property:sys.usb.config=charge_only
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1ebf
-    write /sys/class/android_usb/android0/idProduct FFFE
-    write /sys/class/android_usb/android0/functions hid
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=charge_only,adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1ebf
-    write /sys/class/android_usb/android0/idProduct FFFE
-    write /sys/class/android_usb/android0/functions hid
-    write /sys/class/android_usb/android0/enable 1
-#    start adbd
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=defaultroot
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 70d6
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/f_serial/transports smd,smd
-    write /sys/class/android_usb/android0/functions mass_storage,serial,diag
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=defaultroot,adb
-    stop adbd
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 70d6
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/f_serial/transports smd,smd
-    write /sys/class/android_usb/android0/functions mass_storage,serial,diag,adb
-    write /sys/class/android_usb/android0/enable 1
-    write /sys/class/android_usb/android0/f_mass_storage/lun/ro 1
-    write /sys/class/android_usb/android0/f_mass_storage/lun/file /etc/CoolpadInstall.iso   
-    start adbd
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=rndis,root
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 70DB
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/f_serial/transports smd
-    write /sys/class/android_usb/android0/functions rndis,serial,diag
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state ${sys.usb.config}
-    
-on property:sys.usb.config=rndis,root,adb
-    stop adbd
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 1EBF
-    write /sys/class/android_usb/android0/idProduct 70DB
-    write /sys/class/android_usb/android0/f_diag/clients diag
-    write /sys/class/android_usb/android0/f_serial/transports smd
-    write /sys/class/android_usb/android0/functions rndis,serial,diag,adb
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
     setprop sys.usb.state ${sys.usb.config}
