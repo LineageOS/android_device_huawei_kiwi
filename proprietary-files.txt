@@ -269,10 +269,15 @@ etc/permissions/com.qualcomm.location.xml
 etc/quipc.conf
 etc/sap.conf
 etc/xtwifi.conf
+lib/hw/gps.default.so:lib/hw/gps.msm8916.so
+lib/libgps.utils.so
 lib/libloc_api_v02.so
+lib/libloc_core.so
 lib/libloc_ds_api.so
+lib/libloc_eng.so
 -priv-app/com.qualcomm.location.apk
 -priv-app/com.qualcomm.services.location.apk
+vendor/etc/calmodule.cfg
 vendor/lib/hw/flp.default.so
 vendor/lib/libalarmservice_jni.so
 vendor/lib/libgeofence.so
@@ -370,9 +375,12 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
+vendor/lib/libconfigdb.so
+vendor/lib/libmdmdetect.so
 vendor/lib/libnetmgr.so
 vendor/lib/libril-qc-qmi-1.so
 vendor/lib/libril-qcril-hook-oem.so
+vendor/lib/libxml.so
 
 # Sensors
 lib/hw/sensors.qcom.so:lib/hw/sensors.msm8916.so
