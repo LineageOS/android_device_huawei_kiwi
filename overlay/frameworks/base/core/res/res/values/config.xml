@@ -192,6 +192,10 @@
             32 - Camera
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">7</integer>
+    <integer name="config_deviceHardwareKeys">0</integer>
+
+    <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
+                  autodetected from the Configuration. -->
+    <bool name="config_showNavigationBar">true</bool>
 
 </resources>
