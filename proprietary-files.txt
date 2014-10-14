@@ -179,6 +179,11 @@ vendor/lib/libchromatix_ov5648_q5v22e_default_video.so
 vendor/lib/libchromatix_ov5648_q5v22e_preview.so
 vendor/lib/libchromatix_ov5648_q5v22e_snapshot.so
 vendor/lib/libchromatix_ov5648_q5v22e_zsl.so
+vendor/lib/libchromatix_ov5648_qtech_common.so
+vendor/lib/libchromatix_ov5648_qtech_default_video.so
+vendor/lib/libchromatix_ov5648_qtech_liveshot.so
+vendor/lib/libchromatix_ov5648_qtech_preview.so
+vendor/lib/libchromatix_ov5648_qtech_snapshot.so
 vendor/lib/libchromatix_ov8825_snapshot_hd.so
 vendor/lib/libchromatix_ov8825_snapshot.so
 vendor/lib/libchromatix_ov8825_video_hd.so
