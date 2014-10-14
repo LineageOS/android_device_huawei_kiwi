@@ -31,7 +31,7 @@ persist.rild.nitz_short_ons_3=
 
 # Radio
 rild.libargs=-d /dev/smd0
-rild.libpath=/system/lib/libril-qc-qmi-1.so
+rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 
 ro.telephony.default_network=10
 ro.use_data_netmgrd=true
