@@ -195,3 +195,6 @@
 
 # ESOC devices
 /dev/subsys_esoc*         0640   system     radio
+
+# Sensors
+/dev/yl_alsprox_sensor                            0660    system    system
