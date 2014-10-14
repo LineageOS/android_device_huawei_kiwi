@@ -37,34 +37,36 @@ on early-init
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
+
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage 0050 system sdcard_r
     mkdir /storage/emulated 0555 root root
-    mkdir /storage/emulated/legacy 0555 root root
     mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
     mkdir /mnt/media_rw/usbotg 0700 media_rw media_rw
     mkdir /mnt/media_rw/uicc0 0700 media_rw media_rw
-    mkdir /mnt/media_rw/uicc1 0700 media_rw media_rw
     mkdir /storage/sdcard1 0700 root root
     mkdir /storage/uicc0 0700 root root
     mkdir /storage/usbotg 0700 root root
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
+    export SECONDARY_STORAGE /storage/sdcard1
 
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+
     #yulong begin , add env for usb, liyan, 20140409
     export DEFAULT_PERSIST_USB_CONFIG test
     #yulong end
 
 on fs
     mount_all fstab.qcom
+
+    setprop ro.crypto.fuse_sdcard true
 
     # Keeping following partitions outside fstab file. As user may not have
     # these partition flashed on the device. Failure to mount any partition in fstab file
@@ -782,17 +784,20 @@ service profiler_daemon /system/bin/profiler_daemon
     group root
     disabled
 
-service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
 
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
+    disabled
 
 service fuse_uicc0 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/uicc0 /storage/uicc0
     class late_start
+    disabled
 
 service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbotg /storage/usbotg
     class late_start
+    disabled
 
 # Binding fuse mount point to /storage/emulated/legacy
 on property:init.svc.sdcard=running
