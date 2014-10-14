@@ -330,15 +330,6 @@ vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
 
-# NFC firmware
-etc/firmware/Signedrompatch_v20.bin
-etc/firmware/Signedrompatch_v21.bin
-etc/firmware/Signedrompatch_v24.bin
-etc/firmware/Signedrompatch_v30.bin
-etc/nfc-nci.conf
-etc/nfc/hardfault.cfg
-vendor/lib/hw/nfc_nci.msm8916.so
-
 # Perf
 bin/mpdecision
 vendor/lib/libqc-opt.so
