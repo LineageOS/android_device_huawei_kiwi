@@ -30,6 +30,8 @@ persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 
 # Radio
+persist.radio.multisim.config=dsds
+
 rild.libargs=-d /dev/smd0
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 

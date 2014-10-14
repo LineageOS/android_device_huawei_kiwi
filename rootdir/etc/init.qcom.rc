@@ -746,6 +746,12 @@ service battery_monitor /system/bin/battery_monitor
     group system
     disabled
 
+on property:persist.radio.multisim.config=dsda
+    start ril-daemon1
+
+on property:persist.radio.multisim.config=dsds
+    start ril-daemon1
+
 service ril-daemon1 /system/bin/rild -c 1
     class main
     socket rild1 stream 660 root radio
