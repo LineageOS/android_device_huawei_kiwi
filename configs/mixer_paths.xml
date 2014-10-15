@@ -48,7 +48,7 @@
     <ctl name="RX2 MIX1 INP1" value="ZERO" />
     <ctl name="RX1 MIX1 INP2" value="ZERO" />
     <ctl name="RX1 MIX1 INP1" value="ZERO" />
-    <ctl name="EAR_S Switch" value="0" />
+    <ctl name="EAR_S" value="ZERO" />
     <ctl name="HPHL" value="ZERO" />
     <ctl name="HPHR" value="ZERO" />
     <ctl name="SPK DAC Switch" value="0" />
@@ -529,7 +529,7 @@
         <ctl name="RX1 MIX1 INP1" value="RX1" />
         <ctl name="RDAC2 MUX" value="RX1" />
         <ctl name="RX1 Digital Volume" value="84" />
-        <ctl name="EAR_S Switch" value="1" />
+        <ctl name="EAR_S" value="Switch" />
    </path>
 
     <path name="handset-mic">
