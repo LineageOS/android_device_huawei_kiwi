@@ -121,15 +121,15 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml
 
-# OMX
 PRODUCT_PACKAGES += \
     libdashplayer \
-    libOmxVdec \
-    libOmxVenc \
     libOmxAacEnc \
     libOmxAmrEnc \
+    libOmxCore \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
+    libOmxVdec \
+    libOmxVenc \
     libstagefrighthw \
     qcmediaplayer
 
