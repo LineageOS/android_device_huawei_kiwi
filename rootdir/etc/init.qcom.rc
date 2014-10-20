@@ -33,6 +33,7 @@ on early-init
     mkdir /firmware 0771 system system
     mkdir /system 0777 root root
     symlink /data/tombstones /tombstones
+    write /sys/block/mmcblk0/queue/scheduler noop
 
 on init
     # Set permissions for persist partition
@@ -305,6 +306,80 @@ on boot
     chown system camera /sys/class/leds/torch-light/brightness
     chmod 0660 /sys/class/leds/torch-light/brightness
 
+on property:sys.boot_completed=1
+    write /sys/module/lpm_levels/system/performance/cpu0/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu0/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu0/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu0/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/performance-l2-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/performance-l2-pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-retention/idle_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-pc/suspend_enabled Y
+
+    # enable governor for perf cluster
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "25000 1113600:50000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 25000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 960000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "85 1113600:90 1267200:80"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/sampling_down_factor 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
+    # enable governor for power cluster
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "25000 499200:50000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 25000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 499200
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "85 499200:90"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 50000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/sampling_down_factor 50000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 249600
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+
+    write /sys/block/mmcblk0/queue/scheduler row
+    start mpdecision
+
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
    class late_start
@@ -314,9 +389,6 @@ service usbhub_init /system/bin/usbhub_init
 
 service qcomsysd /system/bin/qcom-system-daemon
     class main
-
-on property:sys.boot_completed=1
-    write /dev/kmsg "Boot completed "
 
 on property:persist.radio.atfwd.start=false
     stop atfwd
@@ -686,12 +758,6 @@ service qcom-sh /system/bin/sh /init.qcom.sh
     user root
     oneshot
 
-service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
 service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
     class late_start
     group wifi inet
@@ -703,10 +769,6 @@ service wifi-crda /system/bin/sh /system/etc/init.crda.sh
    user root
    disabled
    oneshot
-
-
-on property:sys.boot_completed=1
-    start qcom-post-boot
 
 service atfwd /system/bin/ATFWD-daemon
     class late_start
@@ -941,6 +1003,7 @@ service qseecomd /system/bin/qseecomd
    group root
 
 service mpdecision /system/bin/mpdecision --avg_comp
+   class main
    user root
    disabled
 
