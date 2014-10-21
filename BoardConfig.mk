@@ -71,6 +71,9 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # Classpath
 PRODUCT_BOOT_JARS := $(subst $(space),:,$(PRODUCT_BOOT_JARS))
 
+# CMHW
+BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/src
+
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
 
@@ -132,9 +135,6 @@ COMMON_GLOBAL_CFLAGS += -DRIL_SUPPORTS_SEEK
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
-
-# CMHW
-BOARD_HARDWARE_CLASS += device/micromax/tomato/cmhw/src
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \

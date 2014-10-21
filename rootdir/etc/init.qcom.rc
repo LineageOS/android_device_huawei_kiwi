@@ -315,6 +315,9 @@ on boot
     chown system system /sys/bus/i2c/drivers/lc709203/batt_capacity
     chmod 0660 /sys/bus/i2c/drivers/lc709203/batt_capacity
 
+    chown root system /sys/devices/soc.0/78b9000.i2c/i2c-5/5-005d/keypad_enable
+    chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-005d/keypad_enable
+
 on property:service.bootanim.exit=1
     write /sys/module/lpm_levels/system/performance/cpu0/wfi/idle_enabled Y
     write /sys/module/lpm_levels/system/performance/cpu1/wfi/idle_enabled Y
