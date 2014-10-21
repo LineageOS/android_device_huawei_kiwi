@@ -7,9 +7,12 @@ ro.qc.sdk.audio.fluencetype=fluence
 ro.qualcomm.bt.hci_transport=smd
 
 # Display
-debug.composition.type=dyn
+debug.composition.type=c2d
+debug.sf.gpu_comp_tiling=1
 persist.hwc.mdpcomp.enable=true
+persist.hwc.ptor.enable=true
 ro.opengles.version=196608
+ro.qualcomm.cabl=2
 ro.sf.lcd_density=320
 
 # GPS
