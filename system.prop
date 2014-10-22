@@ -1,7 +1,33 @@
 # Audio
-af.resampler.quality=255
-
+af.resampler.quality=4
 ro.qc.sdk.audio.fluencetype=fluence
+persist.audio.fluence.voicecall=true
+persist.audio.fluence.voicerec=false
+persist.audio.fluence.speaker=true
+tunnel.audio.encode=false
+audio.offload.buffer.size.kb=32
+av.offload.enable=true
+av.streaming.offload.enable=true
+audio.offload.gapless.enabled=true
+audio.offload.pcm.enable=true
+audio.offload.24bit.enable=1
+qcom.hw.aac.encoder=true
+media.aaccodectype=1
+use.voice.path.for.pcm.voip=true
+
+# Audio voice concurrency related flags
+voice.playback.conc.disabled=true
+voice.record.conc.disabled=true
+voice.voip.conc.disabled=true
+
+# Media
+mm.enable.qcom_parser=168563
+mm.enable.smoothstreaming=true
+mm.disable.sec_smoothstreaming=true
+media.aac_51_output_enabled=true
+
+# set max starting background services
+ro.config.max_starting_bg=8
 
 # Bluetooth
 ro.qualcomm.bt.hci_transport=smd
