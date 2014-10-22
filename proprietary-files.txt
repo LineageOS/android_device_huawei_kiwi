@@ -198,7 +198,6 @@ vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
 vendor/lib/libqmi.so
 
-
 # Radio
 -app/qcrilmsgtunnel.apk
 -app/shutdownlistener.apk
@@ -241,3 +240,9 @@ etc/firmware/venus.b03
 etc/firmware/venus.b04
 etc/firmware/venus.mbn
 etc/firmware/venus.mdt
+
+# Widevine
+vendor/lib/libwvdrm_L3.so
+vendor/lib/libWVStreamControlAPI_L3.so
+vendor/lib/drm/libdrmprplugin.so
+vendor/lib/mediadrm/libwvdrmengine.so
