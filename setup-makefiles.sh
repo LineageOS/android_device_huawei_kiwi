@@ -89,6 +89,10 @@ PRODUCT_PACKAGES += \\
     libloc_eng
 
 PRODUCT_PACKAGES += \\
+    libloc_api_v02 \\
+    libloc_ds_api
+
+PRODUCT_PACKAGES += \\
     libHevcSwDecoder \\
     libtime_genoff
 
@@ -241,6 +245,26 @@ include \$(CLEAR_VARS)
 LOCAL_MODULE := libloc_eng
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := proprietary/lib/libloc_eng.so
+LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := libloc_api_v02
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/lib/libloc_api_v02.so
+LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := libloc_ds_api
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := proprietary/lib/libloc_ds_api.so
 LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
