@@ -1,7 +1,4 @@
 
-# Camera
-vendor/lib/libmmcamera_ov5648.so
-
 # Camera chromatix
 vendor/lib/libchromatix_imx135_common.so
 vendor/lib/libchromatix_imx135_default_video.so
