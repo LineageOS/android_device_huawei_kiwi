@@ -246,3 +246,6 @@ vendor/lib/libwvdrm_L3.so
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/drm/libdrmprplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
+
+# WiFi
+lib/libwcnss_qmi.so
