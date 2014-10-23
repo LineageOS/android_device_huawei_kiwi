@@ -11,7 +11,7 @@ av.streaming.offload.enable=true
 audio.offload.gapless.enabled=true
 audio.offload.pcm.enable=true
 audio.offload.24bit.enable=1
-qcom.hw.aac.encoder=true
+qcom.hw.aac.encoder=false
 media.aaccodectype=1
 use.voice.path.for.pcm.voip=true
 
