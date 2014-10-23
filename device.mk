@@ -162,6 +162,10 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     ueventd.qcom.rc
 
+# Recovery
+PRODUCT_EXTRA_RECOVERY_KEYS += \
+    $(LOCAL_PATH)/tomato-releasekey
+
 # Torch
 PRODUCT_PACKAGES += \
     Torch
