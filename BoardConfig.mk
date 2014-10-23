@@ -124,9 +124,6 @@ BOARD_SEPOLICY_UNION += \
 	mm-qcamerad.te \
 	netd.te
 
-# Sensors
-TARGET_QCOM_SENSORS_VARIANT := caf-kk3.10
-
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
 
