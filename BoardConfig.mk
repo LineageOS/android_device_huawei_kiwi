@@ -83,6 +83,9 @@ USE_OPENGL_RENDERER := true
 
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
+# GPS
+TARGET_GPS_HAL_PATH := $(LOCAL_PATH)/gps
+
 # Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
