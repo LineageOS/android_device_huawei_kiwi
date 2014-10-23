@@ -19,3 +19,8 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 PRODUCT_RELEASE_NAME := Coolpad 8675
 PRODUCT_NAME := cm_tomato
+
+ifeq ($(SIGN_BUILD),true)
+# Signed builds gets a special boot animation because they are special.
+PRODUCT_BOOTANIMATION := device/micromax/tomato/bootanimation.zip
+endif
