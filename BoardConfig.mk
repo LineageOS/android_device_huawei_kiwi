@@ -50,7 +50,6 @@ TARGET_KERNEL_SOURCE := kernel/micromax/msm8916
 TARGET_KERNEL_CONFIG := cyanogenmod_cp8675_defconfig
 
 # Audio
-#AUDIO_FEATURE_ENABLED_FLAC_OFFLOAD := true
 AUDIO_FEATURE_DISABLED_DS1_DOLBY_DDP := true
 BOARD_USES_ALSA_AUDIO := true
 TARGET_QCOM_AUDIO_VARIANT := caf
@@ -127,12 +126,21 @@ COMMON_GLOBAL_CFLAGS += -DRIL_SUPPORTS_SEEK
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-	$(LOCAL_PATH)/sepolicy
+    device/micromax/tomato/sepolicy
 
 BOARD_SEPOLICY_UNION += \
-	file_contexts \
-	mm-qcamerad.te \
-	netd.te
+    file.te \
+    device.te \
+    app.te \
+    cne.te \
+    qmux.te \
+    mpdecision.te \
+    thermald.te \
+    ueventd.te \
+    vold.te \
+    file_contexts \
+    genfs_contexts \
+    te_macros
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
