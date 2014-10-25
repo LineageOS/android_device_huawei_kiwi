@@ -340,9 +340,13 @@ on property:sys.boot_completed=1
     write /sys/module/lpm_levels/system/power/cpu6/pc/suspend_enabled Y
     write /sys/module/lpm_levels/system/power/cpu7/pc/suspend_enabled Y
     write /sys/module/lpm_levels/system/power/power-l2-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-active/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/performance-l2-active/idle_enabled Y
     write /sys/module/lpm_levels/system/performance/performance-l2-pc/idle_enabled Y
     write /sys/module/lpm_levels/system/power/power-l2-pc/suspend_enabled Y
     write /sys/module/lpm_levels/system/performance/performance-l2-pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-active/idle_enabled Y
     write /sys/module/lpm_levels/system/system-cci-retention/idle_enabled Y
     write /sys/module/lpm_levels/system/system-cci-pc/idle_enabled Y
     write /sys/module/lpm_levels/system/system-cci-pc/suspend_enabled Y
@@ -614,31 +618,6 @@ on property:ro.use_data_netmgrd=false
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
 
-service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin inet net_admin net_raw
-    disabled
-    oneshot
-
-service amp_init /system/bin/amploader -i
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_load /system/bin/amploader -l 7000
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_unload /system/bin/amploader -u
-    class late_start
-    user root
-    disabled
-    oneshot
-
 service p2p_supplicant /system/bin/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
@@ -742,50 +721,11 @@ service loc_launcher /system/bin/loc_launcher
     class late_start
     group gps inet net_raw qcom_diag net_admin wifi
 
-service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    class late_start
-    user root
-    group system
-    disabled
-    oneshot
-
-on property:crypto.driver.load=1
-     insmod /system/lib/modules/qce.ko
-     insmod /system/lib/modules/qcedev.ko
-
-service drmdiag /system/bin/drmdiagapp
-    class late_start
-     user root
-     disabled
-     oneshot
-
-on property:drmdiag.load=1
-    start drmdiag
-
-on property:drmdiag.load=0
-    stop drmdiag
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
-
-service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
-    class late_start
-    group wifi inet
-    disabled
-    oneshot
-
 service wifi-crda /system/bin/sh /system/etc/init.crda.sh
    class late_start
    user root
    disabled
    oneshot
-
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
 
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     class late_start
@@ -814,11 +754,6 @@ on property:persist.ims.regmanager.mode=1
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
-service battery_monitor /system/bin/battery_monitor
-    user system
-    group system
-    disabled
 
 on property:persist.radio.multisim.config=dsda
     start ril-daemon1
@@ -920,11 +855,6 @@ on property:persist.usb.hvdcp.detect=true
 on property:persist.usb.hvdcp.detect=false
     stop hvdcp
 
-service charger_monitor /system/bin/charger_monitor
-    user root
-    group root
-    disabled
-
 service qbcharger /charger -m 1
     disabled
     oneshot
@@ -948,22 +878,6 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     group system qcom_diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
-
-service qlogd /system/xbin/qlogd
-    class main
-    disabled
-on property:persist.sys.qlogd=1
-    start qlogd
-on property:persist.sys.qlogd=0
-    stop qlogd
-
-service rootagent /system/bin/sh /system/etc/init.qcom.rootagent.sh
-    disabled
-    oneshot
-on property:persist.sys.rootagent=1
-    start rootagent
-on property:persist.sys.rootagent=0
-    stop rootagent
 
 service vm_bms /system/bin/vm_bms
     user root
@@ -1037,9 +951,6 @@ on charger
    chmod 0664 /sys/class/power_supply/bms/current_now
    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
    start vm_bms
-
-on boot
-    insmod /system/lib/modules/adsprpc.ko
 
 service ppd /system/bin/mm-pp-daemon
     class late_start
