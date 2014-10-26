@@ -63,6 +63,11 @@
 #define LOC_CLIENT_MAX_OPEN_RETRIES (20)
 #define LOC_CLIENT_TIME_BETWEEN_OPEN_RETRIES (1)
 
+//timeout in ms that the service waits for qmi-fw notification
+#define LOC_CLIENT_SERVICE_TIMEOUT_UNIT  (4000)
+// total timeout for the service to come up
+#define LOC_CLIENT_SERVICE_TIMEOUT_TOTAL  (40000)
+
 enum
 {
   //! Special value for selecting any available service
@@ -1967,6 +1972,8 @@ static locClientStatusEnumType locClientQmiCtrlPointInit(
   do
   {
     qmi_client_error_type rc = QMI_NO_ERR;
+    bool nosignal = false;
+    int timeout = 0;
 
     // Get the service object for the qmiLoc Service
     qmi_idl_service_object_type locClientServiceObject =
@@ -1992,7 +1999,7 @@ static locClientStatusEnumType locClientQmiCtrlPointInit(
         break;
     }
 
-    while (1) {
+    do {
         QMI_CCI_OS_SIGNAL_CLEAR(&os_params);
 
         if (instanceId >= 0) {
@@ -2004,12 +2011,33 @@ static locClientStatusEnumType locClientQmiCtrlPointInit(
         }
 
         // get the service addressing information
-        LOC_LOGV("%s:%d]: qmi_client_get_service() rc: %d ", __func__, __LINE__, rc);
+        LOC_LOGV("%s:%d]: qmi_client_get_service() rc: %d "
+                 "total timeout: %d", __func__, __LINE__, rc, timeout);
 
         if(rc == QMI_NO_ERR)
             break;
 
-        QMI_CCI_OS_SIGNAL_WAIT(&os_params, 0);
+        /* Service is not up. Wait on a signal until the service is up
+           or a timeout occurs. */
+        LOC_LOGD("%s:%d]: Service not up. Starting delay timer\n", __func__, __LINE__);
+        QMI_CCI_OS_SIGNAL_WAIT(&os_params, LOC_CLIENT_SERVICE_TIMEOUT_UNIT);
+        nosignal = QMI_CCI_OS_SIGNAL_TIMED_OUT(&os_params);
+        if(nosignal)
+            timeout += LOC_CLIENT_SERVICE_TIMEOUT_UNIT;
+
+    } while (timeout < LOC_CLIENT_SERVICE_TIMEOUT_TOTAL);
+
+    if (rc != QMI_NO_ERR) {
+        if (!nosignal) {
+            LOC_LOGE("%s:%d]: qmi_client_get_service_list failed even though"
+                     "service is up !!!  Error %d \n", __func__, __LINE__, rc);
+            status = eLOC_CLIENT_FAILURE_INTERNAL;
+        } else {
+            LOC_LOGE("%s:%d]: qmi_client_get_service_list failed after retries,"
+                     " final Err %d", __func__, __LINE__, rc);
+            status = eLOC_CLIENT_FAILURE_TIMEOUT;
+        }
+        break;
     }
 
     LOC_LOGV("%s:%d]: passing the pointer %p to qmi_client_init \n",

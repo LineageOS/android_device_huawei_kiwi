@@ -128,8 +128,4 @@ DEFAULT_IMPL(false)
 bool LocAdapterBase::
     requestNiNotify(GpsNiNotification &notify, const void* data)
 DEFAULT_IMPL(false)
-
-void LocAdapterBase::
-    shutdown()
-DEFAULT_IMPL()
 } // namespace loc_core
