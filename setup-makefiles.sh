@@ -95,8 +95,7 @@ EOF
 
 # Pick up overlay for features that depend on non-open-source files
 PRODUCT_PACKAGES += \\
-    com.qualcomm.location \\
-    com.qualcomm.services.location
+    com.qualcomm.location
 
 PRODUCT_PACKAGES += \\
     qcrilmsgtunnel \\
@@ -106,12 +105,6 @@ PRODUCT_PACKAGES += \\
 PRODUCT_PACKAGES += \\
     qcnvitems \\
     qcrilhook
-
-PRODUCT_PACKAGES += \\
-    gps.msm8916 \\
-    libgps.utils \\
-    libloc_core \\
-    libloc_eng
 
 PRODUCT_PACKAGES += \\
     libloc_api_v02 \\
@@ -176,17 +169,6 @@ LOCAL_CERTIFICATE := platform
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
-LOCAL_MODULE := com.qualcomm.services.location
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/priv-app/com.qualcomm.services.location.apk
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
-LOCAL_MODULE_CLASS := APPS
-LOCAL_PRIVILEGED_MODULE := true
-LOCAL_CERTIFICATE := platform
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
 LOCAL_MODULE := qcrilmsgtunnel
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := proprietary/app/qcrilmsgtunnel.apk
@@ -234,46 +216,6 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := \$(COMMON_JAVA_PACKAGE_SUFFIX)
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 LOCAL_CERTIFICATE := PRESIGNED
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := gps.msm8916
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/lib/hw/gps.msm8916.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)/hw
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libgps.utils
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/lib/libgps.utils.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libloc_core
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/lib/libloc_core.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-include \$(BUILD_PREBUILT)
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libloc_eng
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/lib/libloc_eng.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)

@@ -17,7 +17,5 @@
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(TARGET_DEVICE),tomato)
-ifneq ($(QCPATH),)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
-endif
 endif
