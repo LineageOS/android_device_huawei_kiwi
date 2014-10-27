@@ -5,6 +5,11 @@ type qmux_exec, exec_type, file_type;
 # Started by init
 init_daemon_domain(qmux)
 
+allow qmux self:capability dac_override;
+allow qmux self:capability2 block_suspend;
+allow qmux cgroup:dir add_name;
+allow qmux self:capability { setuid setpcap };
+
 # Create sockets under each /dev/socket/qmux_* directory.
 allow qmux qmuxd_socket:dir w_dir_perms;
 allow qmux qmuxd_socket:sock_file { create setattr getattr unlink };
