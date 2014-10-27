@@ -78,7 +78,6 @@ etc/firmware/cpp_firmware_v1_4_0.fw
 # DRM
 bin/qseecomd
 lib/libdrmdecrypt.so
-lib/libWVphoneAPI.so
 vendor/lib/drm/libdrmprplugin.so
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/libdrmfs.so
@@ -136,6 +135,7 @@ etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
 # Media
+vendor/lib/libDivxDrm.so
 vendor/lib/libExtendedExtractor.so
 -vendor/lib/libHevcSwDecoder.so
 vendor/lib/libI420colorconvert.so
