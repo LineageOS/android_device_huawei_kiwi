@@ -147,7 +147,6 @@ vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
 
 # Perf
-bin/mpdecision
 vendor/lib/libqc-opt.so
 
 # Postprocessing
