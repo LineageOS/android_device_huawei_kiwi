@@ -25,6 +25,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+/dev/color_enhancement    0660   system     system
+
 # the DIAG device node is not world writable/readable.
 /dev/diag                 0660   system     qcom_diag
 

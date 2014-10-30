@@ -124,6 +124,9 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # RIL
 COMMON_GLOBAL_CFLAGS += -DRIL_SUPPORTS_SEEK
 
+# CMHW
+BOARD_HARDWARE_CLASS += device/micromax/tomato/cmhw/src
+
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/micromax/tomato/sepolicy
