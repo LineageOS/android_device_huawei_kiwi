@@ -92,7 +92,6 @@ vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # GPS
-bin/gsiff_daemon
 bin/location-mq
 etc/permissions/com.qualcomm.location.xml
 -lib/libloc_api_v02.so
@@ -106,7 +105,6 @@ vendor/lib/liblbs_core.so
 vendor/lib/liblocationservice.so
 vendor/lib/liblowi_client.so
 vendor/lib/libquipc_os_api.so
-vendor/lib/libquipc_ulp_adapter.so
 vendor/lib/libulp2.so
 vendor/lib/libxtadapter.so
 vendor/lib/libxtwifi_ulp_adaptor.so
