@@ -200,6 +200,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(LOCAL_PATH)/tomato-releasekey
 
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.msm8916
+
 # Torch
 PRODUCT_PACKAGES += \
     Torch

@@ -97,7 +97,6 @@ etc/permissions/com.qualcomm.location.xml
 -lib/libloc_api_v02.so
 -lib/libloc_ds_api.so
 -priv-app/com.qualcomm.location.apk
-vendor/etc/calmodule.cfg
 vendor/lib/hw/flp.default.so
 vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so

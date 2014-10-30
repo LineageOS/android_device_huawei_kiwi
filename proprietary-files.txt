@@ -1,4 +1,3 @@
-
 # Camera chromatix
 vendor/lib/libchromatix_imx135_common.so
 vendor/lib/libchromatix_imx135_default_video.so
@@ -18,7 +17,3 @@ vendor/lib/libchromatix_ov5648_qtech_default_video.so
 vendor/lib/libchromatix_ov5648_qtech_liveshot.so
 vendor/lib/libchromatix_ov5648_qtech_preview.so
 vendor/lib/libchromatix_ov5648_qtech_snapshot.so
-
-# Sensors
-lib/hw/sensors.qcom.so:lib/hw/sensors.msm8916.so
-vendor/lib/libcalmodule_akm.so
