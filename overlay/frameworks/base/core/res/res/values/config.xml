@@ -237,4 +237,11 @@
     <!-- The restoring is handled by modem if it is true-->
     <bool name="skip_restoring_network_selection">true</bool>
 
+    <!-- Make things go fast -->
+    <bool name="config_ui_enableFadingMarquee">false</bool>
+
+    <!-- Performance profiles -->
+    <string name="config_perf_profile_prop">powerhal</string>
+    <string name="config_perf_profile_default_entry">1</string>
+
 </resources>
