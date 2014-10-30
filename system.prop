@@ -70,3 +70,8 @@ ro.use_data_netmgrd=true
 
 # Time
 persist.timed.enable=true
+
+# perf
+ro.min_freq_0=800000
+ro.min_freq_4=499200
+ro.vendor.extension_library=/vendor/lib/libqc-opt.so
