@@ -145,6 +145,7 @@ vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
 
 # Perf
+bin/msm_irqbalance
 bin/perfd
 vendor/lib/libqc-opt.so
 
