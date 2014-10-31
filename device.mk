@@ -160,6 +160,24 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     power.msm8916
 
+# QC PROPRIETARY
+ifneq ($(QCPATH),)
+# proprietary wifi display, if available
+PRODUCT_BOOT_JARS += WfdCommon
+
+# Connectivity Engine support
+ifeq ($(BOARD_USES_QCNE),true)
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
+    services-ext \
+    init.cne.rc
+
+PRODUCT_PROPERTY_OVERRIDES +=
+    persist.cne.feature=4
+
+endif
+endif
+
 # QRNGD
 PRODUCT_PACKAGES += \
     qrngd
