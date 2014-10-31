@@ -720,7 +720,7 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqb
     group root
 
 service prebundled-apps /system/bin/sh /vendor/bin/install-apps
-    user root
+    user system
     oneshot
     disabled
 
