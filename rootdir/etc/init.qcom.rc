@@ -390,6 +390,10 @@ on property:sys.boot_completed=1
     write /proc/sys/kernel/sched_downmigrate 40
     write /proc/sys/kernel/sched_ravg_hist_size 3
 
+    write /sys/module/cpu_boost/parameters/boost_ms 20
+    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1036800 1:1036800 2:1036800 3:1036800 4:499200 5:499200 6:499200 7:499200"
+    write /sys/module/cpu_boost/parameters/sched_boost_on_input 1
+
     write /sys/block/mmcblk0/queue/scheduler row
 
 on property:init.svc.wpa_supplicant=stopped
