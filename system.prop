@@ -15,6 +15,7 @@ qcom.hw.aac.encoder=false
 media.aaccodectype=1
 media.hwhevccodectype=1
 use.voice.path.for.pcm.voip=true
+vidc.enc.narrow.searchrange=1
 
 # Audio voice concurrency related flags
 voice.playback.conc.disabled=true
