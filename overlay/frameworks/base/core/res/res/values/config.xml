@@ -161,6 +161,12 @@
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">true</bool>
 
+    <!-- Boolean indicating if current platform supports BLE peripheral mode -->
+    <bool name="config_bluetooth_le_peripheral_mode_supported">true</bool>
+
+    <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
+    <bool translatable="false" name="config_wifi_dual_band_support">false</bool>
+
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
@@ -177,6 +183,23 @@
          * The device must be provisioned with HDCP keys (for protected content).
     -->
     <bool name="config_enableWifiDisplay">true</bool>
+
+    <!-- Set to true if the wifi display supports compositing content stored
+         in gralloc protected buffers.  For this to be true, there must exist
+         a protected hardware path for surface flinger to composite and send
+         protected buffers to the wifi display video encoder.
+
+         If this flag is false, we advise applications not to use protected
+         buffers (if possible) when presenting content to a wifi display because
+         the content may be blanked.
+
+         This flag controls whether the {@link Display#FLAG_SUPPORTS_PROTECTED_BUFFERS}
+         flag is set for wifi displays.
+    -->
+    <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
+
+    <!-- Wifi driver supports batched scan -->
+    <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
 
     <!-- We dont have different firmware for wifi modes, prevent reloading it -->
     <bool name="config_wifiApFirmwareReload">false</bool>
@@ -243,5 +266,12 @@
     <!-- Performance profiles -->
     <string name="config_perf_profile_prop">powerhal</string>
     <string name="config_perf_profile_default_entry">1</string>
+
+    <!-- Configuration to restart radio upon PDP_DEACTIVATE with
+         error cause as Regular deactivation(36). -->
+    <bool name="config_radio_reset_on_regular_deactivation">false</bool>
+
+    <!-- Flag indicating if the speed up audio on mt call code should be executed -->
+    <bool name="config_speed_up_audio_on_mt_calls">true</bool>
 
 </resources>
