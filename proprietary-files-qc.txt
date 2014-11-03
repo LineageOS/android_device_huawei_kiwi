@@ -25,6 +25,7 @@ etc/acdbdata/MTP/MTP_Speaker_cal.acdb
 bin/btnvtool
 bin/hci_qcomm_init
 vendor/lib/libbtnv.so
+vendor/lib/liboi_sbc_decoder.so
 
 # Camera
 bin/mm-qcamera-daemon
