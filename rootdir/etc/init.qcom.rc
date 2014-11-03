@@ -309,6 +309,10 @@ on boot
     chown system camera /sys/class/leds/torch-light/brightness
     chmod 0660 /sys/class/leds/torch-light/brightness
 
+    # charger
+    chown system system /sys/bus/i2c/drivers/lc709203/batt_capacity
+    chmod 0660 /sys/bus/i2c/drivers/lc709203/batt_capacity
+
 on property:service.bootanim.exit=1
     write /sys/module/lpm_levels/system/performance/cpu0/wfi/idle_enabled Y
     write /sys/module/lpm_levels/system/performance/cpu1/wfi/idle_enabled Y
