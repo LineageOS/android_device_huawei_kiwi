@@ -181,11 +181,6 @@ on early-boot
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
-    # bring all CPUs online
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
@@ -367,30 +362,41 @@ on property:init.svc.bootanim=stopped
     # enable governor for perf cluster
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "25000 1113600:50000"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 25000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 99
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 960000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "1 800000:85 1113600:90 1267200:80"
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 50000
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/sampling_down_factor 50000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 800000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
 
     # enable governor for power cluster
+    write /sys/module/msm_thermal/core_control/enabled 0
     write /sys/devices/system/cpu/cpu4/online 1
-    write /sys/devices/system/cpu/cpu5/online 1
-    write /sys/devices/system/cpu/cpu6/online 1
-    write /sys/devices/system/cpu/cpu7/online 1
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "25000 800000:50000"
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 25000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 20000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 800000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "1 499200:85 800000:90"
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 50000
-    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/sampling_down_factor 50000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 499200
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 50000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 200000
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+    # bring all CPUs online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
 
     write /proc/sys/kernel/sched_window_stats_policy 2
     write /proc/sys/kernel/sched_upmigrate 60
