@@ -157,6 +157,11 @@ BOARD_SEPOLICY_UNION += \
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
 
+# QC PROPRIETARY
+ifneq ($(QCPATH),)
+BOARD_USES_QCNE := true
+endif
+
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
