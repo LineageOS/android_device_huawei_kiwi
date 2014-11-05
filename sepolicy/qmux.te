@@ -7,7 +7,7 @@ init_daemon_domain(qmux)
 
 allow qmux self:capability dac_override;
 allow qmux self:capability2 block_suspend;
-allow qmux cgroup:dir add_name;
+allow qmux cgroup:dir rw_dir_perms;
 allow qmux self:capability { setuid setpcap };
 
 # Create sockets under each /dev/socket/qmux_* directory.
