@@ -304,6 +304,10 @@ on boot
     chown system camera /sys/class/leds/torch-light/brightness
     chmod 0660 /sys/class/leds/torch-light/brightness
 
+    # Touchscreen
+    chown root system /sys/devices/virtual/touchscreen/touchscreen_dev/gesture_ctrl
+    chmod 0660 /sys/devices/virtual/touchscreen/touchscreen_dev/gesture_ctrl
+
     # charger
     chown system system /sys/bus/i2c/drivers/lc709203/batt_capacity
     chmod 0660 /sys/bus/i2c/drivers/lc709203/batt_capacity
