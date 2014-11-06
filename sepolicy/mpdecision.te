@@ -65,6 +65,9 @@ allow mpdecision kernel:process setsched;
 allow mpdecision thermald:unix_stream_socket connectto;
 allow mpdecision thermald_socket:sock_file rw_file_perms;
 
+# Control HMP boost
+allow mpdecision sched_boost_proc:file rw_file_perms;
+
 # FIXME!
 allow mpdecision self:capability dac_override;
 allow mpdecision system_data_file:dir rw_dir_perms;

@@ -1,1 +1,2 @@
 genfscon proc /sysrq-trigger u:object_r:sysrq_trigger_proc:s0
+genfscon proc /sys/kernel/sched_boost u:object_r:sched_boost_proc:s0
