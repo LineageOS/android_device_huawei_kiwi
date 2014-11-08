@@ -19,6 +19,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 PRODUCT_RELEASE_NAME := YUREKA A05510
 PRODUCT_NAME := cm_tomato
+BOARD_VENDOR := micromax
 
 ifeq ($(SIGN_BUILD),true)
 # Signed builds gets a special boot animation because they are special.

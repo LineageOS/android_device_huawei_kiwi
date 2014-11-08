@@ -18,8 +18,6 @@
 
 LOCAL_PATH := device/micromax/tomato
 
-BOARD_VENDOR := micromax
-
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Platform
