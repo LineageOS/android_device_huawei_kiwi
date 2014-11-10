@@ -90,6 +90,10 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    yl_btmac
+
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8916

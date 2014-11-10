@@ -53,7 +53,7 @@ failed ()
 
 program_bdaddr ()
 {
-  /system/bin/btnvtool -O
+  /system/bin/btnvtool -b `/system/bin/yl_btmac`
   logi "Bluetooth Address programmed successfully"
 }
 

@@ -44,4 +44,16 @@ LOCAL_MODULE := libwcnss_qmi
 
 include $(BUILD_SHARED_LIBRARY)
 
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := yl_bt.c
+LOCAL_CFLAGS += -Wall
+
+LOCAL_SHARED_LIBRARIES := libc libcutils libutils liblog libyl_params
+
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := yl_btmac
+
+include $(BUILD_EXECUTABLE)
+
 endif
