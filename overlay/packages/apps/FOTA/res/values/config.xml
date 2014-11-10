@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="fota_allow_auto_download_over_wifi">false</bool>
+</resources>
