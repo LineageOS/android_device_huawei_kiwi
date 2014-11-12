@@ -41,7 +41,7 @@
 static struct sensor_t sensor_list[] = {
 	/* Accelerometer */
 	{
-		"mpu6880",
+		"MPU6880 3-axis Accelerometer",
 		"Invensense",
 		1,	/* hw/sw version */
 		SENSORS_ACCELERATION_HANDLE,
@@ -57,14 +57,14 @@ static struct sensor_t sensor_list[] = {
 
 	/* light sensor name */
 	{
-		"PA12200001_light",
+		"PA12200001 Light",
 		"TXC",
 		1,
 		SENSORS_LIGHT_HANDLE,
 		SENSOR_TYPE_LIGHT,
-		(powf(10, (280.0f / 47.0f)) * 4),
+		100000.0f,
 		1.0f,
-		0.75f,
+		0.1f,
 		20000,
 		0,
 		0,
@@ -73,15 +73,15 @@ static struct sensor_t sensor_list[] = {
 
 	/* proximity sensor */
 	{
-		"PA12200001_proximity",
+		"PA12200001 Proximity",
 		"TXC",
 		1,
 		SENSORS_PROXIMITY_HANDLE,
 		SENSOR_TYPE_PROXIMITY,
 		5.0f,
-		5.0f,
-		0.75f,
-		20000,
+		1.0f,
+		0.1f,
+		0,
 		0,
 		0,
 		{NULL}
@@ -89,15 +89,15 @@ static struct sensor_t sensor_list[] = {
 
 	/* gyro scope */
 	{
-		"mpu6880",
+		"MPU6880 Gyroscope sensor",
 		"Invensense",
 		1,
 		SENSORS_GYROSCOPE_HANDLE,
 		SENSOR_TYPE_GYROSCOPE,
-		250.0f,
-		0.0076f,
-		0.2f,
-		10000,
+		2000.0f,
+		0.006f,
+		6.1f,
+		1200,
 		0,
 		0,
 		{NULL}
