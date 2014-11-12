@@ -37,6 +37,26 @@
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
+static struct light_state_t g_battery;
+
+const char *const BLUE_LED_FILE
+        = "/sys/class/leds/blue/brightness";
+
+const char *const BLUE_BLINK_FILE
+        = "/sys/class/leds/blue/blink";
+
+const char *const GREEN_LED_FILE
+        = "/sys/class/leds/green/brightness";
+
+const char *const GREEN_BLINK_FILE
+        = "/sys/class/leds/green/blink";
+
+const char *const RED_LED_FILE
+        = "/sys/class/leds/red/brightness";
+
+const char *const RED_BLINK_FILE
+        = "/sys/class/leds/red/blink";
+
 const char *const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
 
@@ -86,8 +106,56 @@ static int
 rgb_to_brightness(const struct light_state_t *state)
 {
     int color = state->color & 0x00ffffff;
-    return ((77*((color>>16)&0x00ff))
-            + (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
+    return ((77 * ((color >> 16) & 0xff))
+            + (150 * ((color >> 8) & 0xff))
+            + (29 * (color & 0xff))) >> 8;
+}
+
+static int
+is_lit(const struct light_state_t *state)
+{
+    return (state->color & 0x00ffffff);
+}
+
+static int
+set_speaker_light_locked(struct light_device_t *dev,
+        const struct light_state_t *state)
+{
+    int blink = 0;
+
+    if (state == NULL) {
+        write_int(BLUE_LED_FILE, 0);
+        write_int(BLUE_BLINK_FILE, 0);
+        write_int(GREEN_LED_FILE, 0);
+        write_int(GREEN_BLINK_FILE, 0);
+        write_int(RED_LED_FILE, 0);
+        write_int(RED_BLINK_FILE, 0);
+        return 0;
+    }
+
+    if (state->flashMode == LIGHT_FLASH_TIMED &&
+            state->flashOnMS && state->flashOffMS) {
+        blink = 1;
+    }
+
+    if (blink) {
+        write_int(BLUE_BLINK_FILE, ((state->color) & 0xff) ? 1 : 0);
+        write_int(GREEN_BLINK_FILE, ((state->color >> 8) & 0xff) ? 1 : 0);
+        write_int(RED_BLINK_FILE, ((state->color >> 16) & 0xff) ? 1 : 0);
+    } else {
+        write_int(BLUE_LED_FILE, ((state->color) & 0xff) ? 1 : 0);
+        write_int(GREEN_LED_FILE, ((state->color >> 8) & 0xff) ? 1 : 0);
+        write_int(RED_LED_FILE, ((state->color >> 16) & 0xff) ? 1 : 0);
+    }
+
+    return 0;
+}
+
+static void
+handle_speaker_light_locked(struct light_device_t *dev)
+{
+    set_speaker_light_locked(dev, NULL);
+    set_speaker_light_locked(dev, &g_battery);
 }
 
 static int
@@ -122,6 +190,20 @@ set_light_buttons(struct light_device_t *dev,
     return err;
 }
 
+static int
+set_light_battery(struct light_device_t *dev,
+        const struct light_state_t *state)
+{
+    pthread_mutex_lock(&g_lock);
+
+    g_battery = *state;
+    handle_speaker_light_locked(dev);
+
+    pthread_mutex_unlock(&g_lock);
+
+    return 0;
+}
+
 /** Close the lights device */
 static int
 close_lights(struct light_device_t *dev)
@@ -149,6 +231,8 @@ static int open_lights(const struct hw_module_t *module, const char *name,
         set_light = set_light_backlight;
     else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
         set_light = set_light_buttons;
+    else if (0 == strcmp(LIGHT_ID_BATTERY, name))
+        set_light = set_light_battery;
     else
         return -EINVAL;
 
