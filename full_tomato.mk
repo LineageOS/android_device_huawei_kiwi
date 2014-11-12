@@ -23,6 +23,6 @@ $(call inherit-product, device/micromax/tomato/device.mk)
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := tomato
 PRODUCT_NAME := full_tomato
-PRODUCT_BRAND := YUREKA
+PRODUCT_BRAND := YU
 PRODUCT_MODEL := YUREKA A05510
-PRODUCT_MANUFACTURER := YUREKA
+PRODUCT_MANUFACTURER := YU
