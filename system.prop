@@ -67,6 +67,7 @@ rild.libargs=-d /dev/smd0
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 ril.ecclist=112,911,999,110,122,119,120,000,08,118
 
+ro.com.android.mobiledata=false
 ro.telephony.default_network=10
 ro.use_data_netmgrd=true
 
