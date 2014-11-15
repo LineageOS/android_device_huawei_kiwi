@@ -1,3 +1,8 @@
+# Camera autofocus
+vendor/lib/libactuator_dw9714a.so
+vendor/lib/libactuator_dw9714a_camcorder.so
+vendor/lib/libactuator_dw9714a_camera.so
+
 # Camera chromatix
 vendor/lib/libchromatix_imx135_common.so
 vendor/lib/libchromatix_imx135_default_video.so
