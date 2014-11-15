@@ -24,5 +24,5 @@ $(call inherit-product, device/micromax/tomato/device.mk)
 PRODUCT_DEVICE := tomato
 PRODUCT_NAME := full_tomato
 PRODUCT_BRAND := YU
-PRODUCT_MODEL := YUREKA A05510
+PRODUCT_MODEL := YUREKA
 PRODUCT_MANUFACTURER := YU
