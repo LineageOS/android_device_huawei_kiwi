@@ -31,31 +31,19 @@
 #include <sys/types.h>
 
 #include <hardware/lights.h>
+#include <linux/leds-aw-leds.h>
 
 /******************************************************************************/
 
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
+static struct light_state_t g_attention;
+static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 
-const char *const BLUE_LED_FILE
-        = "/sys/class/leds/blue/brightness";
-
-const char *const BLUE_BLINK_FILE
-        = "/sys/class/leds/blue/blink";
-
-const char *const GREEN_LED_FILE
-        = "/sys/class/leds/green/brightness";
-
-const char *const GREEN_BLINK_FILE
-        = "/sys/class/leds/green/blink";
-
-const char *const RED_LED_FILE
-        = "/sys/class/leds/red/brightness";
-
-const char *const RED_BLINK_FILE
-        = "/sys/class/leds/red/blink";
+const char *const AW_LED_FILE
+        = "/dev/aw-leds";
 
 const char *const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
@@ -118,36 +106,51 @@ is_lit(const struct light_state_t *state)
 }
 
 static int
+aw_led_cfg(struct aw_leds_control *cfg)
+{
+    int fd;
+    static int already_warned = 0;
+
+    fd = open(AW_LED_FILE, O_RDWR);
+    if (fd >= 0) {
+        int ret = ioctl(fd, AW_LEDS_SET_LEDS, cfg);
+        close(fd);
+        return ret == -1 ? -errno : 0;
+    } else {
+        if (already_warned == 0) {
+            ALOGE("write_string failed to open %s (%s)\n", AW_LED_FILE, strerror(errno));
+            already_warned = 1;
+        }
+        return -errno;
+    }
+}
+
+static int
 set_speaker_light_locked(struct light_device_t *dev,
         const struct light_state_t *state)
 {
-    int blink = 0;
+    struct aw_leds_control cfg;
 
     if (state == NULL) {
-        write_int(BLUE_LED_FILE, 0);
-        write_int(BLUE_BLINK_FILE, 0);
-        write_int(GREEN_LED_FILE, 0);
-        write_int(GREEN_BLINK_FILE, 0);
-        write_int(RED_LED_FILE, 0);
-        write_int(RED_BLINK_FILE, 0);
+        cfg.red = cfg.blue = cfg.green = 0;
+        cfg.blink = 0;
+        aw_led_cfg(&cfg);
         return 0;
     }
 
     if (state->flashMode == LIGHT_FLASH_TIMED &&
             state->flashOnMS && state->flashOffMS) {
-        blink = 1;
-    }
-
-    if (blink) {
-        write_int(BLUE_BLINK_FILE, ((state->color) & 0xff) ? 1 : 0);
-        write_int(GREEN_BLINK_FILE, ((state->color >> 8) & 0xff) ? 1 : 0);
-        write_int(RED_BLINK_FILE, ((state->color >> 16) & 0xff) ? 1 : 0);
+        cfg.blink = 1;
     } else {
-        write_int(BLUE_LED_FILE, ((state->color) & 0xff) ? 1 : 0);
-        write_int(GREEN_LED_FILE, ((state->color >> 8) & 0xff) ? 1 : 0);
-        write_int(RED_LED_FILE, ((state->color >> 16) & 0xff) ? 1 : 0);
+        cfg.blink = 0;
     }
 
+    //The AW LEDS driver cannot currently set RGB values < 255
+    //while blinking.  Set to a reasonable color.
+    cfg.blue = ((state->color) & 0xff) >= 128 ? 255 : 0;
+    cfg.green = ((state->color >> 8) & 0xff) >= 128 ? 255 : 0;
+    cfg.red = ((state->color >> 16) & 0xff) >= 128 ? 255 : 0;
+    aw_led_cfg(&cfg);
     return 0;
 }
 
@@ -155,7 +158,13 @@ static void
 handle_speaker_light_locked(struct light_device_t *dev)
 {
     set_speaker_light_locked(dev, NULL);
-    set_speaker_light_locked(dev, &g_battery);
+    if (is_lit(&g_attention)) {
+        set_speaker_light_locked(dev, &g_attention);
+    } else if (is_lit(&g_notification)) {
+        set_speaker_light_locked(dev, &g_notification);
+    } else {
+        set_speaker_light_locked(dev, &g_battery);
+    }
 }
 
 static int
@@ -188,6 +197,34 @@ set_light_buttons(struct light_device_t *dev,
     pthread_mutex_unlock(&g_lock);
 
     return err;
+}
+
+static int
+set_light_attention(struct light_device_t *dev,
+        const struct light_state_t *state)
+{
+    pthread_mutex_lock(&g_lock);
+
+    g_attention = *state;
+    handle_speaker_light_locked(dev);
+
+    pthread_mutex_unlock(&g_lock);
+
+    return 0;
+}
+
+static int
+set_light_notifications(struct light_device_t *dev,
+        const struct light_state_t *state)
+{
+    pthread_mutex_lock(&g_lock);
+
+    g_notification = *state;
+    handle_speaker_light_locked(dev);
+
+    pthread_mutex_unlock(&g_lock);
+
+    return 0;
 }
 
 static int
@@ -231,6 +268,10 @@ static int open_lights(const struct hw_module_t *module, const char *name,
         set_light = set_light_backlight;
     else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
         set_light = set_light_buttons;
+    else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
+        set_light = set_light_notifications;
+    else if (0 == strcmp(LIGHT_ID_ATTENTION, name))
+        set_light = set_light_attention;
     else if (0 == strcmp(LIGHT_ID_BATTERY, name))
         set_light = set_light_battery;
     else
