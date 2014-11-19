@@ -138,7 +138,7 @@ set_speaker_light_locked(struct light_device_t *dev,
         return 0;
     }
 
-    if (state->flashMode == LIGHT_FLASH_TIMED &&
+    if (state->flashMode != LIGHT_FLASH_NONE &&
             state->flashOnMS && state->flashOffMS) {
         cfg.blink = 1;
     } else {
@@ -206,6 +206,13 @@ set_light_attention(struct light_device_t *dev,
     pthread_mutex_lock(&g_lock);
 
     g_attention = *state;
+    if (state->flashMode != LIGHT_FLASH_NONE) {
+        if (g_attention.flashOnMS > 0 && g_attention.flashOffMS == 0) {
+            g_attention.flashMode = LIGHT_FLASH_NONE;
+        }
+    } else if (state->flashMode == LIGHT_FLASH_NONE) {
+        g_attention.color = 0;
+    }
     handle_speaker_light_locked(dev);
 
     pthread_mutex_unlock(&g_lock);
