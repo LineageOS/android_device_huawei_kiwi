@@ -521,7 +521,7 @@
         <ctl name="EAR PA Boost" value="ENABLE" />
         <ctl name="RX1 MIX1 INP1" value="RX1" />
         <ctl name="RDAC2 MUX" value="RX1" />
-        <ctl name="RX1 Digital Volume" value="90" />
+        <ctl name="RX1 Digital Volume" value="87" />
         <ctl name="EAR_S" value="Switch" />
    </path>
 
