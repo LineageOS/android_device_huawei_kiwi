@@ -760,6 +760,7 @@ on charger-fs
    write /sys/module/lpm_levels/system/system-cci-retention/idle_enabled Y
    write /sys/module/lpm_levels/system/system-cci-pc/idle_enabled Y
    write /sys/module/lpm_levels/system/system-cci-pc/suspend_enabled Y
+   write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
 
 on charger
    start vm_bms
