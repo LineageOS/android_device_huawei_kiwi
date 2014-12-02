@@ -17,6 +17,11 @@
 <!-- Camera app resources that may need to be customized
      for different hardware or product builds. -->
 <resources>
-    <!-- Zero shutter lag mode -->
+  <!-- Zero shutter lag mode:
+       enableZSL should be set true if device is *capable* of ZSL
+       enableZSLdefault should be set true if ZSL should be used by default.
+       User can override the decision to use ZSL locally -->
     <bool name="enableZSL">true</bool>
+    <bool name="enableZSLdefault">true</bool>
+    <bool name="previewAlwaysUsesNV12">true</bool>
 </resources>
