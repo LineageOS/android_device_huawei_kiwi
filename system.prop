@@ -32,7 +32,7 @@ media.aac_51_output_enabled=true
 ro.config.max_starting_bg=8
 
 # set roaming indicator to always show
-ro.config.always_show_roamin=true
+ro.config.always_show_roaming=true
 
 # Bluetooth
 ro.qualcomm.bt.hci_transport=smd
