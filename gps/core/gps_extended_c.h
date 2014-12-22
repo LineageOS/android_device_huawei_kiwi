@@ -62,11 +62,20 @@ extern "C" {
 #define ULP_LOCATION_IS_FROM_GEOFENCE 0X0008
 /** Positioin is from Hardware FLP */
 #define ULP_LOCATION_IS_FROM_HW_FLP   0x0010
+#define ULP_LOCATION_IS_FROM_NLP   0x0020
 
 #define ULP_MIN_INTERVAL_INVALID 0xffffffff
 
 /*Emergency SUPL*/
 #define GPS_NI_TYPE_EMERGENCY_SUPL    4
+
+#define AGPS_CERTIFICATE_MAX_LENGTH 2000
+#define AGPS_CERTIFICATE_MAX_SLOTS 10
+
+enum loc_registration_mask_status {
+    LOC_REGISTRATION_MASK_ENABLED,
+    LOC_REGISTRATION_MASK_DISABLED
+};
 
 typedef struct {
     /** set to sizeof(UlpLocation) */
@@ -305,9 +314,11 @@ enum loc_api_adapter_err {
     LOC_API_ADAPTER_ERR_PHONE_OFFLINE       = 7,
     LOC_API_ADAPTER_ERR_TIMEOUT             = 8,
     LOC_API_ADAPTER_ERR_SERVICE_NOT_PRESENT = 9,
+    LOC_API_ADAPTER_ERR_INTERNAL            = 10,
 
-    LOC_API_ADAPTER_ERR_ENGINE_DOWN         = 100,
-    LOC_API_ADAPTER_ERR_FAILURE,
+    /* equating engine down to phone offline, as they are the same errror */
+    LOC_API_ADAPTER_ERR_ENGINE_DOWN         = LOC_API_ADAPTER_ERR_PHONE_OFFLINE,
+    LOC_API_ADAPTER_ERR_FAILURE             = 101,
     LOC_API_ADAPTER_ERR_UNKNOWN
 };
 
@@ -363,6 +374,18 @@ enum loc_api_adapter_event_index {
 
 typedef unsigned int LOC_API_ADAPTER_EVENT_MASK_T;
 
+typedef enum loc_api_adapter_msg_to_check_supported {
+    LOC_API_ADAPTER_MESSAGE_LOCATION_BATCHING,               // Batching
+    LOC_API_ADAPTER_MESSAGE_BATCHED_GENFENCE_BREACH,         // Geofence Batched Breach
+
+    LOC_API_ADAPTER_MESSAGE_MAX
+} LocCheckingMessagesID;
+
+typedef uint32_t LOC_GPS_LOCK_MASK;
+#define isGpsLockNone(lock) ((lock) == 0)
+#define isGpsLockMO(lock) ((lock) & ((LOC_GPS_LOCK_MASK)1))
+#define isGpsLockMT(lock) ((lock) & ((LOC_GPS_LOCK_MASK)2))
+#define isGpsLockAll(lock) (((lock) & ((LOC_GPS_LOCK_MASK)3)) == 3)
 
 #ifdef __cplusplus
 }

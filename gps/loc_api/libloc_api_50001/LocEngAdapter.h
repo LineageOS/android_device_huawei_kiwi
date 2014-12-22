@@ -82,8 +82,9 @@ class LocEngAdapter : public LocAdapterBase {
     static const unsigned int POWER_VOTE_VALUE = 0x10;
 
 public:
-    bool mSupportsAgpsExtendedCapabilities;
-    bool mSupportsCPIExtendedCapabilities;
+    bool mSupportsAgpsRequests;
+    bool mSupportsPositionInjection;
+    bool mSupportsTimeInjection;
 
     LocEngAdapter(LOC_API_ADAPTER_EVENT_MASK_T mask,
                   void* owner, ContextBase* context,
@@ -134,11 +135,6 @@ public:
         injectPosition(double latitude, double longitude, float accuracy)
     {
         return mLocApi->injectPosition(latitude, longitude, accuracy);
-    }
-    inline enum loc_api_adapter_err
-        setTime(GpsUtcTime time, int64_t timeReference, int uncertainty)
-    {
-        return mLocApi->setTime(time, timeReference, uncertainty);
     }
     inline enum loc_api_adapter_err
         setXtraData(char* data, int length)
@@ -255,7 +251,16 @@ public:
     {
         return mLocApi->getBestAvailableZppFix(zppLoc, tech_mask);
     }
-
+    enum loc_api_adapter_err setTime(GpsUtcTime time,
+                                     int64_t timeReference,
+                                     int uncertainty);
+    enum loc_api_adapter_err setXtraVersionCheck(int check);
+    inline virtual void installAGpsCert(const DerEncodedCertificate* pData,
+                                        size_t length,
+                                        uint32_t slotBitMask)
+    {
+        mLocApi->installAGpsCert(pData, length, slotBitMask);
+    }
     virtual void handleEngineDownEvent();
     virtual void handleEngineUpEvent();
     virtual void reportPosition(UlpLocation &location,
@@ -311,10 +316,13 @@ public:
       3 = Lock MT position sessions
       4 = Lock all position sessions
     */
-    inline int setGpsLock(unsigned int lock)
+    inline int setGpsLock(LOC_GPS_LOCK_MASK lock)
     {
         return mLocApi->setGpsLock(lock);
     }
+
+    int setGpsLockMsg(LOC_GPS_LOCK_MASK lock);
+
     /*
       Returns
       Current value of GPS lock on success
@@ -324,6 +332,7 @@ public:
     {
         return mLocApi->getGpsLock();
     }
+
 };
 
 #endif //LOC_API_ENG_ADAPTER_H
