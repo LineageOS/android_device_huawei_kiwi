@@ -1,15 +1,3 @@
-# Default type for anything under /firmware
-type firmware_file, fs_type;
-
-type qmuxd_socket, file_type;
-type thermald_socket, file_type;
-
-type diag_logs, file_type, data_file_type;
-
-type mpdecision_socket, file_type;
-type mpdecision_state, file_type;
-type sysfs_mpdecision, fs_type, sysfs_type;
-type sysfs_smdcntl_open_timeout, fs_type, sysfs_type;
-
-type sysrq_trigger_proc, fs_type, mlstrustedobject;
-type sched_boost_proc, fs_type, mlstrustedobject;
+type touchpanel_sysfs, fs_type, sysfs_type;
+type leds_device, file_type, dev_type;
+type color_device, file_type, dev_type;
