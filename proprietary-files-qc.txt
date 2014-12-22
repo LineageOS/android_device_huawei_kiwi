@@ -107,6 +107,8 @@ vendor/lib/libgsl.so
 vendor/lib/libllvm-qcom.so
 vendor/lib/libOpenCL.so
 vendor/lib/libRSDriver_adreno.so
+vendor/lib/librs_adreno.so
+vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
