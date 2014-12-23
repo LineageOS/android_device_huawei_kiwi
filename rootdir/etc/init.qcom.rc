@@ -82,6 +82,9 @@ on post-fs-data
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
 
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
+
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
 
     # Create the directories used by the Wireless subsystem
@@ -773,7 +776,6 @@ service wcnss-service /system/bin/wcnss_service
     class main
     user system
     group system wifi radio
-    oneshot
 
 service msm_irqbalance /system/bin/msm_irqbalance -p 0,0,0,0,1,1,1,1
     class core
