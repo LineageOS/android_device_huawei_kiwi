@@ -1,3 +1,4 @@
 type touchpanel_sysfs, fs_type, sysfs_type;
 type leds_device, file_type, dev_type;
 type color_device, file_type, dev_type;
+type ylparams_device, file_type, dev_type;
