@@ -33,3 +33,9 @@ allow bluetooth_loader system_file:file execute_no_trans;
 allow bluetooth_loader hci_attach_dev:chr_file rw_file_perms;
 # Access yl_params1, too
 allow bluetooth_loader ylparams_device:chr_file r_file_perms;
+
+# And qmuxd
+allow bluetooth_loader qmuxd_socket:dir { write add_name remove_name search };
+allow bluetooth_loader qmuxd_socket:sock_file { create setattr getattr write unlink };
+allow bluetooth_loader qmuxd:unix_stream_socket { connectto };
+#
