@@ -178,6 +178,12 @@
 /sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            gyro_delay     0660    input    system
 /sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            ps_calibration 0660    input    system
 /sys/devices/soc.0/78b6000.i2c/i2c-0/0-*            reg            0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            enable         0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            poll_delay     0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            enable_wakeup  0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            max_latency    0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            flush          0660    input    system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-*            calibrate      0660    input    system
 
 # vm_bms
 /dev/vm_bms               0660   system     system

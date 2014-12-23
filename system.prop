@@ -8,7 +8,6 @@ av.offload.enable=true
 av.streaming.offload.enable=true
 audio.offload.buffer.size.kb=240
 audio.offload.gapless.enabled=true
-audio.offload.min.duration.secs=30
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
 use.voice.path.for.pcm.voip=true
@@ -37,6 +36,7 @@ ro.qualcomm.bt.hci_transport=smd
 # Display
 debug.composition.type=c2d
 debug.sf.gpu_comp_tiling=1
+debug.mdpcomp.idletime=600
 persist.hwc.mdpcomp.enable=true
 persist.hwc.ptor.enable=true
 ro.opengles.version=196608
@@ -76,6 +76,6 @@ ro.use_data_netmgrd=true
 persist.timed.enable=true
 
 # perf
-ro.min_freq_0=400000
-ro.min_freq_4=200000
+ro.min_freq_0=960000
+ro.min_freq_4=800000
 ro.vendor.extension_library=/vendor/lib/libqc-opt.so
