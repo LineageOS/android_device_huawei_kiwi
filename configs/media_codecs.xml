@@ -17,6 +17,8 @@
      limitations under the License.
 -->
 <CodecList>
+    <Include href="media_codecs_google_audio.xml" />
+    <Include href="media_codecs_google_telephony.xml" />
     <Encoders>
         <!-- Audio Hardware  -->
         <MediaCodec name="OMX.qcom.audio.encoder.evrc" type="audio/evrc" >
@@ -27,12 +29,6 @@
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
         </MediaCodec>
-
-        <!-- Audio Software  -->
-        <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.google.flac.encoder" type="audio/flac"/>
-        <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.encoder" type="audio/amr-wb" />
 
         <!-- Video Hardware  -->
         <MediaCodec name="OMX.qcom.video.encoder.avc" type="video/avc" >
@@ -56,35 +52,9 @@
             <Quirk name="requires-loaded-to-idle-after-allocation"/>
         </MediaCodec>
 
-        <!-- Video Software  -->
-        <MediaCodec name="OMX.google.h264.encoder" type="video/avc" />
-        <MediaCodec name="OMX.google.mpeg4.encoder" type="video/mp4v-es" />
-        <MediaCodec name="OMX.google.h263.encoder" type="video/3gpp" />
-        <MediaCodec name="OMX.google.vp8.encoder" type="video/x-vnd.on2.vp8" />
     </Encoders>
 
     <Decoders>
-        <!-- Audio Software  -->
-        <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
-        <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
-        <MediaCodec name="MP3Decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
-        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm" />
-        <MediaCodec name="AACDecoder" type="audio/mp4a-latm" />
-        <!--
-        <MediaCodec name="FLACDecoder" type="audio/flac" />
-        -->
-        <!--
-            Use Google's RAW decoder to support ACodec path for FLAC clips as
-            FLACDecoder is non-OMX component based. A component can be used to
-            support several mimetypes, so existing raw decoder usecases will not
-            be affected by this.
-        <MediaCodec name="OMX.google.raw.decoder" type="audio/flac" />
-        -->
-        <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" />
-        <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" />
-
         <!-- Video Hardware  -->
         <MediaCodec name="OMX.qcom.video.decoder.avc" type="video/avc" >
             <Quirk name="requires-allocate-on-input-ports" />
@@ -137,31 +107,7 @@
             <Quirk name="defers-output-buffer-allocation" />
         </MediaCodec>
 
-        <!-- Video Software  -->
-        <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
-        <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
-        <MediaCodec name="OMX.google.h263.decoder" type="video/3gpp" />
-        <MediaCodec name="OMX.google.vp8.decoder" type="video/x-vnd.on2.vp8" />
-        <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" />
-
-        <!--  ffmpeg audio codecs -->
-        <MediaCodec name="OMX.ffmpeg.aac.decoder"    type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.ffmpeg.mp3.decoder"    type="audio/mpeg" />
-        <MediaCodec name="OMX.ffmpeg.vorbis.decoder" type="audio/vorbis" />
-        <MediaCodec name="OMX.ffmpeg.wma.decoder"    type="audio/x-ms-wma" />
-        <MediaCodec name="OMX.ffmpeg.ra.decoder"     type="audio/vnd.rn-realaudio" />
-        <MediaCodec name="OMX.ffmpeg.flac.decoder"   type="audio/flac" />
-        <MediaCodec name="OMX.ffmpeg.mp2.decoder"    type="audio/mpeg-L2" />
-        <MediaCodec name="OMX.ffmpeg.ac3.decoder"    type="audio/ac3" />
-        <MediaCodec name="OMX.ffmpeg.ape.decoder"    type="audio/x-ape" />
-        <MediaCodec name="OMX.ffmpeg.dts.decoder"    type="audio/vnd.dts" />
-        <MediaCodec name="OMX.ffmpeg.atrial.decoder" type="audio/ffmpeg" />
-
-        <!--  ffmpeg video codecs -->
-        <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
-        <MediaCodec name="OMX.ffmpeg.wmv.decoder"    type="video/x-ms-wmv"/>
-        <MediaCodec name="OMX.ffmpeg.rv.decoder"     type="video/vnd.rn-realvideo"/>
-        <MediaCodec name="OMX.ffmpeg.flv1.decoder"   type="video/x-flv"/>
-        <MediaCodec name="OMX.ffmpeg.divx.decoder"   type="video/divx"/>
     </Decoders>
+    <Include href="media_codecs_google_video.xml" />
+    <Include href="media_codecs_ffmpeg.xml" />
 </CodecList>
