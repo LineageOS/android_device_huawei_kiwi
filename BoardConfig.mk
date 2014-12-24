@@ -13,9 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# inherit from the proprietary version
--include vendor/yu/tomato/BoardConfigVendor.mk
-
 LOCAL_PATH := device/yu/tomato
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
@@ -29,29 +26,57 @@ TARGET_BOOTLOADER_BOARD_NAME := MSM8916
 TARGET_NO_BOOTLOADER := true
 
 # Architecture
+ifeq ($(USE_64_BIT),true)
+TARGET_BOARD_SUFFIX := _64
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := generic
+
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := cortex-a53
+
+TARGET_USES_64_BIT_BINDER := true
+else
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a53
+endif
+
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
 BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 boot_cpus=0,4,5,6,7 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci sched_enable_hmp=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
-BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
+BOARD_RAMDISK_OFFSET     := 0x02000000
+
 TARGET_KERNEL_SOURCE := kernel/yu/msm8916
+
+ifeq ($(USE_64_BIT),true)
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
+
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_USES_UNCOMPRESSED_KERNEL := true
+TARGET_KERNEL_CONFIG := cyanogenmod_cp8675-64_defconfig
+else
 TARGET_KERNEL_CONFIG := cyanogenmod_cp8675_defconfig
+endif
 
 # Audio
-AUDIO_FEATURE_DISABLED_DS1_DOLBY_DDP := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 BOARD_USES_ALSA_AUDIO := true
-TARGET_QCOM_AUDIO_VARIANT := caf
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -74,15 +99,14 @@ TARGET_HW_DISK_ENCRYPTION := true
 
 # Display
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+MAX_EGL_CACHE_SIZE := 2048*1024
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-TARGET_HAVE_NEW_GRALLOC := true
-TARGET_QCOM_DISPLAY_VARIANT := caf-new
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+TARGET_CONTINUOUS_SPLASH_ENABLED := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
-TARGET_CONTINUOUS_SPLASH_ENABLED := true
-
-OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
 # FM
 TARGET_QCOM_NO_FM_FIRMWARE := true
@@ -96,10 +120,6 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
-# Media
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-TARGET_QCOM_MEDIA_VARIANT := caf-new
-
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 20971520
@@ -108,19 +128,13 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1258291200
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 14103313408 # 14103329792 - 16384
 
 # Qualcomm support
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
-COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 BOARD_USES_QCOM_HARDWARE := true
 TARGET_NO_RPC := true
-TARGET_USES_QCOM_BSP := true
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom
 
 # Recovery
-BOARD_HAS_NO_SELECT_BUTTON := true
-BOARD_RECOVERY_SWIPE := true
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -169,3 +183,14 @@ TARGET_USES_WCNSS_CTRL := true
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
+
+# Enable Minikin text layout engine (will be the default soon)
+USE_MINIKIN := true
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
+
+# inherit from the proprietary version
+-include vendor/micromax/tomato/BoardConfigVendor.mk
+
+
