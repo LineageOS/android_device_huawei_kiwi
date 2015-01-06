@@ -60,7 +60,6 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
-
 TARGET_KERNEL_SOURCE := kernel/yu/msm8916
 
 ifeq ($(USE_64_BIT),true)
@@ -74,12 +73,12 @@ else
 TARGET_KERNEL_CONFIG := cyanogenmod_cp8675_defconfig
 endif
 
+# ANT+
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
 # Audio
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 BOARD_USES_ALSA_AUDIO := true
-
-# ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
@@ -111,10 +110,15 @@ USE_OPENGL_RENDERER := true
 # FM
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
+
 # GPS
 TARGET_GPS_HAL_PATH := $(LOCAL_PATH)/gps
+TARGET_NO_RPC := true
 
 # Init
+TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # Lights
@@ -127,12 +131,11 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 20971520
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1258291200
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 14103313408 # 14103329792 - 16384
 
-# Qualcomm support
-BOARD_USES_QCOM_HARDWARE := true
-TARGET_NO_RPC := true
-
 # Power
 TARGET_POWERHAL_VARIANT := qcom
+
+# Qualcomm support
+BOARD_USES_QCOM_HARDWARE := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
@@ -142,14 +145,9 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
 
 # RIL
-COMMON_GLOBAL_CFLAGS += -DRIL_SUPPORTS_SEEK
 TARGET_RIL_VARIANT := caf
 
-# Init
-TARGET_INIT_VENDOR_LIB := libinit_msm
-
 # SELinux
-# qcom sepolicy
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
@@ -166,9 +164,6 @@ ifneq ($(QCPATH),)
 BOARD_USES_QCNE := true
 endif
 
-# Vold
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
-
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
@@ -184,13 +179,5 @@ WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
-# Enable Minikin text layout engine (will be the default soon)
-USE_MINIKIN := true
-
-# Include an expanded selection of fonts
-EXTENDED_FONT_FOOTPRINT := true
-
 # inherit from the proprietary version
 -include vendor/micromax/tomato/BoardConfigVendor.mk
-
-
