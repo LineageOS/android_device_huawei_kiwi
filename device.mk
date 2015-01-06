@@ -100,7 +100,6 @@ PRODUCT_PACKAGES += \
 
 # Charger
 PRODUCT_PACKAGES += \
-    charger_mmx \
     charger_res_images
 
 # CMHW JNI

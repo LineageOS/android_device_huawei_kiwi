@@ -636,8 +636,10 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw
     class late_start
     disabled
 
-service charger /charger_mmx
+service charger /charger
     class charger
+    group log
+    seclabel u:r:healthd:s0
 
 service ssr_diag /system/bin/ssr_diag
     class late_start
@@ -654,16 +656,6 @@ on property:persist.usb.hvdcp.detect=true
 
 on property:persist.usb.hvdcp.detect=false
     stop hvdcp
-
-service qbcharger /charger -m 1
-    disabled
-    oneshot
-
-on property:sys.qbcharger.enable=true
-    start qbcharger
-
-on property:sys.qbcharger.enable=false
-    stop qbcharger
 
 service vm_bms /system/bin/vm_bms
     user root
@@ -709,7 +701,7 @@ service audiod /system/bin/audiod
    user system
    group system
 
-on charger-fs
+on charger
    wait /dev/block/bootdevice/by-name/system
    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
    chown root system /sys/class/power_supply/bms/current_now
@@ -760,8 +752,6 @@ on charger-fs
    write /sys/module/lpm_levels/system/system-cci-pc/idle_enabled Y
    write /sys/module/lpm_levels/system/system-cci-pc/suspend_enabled Y
    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-
-on charger
    start vm_bms
 
 service ppd /system/bin/mm-pp-daemon
