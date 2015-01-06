@@ -130,6 +130,7 @@ vendor/lib/libSHIMDivxDrm.so
 # Perf
 bin/msm_irqbalance
 bin/perfd
+vendor/lib/libqti-perfd-client.so
 
 # Postprocessing
 bin/mm-pp-daemon
