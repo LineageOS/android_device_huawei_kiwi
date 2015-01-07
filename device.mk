@@ -230,6 +230,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(LOCAL_PATH)/tomato-releasekey
 
+# RIL
+PRODUCT_PACKAGES += \
+    libxml2
+
 # Sensors
 PRODUCT_PACKAGES += \
     sensors.msm8916
