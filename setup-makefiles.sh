@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DEVICE=tomato
-VENDOR=micromax
+VENDOR=yu
 
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk

@@ -2,7 +2,7 @@
 
 #set -e
 export DEVICE=tomato
-export VENDOR=micromax
+export VENDOR=yu
 
 if [ $# -eq 0 ]; then
   SRC=adb

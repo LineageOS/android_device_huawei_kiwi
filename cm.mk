@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, device/micromax/tomato/full_tomato.mk)
+$(call inherit-product, device/yu/tomato/full_tomato.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 PRODUCT_NAME := cm_tomato
-BOARD_VENDOR := micromax
+BOARD_VENDOR := yu
 PRODUCT_DEVICE := tomato
 
 PRODUCT_GMS_CLIENTID_BASE := android-micromax
@@ -29,5 +29,5 @@ PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=YUREKA PRODUCT_NAME=YUREKA
 
 ifeq ($(SIGN_BUILD),true)
 # Signed builds gets a special boot animation because they are special.
-PRODUCT_BOOTANIMATION := device/micromax/tomato/bootanimation.zip
+PRODUCT_BOOTANIMATION := device/yu/tomato/bootanimation.zip
 endif

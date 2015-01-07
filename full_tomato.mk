@@ -18,7 +18,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from tomato device
-$(call inherit-product, device/micromax/tomato/device.mk)
+$(call inherit-product, device/yu/tomato/device.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := tomato

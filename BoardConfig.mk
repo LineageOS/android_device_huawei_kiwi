@@ -14,9 +14,9 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/micromax/tomato/BoardConfigVendor.mk
+-include vendor/yu/tomato/BoardConfigVendor.mk
 
-LOCAL_PATH := device/micromax/tomato
+LOCAL_PATH := device/yu/tomato
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
@@ -44,7 +44,7 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 boot_cpus=0,4,5,6,7 androidboo
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_RAMDISK_OFFSET := 0x01000000
-TARGET_KERNEL_SOURCE := kernel/micromax/msm8916
+TARGET_KERNEL_SOURCE := kernel/yu/msm8916
 TARGET_KERNEL_CONFIG := cyanogenmod_cp8675_defconfig
 
 # Audio
@@ -138,7 +138,7 @@ TARGET_INIT_VENDOR_LIB := libinit_msm
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    device/micromax/tomato/sepolicy
+    device/yu/tomato/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     file.te \
