@@ -159,9 +159,11 @@ BOARD_SEPOLICY_UNION += \
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
 
-# QC PROPRIETARY
+# QC PROPRIETARY, but not 64bit. The arm64 libcne is broken :(
 ifneq ($(QCPATH),)
+ifneq ($(USE_64_BIT),true)
 BOARD_USES_QCNE := true
+endif
 endif
 
 # Wifi

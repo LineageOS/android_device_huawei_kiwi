@@ -617,6 +617,12 @@ on property:persist.radio.multisim.config=dsda
 on property:persist.radio.multisim.config=dsds
     start ril-daemon1
 
+on property:ro.product.cpu.abi=arm64-v8a
+    setprop rild.libpath /system/vendor/lib64/libril-qc-qmi-1.so
+
+on property:ro.product.cpu.abi=armeabi-v7a
+    setprop rild.libpath /system/vendor/lib/libril-qc-qmi-1.so
+
 service ril-daemon1 /system/bin/rild -c 2
     class main
     socket rild2 stream 660 root radio
