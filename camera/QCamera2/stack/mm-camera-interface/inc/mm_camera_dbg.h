@@ -30,7 +30,7 @@
 #ifndef __MM_CAMERA_DBG_H__
 #define __MM_CAMERA_DBG_H__
 
-//#define LOG_DEBUG 1
+#define LOG_DEBUG 1
 /* Choose debug log level. This will not affect the error logs
    0: turns off CDBG and CDBG_HIGH logs
    1: turns-on CDBG_HIGH logs

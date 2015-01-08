@@ -28,6 +28,10 @@ LOCAL_CFLAGS += -DUSE_JB_MR1
 
 endif
 
+ifneq ($(call is-platform-sdk-version-at-least,20),true)
+LOCAL_CFLAGS += -DUSE_KK_CODE
+endif
+
 LOCAL_C_INCLUDES += \
     frameworks/base/include/ui \
     frameworks/base/include/surfaceflinger \
@@ -40,10 +44,11 @@ LOCAL_C_INCLUDES += \
     frameworks/native/include/media/openmax \
 
 LOCAL_MODULE:= camera_test
+LOCAL_32_BIT_ONLY := true
 LOCAL_MODULE_TAGS:= tests
 
-LOCAL_CFLAGS += -Wall -fno-short-enums -O0
+LOCAL_CFLAGS += -Wall -Wextra -Werror -Wno-unused-parameter
+LOCAL_CFLAGS += -O0
 
 include $(BUILD_EXECUTABLE)
-
 

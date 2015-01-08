@@ -55,7 +55,7 @@ public:
     typedef struct {
         unsigned char *  Data;
         int      Type;
-        unsigned Size;
+        size_t   Size;
     } Sections_t;
 
 public:
@@ -96,7 +96,7 @@ public:
     status_t unconfigureRecorder();
     Sections_t *FindSection(int SectionType);
     status_t ReadSectionsFromBuffer (unsigned char *buffer,
-        unsigned int buffer_size, ReadMode_t ReadMode);
+            size_t buffer_size, ReadMode_t ReadMode);
     virtual IBinder* onAsBinder();
     void setTestCtxInstance(TestContext *instance);
 
@@ -134,9 +134,7 @@ public:
 
 private:
 
-    status_t createPreviewSurface(unsigned int width,
-            unsigned int height,
-            int32_t pixFormat);
+    status_t createPreviewSurface(int width, int height, int32_t pixFormat);
     status_t destroyPreviewSurface();
 
     status_t saveFile(const sp<IMemory>& mem, String8 path);
@@ -158,11 +156,11 @@ private:
     bool mDoPrintMenu;
     bool mPiPCapture;
     static int mPiPIdx;
-    int mfmtMultiplier;
+    unsigned int mfmtMultiplier;
     int mWidthTmp;
     int mHeightTmp;
-    int mSectionsRead;
-    int mSectionsAllocated;
+    size_t mSectionsRead;
+    size_t mSectionsAllocated;
     Sections_t * mSections;
     Sections_t * mJEXIFTmp;
     Sections_t mJEXIFSection;
@@ -180,9 +178,9 @@ private:
     SkBitmap skBMtmp;
     sp<IMemory> PiPPtrTmp;
 
-    int mCurrentPreviewSizeIdx;
-    int mCurrentPictureSizeIdx;
-    int mCurrentVideoSizeIdx;
+    size_t mCurrentPreviewSizeIdx;
+    size_t mCurrentPictureSizeIdx;
+    size_t mCurrentVideoSizeIdx;
     Vector<Size> mSupportedPreviewSizes;
     Vector<Size> mSupportedPictureSizes;
     Vector<Size> mSupportedVideoSizes;
@@ -285,7 +283,7 @@ private:
     static const int numberOfCommands;
 
     bool mUseScript;
-    int mCmdIndex;
+    size_t mCmdIndex;
     char *mScript;
     Vector<Command> mCommands;
     TestContext *mTestContext;
@@ -300,7 +298,7 @@ public:
     TestContext();
     ~TestContext();
 
-    int32_t GetCamerasNum();
+    size_t GetCamerasNum();
     status_t FunctionalTest();
     status_t AddScriptFromFile(const char *scriptFile);
     void setViVSize(Size VideoSize, int camIndex);
@@ -312,8 +310,8 @@ public:
 private:
     sp<CameraContext> camera[MAX_CAM_INSTANCES];
     char GetNextCmd(sp<qcamera::CameraContext> currentCamera);
-    int  mCurrentCameraIndex;
-    int  mSaveCurrentCameraIndex;
+    size_t mCurrentCameraIndex;
+    size_t mSaveCurrentCameraIndex;
     Vector< sp<qcamera::CameraContext> > mAvailableCameras;
     bool mTestRunning;
     Interpreter *mInterpreter;

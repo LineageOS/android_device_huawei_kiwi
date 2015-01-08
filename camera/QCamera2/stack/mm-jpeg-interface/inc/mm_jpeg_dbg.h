@@ -32,7 +32,6 @@
 
 #include "cam_types.h"
 
-#define LOG_DEBUG
 /* Choose debug log level. This will not affect the error logs
    0: turns off CDBG and CDBG_HIGH logs
    1: turns-on CDBG_HIGH logs

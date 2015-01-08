@@ -73,7 +73,8 @@
 
 #define ERROR(format, ...) printf( \
     "%s[%d] : ERROR: "format"\n", __func__, __LINE__, ##__VA_ARGS__)
-#define VIDEO_BUF_ALLIGN(size, allign) (((size) + (allign-1)) & (~(allign-1)))
+#define VIDEO_BUF_ALLIGN(size, allign) \
+  (((size) + (allign-1)) & (typeof(size))(~(allign-1)))
 
 namespace qcamera {
 
@@ -95,7 +96,7 @@ const char CameraContext::KEY_ZSL[] = "zsl";
  *==========================================================================*/
 void CameraContext::previewCallback(const sp<IMemory>& mem)
 {
-    printf("PREVIEW Callback 0x%x", ( unsigned int ) mem->pointer());
+    printf("PREVIEW Callback %p", mem->pointer());
     uint8_t *ptr = (uint8_t*) mem->pointer();
     printf("PRV_CB: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x",
            ptr[0],
@@ -161,7 +162,7 @@ void CameraContext::signalFinished()
 status_t CameraContext::saveFile(const sp<IMemory>& mem, String8 path)
 {
     unsigned char *buff = NULL;
-    int size;
+    ssize_t size;
     int fd = -1;
 
     if (mem == NULL) {
@@ -174,7 +175,7 @@ status_t CameraContext::saveFile(const sp<IMemory>& mem, String8 path)
         return -errno;
     }
 
-    size = mem->size();
+    size = (ssize_t)mem->size();
     if (size <= 0) {
         printf("IMemory object is of zero size\n");
         close(fd);
@@ -188,16 +189,14 @@ status_t CameraContext::saveFile(const sp<IMemory>& mem, String8 path)
         return BAD_VALUE;
     }
 
-    if ( size != write(fd, buff, size) ) {
-        printf("Bad Write error (%d)%s\n",
-               errno,
-               strerror(errno));
+    if (size != write(fd, buff, (size_t)size)) {
+        printf("Bad Write error (%d)%s\n", errno, strerror(errno));
         close(fd);
         return INVALID_OPERATION;
     }
 
-    printf("%s: buffer=%08X, size=%d stored at %s\n",
-           __FUNCTION__, (int)buff, size, path.string());
+    printf("%s: buffer=%p, size=%lld stored at %s\n",
+            __FUNCTION__, buff, (long long int) size, path.string());
 
     if (fd >= 0)
         close(fd);
@@ -219,8 +218,8 @@ status_t CameraContext::saveFile(const sp<IMemory>& mem, String8 path)
 SkBitmap * CameraContext::PiPCopyToOneFile(
     SkBitmap *bitmap0, SkBitmap *bitmap1)
 {
-    int size0;
-    int size1;
+    size_t size0;
+    size_t size1;
     SkBitmap *src;
     SkBitmap *dst;
     unsigned int dstOffset;
@@ -253,12 +252,12 @@ SkBitmap * CameraContext::PiPCopyToOneFile(
         return NULL;
     }
 
-    for(int i=0; i<src->height(); i++) {
-        dstOffset = i*(dst->width())*mfmtMultiplier;
-        srcOffset = i*(src->width())*mfmtMultiplier;
-        memcpy(((unsigned char *) dst->getPixels())+dstOffset,
-            ((unsigned char *) src->getPixels())+srcOffset,
-            src->width()*mfmtMultiplier);
+    for (unsigned int i = 0; i < (unsigned int)src->height(); i++) {
+        dstOffset = i * (unsigned int)dst->width() * mfmtMultiplier;
+        srcOffset = i * (unsigned int)src->width() * mfmtMultiplier;
+        memcpy(((unsigned char *)dst->getPixels()) + dstOffset,
+                ((unsigned char *)src->getPixels()) + srcOffset,
+                (unsigned int)src->width() * mfmtMultiplier);
     }
 
     return dst;
@@ -282,7 +281,7 @@ status_t CameraContext::decodeJPEG(const sp<IMemory>& mem, SkBitmap *skBM)
 {
     SkBitmap::Config prefConfig = SkBitmap::kARGB_8888_Config;
     const void *buff = NULL;
-    int size;
+    size_t size;
 
     buff = (const void *)mem->pointer();
     size= mem->size();
@@ -326,11 +325,15 @@ status_t CameraContext::decodeJPEG(const sp<IMemory>& mem, SkBitmap *skBM)
         break;
     }
 
-    if (SkImageDecoder::DecodeMemory(buff, size, skBM, prefConfig,
+#ifndef USE_KK_CODE
+     if (SkImageDecoder::DecodeMemory(buff, (size_t) size, skBM, kRGBA_8888_SkColorType,
             SkImageDecoder::kDecodePixels_Mode) == false) {
         printf("%s():%d:: Failed during jpeg decode\n",__FUNCTION__,__LINE__);
         return BAD_VALUE;
     }
+#else
+    //TODO: Need to investigate and fix it as skia library has been changed.
+#endif
 
     return NO_ERROR;
 }
@@ -354,10 +357,6 @@ status_t CameraContext::encodeJPEG(SkWStream * stream,
     const SkBitmap *bitmap, String8 path)
 {
     int qFactor = 100;
-    long len;
-    status_t ret;
-    unsigned char *buff;
-    unsigned char temp;
 
     skJpegEnc = SkImageEncoder::Create(SkImageEncoder::kJPEG_Type);
 
@@ -372,7 +371,7 @@ status_t CameraContext::encodeJPEG(SkWStream * stream,
     }
 
     fseek(fh, 0, SEEK_END);
-    len = ftell(fh);
+    size_t len = (size_t)ftell(fh);
     rewind(fh);
 
     if( !len ) {
@@ -381,19 +380,19 @@ status_t CameraContext::encodeJPEG(SkWStream * stream,
         return BAD_VALUE;
     }
 
-    buff = (unsigned char*)malloc(len);
+    unsigned char *buff = (unsigned char*)malloc(len);
     if (!buff) {
         printf("Cannot allocate memory for buffer reading!\n");
         return BAD_VALUE;
     }
 
-    ret = fread(buff, 1, len, fh);
-    if (ret != len) {
+    size_t readSize = fread(buff, 1, len, fh);
+    if (readSize != len) {
         printf("Reading error\n");
         return BAD_VALUE;
     }
 
-    ret = ReadSectionsFromBuffer(buff, len, READ_ALL);
+    status_t ret = ReadSectionsFromBuffer(buff, len, READ_ALL);
     if (ret != NO_ERROR) {
         printf("Cannot read sections from buffer\n");
         DiscardData();
@@ -403,15 +402,15 @@ status_t CameraContext::encodeJPEG(SkWStream * stream,
     free(buff);
     rewind(fh);
 
-    temp = 0xff;
-    ret = fwrite(&temp, sizeof(unsigned char), 1, fh);
-    if (ret != 1) {
+    unsigned char temp = 0xff;
+    size_t writeSize = fwrite(&temp, sizeof(unsigned char), 1, fh);
+    if (1 != writeSize) {
         printf("Writing error\n");
     }
     temp = 0xd8;
     fwrite(&temp, sizeof(unsigned char), 1, fh);
 
-    for (int i=0; i<mSectionsRead; i++) {
+    for (size_t i = 0; i < mSectionsRead; i++) {
         switch((mSections[i].Type)) {
 
         case 0x123:
@@ -438,11 +437,10 @@ status_t CameraContext::encodeJPEG(SkWStream * stream,
         }
     }
     fseek(fh, 0, SEEK_END);
-    len = ftell(fh);
+    len = (size_t)ftell(fh);
     rewind(fh);
-    printf("%s: buffer=%p, size=%ld stored at %s\n",
-        __FUNCTION__, bitmap->getPixels(),
-        len, path.string());
+    printf("%s: buffer=%p, size=%zu stored at %s\n",
+            __FUNCTION__, bitmap->getPixels(), len, path.string());
 
     free(mJEXIFSection.Data);
     DiscardData();
@@ -468,10 +466,10 @@ status_t CameraContext::encodeJPEG(SkWStream * stream,
  *              none-zero failure code
  *==========================================================================*/
 status_t CameraContext::ReadSectionsFromBuffer (unsigned char *buffer,
-        unsigned int buffer_size, ReadMode_t ReadMode)
+        size_t buffer_size, ReadMode_t ReadMode)
 {
     int a;
-    unsigned int pos = 0;
+    size_t pos = 0;
     int HaveCom = 0;
     mSectionsAllocated = 10;
 
@@ -495,9 +493,9 @@ status_t CameraContext::ReadSectionsFromBuffer (unsigned char *buffer,
     }
 
     for(;;){
-        int itemlen;
+        size_t itemlen;
         int marker = 0;
-        int ll,lh;
+        size_t ll,lh;
         unsigned char * Data;
 
         CheckSectionsAllocated();
@@ -554,7 +552,7 @@ status_t CameraContext::ReadSectionsFromBuffer (unsigned char *buffer,
                 // If reading entire image is requested, read the rest of the
                 // data.
                 if (ReadMode & READ_IMAGE){
-                    int size;
+                    size_t size;
                     // Determine how much file is left.
                     size = buffer_size - pos;
 
@@ -692,9 +690,7 @@ void CameraContext::CheckSectionsAllocated(void)
  *==========================================================================*/
 CameraContext::Sections_t *CameraContext::FindSection(int SectionType)
 {
-    int a;
-
-    for (a=0;a<mSectionsRead;a++){
+    for (unsigned int a = 0; a < mSectionsRead; a++) {
         if (mSections[a].Type == SectionType){
             return &mSections[a];
         }
@@ -716,9 +712,7 @@ CameraContext::Sections_t *CameraContext::FindSection(int SectionType)
  *==========================================================================*/
 void CameraContext::DiscardData()
 {
-    int a;
-
-    for (a=0;a<mSectionsRead;a++){
+    for (unsigned int a = 0; a < mSectionsRead; a++) {
         free(mSections[a].Data);
     }
 
@@ -795,7 +789,7 @@ void CameraContext::postData(int32_t msgType,
     Size currentPictureSize = mSupportedPictureSizes.itemAt(
         mCurrentPictureSizeIdx);
     unsigned char *buff = NULL;
-    int size;
+    size_t size;
     status_t ret = 0;
 
     memset(&mJEXIFSection, 0, sizeof(Sections_t)),
@@ -816,7 +810,7 @@ void CameraContext::postData(int32_t msgType,
 
     if (msgType & CAMERA_MSG_COMPRESSED_IMAGE ) {
         String8 jpegPath;
-        jpegPath = jpegPath.format("/sdcard/img_%d.jpg", JpegIdx);
+        jpegPath = jpegPath.format("/data/misc/camera/img_%d.jpg", JpegIdx);
         if (!mPiPCapture) {
             // Normal capture case
             printf("JPEG done\n");
@@ -840,16 +834,12 @@ void CameraContext::postData(int32_t msgType,
 
                 // Find the the capture with higher width and height and read
                 // its jpeg sections
-                if ((mInterpr->camera[0]->mWidthTmp *
-                        mInterpr->camera[0]->mHeightTmp) >
-                        (mInterpr->camera[1]->mWidthTmp *
-                        mInterpr->camera[1]->mHeightTmp)) {
+                if ((mInterpr->camera[0]->mWidthTmp * mInterpr->camera[0]->mHeightTmp) >
+                        (mInterpr->camera[1]->mWidthTmp * mInterpr->camera[1]->mHeightTmp)) {
                     buff = (unsigned char *)PiPPtrTmp->pointer();
                     size= PiPPtrTmp->size();
-                } else if ((mInterpr->camera[0]->mWidthTmp *
-                        mInterpr->camera[0]->mHeightTmp) <
-                        (mInterpr->camera[1]->mWidthTmp *
-                        mInterpr->camera[1]->mHeightTmp)) {
+                } else if ((mInterpr->camera[0]->mWidthTmp * mInterpr->camera[0]->mHeightTmp) <
+                        (mInterpr->camera[1]->mWidthTmp * mInterpr->camera[1]->mHeightTmp)) {
                     buff = (unsigned char *)PiPPtrTmp->pointer();
                     size= PiPPtrTmp->size();
                 } else {
@@ -869,8 +859,7 @@ void CameraContext::postData(int32_t msgType,
 
                     mJEXIFTmp = FindSection(M_EXIF);
                     mJEXIFSection = *mJEXIFTmp;
-                    mJEXIFSection.Data =
-                        (unsigned char*)malloc(mJEXIFTmp->Size);
+                    mJEXIFSection.Data = (unsigned char*)malloc(mJEXIFTmp->Size);
                     memcpy(mJEXIFSection.Data,
                         mJEXIFTmp->Data, mJEXIFTmp->Size);
                     DiscardData();
@@ -878,10 +867,10 @@ void CameraContext::postData(int32_t msgType,
 
                     wStream = new SkFILEWStream(jpegPath.string());
                     skBMDec = PiPCopyToOneFile(&mInterpr->camera[0]->skBMtmp,
-                        &mInterpr->camera[1]->skBMtmp);
+                            &mInterpr->camera[1]->skBMtmp);
                     if (encodeJPEG(wStream, skBMDec, jpegPath) != false) {
                         printf("%s():%d:: Failed during jpeg encode\n",
-                            __FUNCTION__,__LINE__);
+                                __FUNCTION__, __LINE__);
                         return;
                     }
                     mPiPIdx = 0;
@@ -895,8 +884,7 @@ void CameraContext::postData(int32_t msgType,
         }
     }
 
-    if ( ( msgType & CAMERA_MSG_PREVIEW_METADATA ) &&
-         ( NULL != metadata ) ) {
+    if ((msgType & CAMERA_MSG_PREVIEW_METADATA) && (NULL != metadata)) {
         printf("Face detected %d \n", metadata->number_of_faces);
     }
     mInterpr->PiPUnlock();
@@ -919,7 +907,8 @@ void CameraContext::postDataTimestamp(nsecs_t timestamp,
                                       int32_t msgType,
                                       const sp<IMemory>& dataPtr)
 {
-    printf("Recording cb: %d %lld %p\n", msgType, timestamp, dataPtr.get());
+    printf("Recording cb: %d %lld %p\n",
+            msgType, (long long int)timestamp, dataPtr.get());
 }
 
 /*===========================================================================
@@ -945,7 +934,7 @@ void CameraContext::dataCallbackTimestamp(nsecs_t timestamp,
     // Not needed check. Just avoiding warnings of not used variables.
     if (msgType > 0)
         msgType = 0;
-    int i = 0;
+    size_t i = 0;
     void * srcBuff = NULL;
     void * dstBuff = NULL;
 
@@ -967,8 +956,8 @@ void CameraContext::dataCallbackTimestamp(nsecs_t timestamp,
         srcUVStride = calcStride(currentVideoSize.width);
         srcYScanLines = calcYScanLines(currentVideoSize.height);
         srcUVScanLines = calcUVScanLines(currentVideoSize.height);
-        mInterpr->mViVBuff.srcWidth = currentVideoSize.width;
-        mInterpr->mViVBuff.srcHeight = currentVideoSize.height;
+        mInterpr->mViVBuff.srcWidth = (size_t)currentVideoSize.width;
+        mInterpr->mViVBuff.srcHeight = (size_t)currentVideoSize.height;
 
 
         mInterpr->mViVBuff.YStride = srcYStride;
@@ -993,7 +982,7 @@ void CameraContext::dataCallbackTimestamp(nsecs_t timestamp,
             srcUVScanLines = mInterpr->mViVBuff.UVScanLines;
 
 
-            for (i=0; i<(int) mInterpr->mViVBuff.srcHeight; i++) {
+            for (i = 0; i < mInterpr->mViVBuff.srcHeight; i++) {
                 srcOffset = i*srcYStride;
                 dstOffset = i*dstYStride;
                 memcpy((unsigned char *) dstBuff + dstOffset,
@@ -1002,7 +991,7 @@ void CameraContext::dataCallbackTimestamp(nsecs_t timestamp,
             }
             srcBaseOffset = srcYStride * srcYScanLines;
             dstBaseOffset = dstYStride * dstYScanLines;
-            for (i=0;i<(int) mInterpr->mViVBuff.srcHeight/2;i++) {
+            for (i = 0; i < mInterpr->mViVBuff.srcHeight / 2; i++) {
                 srcOffset = i*srcUVStride + srcBaseOffset;
                 dstOffset = i*dstUVStride + dstBaseOffset;
                 memcpy((unsigned char *) dstBuff + dstOffset,
@@ -1035,23 +1024,23 @@ void CameraContext::dataCallbackTimestamp(nsecs_t timestamp,
             srcUVScanLines = dstUVScanLines;
             srcBuff = dstBuff;
 
-            for (i=0; i<(int) currentVideoSize.height; i++) {
+            for (i = 0; i < (size_t)currentVideoSize.height; i++) {
                 srcOffset = i*srcYStride;
                 dstOffset = i*dstYStride;
                 memcpy((unsigned char *) mInterpr->mViVVid.mappedBuff +
                     dstOffset, (unsigned char *) srcBuff +
-                    srcOffset, currentVideoSize.width);
+                    srcOffset, (size_t)currentVideoSize.width);
             }
 
             srcBaseOffset = srcYStride * srcYScanLines;
-            dstBaseOffset = dstUVStride * currentVideoSize.height;
+            dstBaseOffset = dstUVStride * (size_t)currentVideoSize.height;
 
-            for (i=0;i<(int) currentVideoSize.height/2;i++) {
+            for (i = 0; i < (size_t)currentVideoSize.height / 2; i++) {
                 srcOffset = i*srcUVStride + srcBaseOffset;
                 dstOffset = i*dstUVStride + dstBaseOffset;
                 memcpy((unsigned char *) mInterpr->mViVVid.mappedBuff +
                     dstOffset, (unsigned char *) srcBuff +
-                    srcOffset, currentVideoSize.width);
+                    srcOffset, (size_t)currentVideoSize.width);
             }
 
 
@@ -1268,7 +1257,7 @@ size_t CameraContext::calcStride(int width)
         return stride;
     }
     alignment = 128;
-    stride = VIDEO_BUF_ALLIGN(width, alignment);
+    stride = VIDEO_BUF_ALLIGN((size_t)width, alignment);
 
     return stride;
 }
@@ -1290,7 +1279,7 @@ size_t CameraContext::calcYScanLines(int height)
             return scanlines;
         }
     alignment = 32;
-    scanlines = VIDEO_BUF_ALLIGN(height, alignment);
+    scanlines = VIDEO_BUF_ALLIGN((size_t)height, alignment);
 
     return scanlines;
 }
@@ -1312,7 +1301,7 @@ size_t CameraContext::calcUVScanLines(int height)
         return scanlines;
     }
     alignment = 16;
-    scanlines = VIDEO_BUF_ALLIGN(((height + 1) >> 1), alignment);
+    scanlines = VIDEO_BUF_ALLIGN((size_t)((height + 1) >> 1), alignment);
 
     return scanlines;
 }
@@ -1403,27 +1392,30 @@ void CameraContext::printSupportedParams()
  *              NO_ERROR  -- success
  *              none-zero failure code
  *==========================================================================*/
-status_t CameraContext::createPreviewSurface(unsigned int width,
-                                             unsigned int height,
-                                             int32_t pixFormat)
+status_t CameraContext::createPreviewSurface(int width, int height, int32_t pixFormat)
 {
     int ret = NO_ERROR;
     DisplayInfo dinfo;
     sp<IBinder> display(SurfaceComposerClient::getBuiltInDisplay(
                         ISurfaceComposer::eDisplayIdMain));
     SurfaceComposerClient::getDisplayInfo(display, &dinfo);
-    unsigned int previewWidth, previewHeight;
+    uint32_t previewWidth, previewHeight;
 
-    if ( dinfo.w < width ) {
-        previewWidth = dinfo.w;
-    } else {
-        previewWidth = width;
+    if ((0 >= width) || (0 >= height)) {
+        printf("Bad preview surface size %dx%d\n", width, height);
+        return BAD_VALUE;
     }
 
-    if ( dinfo.h < height ) {
+    if ((int)dinfo.w < width) {
+        previewWidth = dinfo.w;
+    } else {
+        previewWidth = (unsigned int)width;
+    }
+
+    if ((int)dinfo.h < height) {
         previewHeight = dinfo.h;
     } else {
-        previewHeight = height;
+        previewHeight = (unsigned int)height;
     }
 
     mClient = new SurfaceComposerClient();
@@ -1450,8 +1442,8 @@ status_t CameraContext::createPreviewSurface(unsigned int width,
         if ( mCameraIndex == 0 )
             ret |= mSurfaceControl->setPosition(0, 0);
         else
-            ret |= mSurfaceControl->setPosition(
-                dinfo.w - previewWidth, dinfo.h - previewHeight);
+            ret |= mSurfaceControl->setPosition((float)(dinfo.w - previewWidth),
+                    (float)(dinfo.h - previewHeight));
 
         ret |= mSurfaceControl->setSize(previewWidth, previewHeight);
         ret |= mSurfaceControl->show();
@@ -1519,7 +1511,7 @@ CameraContext::CameraContext(int cameraIndex) :
     mPiPCapture(false),
     mfmtMultiplier(1),
     mSectionsRead(false),
-    mSectionsAllocated(false),
+    mSectionsAllocated(0),
     mSections(NULL),
     mJEXIFTmp(NULL),
     mHaveAll(false),
@@ -1955,7 +1947,7 @@ status_t CameraContext::configureRecorder()
 
     char fileName[100];
 
-    sprintf(fileName, "/sdcard/vid_cam%d_%dx%d_%d.mpeg", mCameraIndex,
+    snprintf(fileName, 100,  "/sdcard/vid_cam%d_%dx%d_%d.mpeg", mCameraIndex,
             videoSize.width, videoSize.height, mVideoIdx++);
 
     mVideoFd = open(fileName, O_CREAT | O_RDWR );
@@ -2586,9 +2578,9 @@ void CameraContext::printMenu(sp<CameraContext> currentCamera)
     printf("   %c. Stop Preview\n",
             Interpreter::STOP_PREVIEW_CMD);
     printf("   %c. Preview size:  %dx%d\n",
-           Interpreter::CHANGE_PREVIEW_SIZE_CMD,
-           currentPreviewSize.width,
-           currentPreviewSize.height);
+            Interpreter::CHANGE_PREVIEW_SIZE_CMD,
+            currentPreviewSize.width,
+            currentPreviewSize.height);
     printf("   %c. Video size:  %dx%d\n",
             Interpreter::CHANGE_VIDEO_SIZE_CMD,
             currentVideoSize.width,
@@ -2613,15 +2605,13 @@ void CameraContext::printMenu(sp<CameraContext> currentCamera)
     printf("   %c. Take picture in picture\n",
             Interpreter::TAKEPICTURE_IN_PICTURE_CMD);
     printf("   %c. Picture size:  %dx%d\n",
-           Interpreter::CHANGE_PICTURE_SIZE_CMD,
-           currentPictureSize.width,
-           currentPictureSize.height);
-    printf("   %c. zsl:  %s\n",
-            Interpreter::ZSL_CMD, mParams.get(CameraContext::KEY_ZSL)?
-            mParams.get(CameraContext::KEY_ZSL) : "NULL"   );
+            Interpreter::CHANGE_PICTURE_SIZE_CMD,
+            currentPictureSize.width,
+            currentPictureSize.height);
+    printf("   %c. zsl:  %s\n", Interpreter::ZSL_CMD, mParams.get(CameraContext::KEY_ZSL) ?
+            mParams.get(CameraContext::KEY_ZSL) : "NULL");
 
-    printf("\n");
-    printf("   Choice: ");
+    printf("\n   Choice: ");
 }
 
 /*===========================================================================
@@ -2731,14 +2721,14 @@ status_t Interpreter::configureViVCodec()
             mTestContext->mViVVid.VideoSizes[0].height >=
             mTestContext->mViVVid.VideoSizes[1].width *
             mTestContext->mViVVid.VideoSizes[1].height) {
-        sprintf(fileName, "/sdcard/ViV_vid_%dx%d_%d.mp4",
+        snprintf(fileName, 100,  "/sdcard/ViV_vid_%dx%d_%d.mp4",
             mTestContext->mViVVid.VideoSizes[0].width,
             mTestContext->mViVVid.VideoSizes[0].height,
             mTestContext->mViVVid.ViVIdx++);
         format->setInt32("width", mTestContext->mViVVid.VideoSizes[0].width);
         format->setInt32("height", mTestContext->mViVVid.VideoSizes[0].height);
     } else {
-        sprintf(fileName, "/sdcard/ViV_vid_%dx%d_%d.mp4",
+        snprintf(fileName, 100,  "/sdcard/ViV_vid_%dx%d_%d.mp4",
             mTestContext->mViVVid.VideoSizes[1].width,
             mTestContext->mViVVid.VideoSizes[1].height,
             mTestContext->mViVVid.ViVIdx++);
@@ -2805,15 +2795,17 @@ status_t Interpreter::configureViVCodec()
         mTestContext->mViVVid.VideoSizes[0].height >=
         mTestContext->mViVVid.VideoSizes[1].width *
         mTestContext->mViVVid.VideoSizes[1].height) {
-        native_window_set_buffers_geometry(mTestContext->mViVVid.ANW.get(),
+        native_window_set_buffers_dimensions(mTestContext->mViVVid.ANW.get(),
             mTestContext->mViVVid.VideoSizes[0].width,
-            mTestContext->mViVVid.VideoSizes[0].height,
-            HAL_PIXEL_FORMAT_NV12_ENCODEABLE);
+            mTestContext->mViVVid.VideoSizes[0].height);
+        native_window_set_buffers_format(mTestContext->mViVVid.ANW.get(),
+          HAL_PIXEL_FORMAT_NV12_ENCODEABLE);
     } else {
-        native_window_set_buffers_geometry(mTestContext->mViVVid.ANW.get(),
+        native_window_set_buffers_dimensions(mTestContext->mViVVid.ANW.get(),
             mTestContext->mViVVid.VideoSizes[1].width,
-            mTestContext->mViVVid.VideoSizes[1].height,
-            HAL_PIXEL_FORMAT_NV12_ENCODEABLE);
+            mTestContext->mViVVid.VideoSizes[1].height);
+        native_window_set_buffers_format(mTestContext->mViVVid.ANW.get(),
+          HAL_PIXEL_FORMAT_NV12_ENCODEABLE);
     }
     native_window_set_usage(mTestContext->mViVVid.ANW.get(),
         GRALLOC_USAGE_SW_READ_OFTEN | GRALLOC_USAGE_SW_WRITE_OFTEN);
@@ -2880,7 +2872,7 @@ Interpreter::Interpreter(const char *file)
     }
 
     fseek(fh, 0, SEEK_END);
-    int len = ftell(fh);
+    size_t len = (size_t)ftell(fh);
     rewind(fh);
 
     if( !len ) {
@@ -3037,7 +3029,7 @@ TestContext::TestContext()
     } while ( i < camera[0]->getNumberOfCameras() ) ;
 
     if (i < camera[0]->getNumberOfCameras() ) {
-        for ( size_t j = 0 ; j < mAvailableCameras.size() ; j++ ) {
+        for (size_t j = 0; j < mAvailableCameras.size(); j++) {
             camera[j] = mAvailableCameras.itemAt(j);
             camera[j]->closeCamera();
             camera[j].clear();
@@ -3060,7 +3052,7 @@ TestContext::~TestContext()
 {
     delete mInterpreter;
 
-    for ( size_t j = 0 ; j < mAvailableCameras.size() ; j++ ) {
+    for (size_t j = 0; j < mAvailableCameras.size(); j++) {
         camera[j] = mAvailableCameras.itemAt(j);
         camera[j]->closeCamera();
         camera[j].clear();
@@ -3078,7 +3070,7 @@ TestContext::~TestContext()
  *
  * RETURN          : Number of cameras
  *==========================================================================*/
-int32_t TestContext::GetCamerasNum()
+size_t TestContext::GetCamerasNum()
 {
     return mAvailableCameras.size();
 }
@@ -3142,7 +3134,7 @@ status_t TestContext::FunctionalTest()
         mInterpreter->setTestCtxInst(this);
     }
 
-
+    mCurrentCameraIndex = 0;
     mTestRunning = true;
 
     while (mTestRunning) {
@@ -3155,9 +3147,11 @@ status_t TestContext::FunctionalTest()
         switch (command.cmd) {
         case Interpreter::SWITCH_CAMERA_CMD:
         {
-            mCurrentCameraIndex++;
-            mCurrentCameraIndex %= mAvailableCameras.size();
-            currentCamera = mAvailableCameras.itemAt(mCurrentCameraIndex);
+            if (mCurrentCameraIndex == 0) {
+              mCurrentCameraIndex = 1;
+            } else if (mCurrentCameraIndex == 1) {
+		      mCurrentCameraIndex = 0;
+            }
         }
             break;
 
@@ -3230,8 +3224,7 @@ status_t TestContext::FunctionalTest()
                 mSaveCurrentCameraIndex = mCurrentCameraIndex;
                 for ( size_t i = 0; i < mAvailableCameras.size(); i++ ) {
                     mCurrentCameraIndex = i;
-                    currentCamera = mAvailableCameras.itemAt(
-                        mCurrentCameraIndex);
+                    currentCamera = mAvailableCameras.itemAt(mCurrentCameraIndex);
                     currentCamera->enablePiPCapture();
                     stat = currentCamera->takePicture();
                 }
@@ -3323,7 +3316,7 @@ status_t TestContext::FunctionalTest()
         case Interpreter::DELAY:
         {
             if ( command.arg )
-                usleep(1000 * atoi(command.arg));
+                usleep(1000LU * (long unsigned int)atoi(command.arg));
         }
             break;
 
