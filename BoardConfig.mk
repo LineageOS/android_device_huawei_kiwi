@@ -68,9 +68,9 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_USES_UNCOMPRESSED_KERNEL := true
-TARGET_KERNEL_CONFIG := cyanogenmod_cp8675-64_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_tomato-64_defconfig
 else
-TARGET_KERNEL_CONFIG := cyanogenmod_cp8675_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_tomato_defconfig
 endif
 
 # ANT+
