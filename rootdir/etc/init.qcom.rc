@@ -669,10 +669,10 @@ service vm_bms /system/bin/vm_bms
     disabled
 
 #start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class main
-    user camera
-    group camera system inet input graphics
+#service qcamerasvr /system/bin/mm-qcamera-daemon
+#    class main
+#    user camera
+#    group camera system inet input graphics
 
 # Allow usb charging to be disabled peristently
 on property:persist.usb.chgdisabled=1
