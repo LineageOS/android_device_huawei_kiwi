@@ -90,6 +90,9 @@ BLUETOOTH_HCI_USE_MCT := true
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
+# malloc implementation
+MALLOC_IMPL := dlmalloc
+
 # CMHW
 BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/src
 
