@@ -202,6 +202,10 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_kiwi
+
 # RIL
 PRODUCT_PACKAGES += \
     libxml2
