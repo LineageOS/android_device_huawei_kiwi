@@ -158,7 +158,15 @@ BOARD_SEPOLICY_DIRS += \
     device/yu/tomato/sepolicy
 
 BOARD_SEPOLICY_UNION += \
-    bluetooth_loader.te
+    file.te \
+    bluetooth_loader.te \
+    qseecomd.te \
+    surfaceflinger.te \
+    system_app.te \
+    system.te \
+    wcnss_service.te \
+    file_contexts \
+    property_contexts
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
