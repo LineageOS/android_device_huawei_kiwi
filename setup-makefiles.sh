@@ -225,62 +225,81 @@ include \$(BUILD_PREBUILT)
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libloc_api_v02
 LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/lib/libloc_api_v02.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_SRC_FILES_64 := proprietary/lib64/libloc_api_v02.so
+LOCAL_SRC_FILES_32 := proprietary/lib/libloc_api_v02.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH_64 := \$(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MODULE_PATH_32 := \$(2ND_TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MULTILIB := both
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libloc_ds_api
 LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/lib/libloc_ds_api.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_SRC_FILES_64 := proprietary/lib64/libloc_ds_api.so
+LOCAL_SRC_FILES_32 := proprietary/lib/libloc_ds_api.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH_64 := \$(TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MODULE_PATH_32 := \$(2ND_TARGET_OUT_SHARED_LIBRARIES)
+LOCAL_MULTILIB := both
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libHevcSwDecoder
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := proprietary/vendor/lib/libHevcSwDecoder.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MULTILIB := 32
+LOCAL_PROPRIETARY_MODULE := true
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libtime_genoff
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/vendor/lib/libtime_genoff.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MODULE_OWNER := yu
+LOCAL_SRC_FILES_64 := proprietary/vendor/lib64/libtime_genoff.so
+LOCAL_SRC_FILES_32 := proprietary/vendor/lib/libtime_genoff.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH_64 := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MODULE_PATH_32 := \$(2ND_TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MULTILIB := both
+LOCAL_PROPRIETARY_MODULE := true
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libqct_resampler
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := proprietary/vendor/lib/libqct_resampler.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MULTILIB := 32
+LOCAL_PROPRIETARY_MODULE := true
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libmm-abl
 LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/vendor/lib/libmm-abl.so
-LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_SRC_FILES := proprietary/vendor/lib64/libmm-abl.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MULTILIB := 64
+LOCAL_PROPRIETARY_MODULE := true
 include \$(BUILD_PREBUILT)
+
+\$(shell mkdir -p \$(PRODUCT_OUT)/system/vendor/lib/egl && pushd \$(PRODUCT_OUT)/system/vendor/lib > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
+\$(shell mkdir -p \$(PRODUCT_OUT)/system/vendor/lib64/egl && pushd \$(PRODUCT_OUT)/system/vendor/lib64 > /dev/null && ln -s egl/libEGL_adreno.so libEGL_adreno.so && popd > /dev/null)
 
 endif
 endif
