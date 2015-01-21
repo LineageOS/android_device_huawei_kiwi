@@ -26,8 +26,3 @@ PRODUCT_GMS_CLIENTID_BASE := android-micromax
 TARGET_VENDOR_PRODUCT_NAME := YUREKA
 TARGET_VENDOR_DEVICE_NAME := YUREKA
 PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=YUREKA PRODUCT_NAME=YUREKA
-
-ifeq ($(SIGN_BUILD),true)
-# Signed builds gets a special boot animation because they are special.
-PRODUCT_BOOTANIMATION := device/yu/tomato/bootanimation.zip
-endif
