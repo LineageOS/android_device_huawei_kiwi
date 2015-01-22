@@ -26,7 +26,7 @@ TARGET_BOOTLOADER_BOARD_NAME := MSM8916
 TARGET_NO_BOOTLOADER := true
 
 # Architecture
-ifeq ($(USE_64_BIT),true)
+ifneq ($(TOMATO_32_BIT),true)
 TARGET_BOARD_SUFFIX := _64
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -62,7 +62,7 @@ BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
 TARGET_KERNEL_SOURCE := kernel/yu/msm8916
 
-ifeq ($(USE_64_BIT),true)
+ifneq ($(TOMATO_32_BIT),true)
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 
@@ -194,7 +194,7 @@ WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 # The uncompressed arm64 is too large, split wifi for now
-ifeq ($(USE_64_BIT),true)
+ifneq ($(TOMATO_32_BIT),true)
 WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME          := "wlan"
 endif
