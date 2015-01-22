@@ -182,6 +182,14 @@ int NativeSensorManager::addDependency(struct SensorContext *ctx, int handle)
 
 	dep = getInfoByHandle(handle);
 
+#if defined(SENSORS_DEVICE_API_VERSION_1_3)
+	if (ctx->sensor->maxDelay == 0)
+		ctx->sensor->maxDelay = dep->sensor->maxDelay;
+	else
+		ctx->sensor->maxDelay = dep->sensor->maxDelay < ctx->sensor->maxDelay ?
+			dep->sensor->maxDelay : ctx->sensor->maxDelay;
+#endif
+
 	if (dep != NULL) {
 		list_for_each(node, &ctx->dep_list) {
 			ref = node_to_item(node, struct SensorRefMap, list);
@@ -329,6 +337,14 @@ void NativeSensorManager::dump()
 				context[i].delay_ns,
 				context[i].enable);
 
+#if defined(SENSORS_DEVICE_API_VERSION_1_3)
+		ALOGI("minDelay=%d maxDelay=%d flags=%d\n",
+				context[i].sensor->minDelay,
+				context[i].sensor->maxDelay,
+				context[i].sensor->flags);
+#endif
+
+
 		ALOGI("Listener:");
 		list_for_each(node, &context[i].listener) {
 			ref = node_to_item(node, struct SensorRefMap, list);
@@ -439,11 +455,19 @@ int NativeSensorManager::getDataInfo() {
 				break;
 			case SENSOR_TYPE_PROXIMITY:
 				has_proximity = 1;
+#if defined(SENSORS_DEVICE_API_VERSION_1_3)
+				/* reporting mode fix up */
+				list->sensor->flags |= SENSOR_FLAG_ON_CHANGE_MODE;
+#endif
 				list->driver = new ProximitySensor(list);
 				sensor_proximity = *(list->sensor);
 				break;
 			case SENSOR_TYPE_LIGHT:
 				has_light = 1;
+#if defined(SENSORS_DEVICE_API_VERSION_1_3)
+				/* reporting mode fix up */
+				list->sensor->flags |= SENSOR_FLAG_ON_CHANGE_MODE;
+#endif
 				list->driver = new LightSensor(list);
 				sensor_light = *(list->sensor);
 				break;
@@ -699,6 +723,12 @@ int NativeSensorManager::getSensorListInner()
 			continue;
 
 		/* Setup other information */
+#if defined(SENSORS_DEVICE_API_VERSION_1_3)
+		if (list->sensor->maxDelay == 0)
+			list->sensor->maxDelay = 10000000;
+		else
+			list->sensor->maxDelay = list->sensor->maxDelay * 1000; /* milliseconds to microseconds */
+#endif
 		list->sensor->handle = SENSORS_HANDLE(number);
 		list->data_path = NULL;
 
@@ -721,21 +751,33 @@ int NativeSensorManager::activate(int handle, int enable)
 	struct SensorContext *ctx;
 	struct SensorRefMap *item;
 
+	ALOGD("activate called handle:%d enable:%d", handle, enable);
+
 	list = getInfoByHandle(handle);
 	if (list == NULL) {
 		ALOGE("Invalid handle(%d)", handle);
 		return -EINVAL;
 	}
 
+	list->enable = enable;
+
 	/* Search for the background sensor for the sensor specified by handle. */
 	list_for_each(node, &list->dep_list) {
 		item = node_to_item(node, struct SensorRefMap, list);
 		if (enable) {
+			registerListener(item->ctx, list);
+
+#if defined(SENSORS_DEVICE_API_VERSION_1_3)
+			/* HAL 1.3 already set listener's delay and latency
+			 * Sync it right now to make it take effect.
+			 */
+			syncDelay(item->ctx->sensor->handle);
+			syncLatency(item->ctx->sensor->handle);
+#endif
+
 			/* Enable the background sensor and register a listener on it. */
-			err = item->ctx->driver->enable(item->ctx->sensor->handle, 1);
-			if (!err) {
-				registerListener(item->ctx, list);
-			}
+			ALOGD("%s calling driver enable", item->ctx->sensor->name);
+			item->ctx->driver->enable(item->ctx->sensor->handle, 1);
 
 		} else {
 			/* The background sensor has other listeners, we need
@@ -744,23 +786,29 @@ int NativeSensorManager::activate(int handle, int enable)
 			 */
 			if (!list_empty(&item->ctx->listener)) {
 				unregisterListener(item->ctx, list);
-				/* We're activiating the hardware sensor itself */
-				if ((item->ctx == list) && (item->ctx->enable))
-					item->ctx->enable = 0;
+				/* restore delay settings */
 				syncDelay(item->ctx->sensor->handle);
+
+#if defined(SENSORS_DEVICE_API_VERSION_1_3)
+				/* restore latency settings */
+				syncLatency(item->ctx->sensor->handle);
+#endif
 			}
 
 			/* Disable the background sensor if it doesn't have any listeners. */
 			if (list_empty(&item->ctx->listener)) {
+				ALOGD("%s calling driver disable", item->ctx->sensor->name);
 				item->ctx->driver->enable(item->ctx->sensor->handle, 0);
 			}
+
 		}
 	}
 
-	if (list->is_virtual)
+	/* Settings change notification */
+	if (list->is_virtual) {
+		ALOGD("%s calling driver %s", list->sensor->name, enable ? "enable" : "disable");
 		list->driver->enable(handle, enable);
-
-	list->enable = enable;
+	}
 
 	return err;
 }
@@ -779,34 +827,30 @@ int NativeSensorManager::syncDelay(int handle)
 		return -EINVAL;
 	}
 
-	if (list_empty(&list->listener)) {
-		min_ns = list->delay_ns;
-	} else {
-		node = list_head(&list->listener);
+	if (list_empty(&list->listener))
+		return 0;
+
+	node = list_head(&list->listener);
+	item = node_to_item(node, struct SensorRefMap, list);
+	min_ns = item->ctx->delay_ns;
+
+	list_for_each(node, &list->listener) {
 		item = node_to_item(node, struct SensorRefMap, list);
-		min_ns = item->ctx->delay_ns;
-
-		list_for_each(node, &list->listener) {
-			item = node_to_item(node, struct SensorRefMap, list);
-			ctx = item->ctx;
-			/* To handle some special case that the polling delay is 0. This
-			 * may happen if the background sensor is not enabled but the virtual
-		         * sensor is enabled case.
-			 */
-			if (ctx->delay_ns == 0) {
-				ALOGW("Listener delay is 0. Fix it to minDelay");
-				ctx->delay_ns = ctx->sensor->minDelay;
-			}
-
-			if (min_ns > ctx->delay_ns)
-				min_ns = ctx->delay_ns;
+		ctx = item->ctx;
+		/* To handle some special case that the polling delay is 0. This
+		 * may happen if the background sensor is not enabled but the virtual
+		 * sensor is enabled case.
+		 */
+		if (ctx->delay_ns == 0) {
+			ALOGD("%s delay is 0. continue...", ctx->sensor->name);
+			continue;
 		}
+
+		if (min_ns > ctx->delay_ns)
+			min_ns = ctx->delay_ns;
 	}
 
-	if ((list->delay_ns != 0) && (list->delay_ns < min_ns) &&
-			(list->enable))
-		min_ns = list->delay_ns;
-
+	ALOGD("%s calling driver setDelay %d ms\n", list->sensor->name, min_ns / 1000000);
 	return list->driver->setDelay(list->sensor->handle, min_ns);
 }
 
@@ -824,35 +868,27 @@ int NativeSensorManager::syncLatency(int handle)
 		return -EINVAL;
 	}
 
-	if (list_empty(&list->listener)) {
-		min_ns = list->latency_ns;
-	} else {
-		node = list_head(&list->listener);
+	if (list_empty(&list->listener))
+		return 0;
+
+	node = list_head(&list->listener);
+	item = node_to_item(node, struct SensorRefMap, list);
+	min_ns = item->ctx->latency_ns;
+
+	list_for_each(node, &list->listener) {
 		item = node_to_item(node, struct SensorRefMap, list);
-		min_ns = item->ctx->latency_ns;
+		ctx = item->ctx;
 
-		list_for_each(node, &list->listener) {
-			item = node_to_item(node, struct SensorRefMap, list);
-			ctx = item->ctx;
-			/* To handle some special case that the max latency is 0. This
-			 * may happen if the background sensor is not enabled but the virtual
-		         * sensor is enabled case.
-			 */
-			if (ctx->latency_ns == 0) {
-				ALOGW("Listener latency is 0. Fix it to delay_ns");
-				ctx->latency_ns = ctx->delay_ns;
-			}
-
-			if (min_ns > ctx->latency_ns)
-				min_ns = ctx->latency_ns;
-		}
+		if (min_ns > ctx->latency_ns)
+			min_ns = ctx->latency_ns;
 	}
 
-	if ((list->latency_ns != 0) && (list->latency_ns < min_ns) &&
-			(list->enable))
-		min_ns = list->latency_ns;
+	if (list->sensor->fifoMaxEventCount) {
+		ALOGD("%s calling driver setLatency %d ms\n", list->sensor->name, min_ns / 1000000);
+		list->driver->setLatency(list->sensor->handle, min_ns);
+	}
 
-	return list->driver->setLatency(list->sensor->handle, min_ns);
+	return 0;
 }
 
 int NativeSensorManager::setDelay(int handle, int64_t ns)
@@ -863,6 +899,7 @@ int NativeSensorManager::setDelay(int handle, int64_t ns)
 	struct SensorRefMap *item;
 	struct listnode *node;
 
+	ALOGD("setDelay called handle:%d sample_ns:%lld", handle, ns);
 
 	list = getInfoByHandle(handle);
 	if (list == NULL) {
@@ -870,46 +907,21 @@ int NativeSensorManager::setDelay(int handle, int64_t ns)
 		return -EINVAL;
 	}
 
-	list->delay_ns = delay;
-
-	if (ns < list->sensor->minDelay) {
-		list->delay_ns = list->sensor->minDelay;
+	if (ns == 0) {
+		ALOGE("%s delay set to 0", list->sensor->name);
+		return -EINVAL;
 	}
 
-	if (list->delay_ns == 0)
-		list->delay_ns = 1000000; //  clamped to 1ms
+	if (ns < list->sensor->minDelay * 1000) {
+		ALOGW("%s delay is less than minDelay. Cast it to minDelay", list->sensor->name);
+		list->delay_ns = list->sensor->minDelay * 1000;
+	} else {
+		list->delay_ns = delay;
+	}
 
 	list_for_each(node, &list->dep_list) {
 		item = node_to_item(node, struct SensorRefMap, list);
 		syncDelay(item->ctx->sensor->handle);
-	}
-
-	return 0;
-}
-
-int NativeSensorManager::setLatency(int handle, int64_t ns)
-{
-	SensorContext *list;
-	int i;
-	struct SensorRefMap *item;
-	struct listnode *node;
-
-
-	list = getInfoByHandle(handle);
-	if (list == NULL) {
-		ALOGE("Invalid handle(%d)", handle);
-		return -EINVAL;
-	}
-
-	list->latency_ns = ns;
-
-	if (ns < list->delay_ns) {
-		list->latency_ns = list->delay_ns;
-	}
-
-	list_for_each(node, &list->dep_list) {
-		item = node_to_item(node, struct SensorRefMap, list);
-		syncLatency(item->ctx->sensor->handle);
 	}
 
 	return 0;
@@ -951,8 +963,10 @@ int NativeSensorManager::readEvents(int handle, sensors_event_t* data, int count
 
 int NativeSensorManager::batch(int handle, int64_t sample_ns, int64_t latency_ns)
 {
-	const SensorContext *list;
-	int ret;
+	SensorContext *list;
+	struct listnode *node;
+	struct SensorRefMap *item;
+
 	ALOGD("batch called handle:%d sample_ns:%lld latency_ns:%lld", handle, sample_ns, latency_ns);
 
 	if ((latency_ns != 0) && (latency_ns < sample_ns)) {
@@ -967,18 +981,14 @@ int NativeSensorManager::batch(int handle, int64_t sample_ns, int64_t latency_ns
 	}
 
 	/* *sample_ns* is the same as *ns* passed to setDelay */
-	ret = setDelay(handle, sample_ns);
-	if (ret < 0) {
-		ALOGE("setDelay failed.(%d)\n", ret);
-		return ret;
-	}
+	list->delay_ns = sample_ns;
+	list->latency_ns = latency_ns;
 
-	if (list->sensor->fifoMaxEventCount) {
-		ret = setLatency(handle, latency_ns);
-		if (ret < 0) {
-			ALOGE("setLatency failed.(%d)\n", ret);
-			return ret;
-		}
+	/* should take effect now for ones with listeners */
+	list_for_each(node, &list->dep_list) {
+		item = node_to_item(node, struct SensorRefMap, list);
+		syncDelay(item->ctx->sensor->handle);
+		syncLatency(item->ctx->sensor->handle);
 	}
 
 	return 0;
@@ -991,6 +1001,7 @@ int NativeSensorManager::flush(int handle)
 	struct SensorRefMap *item;
 	struct listnode *node;
 
+	ALOGD("flush called\n", handle);
 	list = getInfoByHandle(handle);
 	if (list == NULL) {
 		ALOGE("Invalid handle(%d)", handle);

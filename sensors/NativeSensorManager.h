@@ -140,7 +140,6 @@ public:
 	int hasPendingEvents(int handle);
 	int activate(int handle, int enable);
 	int setDelay(int handle, int64_t ns);
-	int setLatency(int handle, int64_t ns);
 	int syncLatency(int handle);
 	int readEvents(int handle, sensors_event_t *data, int count);
 	int batch(int handle, int64_t sample_ns, int64_t latency_ns);

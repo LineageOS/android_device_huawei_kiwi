@@ -184,7 +184,7 @@ int SensorBase::setLatency(int32_t, int64_t latency_ns)
         snprintf(buf, sizeof(buf), "%d", latency_ms);
         len = write(fd, buf, strlen(buf) + 1);
         if (len < (ssize_t)strlen(buf) + 1) {
-                ALOGE("write %s failed.(%s)", input_sysfs_path, strerror(errno));
+                ALOGE("write %s:%s failed.(%s)", input_sysfs_path, buf, strerror(errno));
                 close(fd);
                 return -1;
         }

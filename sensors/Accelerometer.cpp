@@ -59,7 +59,7 @@ AccelSensor::AccelSensor()
 	mPendingEvent.sensor = SENSORS_ACCELERATION_HANDLE;
 	mPendingEvent.type = SENSOR_TYPE_ACCELEROMETER;
 	memset(mPendingEvent.data, 0, sizeof(mPendingEvent.data));
-
+	mPendingEvent.acceleration.status = SENSOR_STATUS_ACCURACY_HIGH;
 
 	if (data_fd) {
 		strlcpy(input_sysfs_path, ACCEL_SYSFS_PATH, sizeof(input_sysfs_path));
