@@ -107,6 +107,11 @@ int wcnss_qmi_get_wlan_address(unsigned char *pBdAddr)
 
         // Store for reuse
         genmac = fopen(WCNSS_GENMAC_FILE,"w");
+        if (genmac == NULL) {
+            ALOGE("%s: Failed to open %s: %s\n",
+                    __func__, WCNSS_GENMAC_FILE, strerror(errno));
+            return FAILED;
+        }
         fwrite(pBdAddr, 1, 6, genmac);
         fclose(genmac);
 
