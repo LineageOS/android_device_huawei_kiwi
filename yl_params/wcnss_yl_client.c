@@ -92,7 +92,7 @@ int wcnss_qmi_get_wlan_address(unsigned char *pBdAddr)
             fclose(genmac);
         }
 
-        sscanf(WCNSS_INVALID_MAC_PREFIX, "%2x%2x%2x%2x",
+        sscanf(WCNSS_INVALID_MAC_PREFIX, "%2hhx%2hhx%2hhx%2hhx",
                 &pBdAddr[0], &pBdAddr[1],
                 &pBdAddr[2], &pBdAddr[3]);
 

@@ -154,7 +154,7 @@ struct yl_params_t {
     bool initialized;
 };
 
-static struct yl_params_t yl_params = {0};
+static struct yl_params_t yl_params;
 
 int
 yl_get_param(int param, void *buf, size_t len)
@@ -213,6 +213,7 @@ yl_params_init(void)
     }
 
     /* Read device block */
+    memset(&yl_params, 0, sizeof(struct yl_params_t));
     memset(buf, 0, YL_PARAM_BLK_SZ);
     memcpy(buf, yl_params_map[YL_DEVICE], strlen(yl_params_map[YL_DEVICE]));
     rc = read(fd, buf, YL_PARAM_BLK_SZ);
