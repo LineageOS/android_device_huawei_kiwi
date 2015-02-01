@@ -42,6 +42,9 @@
 #define ACCEL_SYSFS_PATH	"/sys/class/input/input1/"
 #define ACCEL_ENABLE		"accel_enable"
 #define ACCEL_DELAY			"accel_delay"
+
+#define SMOOTHING_FACTOR    0.8
+
 /*****************************************************************************/
 
 AccelSensor::AccelSensor()
@@ -79,10 +82,13 @@ int AccelSensor::setInitialState() {
 		!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_Y), &absinfo_y) &&
 		!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_Z), &absinfo_z)) {
 		value = absinfo_x.value;
+		mAvgX = value;
 		mPendingEvent.data[0] = value * CONVERT_ACCEL_X;
 		value = absinfo_y.value;
+		mAvgY = value;
 		mPendingEvent.data[1] = value * CONVERT_ACCEL_Y;
 		value = absinfo_z.value;
+		mAvgZ = value;
 		mPendingEvent.data[2] = value * CONVERT_ACCEL_Z;
 		mHasPendingEvent = true;
 	}
@@ -166,11 +172,14 @@ again:
 		if (type == EV_ABS) {
 			float value = event->value;
 			if (event->code == EVENT_TYPE_ACCEL_X) {
-				mPendingEvent.data[0] = value * CONVERT_ACCEL_X;
+				mAvgX = (value * SMOOTHING_FACTOR) + (mAvgX * (1 - SMOOTHING_FACTOR));
+				mPendingEvent.data[0] = mAvgX * CONVERT_ACCEL_X;
 			} else if (event->code == EVENT_TYPE_ACCEL_Y) {
-				mPendingEvent.data[1] = value * CONVERT_ACCEL_Y;
+				mAvgY = (value * SMOOTHING_FACTOR) + (mAvgY * (1 - SMOOTHING_FACTOR));
+				mPendingEvent.data[1] = mAvgY * CONVERT_ACCEL_Y;
 			} else if (event->code == EVENT_TYPE_ACCEL_Z) {
-				mPendingEvent.data[2] = value * CONVERT_ACCEL_Z;
+				mAvgZ = (value * SMOOTHING_FACTOR) + (mAvgZ * (1 - SMOOTHING_FACTOR));
+				mPendingEvent.data[2] = mAvgZ * CONVERT_ACCEL_Z;
 			}
 		} else if (type == EV_SYN) {
 			mPendingEvent.timestamp = timevalToNano(event->time);

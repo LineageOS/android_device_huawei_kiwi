@@ -38,6 +38,10 @@ class AccelSensor : public SensorBase {
 	int input_sysfs_path_len;
 	int64_t mEnabledTime;
 
+	float mAvgX;
+	float mAvgY;
+	float mAvgZ;
+
 	int setInitialState();
 
 public:
