@@ -7,6 +7,7 @@ tunnel.audio.encode=false
 av.offload.enable=true
 av.streaming.offload.enable=true
 audio.offload.buffer.size.kb=240
+audio.offload.min.duration.secs=30
 audio.offload.gapless.enabled=true
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
@@ -23,6 +24,7 @@ mm.enable.qcom_parser=3314275
 mm.enable.smoothstreaming=true
 mm.disable.sec_smoothstreaming=true
 media.aac_51_output_enabled=true
+drm.service.enabled=1
 
 # set max starting background services
 ro.config.max_starting_bg=8
