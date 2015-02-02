@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
-Copyright (c) 2014, The Linux Foundation. All rights reserved.
+Copyright (c) 2015, The CyanogenMod Project
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -27,45 +27,19 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------*/
 
-#ifndef _SENSOR_CALIBRATION_MANAGER_H
-#define _SENSOR_CALIBRATION_MANAGER_H
+#ifndef _TOMATO_SENSORS_H
+#define _TOMATO_SENSORS_H
 
-#include <utils/Singleton.h>
-#include "CalibrationModule.h"
+#include <sensors.h>
+#include "NativeSensorManager.h"
 
-using namespace android;
+struct TomatoSensors {
 
-#define MAX_CAL_LIBS	32
-#define MAX_CAL_CFG_LEN	1024
+    static struct sensor_t static_sensors[];
 
-/* Calibration library config files */
-#define CAL_LIB_CFG_PATH	"/system/vendor/etc/calmodule.cfg"
-#define DEFAULT_CAL_LIB		"libcalmodule_common.so"
-#if defined(__LP64__)
-#define CAL_LIB_PATH	"/system/vendor/lib64/"
-#else
-#define CAL_LIB_PATH	"/system/vendor/lib/"
-#endif
+public:
+    static int getStaticSensors(struct SensorContext *context, int id);
 
-class CalibrationManager : public Singleton<CalibrationManager> {
-	public:
-		/* Get the whole algo list provided by the calibration library */
-		const sensor_cal_algo_t** getCalAlgoList();
-		/* Retrive a compatible calibration algo for sensor specified by t */
-		const sensor_cal_algo_t* getCalAlgo(const sensor_t *s);
-		/* Dump the calibration manager status */
-		void dump();
-		~CalibrationManager();
-	private:
-		friend class Singleton<CalibrationManager>;
-		/* Check if the algo provided by list is compatible */
-		static int check_algo(const sensor_cal_algo_t *list);
-		CalibrationManager();
-		void loadCalLibs();
-		/* Point to a whole list of all the algo provided by calibration library */
-		const sensor_cal_algo_t **algo_list;
-		/* Number of algo */
-		uint32_t algo_count;
 };
 
 #endif

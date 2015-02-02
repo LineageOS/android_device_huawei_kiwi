@@ -24,6 +24,7 @@
 
 #include "SensorBase.h"
 #include "InputEventReader.h"
+#include "NativeSensorManager.h"
 
 #define ALSPROX_IOCTL_MAGIC          (0xCF)
 #define ALSPROX_IOCTL_PROX_ON        _IOW(ALSPROX_IOCTL_MAGIC, 3, unsigned long)
@@ -37,19 +38,18 @@
 struct input_event;
 
 class ProximitySensor : public SensorBase {
-    int mEnabled;
     InputEventCircularReader mInputReader;
     sensors_event_t mPendingEvent;
     bool mHasPendingEvent;
-    char input_sysfs_path[PATH_MAX];
-    int input_sysfs_path_len;
     int sensor_index;
 
     int setInitialState();
     float indexToValue(size_t index) const;
 
 public:
-    ProximitySensor();
+	ProximitySensor();
+	ProximitySensor(char *name);
+	ProximitySensor(struct SensorContext *context);
     virtual ~ProximitySensor();
     virtual int readEvents(sensors_event_t* data, int count);
     virtual bool hasPendingEvents() const;

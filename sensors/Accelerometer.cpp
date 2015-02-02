@@ -1,4 +1,6 @@
 /*
+ * Copyright (c) 2014, The Linux Foundation. All rights reserved.
+ * Not a Contribution.
  * Copyright (C) 2008 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,7 +35,7 @@
 #define	EVENT_TYPE_ACCEL_Y	ABS_Y
 #define	EVENT_TYPE_ACCEL_Z	ABS_Z
 
-#define ACCEL_CONVERT		((GRAVITY_EARTH) / 16384)
+#define ACCEL_CONVERT		((GRAVITY_EARTH) / 16384) /* (4 * 1G / 2^16) */
 #define CONVERT_ACCEL_X		-ACCEL_CONVERT
 #define CONVERT_ACCEL_Y		ACCEL_CONVERT
 #define CONVERT_ACCEL_Z		-ACCEL_CONVERT
@@ -49,7 +51,6 @@
 
 AccelSensor::AccelSensor()
 	: SensorBase(NULL, ACCEL_SENSOR_NAME),
-	  mEnabled(0),
 	  mInputReader(4),
 	  mHasPendingEvent(false),
 	  mEnabledTime(0)
@@ -63,36 +64,35 @@ AccelSensor::AccelSensor()
 	if (data_fd) {
 		strlcpy(input_sysfs_path, ACCEL_SYSFS_PATH, sizeof(input_sysfs_path));
 		input_sysfs_path_len = strlen(input_sysfs_path);
+		ALOGI("The accel sensor path is %s",input_sysfs_path);
 		enable(0, 1);
 	}
+}
+
+AccelSensor::AccelSensor(SensorContext *context)
+	: SensorBase(NULL, ACCEL_SENSOR_NAME, context),
+	  mInputReader(4),
+	  mHasPendingEvent(false),
+	  mEnabledTime(0)
+{
+	mPendingEvent.version = sizeof(sensors_event_t);
+	mPendingEvent.sensor = context->sensor->handle;
+	mPendingEvent.type = SENSOR_TYPE_ACCELEROMETER;
+	memset(mPendingEvent.data, 0, sizeof(mPendingEvent.data));
+	mPendingEvent.acceleration.status = SENSOR_STATUS_ACCURACY_HIGH;
+
+	strlcpy(input_sysfs_path, ACCEL_SYSFS_PATH, sizeof(input_sysfs_path));
+	input_sysfs_path_len = strlen(input_sysfs_path);
+	context->data_fd = data_fd;
+	ALOGI("The accel sensor path is %s",input_sysfs_path);
+	mUseAbsTimeStamp = false;
+	enable(0, 1);
 }
 
 AccelSensor::~AccelSensor() {
 	if (mEnabled) {
 		enable(0, 0);
 	}
-}
-
-int AccelSensor::setInitialState() {
-	struct input_absinfo absinfo_x;
-	struct input_absinfo absinfo_y;
-	struct input_absinfo absinfo_z;
-	float value;
-	if (!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_X), &absinfo_x) &&
-		!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_Y), &absinfo_y) &&
-		!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_Z), &absinfo_z)) {
-		value = absinfo_x.value;
-		mAvgX = value;
-		mPendingEvent.data[0] = value * CONVERT_ACCEL_X;
-		value = absinfo_y.value;
-		mAvgY = value;
-		mPendingEvent.data[1] = value * CONVERT_ACCEL_Y;
-		value = absinfo_z.value;
-		mAvgZ = value;
-		mPendingEvent.data[2] = value * CONVERT_ACCEL_Z;
-		mHasPendingEvent = true;
-	}
-	return 0;
 }
 
 int AccelSensor::enable(int32_t, int en) {
@@ -115,7 +115,6 @@ int AccelSensor::enable(int32_t, int en) {
 			err = write(fd, buf, sizeof(buf));
 			close(fd);
 			mEnabled = flags;
-			setInitialState();
 			return 0;
 		}
 		ALOGE("AccelSensor: failed to open %s", input_sysfs_path);
@@ -125,10 +124,10 @@ int AccelSensor::enable(int32_t, int en) {
 }
 
 bool AccelSensor::hasPendingEvents() const {
-	return mHasPendingEvent;
+	return mHasPendingEvent || mHasPendingMetadata;
 }
 
-int AccelSensor::setDelay(int32_t handle, int64_t delay_ns)
+int AccelSensor::setDelay(int32_t, int64_t delay_ns)
 {
 	int fd;
 	int delay_ms = delay_ns / 1000000;
@@ -157,6 +156,13 @@ int AccelSensor::readEvents(sensors_event_t* data, int count)
 		return mEnabled ? 1 : 0;
 	}
 
+	if (mHasPendingMetadata) {
+		mHasPendingMetadata--;
+		meta_data.timestamp = getTimestamp();
+		*data = meta_data;
+		return mEnabled ? 1 : 0;
+	}
+
 	ssize_t n = mInputReader.fill(data_fd);
 	if (n < 0)
 		return n;
@@ -172,23 +178,40 @@ again:
 		if (type == EV_ABS) {
 			float value = event->value;
 			if (event->code == EVENT_TYPE_ACCEL_X) {
-				mAvgX = (value * SMOOTHING_FACTOR) + (mAvgX * (1 - SMOOTHING_FACTOR));
-				mPendingEvent.data[0] = mAvgX * CONVERT_ACCEL_X;
+				mPendingEvent.data[0] = value * CONVERT_ACCEL_X;
 			} else if (event->code == EVENT_TYPE_ACCEL_Y) {
-				mAvgY = (value * SMOOTHING_FACTOR) + (mAvgY * (1 - SMOOTHING_FACTOR));
-				mPendingEvent.data[1] = mAvgY * CONVERT_ACCEL_Y;
+				mPendingEvent.data[1] = value * CONVERT_ACCEL_Y;
 			} else if (event->code == EVENT_TYPE_ACCEL_Z) {
-				mAvgZ = (value * SMOOTHING_FACTOR) + (mAvgZ * (1 - SMOOTHING_FACTOR));
-				mPendingEvent.data[2] = mAvgZ * CONVERT_ACCEL_Z;
+				mPendingEvent.data[2] = value * CONVERT_ACCEL_Z;
 			}
 		} else if (type == EV_SYN) {
-			mPendingEvent.timestamp = timevalToNano(event->time);
-			if (mEnabled) {
-				if (mPendingEvent.timestamp >= mEnabledTime) {
-					*data++ = mPendingEvent;
-					numEventReceived++;
-				}
-				count--;
+			switch ( event->code ){
+				case SYN_TIME_SEC:
+					{
+						mUseAbsTimeStamp = true;
+						report_time = event->value*1000000000LL;
+					}
+				break;
+				case SYN_TIME_NSEC:
+					{
+						mUseAbsTimeStamp = true;
+						mPendingEvent.timestamp = report_time+event->value;
+					}
+				break;
+				case SYN_REPORT:
+					{
+						if(mUseAbsTimeStamp != true) {
+							mPendingEvent.timestamp = timevalToNano(event->time);
+						}
+						if (mEnabled) {
+							if(mPendingEvent.timestamp >= mEnabledTime) {
+								*data++ = mPendingEvent;
+								numEventReceived++;
+							}
+							count--;
+						}
+					}
+				break;
 			}
 		} else {
 			ALOGE("AccelSensor: unknown event (type=%d, code=%d)",

@@ -67,11 +67,29 @@ __BEGIN_DECLS
 
 #define SENSOR_CAL_MODULE_VERSION	1
 
+enum {
+	CMD_ENABLE = 0, /* Enable status changed */
+	CMD_DELAY, /* Polling rate changed */
+	CMD_BATCH, /* Batching parameter changed */
+};
+
 struct sensor_cal_algo_t;
 struct sensor_cal_module_t;
 
+struct sensor_algo_args {
+	int enable;
+	int delay_ms;
+};
+
+struct compass_algo_args {
+	struct sensor_algo_args common;
+	uint32_t reserved[16];
+};
+
 struct sensor_algo_methods_t {
-	int (*convert)(sensors_vec_t *raw, sensors_vec_t *result, void *args);
+	int (*convert)(sensors_event_t *raw, sensors_event_t *result, struct sensor_algo_args *args);
+	/* Note that the config callback is called from a different thread as convert */
+	int (*config)(int cmd, struct sensor_algo_args *args);
 };
 
 struct sensor_cal_methods_t {

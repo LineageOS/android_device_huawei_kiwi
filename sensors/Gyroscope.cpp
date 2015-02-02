@@ -1,4 +1,6 @@
 /*
+ * Copyright (c) 2014, The Linux Foundation. All rights reserved.
+ * Not a Contribution.
  * Copyright (C) 2008 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,13 +45,12 @@
 #define CONVERT_GYRO_Y		( GYROSCOPE_CONVERT)
 #define CONVERT_GYRO_Z		(-GYROSCOPE_CONVERT)
 
-#define SMOOTHING_FACTOR    0.8
+#define SMOOTHING_FACTOR    0.2
 
 /*****************************************************************************/
 
 GyroSensor::GyroSensor()
 	: SensorBase(NULL, GYRO_INPUT_DEV_NAME),
-	  mEnabled(0),
 	  mInputReader(4),
 	  mHasPendingEvent(false),
 	  mEnabledTime(0)
@@ -61,6 +62,47 @@ GyroSensor::GyroSensor()
 
 	if (data_fd) {
 		strcpy(input_sysfs_path, GYRO_SYSFS_PATH);
+		input_sysfs_path_len = strlen(input_sysfs_path);
+		ALOGI("The gyroscope sensor path is %s",input_sysfs_path);
+		enable(0, 1);
+	}
+}
+
+GyroSensor::GyroSensor(struct SensorContext *context)
+	: SensorBase(NULL, GYRO_INPUT_DEV_NAME, context),
+	  mInputReader(4),
+	  mHasPendingEvent(false),
+	  mEnabledTime(0)
+{
+	mPendingEvent.version = sizeof(sensors_event_t);
+	mPendingEvent.sensor = context->sensor->handle;
+	mPendingEvent.type = SENSOR_TYPE_GYROSCOPE;
+	memset(mPendingEvent.data, 0, sizeof(mPendingEvent.data));
+	mPendingEvent.gyro.status = SENSOR_STATUS_ACCURACY_HIGH;
+
+	strlcpy(input_sysfs_path, GYRO_SYSFS_PATH, sizeof(input_sysfs_path));
+	input_sysfs_path_len = strlen(input_sysfs_path);
+	mUseAbsTimeStamp = false;
+
+    context->data_fd = data_fd;
+	enable(0, 1);
+}
+
+GyroSensor::GyroSensor(char *name)
+	: SensorBase(NULL, "MPU3050"),
+	  mInputReader(4),
+	  mHasPendingEvent(false),
+	  mEnabledTime(0)
+{
+	mPendingEvent.version = sizeof(sensors_event_t);
+	mPendingEvent.sensor = SENSORS_GYROSCOPE_HANDLE;
+	mPendingEvent.type = SENSOR_TYPE_GYROSCOPE;
+	memset(mPendingEvent.data, 0, sizeof(mPendingEvent.data));
+
+	if (data_fd) {
+		strlcpy(input_sysfs_path, SYSFS_CLASS, sizeof(input_sysfs_path));
+		strlcat(input_sysfs_path, name, sizeof(input_sysfs_path));
+		strlcat(input_sysfs_path, "/", sizeof(input_sysfs_path));
 		input_sysfs_path_len = strlen(input_sysfs_path);
 		ALOGI("The gyroscope sensor path is %s",input_sysfs_path);
 		enable(0, 1);
@@ -124,10 +166,10 @@ int GyroSensor::enable(int32_t, int en) {
 }
 
 bool GyroSensor::hasPendingEvents() const {
-	return mHasPendingEvent;
+	return mHasPendingEvent || mHasPendingMetadata;
 }
 
-int GyroSensor::setDelay(int32_t handle, int64_t delay_ns)
+int GyroSensor::setDelay(int32_t, int64_t delay_ns)
 {
 	int fd;
 	int delay_ms = delay_ns / 1000000;
@@ -156,6 +198,13 @@ int GyroSensor::readEvents(sensors_event_t* data, int count)
 		return mEnabled ? 1 : 0;
 	}
 
+	if (mHasPendingMetadata) {
+		mHasPendingMetadata--;
+		meta_data.timestamp = getTimestamp();
+		*data = meta_data;
+		return mEnabled ? 1 : 0;
+	}
+
 	ssize_t n = mInputReader.fill(data_fd);
 	if (n < 0)
 		return n;
@@ -181,13 +230,33 @@ again:
 				mPendingEvent.data[2] = mAvgZ * CONVERT_GYRO_Z;
 			}
 		} else if (type == EV_SYN) {
-			mPendingEvent.timestamp = timevalToNano(event->time);
-			if (mEnabled) {
-				if (mPendingEvent.timestamp >= mEnabledTime) {
-					*data++ = mPendingEvent;
-					numEventReceived++;
-				}
-				count--;
+			switch ( event->code ){
+				case SYN_TIME_SEC:
+					{
+						mUseAbsTimeStamp = true;
+						report_time = event->value*1000000000LL;
+					}
+				break;
+				case SYN_TIME_NSEC:
+					{
+						mUseAbsTimeStamp = true;
+						mPendingEvent.timestamp = report_time+event->value;
+					}
+				break;
+				case SYN_REPORT:
+					{
+						if(mUseAbsTimeStamp != true) {
+							mPendingEvent.timestamp = timevalToNano(event->time);
+						}
+						if (mEnabled) {
+							if(mPendingEvent.timestamp >= mEnabledTime) {
+								*data++ = mPendingEvent;
+								numEventReceived++;
+							}
+							count--;
+						}
+					}
+				break;
 			}
 		} else {
 			ALOGE("GyroSensor: unknown event (type=%d, code=%d)",

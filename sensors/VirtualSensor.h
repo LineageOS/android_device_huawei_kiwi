@@ -26,46 +26,42 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------*/
+#ifndef ANDROID_VIRTUAL_SENSOR_H
+#define ANDROID_VIRTUAL_SENSOR_H
 
-#ifndef _SENSOR_CALIBRATION_MANAGER_H
-#define _SENSOR_CALIBRATION_MANAGER_H
+#include <stdint.h>
+#include <errno.h>
+#include <sys/cdefs.h>
+#include <sys/types.h>
 
-#include <utils/Singleton.h>
-#include "CalibrationModule.h"
+#include "SensorBase.h"
+#include "InputEventReader.h"
+#include "NativeSensorManager.h"
 
-using namespace android;
+/*****************************************************************************/
 
-#define MAX_CAL_LIBS	32
-#define MAX_CAL_CFG_LEN	1024
+#define MAX_EVENTS 250
 
-/* Calibration library config files */
-#define CAL_LIB_CFG_PATH	"/system/vendor/etc/calmodule.cfg"
-#define DEFAULT_CAL_LIB		"libcalmodule_common.so"
-#if defined(__LP64__)
-#define CAL_LIB_PATH	"/system/vendor/lib64/"
-#else
-#define CAL_LIB_PATH	"/system/vendor/lib/"
-#endif
+struct input_event;
 
-class CalibrationManager : public Singleton<CalibrationManager> {
-	public:
-		/* Get the whole algo list provided by the calibration library */
-		const sensor_cal_algo_t** getCalAlgoList();
-		/* Retrive a compatible calibration algo for sensor specified by t */
-		const sensor_cal_algo_t* getCalAlgo(const sensor_t *s);
-		/* Dump the calibration manager status */
-		void dump();
-		~CalibrationManager();
-	private:
-		friend class Singleton<CalibrationManager>;
-		/* Check if the algo provided by list is compatible */
-		static int check_algo(const sensor_cal_algo_t *list);
-		CalibrationManager();
-		void loadCalLibs();
-		/* Point to a whole list of all the algo provided by calibration library */
-		const sensor_cal_algo_t **algo_list;
-		/* Number of algo */
-		uint32_t algo_count;
+class VirtualSensor : public SensorBase {
+	sensors_event_t mLastEvent;
+	bool reportLastEvent;
+	const SensorContext *context;
+	sensors_event_t mBuffer[MAX_EVENTS];
+	sensors_event_t* mRead;
+	sensors_event_t* mWrite;
+	sensors_event_t* mBufferEnd;
+	ssize_t mFreeSpace;
+public:
+	VirtualSensor(const struct SensorContext *i);
+	virtual ~VirtualSensor();
+	virtual int readEvents(sensors_event_t* data, int count);
+	virtual bool hasPendingEvents() const;
+	virtual int enable(int32_t handle, int enabled);
+	virtual int injectEvents(sensors_event_t* data, int count);
 };
 
-#endif
+/*****************************************************************************/
+
+#endif  // ANDROID_VIRTUAL_SENSOR_H
