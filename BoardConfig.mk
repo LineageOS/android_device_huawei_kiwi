@@ -201,10 +201,6 @@ WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 # The uncompressed arm64 is too large, split wifi for now
-ifneq ($(TOMATO_32_BIT),true)
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
-WIFI_DRIVER_MODULE_NAME          := "wlan"
-endif
 
 # inherit from the proprietary version
 -include vendor/yu/tomato/BoardConfigVendor.mk
