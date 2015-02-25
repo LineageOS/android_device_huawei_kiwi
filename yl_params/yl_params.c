@@ -31,6 +31,9 @@
 
 #define YL_PARAM_BLK_SZ 512
 
+#define READ_MAX_RETRY 5
+#define READ_RETRY_INTERVAL_SEC 1
+
 enum yl_params_index {
     YL_DEVICE = 0,
     YL_CONFIGURATION,
@@ -156,6 +159,49 @@ struct yl_params_t {
 
 static struct yl_params_t yl_params;
 
+static int
+yl_read_retry(uint8_t *buf, size_t len, enum yl_params_index type)
+{
+    int i, fd, rc;
+
+    if (len != YL_PARAM_BLK_SZ) {
+        return -EINVAL;
+    }
+
+    fd = open(YL_PARAMS_PATH, O_RDONLY);
+    if (fd < 0) {
+        rc = -errno;
+        ALOGE("%s:%d: Failed to open %s: %d\n",
+                __func__, __LINE__, YL_PARAMS_PATH, rc);
+        goto read_ret;
+    }
+
+    memset(buf, 0, len);
+    memcpy(buf, yl_params_map[type], strlen(yl_params_map[type]));
+
+    for (i = 0; i < READ_MAX_RETRY + 1; i++) {
+        rc = read(fd, buf, len);
+        if (rc == (int)len) {
+            ALOGI("%s:%d: Read %d bytes from block type %d\n",
+                    __func__, __LINE__, rc, type);
+            rc = 0;
+            break;
+        } else {
+            rc = -errno;
+            ALOGW("%s:%d: Failed to read from block type %d: %d, retrying\n",
+                    __func__, __LINE__, type, rc);
+            if (i < READ_MAX_RETRY) {
+                sleep(READ_RETRY_INTERVAL_SEC);
+            }
+        }
+    }
+
+    close(fd);
+
+read_ret:
+    return rc;
+}
+
 int
 yl_get_param(int param, void *buf, size_t len)
 {
@@ -203,61 +249,41 @@ yl_params_init(void)
 {
     uint8_t buf[YL_PARAM_BLK_SZ];
     int rc;
-    int fd;
 
-    fd = open(YL_PARAMS_PATH, O_RDONLY);
-    if (fd < 0) {
-        rc = -errno;
-        ALOGE("%s:%d: Failed to open %s: %d\n",
-                __func__, __LINE__, YL_PARAMS_PATH, rc);
-        return rc;
+    if (yl_params.initialized) {
+        return 0;
     }
 
-    /* Read device block */
     memset(&yl_params, 0, sizeof(struct yl_params_t));
-    memset(buf, 0, YL_PARAM_BLK_SZ);
-    memcpy(buf, yl_params_map[YL_DEVICE], strlen(yl_params_map[YL_DEVICE]));
-    rc = read(fd, buf, YL_PARAM_BLK_SZ);
-    if (rc < 0) {
-        rc = -errno;
+
+    /* Read device block */
+    rc = yl_read_retry(buf, YL_PARAM_BLK_SZ, YL_DEVICE);
+    if (rc) {
         ALOGE("%s:%d: Failed to read device block: %d\n",
                 __func__, __LINE__, rc);
-        goto init_err;
+        return rc;
     }
     memcpy(&yl_params.device_info, buf, YL_PARAM_BLK_SZ);
 
     /* Read config block */
-    memset(buf, 0, YL_PARAM_BLK_SZ);
-    memcpy(buf, yl_params_map[YL_CONFIGURATION],
-            strlen(yl_params_map[YL_CONFIGURATION]));
-    rc = read(fd, buf, YL_PARAM_BLK_SZ);
-    if (rc < 0) {
-        rc = -errno;
+    rc = yl_read_retry(buf, YL_PARAM_BLK_SZ, YL_CONFIGURATION);
+    if (rc) {
         ALOGE("%s:%d: Failed to read config block: %d\n",
                 __func__, __LINE__, rc);
-        goto init_err;
+        return rc;
     }
     memcpy(&yl_params.config_info, buf, YL_PARAM_BLK_SZ);
 
     /* Read product block */
-    memset(buf, 0, YL_PARAM_BLK_SZ);
-    memcpy(buf, yl_params_map[YL_PRODUCTLINE],
-            strlen(yl_params_map[YL_PRODUCTLINE]));
-    rc = read(fd, buf, YL_PARAM_BLK_SZ);
-    if (rc < 0) {
-        rc = -errno;
+    rc = yl_read_retry(buf, YL_PARAM_BLK_SZ, YL_PRODUCTLINE);
+    if (rc) {
         ALOGE("%s:%d: Failed to read product block: %d\n",
                 __func__, __LINE__, rc);
-        goto init_err;
+        return rc;
     }
-
     memcpy(&yl_params.product_info, buf, YL_PARAM_BLK_SZ);
 
     yl_params.initialized = true;
-    rc = 0;
 
-init_err:
-    close(fd);
-
-    return rc;
+    return 0;
 }
