@@ -38,19 +38,15 @@
 #define WCNSS_INVALID_MAC_PREFIX "3c9157"
 #endif
 
-int wcnss_init_qmi(void)
+static int yl_get_wlan_address(unsigned char *buf, size_t len)
 {
-    /* empty */
-    return SUCCESS;
-}
+    int rc;
 
-int wcnss_qmi_get_wlan_address(unsigned char *pBdAddr)
-{
-    int rc, i;
-    char buf[6];
-    struct stat statbuf;
-    FILE *genmac;
-    int prefixlen = strnlen(WCNSS_INVALID_MAC_PREFIX, 8) / 2;
+    memset(buf, 0, len);
+
+    if (len < 6) {
+        return FAILED;
+    }
 
     rc = yl_params_init();
     if (rc) {
@@ -64,37 +60,82 @@ int wcnss_qmi_get_wlan_address(unsigned char *pBdAddr)
         return FAILED;
     }
 
-    memcpy(pBdAddr, buf, 6);
+    return SUCCESS;
+}
 
-    ALOGI("%s: Got addr: %02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx\n",
-            __func__,
-            pBdAddr[0], pBdAddr[1], pBdAddr[2],
-            pBdAddr[3], pBdAddr[4], pBdAddr[5]);
+static int read_mac(unsigned char *buf, size_t len)
+{
+    struct stat statbuf;
+    FILE *genmac;
 
-    if (pBdAddr[0] == 0 && pBdAddr[1] == 0 && pBdAddr[2] == 0 &&
-            pBdAddr[3] == 0 && pBdAddr[4] == 0 && pBdAddr[5] == 0) {
+    if (!stat(WCNSS_GENMAC_FILE, &statbuf)) {
+        genmac = fopen(WCNSS_GENMAC_FILE,"r");
+        if (fscanf(genmac, "%c%c%c%c%c%c", &buf[0],
+                    &buf[1], &buf[2], &buf[3],
+                    &buf[4], &buf[5]) == 6) {
+            fclose(genmac);
+            ALOGI("%s: Succesfully read local WLAN MAC addr", __func__);
+            return SUCCESS;
+        }
+        fclose(genmac);
+    }
 
+    return FAILED;
+}
+
+static int write_mac(unsigned char *buf, size_t len)
+{
+    FILE *genmac;
+
+    if (len != 6) {
+        return FAILED;
+    }
+
+    genmac = fopen(WCNSS_GENMAC_FILE,"w");
+    if (genmac == NULL) {
+        ALOGE("%s: Failed to open %s: %s\n",
+                __func__, WCNSS_GENMAC_FILE, strerror(errno));
+        return FAILED;
+    }
+    fwrite(buf, 1, 6, genmac);
+    fclose(genmac);
+
+    return SUCCESS;
+}
+
+int wcnss_init_qmi(void)
+{
+    /* empty */
+    return SUCCESS;
+}
+
+int wcnss_qmi_get_wlan_address(unsigned char *pBdAddr)
+{
+    int i, rc;
+    unsigned char buf[6];
+    int prefixlen = strnlen(WCNSS_INVALID_MAC_PREFIX, 8) / 2;
+
+    // Use a previously stored value if it exists
+    rc = read_mac(buf, 6);
+    if (rc == SUCCESS) {
+        ALOGI("%s: Got addr: %02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx\n",
+                __func__, buf[0], buf[1], buf[2], buf[3], buf[4], buf[5]);
+        memcpy(pBdAddr, buf, 6);
+        return SUCCESS;
+    }
+
+    rc = yl_get_wlan_address(buf, 6);
+    if (rc != SUCCESS ||
+            (buf[0] == 0 && buf[1] == 0 && buf[2] == 0 &&
+             buf[3] == 0 && buf[4] == 0 && buf[5] == 0)) {
         // Misconfigured device source...?
         if (prefixlen < 2) {
             return FAILED;
         }
 
-        // Use a previously stored value if it exists
-        if (!stat(WCNSS_GENMAC_FILE, &statbuf)) {
-            genmac = fopen(WCNSS_GENMAC_FILE,"r");
-            if (fscanf(genmac, "%c%c%c%c%c%c", &pBdAddr[0],
-                        &pBdAddr[1], &pBdAddr[2], &pBdAddr[3],
-                        &pBdAddr[4], &pBdAddr[5]) == 6) {
-                fclose(genmac);
-                ALOGI("%s: Succesfully Read local WLAN MAC Address", __func__);
-                return SUCCESS;
-            }
-            fclose(genmac);
-        }
-
+        // Generate random MAC
         sscanf(WCNSS_INVALID_MAC_PREFIX, "%2hhx%2hhx%2hhx%2hhx",
-                &pBdAddr[0], &pBdAddr[1],
-                &pBdAddr[2], &pBdAddr[3]);
+                &buf[0], &buf[1], &buf[2], &buf[3]);
 
         // We don't need strong randomness, and if the NV is corrupted
         // any hardware values are suspect, so just seed it with the
@@ -102,24 +143,20 @@ int wcnss_qmi_get_wlan_address(unsigned char *pBdAddr)
         srand(time(NULL));
 
         for (i = prefixlen; i < 6; i++) {
-            pBdAddr[i] = rand() % 255;
+            buf[i] = rand() % 255;
         }
-
-        // Store for reuse
-        genmac = fopen(WCNSS_GENMAC_FILE,"w");
-        if (genmac == NULL) {
-            ALOGE("%s: Failed to open %s: %s\n",
-                    __func__, WCNSS_GENMAC_FILE, strerror(errno));
-            return FAILED;
-        }
-        fwrite(pBdAddr, 1, 6, genmac);
-        fclose(genmac);
 
         ALOGI("%s: Generated addr: %02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx\n",
-                __func__,
-                pBdAddr[0], pBdAddr[1], pBdAddr[2],
-                pBdAddr[3], pBdAddr[4], pBdAddr[5]);
+                __func__, buf[0], buf[1], buf[2], buf[3], buf[4], buf[5]);
+    } else {
+        ALOGI("%s: Got addr: %02hhx:%02hhx:%02hhx:%02hhx:%02hhx:%02hhx\n",
+                __func__, buf[0], buf[1], buf[2], buf[3], buf[4], buf[5]);
     }
+
+    // Store for reuse
+    write_mac(buf, 6);
+
+    memcpy(pBdAddr, buf, 6);
 
     return SUCCESS;
 }
