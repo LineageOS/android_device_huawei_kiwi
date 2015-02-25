@@ -35,7 +35,7 @@
 #endif
 
 #ifndef WCNSS_INVALID_MAC_PREFIX
-#define WCNSS_INVALID_MAC_PREFIX "080000"
+#define WCNSS_INVALID_MAC_PREFIX "3c9157"
 #endif
 
 int wcnss_init_qmi(void)
