@@ -207,8 +207,9 @@ yl_params_init(void)
 
     fd = open(YL_PARAMS_PATH, O_RDONLY);
     if (fd < 0) {
-        rc = errno;
-        ALOGE("%s: Failed to open %s: %d\n", __func__, YL_PARAMS_PATH, rc);
+        rc = -errno;
+        ALOGE("%s:%d: Failed to open %s: %d\n",
+                __func__, __LINE__, YL_PARAMS_PATH, rc);
         return rc;
     }
 
@@ -218,8 +219,9 @@ yl_params_init(void)
     memcpy(buf, yl_params_map[YL_DEVICE], strlen(yl_params_map[YL_DEVICE]));
     rc = read(fd, buf, YL_PARAM_BLK_SZ);
     if (rc < 0) {
-        rc = errno;
-        ALOGE("%s: Failed to read device block: %d\n", __func__, rc);
+        rc = -errno;
+        ALOGE("%s:%d: Failed to read device block: %d\n",
+                __func__, __LINE__, rc);
         goto init_err;
     }
     memcpy(&yl_params.device_info, buf, YL_PARAM_BLK_SZ);
@@ -230,8 +232,9 @@ yl_params_init(void)
             strlen(yl_params_map[YL_CONFIGURATION]));
     rc = read(fd, buf, YL_PARAM_BLK_SZ);
     if (rc < 0) {
-        rc = errno;
-        ALOGE("%s: Failed to read device block: %d\n", __func__, rc);
+        rc = -errno;
+        ALOGE("%s:%d: Failed to read config block: %d\n",
+                __func__, __LINE__, rc);
         goto init_err;
     }
     memcpy(&yl_params.config_info, buf, YL_PARAM_BLK_SZ);
@@ -242,8 +245,9 @@ yl_params_init(void)
             strlen(yl_params_map[YL_PRODUCTLINE]));
     rc = read(fd, buf, YL_PARAM_BLK_SZ);
     if (rc < 0) {
-        rc = errno;
-        ALOGE("%s: Failed to read device block: %d\n", __func__, rc);
+        rc = -errno;
+        ALOGE("%s:%d: Failed to read product block: %d\n",
+                __func__, __LINE__, rc);
         goto init_err;
     }
 
