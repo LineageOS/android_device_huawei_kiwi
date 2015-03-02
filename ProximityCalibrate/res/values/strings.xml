@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Proximity Sensor Calibration</string>
+    <string name="prox_calibrate_title">Proximity Calibrate Info</string>
+
+    <string name="result_x_title">Calibration X</string>
+    <string name="result_y_title">Calibration y</string>
+    <string name="result_offset_title">Calibration Offset</string>
+
+    <string name="start_btn_title">Start</string>
+    <string name="exit_btn_title">Exit</string>
+
+    <string name="result_values_titles">Calibration Values</string>
+
+    <string name="calibration_good">Calibration Good</string>
+    <string name="calibration_inferior">Calibration Inferior</string>
+    <string name="calibration_none">No Calibration</string>
+    <string name="calibration_fail">Calibration fail</string>
+    <string name="calibration_bright">Ambient light too bright!</string>
+</resources>
