@@ -1,0 +1,14 @@
+type prebundle_installer, domain;
+type prebundle_installer_exec, exec_type, file_type;
+init_daemon_domain(prebundle_installer)
+
+unix_socket_connect(prebundle_installer, property, init)
+allow prebundle_installer prebundle_prop:property_service set;
+
+# transition to shell when running script
+domain_auto_trans(prebundle_installer, shell_exec, shell);
+allow prebundle_installer shell_exec:file entrypoint;
+allow shell prebundle_installer:fd use;
+
+# Needed for toolbox, pm
+allow prebundle_installer system_file:file execute_no_trans;

@@ -17,3 +17,6 @@
 /system/etc/init\.qcom\.bt\.sh                  u:object_r:bluetooth_loader_exec:s0
 
 /dev/smd3                                       u:object_r:hci_attach_dev:s0
+
+# Prebundled app installer
+/system/vendor/bin/install-apps                 u:object_r:prebundle_installer_exec:s0

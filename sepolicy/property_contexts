@@ -1,2 +1,3 @@
+persist.sys.prebundle.           u:object_r:prebundle_prop:s0
 qualcomm.bluetooth.              u:object_r:bluetooth_prop:s0
 qualcomm.bt.                     u:object_r:bluetooth_prop:s0
