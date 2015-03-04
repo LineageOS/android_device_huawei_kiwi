@@ -3,6 +3,7 @@
 
 /dev/aw-leds                                    u:object_r:leds_device:s0
 /dev/color_enhancement                          u:object_r:color_device:s0
+/sys/devices/virtual/graphics/fb0/rgb           u:object_r:display_sysfs:s0
 
 # Yulong interfaces
 /dev/yl_alsprox_sensor                          u:object_r:sensors_device:s0

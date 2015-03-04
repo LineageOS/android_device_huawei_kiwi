@@ -4,3 +4,4 @@ allow system_app touchpanel_sysfs:dir { search };
 
 # Color Calibration
 allow system_app color_device:chr_file rw_file_perms;
+allow system_app display_sysfs:file rw_file_perms;

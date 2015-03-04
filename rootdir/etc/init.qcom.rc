@@ -324,6 +324,10 @@ on boot
     # camera sockets
     mkdir /data/misc/camera 0770 camera camera
 
+    # color
+    chown system system /sys/devices/virtual/graphics/fb0/rgb
+    chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
+
 on property:service.bootanim.exit=1
     write /sys/module/lpm_levels/system/performance/cpu0/wfi/idle_enabled Y
     write /sys/module/lpm_levels/system/performance/cpu1/wfi/idle_enabled Y
