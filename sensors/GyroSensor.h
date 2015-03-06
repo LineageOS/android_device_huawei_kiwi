@@ -44,7 +44,6 @@ class GyroSensor : public SensorBase {
 
 public:
 	GyroSensor();
-	GyroSensor(char *name);
 	GyroSensor(struct SensorContext *context);
 	virtual ~GyroSensor();
 	virtual int readEvents(sensors_event_t* data, int count);

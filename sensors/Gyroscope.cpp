@@ -82,31 +82,10 @@ GyroSensor::GyroSensor(struct SensorContext *context)
 
 	strlcpy(input_sysfs_path, GYRO_SYSFS_PATH, sizeof(input_sysfs_path));
 	input_sysfs_path_len = strlen(input_sysfs_path);
+	context->data_fd = data_fd;
+	ALOGI("The gyroscope sensor path is %s",input_sysfs_path);
 	mUseAbsTimeStamp = false;
-
-    context->data_fd = data_fd;
 	enable(0, 1);
-}
-
-GyroSensor::GyroSensor(char *name)
-	: SensorBase(NULL, "MPU3050"),
-	  mInputReader(4),
-	  mHasPendingEvent(false),
-	  mEnabledTime(0)
-{
-	mPendingEvent.version = sizeof(sensors_event_t);
-	mPendingEvent.sensor = SENSORS_GYROSCOPE_HANDLE;
-	mPendingEvent.type = SENSOR_TYPE_GYROSCOPE;
-	memset(mPendingEvent.data, 0, sizeof(mPendingEvent.data));
-
-	if (data_fd) {
-		strlcpy(input_sysfs_path, SYSFS_CLASS, sizeof(input_sysfs_path));
-		strlcat(input_sysfs_path, name, sizeof(input_sysfs_path));
-		strlcat(input_sysfs_path, "/", sizeof(input_sysfs_path));
-		input_sysfs_path_len = strlen(input_sysfs_path);
-		ALOGI("The gyroscope sensor path is %s",input_sysfs_path);
-		enable(0, 1);
-	}
 }
 
 GyroSensor::~GyroSensor() {
