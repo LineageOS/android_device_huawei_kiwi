@@ -818,14 +818,6 @@ service setup_fs /system/bin/setup_fs /dev/block/platform/7824900.sdhci/by-name/
     group root
     oneshot
 
-on property:wlan.driver.ath=0
-    start load_wifi
-
-service load_wifi /system/bin/insmod /system/lib/modules/wlan.ko
-    user root
-    oneshot
-    disabled
-
 service prebundled-apps /system/bin/sh /vendor/bin/install-apps
     user system
     oneshot
