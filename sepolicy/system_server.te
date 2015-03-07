@@ -1,9 +1,7 @@
-# for CMHardwareService access to TapToWake
-allow system_server proc_touchpanel:file rw_file_perms;
-allow system_server proc_touchpanel:dir { search };
+# CmHardwareService access to TapToWake and KeyDisabler
+allow system_server touchpanel_sysfs:file rw_file_perms;
+allow system_server touchpanel_sysfs:dir { search };
 
-# for CMHardwareService access to VibratorHW
-allow system_server vibeamp_sysfs:file rw_file_perms;
-
-# display tuning
+# CmHardwareService access to Color Calibration
+allow system_server color_device:chr_file rw_file_perms;
 allow system_server display_sysfs:file rw_file_perms;
