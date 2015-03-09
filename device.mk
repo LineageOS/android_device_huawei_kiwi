@@ -233,6 +233,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(LOCAL_PATH)/tomato-releasekey
 
+PRODUCT_PACKAGES += \
+    librecovery_updater_yu
+
 # RIL
 PRODUCT_PACKAGES += \
     libxml2

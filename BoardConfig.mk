@@ -55,6 +55,9 @@ endif
 
 #TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
+# Assertions
+TARGET_BOARD_INFO_FILE ?= device/yu/tomato/board-info.txt
+
 # Kernel
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
 BOARD_KERNEL_BASE := 0x80000000
@@ -150,6 +153,7 @@ BOARD_USES_QCOM_HARDWARE := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_yu
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Releasetools
