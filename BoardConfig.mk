@@ -17,20 +17,8 @@ LOCAL_PATH := device/yu/tomato
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
-# Platform
-TARGET_BOARD_PLATFORM := msm8916
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno405
-
-# Factory
-TARGET_PROP_PATH_FACTORY := "/persist/factory.prop"
-
-# Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := MSM8916
-TARGET_NO_BOOTLOADER := true
-
 # Architecture
 ifneq ($(TOMATO_32_BIT),true)
-TARGET_BOARD_SUFFIX := _64
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -43,20 +31,24 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 
+TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 else
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a53
 endif
-
-#TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
+TARGET_BOARD_PLATFORM := msm8916
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno405
 
 # Assertions
 TARGET_BOARD_INFO_FILE ?= device/yu/tomato/board-info.txt
+
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := MSM8916
+TARGET_NO_BOOTLOADER := true
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
@@ -67,14 +59,12 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
 TARGET_KERNEL_SOURCE := kernel/yu/msm8916
-
 ifneq ($(TOMATO_32_BIT),true)
 TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-TARGET_USES_UNCOMPRESSED_KERNEL := true
 TARGET_KERNEL_CONFIG := cyanogenmod_tomato-64_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_KERNEL_HEADER_ARCH := arm64
+TARGET_USES_UNCOMPRESSED_KERNEL := true
 else
 TARGET_KERNEL_CONFIG := cyanogenmod_tomato_defconfig
 endif
@@ -97,9 +87,6 @@ BOARD_CAMERA_SENSORS := imx135_cp8675 imx214_cp8675 ov5648_cp8675
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
-# malloc implementation
-MALLOC_IMPL := dlmalloc
-
 # CMHW
 BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/src
 
@@ -116,6 +103,9 @@ TARGET_CONTINUOUS_SPLASH_ENABLED := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
+
+# Factory
+TARGET_PROP_PATH_FACTORY := "/persist/factory.prop"
 
 # FM
 TARGET_QCOM_NO_FM_FIRMWARE := true
@@ -135,6 +125,9 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# Malloc
+MALLOC_IMPL := dlmalloc
+
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 20971520
@@ -148,6 +141,10 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 13576175616 # 13576192000 - 16384
 TARGET_POWERHAL_VARIANT := qcom
 
 # Qualcomm support
+BOARD_USES_QC_TIME_SERVICES := true
+ifneq ($(QCPATH),)
+BOARD_USES_QCNE := true
+endif
 BOARD_USES_QCOM_HARDWARE := true
 
 # Recovery
@@ -180,14 +177,6 @@ BOARD_SEPOLICY_UNION += \
     system_app.te \
     system.te \
     wcnss_service.te
-
-# Time services
-BOARD_USES_QC_TIME_SERVICES := true
-
-# QC PROPRIETARY
-ifneq ($(QCPATH),)
-BOARD_USES_QCNE := true
-endif
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file

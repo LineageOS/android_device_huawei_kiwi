@@ -110,6 +110,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
+ifeq ($(BOARD_USES_QCNE),true)
+PRODUCT_PACKAGES += \
+    services-ext \
+    init.cne.rc
+
+PRODUCT_PROPERTY_OVERRIDES +=
+    persist.cne.feature=4
+endif
+
 # CRDA
 PRODUCT_PACKAGES += \
     crda \
@@ -198,23 +207,6 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     power.msm8916
 
-# QC PROPRIETARY
-ifneq ($(QCPATH),)
-# proprietary wifi display, if available
-PRODUCT_BOOT_JARS += WfdCommon
-
-# Connectivity Engine support
-ifeq ($(BOARD_USES_QCNE),true)
-PRODUCT_PACKAGES += \
-    services-ext \
-    init.cne.rc
-
-PRODUCT_PROPERTY_OVERRIDES +=
-    persist.cne.feature=4
-
-endif
-endif
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.crda.sh \
@@ -275,3 +267,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+
+# WiFi Display
+ifneq ($(QCPATH),)
+PRODUCT_BOOT_JARS += WfdCommon
+endif
