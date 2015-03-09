@@ -817,12 +817,3 @@ service setup_fs /system/bin/setup_fs /dev/block/platform/7824900.sdhci/by-name/
     user root
     group root
     oneshot
-
-service prebundled-apps /system/bin/sh /vendor/bin/install-apps
-    user system
-    oneshot
-    disabled
-    seclabel u:r:prebundle_installer:s0
-
-on property:dev.bootcomplete=1
-    start prebundled-apps
