@@ -169,6 +169,7 @@ BOARD_SEPOLICY_UNION += \
     bluetooth_loader.te \
     file.te \
     file_contexts \
+    healthd.te \
     property_contexts \
     qseecomd.te \
     surfaceflinger.te \
