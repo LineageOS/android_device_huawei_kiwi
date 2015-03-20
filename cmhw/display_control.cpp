@@ -70,40 +70,6 @@ static int getMode()
 extern "C" {
 #endif
 
-JNIEXPORT jint JNICALL Java_org_cyanogenmod_hardware_AdaptiveBacklight_native_1getCABCLevel(
-        JNIEnv* env, jclass thiz)
-{
-    return (jint)(getMode() & CABC_MOVING) == CABC_MOVING ? 3 : 0;
-}
-
-JNIEXPORT jint JNICALL Java_org_cyanogenmod_hardware_AdaptiveBacklight_native_1setCABCLevel(
-        JNIEnv* env, jclass thiz, jint value)
-{
-    int cmd = CE_SET_CABC_OFF;
-    int level = int(value);
- 
-    // only MOVING_MODE is implemented
-    switch (level) {
-        case 0:
-            cmd = CE_SET_CABC_OFF;
-            break;
-        case 1:
-            cmd = CE_SET_CABC_UI_MODE;
-            break;
-        case 2:
-            cmd = CE_SET_CABC_STILL_MODE;
-            break;
-        case 3:
-            cmd = CE_SET_CABC_MOVING_MODE;
-            break;
-        default:
-            ALOGE("Invalid CABC level %d", level);
-            return -1;
-    }
-
-    return (jint)sendCommand(cmd, NULL);
-}
-
 JNIEXPORT jint JNICALL Java_org_cyanogenmod_hardware_ColorEnhancement_native_1getCELevel(
         JNIEnv* env, jclass thiz)
 {
