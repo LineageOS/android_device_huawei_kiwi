@@ -51,7 +51,6 @@ vendor/lib/libmmcamera_imx214_cp8675.so
 vendor/lib/libmmcamera_ov5648_cp8675.so
 vendor/lib/libmmcamera_tintless_algo.so
 vendor/lib/libmmcamera_tintless_bg_pca_algo.so
-vendor/lib/libmmcamera_tuning.so
 vendor/lib/libmmcamera_wavelet_lib.so
 vendor/lib/libmmipl.so
 vendor/lib/libmmjpeg.so
