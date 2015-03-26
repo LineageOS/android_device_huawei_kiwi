@@ -68,6 +68,9 @@ TARGET_USES_UNCOMPRESSED_KERNEL := true
 else
 TARGET_KERNEL_CONFIG := cyanogenmod_tomato_defconfig
 endif
+ifneq ($(TARGET_BUILD_VARIANT),user)
+TARGET_KERNEL_ADDITIONAL_CONFIG := cyanogenmod_debug_config
+endif
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
