@@ -73,7 +73,7 @@ ril.ecclist=000,08,100,101,102,110,112,118,119,120,122,911,999
 persist.data.target=dpm1
 
 ro.com.android.mobiledata=false
-ro.telephony.default_network=10
+ro.telephony.default_network=10,1
 ro.use_data_netmgrd=true
 
 # Time
