@@ -328,6 +328,10 @@ on boot
     chown system system /sys/devices/virtual/graphics/fb0/rgb
     chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
 
+    write /proc/sys/vm/dirty_ratio 5
+    write /proc/sys/vm/dirty_background_ratio 1
+    write /proc/sys/kernel/sched_boost 1
+
 on property:service.bootanim.exit=1
     write /sys/module/lpm_levels/system/performance/cpu0/wfi/idle_enabled Y
     write /sys/module/lpm_levels/system/performance/cpu1/wfi/idle_enabled Y
