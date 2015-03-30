@@ -1,0 +1,110 @@
+on boot
+
+    write /proc/sys/vm/dirty_ratio 5
+    write /proc/sys/vm/dirty_background_ratio 1
+    write /proc/sys/kernel/sched_boost 1
+
+    write /sys/module/lpm_levels/system/performance/cpu0/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/wfi/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu0/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/standalone_pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu0/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu0/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu1/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu2/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/cpu3/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu4/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu5/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu6/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/cpu7/pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-active/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/performance-l2-active/idle_enabled Y
+    write /sys/module/lpm_levels/system/performance/performance-l2-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/power/power-l2-pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/performance/performance-l2-pc/suspend_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-active/idle_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-retention/idle_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-pc/idle_enabled Y
+    write /sys/module/lpm_levels/system/system-cci-pc/suspend_enabled Y
+
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    write /sys/class/net/rmnet0/queues/rx-0/rps_cpus 10
+
+    write /sys/class/devfreq/qcom,cpubw.61/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,cpubw.61/bw_hwmon/io_percent 20
+    write /sys/class/devfreq/qcom,gpubw.38/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,gpubw.38/bw_hwmon/io_percent 40
+
+    # Apply HMP task packing
+    write /proc/sys/kernel/sched_small_task 20
+    write /proc/sys/kernel/sched_mostly_idle_load 30
+    write /proc/sys/kernel/sched_mostly_idle_nr_run 3
+
+    write /sys/module/msm_thermal/core_control/enabled 0
+
+    # enable governor for perf cluster
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "20000 1113600:50000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1113600
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "1 960000:85 1113600:90 1344000:80"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 960000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
+
+    # enable governor for power cluster
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "25000 800000:50000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 998400
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "1 800000:90"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 800000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 1
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+    write /proc/sys/kernel/sched_window_stats_policy 2
+    write /proc/sys/kernel/sched_upmigrate 75
+    write /proc/sys/kernel/sched_downmigrate 60
+    write /proc/sys/kernel/sched_ravg_hist_size 5
+
+    write /sys/module/cpu_boost/parameters/boost_ms 20
+    write /sys/module/cpu_boost/parameters/sched_boost_on_input 1
+
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu6/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu7/sched_mostly_idle_load 30
+
