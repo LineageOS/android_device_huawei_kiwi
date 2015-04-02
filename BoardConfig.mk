@@ -181,6 +181,9 @@ BOARD_SEPOLICY_UNION += \
     system.te \
     wcnss_service.te
 
+# Video
+TARGET_HAVE_SIGNED_VENUS_FW := true
+
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
