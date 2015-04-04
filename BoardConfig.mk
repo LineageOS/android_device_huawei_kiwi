@@ -171,6 +171,7 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION += \
     bluetooth_loader.te \
+    bootanim.te \
     file.te \
     file_contexts \
     healthd.te \
