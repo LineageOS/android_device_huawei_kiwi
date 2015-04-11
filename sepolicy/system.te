@@ -1,3 +1,1 @@
 allow system_server leds_device:chr_file rw_file_perms;
-allow system_server time_daemon:unix_stream_socket connectto;
-
