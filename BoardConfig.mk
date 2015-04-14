@@ -54,6 +54,7 @@ BOARD_SEPOLICY_DIRS += \
     device/yu/tomato/sepolicy
 
 BOARD_SEPOLICY_UNION += \
+    bluetooth_loader.te \
     file.te \
     file_contexts \
     system_app.te \
