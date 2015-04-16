@@ -1,0 +1,14 @@
+[
+  {
+    "repository": "android_kernel_yu_msm8916",
+    "target_path": "kernel/yu/msm8916"
+  },
+  {
+    "repository": "android_hardware_qcom_fm",
+    "target_path": "hardware/qcom/fm"
+  },
+  {
+    "repository": "android_device_qcom_common",
+    "target_path": "device/qcom/common"
+  }
+]
