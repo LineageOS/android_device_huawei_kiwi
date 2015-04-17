@@ -65,5 +65,9 @@ BOARD_SEPOLICY_UNION += \
 # Video
 TARGET_HAVE_SIGNED_VENUS_FW := true
 
+# Wifi
+TARGET_PROVIDES_WCNSS_QMI := true
+TARGET_USES_QCOM_WCNSS_QMI := true
+
 # inherit from the proprietary version
 -include vendor/yu/tomato/BoardConfigVendor.mk
