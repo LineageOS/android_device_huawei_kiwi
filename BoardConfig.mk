@@ -15,9 +15,9 @@
 
 -include device/cyanogen/msm8939-common/BoardConfigCommon.mk
 
-LOCAL_PATH := device/yu/tomato
+DEVICE_PATH := device/yu/tomato
 
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
 # Assertions
 TARGET_BOARD_INFO_FILE ?= device/yu/tomato/board-info.txt
@@ -26,13 +26,13 @@ TARGET_BOARD_INFO_FILE ?= device/yu/tomato/board-info.txt
 TARGET_KERNEL_CONFIG := cyanogenmod_tomato-64_defconfig
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 # Camera
 BOARD_CAMERA_SENSORS := imx135_cp8675 imx214_cp8675 ov5648_cp8675
 
 # CMHW
-BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw/src
+BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
