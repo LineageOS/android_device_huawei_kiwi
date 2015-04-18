@@ -25,6 +25,9 @@ TARGET_BOARD_INFO_FILE ?= device/yu/tomato/board-info.txt
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_tomato-64_defconfig
 
+# Properties
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
