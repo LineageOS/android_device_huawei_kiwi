@@ -43,6 +43,7 @@ dalvik.vm.heapmaxfree=8m
 dalvik.vm.heapsize=512m
 dalvik.vm.zygotemaxfailedboots=5
 debug.composition.type=c2d
+debug.cpurend.vsync=false
 debug.egl.hw=0
 debug.enable.sglscale=1
 debug.hwui.use_buffer_age=false
