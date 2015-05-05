@@ -55,6 +55,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     yl_btmac
 
+# Camera
+PRODUCT_PACKAGES += \
+    camera.msm8916 \
+    libmm-qcamera
+
 # CMHW JNI
 PRODUCT_PACKAGES += \
     libjni_cmhw
