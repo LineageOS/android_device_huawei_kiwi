@@ -1,21 +1,5 @@
 [
   {
-    "repository": "android_kernel_cyanogen_msm8916",
-    "target_path": "kernel/cyanogen/msm8916"
-  },
-  {
-    "repository": "android_hardware_qcom_fm",
-    "target_path": "hardware/qcom/fm"
-  },
-  {
-    "repository": "android_external_mm-dash",
-    "target_path": "external/mm-dash"
-  },
-  {
-    "repository": "android_device_qcom_common",
-    "target_path": "device/qcom/common"
-  },
-  {
     "repository": "android_device_cyanogen_msm8939-common",
     "target_path": "device/cyanogen/msm8939-common"
   }
