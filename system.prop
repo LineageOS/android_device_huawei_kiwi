@@ -1,6 +1,3 @@
-# Display
-ro.sf.lcd_density=320
-
 # Radio
 persist.data.target=dpm1
 persist.radio.multisim.config=dsds
