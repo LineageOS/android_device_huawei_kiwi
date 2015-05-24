@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015, The CyanogenMod Project
+ * Copyright (C) 2017, The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,37 +192,44 @@ err_ret:
 /* verify_baseband("BASEBAND_VERSION", "BASEBAND_VERSION", ...) */
 Value * VerifyBasebandFn(const char *name, State *state, int argc, Expr *argv[]) {
     char current_baseband_version[BASEBAND_VER_BUF_LEN];
-    char *baseband_version;
     int i, ret;
 
     ret = get_baseband_version(current_baseband_version, BASEBAND_VER_BUF_LEN);
     if (ret) {
-        return ErrorAbort(state, kVendorFailure, "%s() failed to read current BASEBAND version: %d",
+        return ErrorAbort(state, kVendorFailure, "%s() failed to read current baseband version: %d",
                 name, ret);
     }
 
-    for (i = 0; i < argc; i++) {
-        baseband_version = Evaluate(state, argv[i]);
-        if (baseband_version < 0) {
-            return ErrorAbort(state, kArgsParsingFailure, "%s() error parsing arguments: %d",
-                name, baseband_version);
-        }
+    char** baseband_version = ReadVarArgs(state, argc, argv);
+    if (baseband_version == NULL) {
+        return ErrorAbort(state, "%s() error parsing arguments", name);
+    }
 
-        uiPrintf(state, "Comparing BASEBAND version %s to %s",
-                baseband_version, current_baseband_version);
-        if (strncmp(baseband_version, current_baseband_version, strlen(baseband_version)) == 0) {
-            return StringValue(strdup("1"));
+    ret = 0;
+    for (i = 0; i < argc; i++) {
+        uiPrintf(state, "Comparing baseband version %s to %s",
+                 baseband_version[i], current_baseband_version);
+        if (strncmp(baseband_version[i], current_baseband_version, strlen(baseband_version[i])) == 0) {
+            ret = 1;
+            break;
         }
     }
 
-    uiPrintf(state, "ERROR: It appears you are running an unsupported baseband.");
-    return StringValue(strdup("0"));
+    if (ret == 0) {
+        uiPrintf(state, "ERROR: It appears you are running an unsupported baseband.");
+    }
+
+    for (i = 0; i < argc; i++) {
+        free(baseband_version[i]);
+    }
+    free(baseband_version);
+
+    return StringValue(strdup(ret ? "1" : "0"));
 }
 
 /* verify_trustzone("TZ_VERSION", "TZ_VERSION", ...) */
 Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]) {
     char current_tz_version[TZ_VER_BUF_LEN];
-    char *tz_version;
     int i, ret;
 
     ret = get_tz_version(current_tz_version, TZ_VER_BUF_LEN);
@@ -230,21 +238,31 @@ Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]
                 name, ret);
     }
 
-    for (i = 0; i < argc; i++) {
-        ret = ReadArgs(state, &argv[i], 1, &tz_version);
-        if (ret < 0) {
-            return ErrorAbort(state, "%s() error parsing arguments: %d",
-                name, ret);
-        }
+    char** tz_version = ReadVarArgs(state, argc, argv);
+    if (tz_version == NULL) {
+        return ErrorAbort(state, "%s() error parsing arguments", name);
+    }
 
+    ret = 0;
+    for (i = 0; i < argc; i++) {
         uiPrintf(state, "Comparing TZ version %s to %s",
-                tz_version, current_tz_version);
-        if (strncmp(tz_version, current_tz_version, strlen(tz_version)) == 0) {
-            return StringValue(strdup("1"));
+                tz_version[i], current_tz_version);
+        if (strncmp(tz_version[i], current_tz_version, strlen(tz_version[i])) == 0) {
+            ret = 1;
+            break;
         }
     }
 
-    return StringValue(strdup("0"));
+    if (ret == 0) {
+        uiPrintf(state, "ERROR: It appears you are running an unsupported TZ.");
+    }
+
+    for (i = 0; i < argc; i++) {
+        free(tz_version[i]);
+    }
+    free(tz_version);
+
+    return StringValue(strdup(ret ? "1" : "0"));
 }
 
 void Register_librecovery_updater_kiwi() {
