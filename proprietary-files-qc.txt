@@ -183,7 +183,7 @@ vendor/lib64/librs_adreno.so
 vendor/lib64/librs_adreno_sha1.so
 vendor/lib64/libsc-a2xx.so
 vendor/lib64/libsc-a3xx.so
-vendor/lib/libscale.so
+vendor/lib64/libscale.so
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
