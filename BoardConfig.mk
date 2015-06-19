@@ -42,6 +42,17 @@ BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
 # Compression - Smoosh all the things
 TARGET_TRANSPARENT_COMPRESSION_METHOD := lz4
 
+# Dexopt, only if we can fit that in
+ifneq ($(TARGET_TRANSPARENT_COMPRESSION_METHOD),)
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+endif
+
 # GPS
 TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
 TARGET_NO_RPC := true
