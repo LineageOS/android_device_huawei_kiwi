@@ -42,6 +42,9 @@ BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
 # Compression - Smoosh all the things
 TARGET_TRANSPARENT_COMPRESSION_METHOD := lz4
 
+# CPU
+TARGET_CPU_CORTEX_A53 := true
+
 # Dexopt, only if we can fit that in
 ifneq ($(TARGET_TRANSPARENT_COMPRESSION_METHOD),)
 ifeq ($(HOST_OS),linux)
