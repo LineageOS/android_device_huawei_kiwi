@@ -92,9 +92,6 @@ BOARD_SEPOLICY_UNION += \
     system.te \
     wcnss_service.te
 
-# Video
-TARGET_HAVE_SIGNED_VENUS_FW := true
-
 # Wifi
 TARGET_PROVIDES_WCNSS_QMI := true
 TARGET_USES_QCOM_WCNSS_QMI := true
