@@ -67,6 +67,13 @@
         <item>255</item>
     </integer-array>
 
+    <!-- Minimum screen brightness allowed by the power manager. -->
+    <integer name="config_screenBrightnessDim">5</integer>
+
+    <!-- Flag indicating whether we should enable the automatic brightness in Settings.
+                  config_hardware_automatic_brightness_available is not set, so we will use software implementation -->
+    <bool name="config_automatic_brightness_available">true</bool>
+
     <!-- Hardware 'face' keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
          of the following keys present:
