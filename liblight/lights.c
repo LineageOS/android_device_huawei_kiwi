@@ -1,4 +1,6 @@
 /*
+ * Copyright (C) 2008 The Android Open Source Project
+ * Copyright (C) 2014 The  Linux Foundation. All rights reserved.
  * Copyright (C) 2014-2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,29 +41,38 @@ static struct light_state_t g_attention;
 static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 
-const char *const RED_LED_FILE
-        = "/sys/class/leds/red/brightness";
-
-const char *const GREEN_LED_FILE
-        = "/sys/class/leds/green/brightness";
-
-const char *const BLUE_LED_FILE
-        = "/sys/class/leds/blue/brightness";
-
-const char *const LCD_FILE
+char const *const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
-
-const char *const RED_BLINK_FILE
-        = "/sys/class/leds/red/blink";
-
-const char *const GREEN_BLINK_FILE
-        = "/sys/class/leds/green/blink";
-
-const char *const BLUE_BLINK_FILE
-        = "/sys/class/leds/blue/blink";
 
 const char *const BUTTONS_FILE
         = "/sys/class/leds/button-backlight/brightness";
+
+char const *const RED_LED_FILE
+        = "/sys/class/leds/red/brightness";
+
+char const *const RED_BLINK_FILE
+        = "/sys/class/leds/red/blink";
+
+char const *const RED_BREATH_FILE
+        = "/sys/class/leds/red/led_time";
+
+char const *const GREEN_LED_FILE
+        = "/sys/class/leds/green/brightness";
+
+char const *const GREEN_BLINK_FILE
+        = "/sys/class/leds/green/blink";
+
+char const *const GREEN_BREATH_FILE
+        = "/sys/class/leds/green/led_time";
+
+char const *const BLUE_LED_FILE
+        = "/sys/class/leds/blue/brightness";
+
+char const *const BLUE_BLINK_FILE
+	    = "/sys/class/leds/blue/blink";
+
+char const *const BLUE_BREATH_FILE
+        = "/sys/class/leds/blue/led_time";
 
 /**
  * device methods
@@ -74,21 +85,19 @@ void init_globals(void)
 }
 
 static int
-write_int(char const* path, int value)
+write_str(char const *path, char *value)
 {
     int fd;
     static int already_warned = 0;
 
     fd = open(path, O_RDWR);
     if (fd >= 0) {
-        char buffer[20];
-        int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-        ssize_t amt = write(fd, buffer, (size_t)bytes);
+        ssize_t amt = write(fd, value, (size_t)strlen(value));
         close(fd);
         return amt == -1 ? -errno : 0;
     } else {
         if (already_warned == 0) {
-            ALOGE("write_int failed to open %s\n", path);
+            ALOGE("write_str failed to open %s\n", path);
             already_warned = 1;
         }
         return -errno;
@@ -96,7 +105,15 @@ write_int(char const* path, int value)
 }
 
 static int
-is_lit(struct light_state_t const* state)
+write_int(char const *path, int value)
+{
+    char buffer[20];
+    snprintf(buffer, sizeof(buffer), "%d\n", value);
+    return write_str(path, buffer);
+}
+
+static int
+is_lit(struct light_state_t const *state)
 {
     return state->color & 0x00ffffff;
 }
@@ -112,24 +129,23 @@ rgb_to_brightness(const struct light_state_t *state)
 
 static int
 set_speaker_light_locked(struct light_device_t *dev,
-        struct light_state_t const* state)
+        struct light_state_t const *state)
 {
     int red, green, blue;
     int blink;
     int onMS, offMS;
     unsigned int colorRGB;
+    char breath_pattern[64] = { 0, };
 
-    if(!dev) {
+    if (!dev) {
         return -1;
     }
 
+    write_int(RED_LED_FILE, 0);
+    write_int(GREEN_LED_FILE, 0);
+    write_int(BLUE_LED_FILE, 0);
+
     if (state == NULL) {
-        write_int(RED_LED_FILE, 0);
-        write_int(GREEN_LED_FILE, 0);
-        write_int(BLUE_LED_FILE, 0);
-        write_int(RED_BLINK_FILE, 0);
-        write_int(GREEN_BLINK_FILE, 0);
-        write_int(BLUE_BLINK_FILE, 0);
         return 0;
     }
 
@@ -147,39 +163,61 @@ set_speaker_light_locked(struct light_device_t *dev,
 
     colorRGB = state->color;
 
-#if 0
-    ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
+    ALOGV("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
             state->flashMode, colorRGB, onMS, offMS);
-#endif
 
     red = (colorRGB >> 16) & 0xFF;
     green = (colorRGB >> 8) & 0xFF;
     blue = colorRGB & 0xFF;
 
-    if (onMS > 0 && offMS > 0) {
-        blink = 1;
-    } else {
-        blink = 0;
+    if (onMS > 0 && offMS > 0 && !(
+          (red == green && green == blue) ||
+          (red == green && blue == 0) ||
+          (red == blue && green == 0) ||
+          (green == blue && red == 0) ||
+          (blue == 0 && red == 0) ||
+          (green == 0 && red == 0) ||
+          (green == 0 && blue == 0)
+        )) {
+        // Blinking only works if all active component colors have
+        // the same brightness value
+        offMS = 0;
     }
 
-    if (blink) {
-        if (red) {
-            if (write_int(RED_BLINK_FILE, blink))
-                write_int(RED_LED_FILE, 0);
-	}
-        if (green) {
-            if (write_int(GREEN_BLINK_FILE, blink))
-                write_int(GREEN_LED_FILE, 0);
-	}
-        if (blue) {
-            if (write_int(BLUE_BLINK_FILE, blink))
-                write_int(BLUE_LED_FILE, 0);
-	}
+    if (onMS > 0 && offMS > 0) {
+        blink = 1;
+        // Make sure the values are at least 1 second. That's the smallest
+        // we take
+        if (onMS && onMS < 1000) onMS = 1000;
+        if (offMS && offMS < 1000) offMS = 1000;
+        // ramp up, lit, ramp down, unlit. in seconds.
+        sprintf(breath_pattern,"1 %d 1 %d",(int)(onMS/1000),(int)(offMS/1000));
     } else {
-        write_int(RED_LED_FILE, red);
-        write_int(GREEN_LED_FILE, green);
-        write_int(BLUE_LED_FILE, blue);
+        blink = 0;
+        sprintf(breath_pattern,"1 2 1 2");
     }
+
+    // Order of operations matters.
+    //
+    // Setting a pattern jacks up brightness to max, and setting the level
+    // resets blink state. So first set the pattern, then the level,
+    // and then kick off blinkage
+    if (!write_str(RED_BREATH_FILE, breath_pattern)) {
+        write_int(RED_LED_FILE, red);
+    }
+    if (!write_str(GREEN_BREATH_FILE, breath_pattern)) {
+        write_int(GREEN_LED_FILE, green);
+    }
+    if (!write_str(BLUE_BREATH_FILE, breath_pattern)) {
+         write_int(BLUE_LED_FILE, blue);
+    }
+
+    // Power rails are in a workqueue, give the kernel time to bring them
+    // up before starting the blinks, or those'll be lost
+    usleep(500*1000);
+    if (red) write_int(RED_BLINK_FILE, blink);
+    if (green) write_int(GREEN_BLINK_FILE, blink);
+    if (blue) write_int(BLUE_BLINK_FILE, blink);
 
     return 0;
 }
@@ -236,6 +274,13 @@ set_light_attention(struct light_device_t *dev,
     pthread_mutex_lock(&g_lock);
 
     g_attention = *state;
+    if (state->flashMode == LIGHT_FLASH_HARDWARE) {
+        if (g_attention.flashOnMS > 0 && g_attention.flashOffMS == 0) {
+            g_attention.flashMode = LIGHT_FLASH_NONE;
+        }
+    } else if (state->flashMode == LIGHT_FLASH_NONE) {
+        g_attention.color = 0;
+    }
     handle_speaker_light_locked(dev);
 
     pthread_mutex_unlock(&g_lock);
