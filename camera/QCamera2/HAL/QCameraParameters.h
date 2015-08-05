@@ -721,6 +721,7 @@ public:
 private:
     int32_t setPreviewSize(const QCameraParameters& );
     int32_t setVideoSize(const QCameraParameters& );
+    void    updateViewAngle(int width, int height);
     int32_t setPictureSize(const QCameraParameters& );
     int32_t setLiveSnapshotSize(const QCameraParameters& );
     int32_t setPreviewFormat(const QCameraParameters& );
