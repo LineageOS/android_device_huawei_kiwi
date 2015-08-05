@@ -5,13 +5,3 @@ ril.ecclist=000,08,100,101,102,110,112,118,119,120,122,911,999
 ro.com.android.mobiledata=false
 ro.config.always_show_roaming=true
 ro.telephony.default_network=9,1
-
-# USB
-ro.usb.id.charge=F006
-ro.usb.id.mtp=F003
-ro.usb.id.mtp_adb=9039
-ro.usb.id.ptp=904D
-ro.usb.id.ptp_adb=904E
-ro.usb.id.ums=F000
-ro.usb.id.ums_adb=9015
-ro.usb.vid=05c6
