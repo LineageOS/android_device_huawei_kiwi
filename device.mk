@@ -74,10 +74,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.usb.id.ums_adb=9015 \
     ro.usb.vid=05c6
 
-# CMHW JNI
-PRODUCT_PACKAGES += \
-    libjni_cmhw
-
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8916
