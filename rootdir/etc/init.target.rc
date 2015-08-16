@@ -40,7 +40,6 @@ on fs
     mount_all /vendor/etc/fstab.qcom --early
 
     swapon_all /vendor/etc/fstab.qcom
-    write /proc/sys/vm/swappiness 100
     write /proc/sys/vm/page-cluster 0
 
     mkdir /persist/data 0700 system system
