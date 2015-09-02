@@ -160,8 +160,4 @@
                   Used to decide if the user can change the colors -->
     <bool name="config_multiColorNotificationLed">true</bool>
 
-    <!-- Do the battery/notification LEDs support pulsing?
-         Used to decide if we show pulse settings -->
-    <bool name="config_ledCanPulse">false</bool>
-
 </resources>
