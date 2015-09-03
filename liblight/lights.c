@@ -71,6 +71,9 @@ char const*const GREEN_BREATH_FILE
 char const*const BLUE_BREATH_FILE
         = "/sys/class/leds/blue/led_time";
 
+char const*const BUTTON_FILE
+        = "/sys/class/leds/button-backlight/brightness";
+
 struct color {
     unsigned int r, g, b;
     float _L, _a, _b;
@@ -432,6 +435,20 @@ set_light_attention(struct light_device_t* dev,
     return 0;
 }
 
+static int
+set_light_buttons(struct light_device_t* dev,
+        struct light_state_t const* state)
+{
+    int err = 0;
+    if(!dev) {
+        return -1;
+    }
+    pthread_mutex_lock(&g_lock);
+    err = write_int(BUTTON_FILE, state->color & 0xFF);
+    pthread_mutex_unlock(&g_lock);
+    return err;
+}
+
 /** Close the lights device */
 static int
 close_lights(struct light_device_t *dev)
@@ -464,6 +481,8 @@ static int open_lights(const struct hw_module_t* module, char const* name,
         set_light = set_light_notifications;
     else if (0 == strcmp(LIGHT_ID_ATTENTION, name))
         set_light = set_light_attention;
+    else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
+        set_light = set_light_buttons;
     else
         return -EINVAL;
 
