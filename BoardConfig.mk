@@ -20,7 +20,7 @@ DEVICE_PATH := device/yu/tomato
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
 # Assertions
-TARGET_BOARD_INFO_FILE ?= device/yu/tomato/board-info.txt
+TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_tomato-64_defconfig
@@ -61,7 +61,7 @@ TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
 TARGET_NO_RPC := true
 
 # init
-TARGET_LIBINIT_DEFINES_FILE := device/yu/tomato/init/init_tomato.c
+TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_PATH)/init/init_tomato.c
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -81,7 +81,7 @@ TARGET_RECOVERY_DENSITY := xhdpi
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    device/yu/tomato/sepolicy
+    $(DEVICE_PATH)/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     bluetooth_loader.te \
