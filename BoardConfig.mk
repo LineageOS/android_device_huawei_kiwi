@@ -97,6 +97,9 @@ TARGET_NO_RPC := true
 # Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
+# Libc extensions
+BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += libc_huawei_symbols
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
