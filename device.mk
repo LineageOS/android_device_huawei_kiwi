@@ -105,7 +105,6 @@ PRODUCT_PACKAGES += \
     libshim_camera_post_mediaserver \
     libshim_cutils \
     libshim_gps \
-    libshim_sensor_manager \
     libshim_sound_trigger \
     libstlport
 

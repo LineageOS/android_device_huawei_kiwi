@@ -28,13 +28,15 @@
 
 #include <gui/ISensorServer.h>
 #include <gui/ISensorEventConnection.h>
-#include <gui/Sensor.h>
-#include <gui/SensorManager.h>
+#include "gui/Sensor.h"
+#include "gui/SensorManager.h"
 #include <gui/SensorEventQueue.h>
 
 // ----------------------------------------------------------------------------
 namespace android {
 // ----------------------------------------------------------------------------
+
+static String16 gPackageName = String16("packageName");
 
 ANDROID_SINGLETON_STATIC_INSTANCE(SensorManager)
 
@@ -86,9 +88,9 @@ status_t SensorManager::assertStateLocked() const {
         };
 
         mDeathObserver = new DeathObserver(*const_cast<SensorManager *>(this));
-        mSensorServer->asBinder()->linkToDeath(mDeathObserver);
+        IInterface::asBinder(mSensorServer)->linkToDeath(mDeathObserver);
 
-        mSensors = mSensorServer->getSensorList();
+        mSensors = mSensorServer->getSensorList(gPackageName);
         size_t count = mSensors.size();
         mSensorList = (Sensor const**)malloc(count * sizeof(Sensor*));
         for (size_t i=0 ; i<count ; i++) {
@@ -145,7 +147,7 @@ sp<SensorEventQueue> SensorManager::createEventQueue()
     Mutex::Autolock _l(mLock);
     while (assertStateLocked() == NO_ERROR) {
         sp<ISensorEventConnection> connection =
-                mSensorServer->createSensorEventConnection();
+                mSensorServer->createSensorEventConnection(String8(""), 0, gPackageName);
         if (connection == NULL) {
             // SensorService just died.
             ALOGE("createEventQueue: connection is NULL. SensorService died.");
