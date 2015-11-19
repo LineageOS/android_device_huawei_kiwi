@@ -186,7 +186,7 @@ _________________________________________________________________
             <Limit name="block-size" value="16x16" />
             <Limit name="blocks-per-second" min="1" max="489600" />
             <Limit name="bitrate" range="1-50000000" />
-            <Limit name="concurrent-instances" max="8" />
+            <Limit name="concurrent-instances" max="4" />
             <Feature name="adaptive-playback" />
             <Feature name="secure-playback" required="true" />
         </MediaCodec>
@@ -209,7 +209,7 @@ _________________________________________________________________
             <Limit name="block-size" value="16x16" />
             <Limit name="blocks-per-second" min="1" max="244800" />
             <Limit name="bitrate" range="1-80000000" />
-            <Limit name="concurrent-instances" max="8" />
+            <Limit name="concurrent-instances" max="7" />
             <Feature name="adaptive-playback" />
             <Feature name="secure-playback" required="true" />
         </MediaCodec>
