@@ -25,6 +25,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import init.qcom.ssr.rc
+
 on boot
     # change file owner for factory test
     chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/firmware_version
