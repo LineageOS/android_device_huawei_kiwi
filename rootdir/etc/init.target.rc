@@ -141,8 +141,24 @@ service ppd /system/vendor/bin/mm-pp-daemon
 on property:init.svc.surfaceflinger=stopped
     stop ppd
 
+on property:init.svc.surfaceflinger=restarting
+    stop hwcomposer-2-1
+    start hwcomposer-2-1
+
 on property:init.svc.surfaceflinger=running
     start ppd
+
+on property:init.svc.surfaceflinger=restarting
+    stop ppd
+
+on property:init.svc.zygote=stopped
+    stop ppd
+
+on property:init.svc.zygote=running
+    start ppd
+
+on property:init.svc.zygote=restarting
+    stop ppd
 
 service wcnss-service /vendor/bin/wcnss_service
     class main
