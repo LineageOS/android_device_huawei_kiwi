@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-$(call inherit-product-if-exists, vendor/yu/tomato/tomato-vendor.mk)
+$(call inherit-product-if-exists, vendor/huawei/kiwi/kiwi-vendor.mk)
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -101,17 +101,8 @@ PRODUCT_COPY_FILES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    init.class_main.sh \
     init.target.rc
-
-# SSR
-ifeq ($(TARGET_BUILD_VARIANT),user)
-PRODUCT_PACKAGES += \
-    init.qcom.ssr.rc
-endif
-
-# Recovery
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(LOCAL_PATH)/tomato-releasekey
 
 # Sensors
 PRODUCT_PACKAGES += \

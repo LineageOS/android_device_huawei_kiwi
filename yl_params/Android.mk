@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-ifeq ($(TARGET_DEVICE),tomato)
+ifeq ($(TARGET_DEVICE),kiwi)
 
 LOCAL_PATH := $(call my-dir)
 

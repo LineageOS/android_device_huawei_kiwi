@@ -1,1 +1,0 @@
-allow system_server leds_device:chr_file rw_file_perms;

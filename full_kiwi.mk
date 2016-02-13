@@ -15,7 +15,7 @@
 #
 
 # Inherit from those products. Most specific first.
-ifneq ($(TOMATO_32_BIT),true)
+ifneq ($(KIWI_32_BIT),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif
 
@@ -23,12 +23,12 @@ TARGET_LOCALES := en_US en_IN en_GB hi_IN mr_IN ml_IN ta_IN kn_IN te_IN
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from tomato device
-$(call inherit-product, device/yu/tomato/device.mk)
+# Inherit from kiwi device
+$(call inherit-product, device/huawei/kiwi/device.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := tomato
-PRODUCT_NAME := full_tomato
-PRODUCT_BRAND := YU
-PRODUCT_MODEL := AO5510
-PRODUCT_MANUFACTURER := YU
+PRODUCT_DEVICE := kiwi
+PRODUCT_NAME := full_kiwi
+PRODUCT_BRAND := HUAWEI
+PRODUCT_MODEL := KIW-L24
+PRODUCT_MANUFACTURER := HUAWEI

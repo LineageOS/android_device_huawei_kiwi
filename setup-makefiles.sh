@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DEVICE=tomato
-VENDOR=yu
+DEVICE=kiwi
+VENDOR=huawei
 
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
@@ -156,7 +156,7 @@ EOF
 
 LOCAL_PATH := \$(call my-dir)
 
-ifeq (\$(TARGET_DEVICE),tomato)
+ifeq (\$(TARGET_DEVICE),kiwi)
 ifeq (\$(QCPATH),)
 
 include \$(CLEAR_VARS)
@@ -248,7 +248,7 @@ include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libtime_genoff
-LOCAL_MODULE_OWNER := yu
+LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES_64 := proprietary/vendor/lib64/libtime_genoff.so
 LOCAL_SRC_FILES_32 := proprietary/vendor/lib/libtime_genoff.so
 LOCAL_MODULE_TAGS := optional
