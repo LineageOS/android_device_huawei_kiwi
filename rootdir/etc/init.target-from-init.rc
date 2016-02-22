@@ -1,0 +1,427 @@
+on early-init
+    setprop persist.service.hbd.enable true
+
+on init
+    mkdir /cust
+
+# Create cgroup mount point for freezer
+    mkdir /dev/frz
+    mount cgroup none /dev/frz freezer
+
+# Create cgroup for pids
+    mkdir /sys/fs/cgroup/pids 0750 root system
+    mount cgroup none /sys/fs/cgroup/pids pids
+    mkdir /sys/fs/cgroup/pids/unconfirm_app 0750 root system
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/cgroup.procs
+    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/cgroup.procs
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/tasks
+    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/tasks
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/pids.group_limit
+    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/pids.group_limit
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/cgroup.event_control
+    chmod 0220 /sys/fs/cgroup/pids/unconfirm_app/cgroup.event_control
+
+    chown system system /sys/module/mdss_dsi/parameters/dsi_status_disable
+
+    chown root system /dev/block/mmcblk0p8
+    chmod 0660 /dev/block/mmcblk0p8
+
+on load_all_props_action
+    usb_init_setting
+
+on post-fs-data
+    # Create log dir to collect logs.
+    mkdir /data/log 0751 system system
+    mkdir /data/log/fac_log 0755 system system
+    mkdir /data/log/android_logs 0755 system system
+    mkdir /data/log/tp_cap 0755 system system
+    chown system system /data/log/tp_cap
+    mkdir /data/log/sleeplog 0755 system system
+    mkdir /data/log/sleeplog/powerlog 0755 system system
+
+# right trigger?
+    mkdir /data/misc/wifi/load 0775 system system
+    mkdir /data/misc/dts 0770 media media
+    symlink /system/etc/srs/srs_processing.cfg /data/misc/dts/srs_processing.cfg 2>/data/log/dts-log
+
+    mkdir /data/drm/rights 0770 drm drm
+    mkdir /data/drm/widevine 0770 drm drm
+
+    # DTS2014081000069 wangyong/00205756 20140811 begin sync DTS2013082803931
+    mkdir /data/midi
+    chmod 0770 /data/midi
+    chown media audio /data/midi
+    # DTS2014081000069 wangyong/00205756 20140811 end
+
+    sys_wp_init_action
+    start goldeneye
+    start goldeneye_test
+
+    start cust
+
+    chown system system /sys/devices/12c.hw-dev-detect/dev_flag
+    chown system system /sys/touch_screen/touch_mmi_test
+    chown system system /sys/touch_screen/touch_calibration
+    chown system system /sys/touch_screen/synaptics_mmi_test_result
+    chown system system /sys/touch_screen/synaptics_mmi_test
+    chown system system /sys/touch_screen/holster_touch_window
+    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity
+    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold 
+    chown system system /sys/touch_screen/glove_func/signal_disparity
+    chown system system /sys/touch_screen/glove_func/holster_sensitivity
+    chown system system /sys/touch_screen/glove_func/finger_threshold 
+    chown system system /sys/touch_screen/easy_wakeup_gesture
+    chown system system /sys/touch_screen/easy_wakeup_supported_gestures
+    chown system system /sys/touch_screen/easy_wakeup_position
+    chown system system /sys/touch_screen/openshort
+
+    chown system system /sys/touch_screen/cyttsp5/command
+    chown system system /sys/touch_screen/cyttsp5/status
+    chown system system /sys/touch_screen/cyttsp5/response
+    chown system system /sys/touch_screen/touch_mmi_test/calibrate_idacs
+    chown system system /sys/touch_screen/touch_mmi_test/disable_single_tx
+    chown system system /sys/touch_screen/touch_mmi_test/enable_single_tx
+    chown system system /sys/touch_screen/touch_mmi_test/get_hid_desc
+    chown system system /sys/touch_screen/touch_mmi_test/get_sys_info
+    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_button
+    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_mut_raw
+    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_self_raw
+    chown system system /sys/touch_screen/touch_mmi_test/read_data_block_row
+    chown system system /sys/touch_screen/touch_mmi_test/resume_scan
+    chown system system /sys/touch_screen/touch_mmi_test/retrieve_data_structure
+    chown system system /sys/touch_screen/touch_mmi_test/short_test
+    chown system system /sys/touch_screen/touch_mmi_test/suspend_scan
+    chown system system /sys/touch_screen/touch_mmi_test/command
+    chown system system /sys/touch_screen/touch_mmi_test/status
+    chown system system /sys/touch_screen/touch_mmi_test/response
+    # BEGIN PN:DTS2015061604204 xutao 00182802 20150627
+    restorecon /sys/class/leds/lcd-backlight/brightness
+    restorecon /sys/class/power_supply/battery/charging_enabled
+    restorecon /sys/class/graphics/fb0/inversion_mode
+    restorecon /sys/class/leds/green/brightness
+    restorecon /sys/class/leds/red/brightness
+    restorecon /sys/class/leds/blue/brightness
+    restorecon /sys/class/hw_power/charger/charge_data/enable_charger
+    # END PN:DTS2015061604204 xutao 00182802 20150627
+    #add for fingerprint
+
+    chown system system /dev/fpc1020
+    chmod 0660 /dev/fpc1020
+    chown system system /sys/devices/platform/fingerprint/diag/result
+    chown system system /sys/devices/platform/fingerprint/diag/navigation_enable
+    chown system system /sys/devices/platform/fingerprint/diag/wakeup_enable
+    chown system system /sys/devices/platform/fingerprint/diag/chip_id
+    chown system system /sys/devices/platform/fingerprint/diag/selftest
+    chown system system /sys/devices/platform/fingerprint/diag/fingerdetect
+    chown system system /sys/devices/platform/fingerprint/diag/spi_ctl
+    chown system system /sys/devices/platform/fingerprint/setup/adc_gain
+    chown system system /sys/devices/platform/fingerprint/setup/adc_shift
+    chown system system /sys/devices/platform/fingerprint/setup/capture_mode
+    chown system system /sys/devices/platform/fingerprint/setup/capture_count
+    chown system system /sys/devices/platform/fingerprint/setup/capture_col_groups
+    chown system system /sys/devices/platform/fingerprint/setup/capture_col_start
+    chown system system /sys/devices/platform/fingerprint/setup/capture_row_count
+    chown system system /sys/devices/platform/fingerprint/setup/capture_row_start
+    chown system system /sys/devices/platform/fingerprint/setup/capture_settings_mux
+    chown system system /sys/devices/platform/fingerprint/setup/pxl_ctrl
+    chown system system /sys/devices/platform/fingerprint/fingerprint_chip_info
+
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    chown root system /sys/class/power_supply/battery/charging_enabled
+    chown root system /sys/module/qpnp_linear_charger/parameters/charge_no_limit
+    chmod 0664 /sys/class/power_supply/battery/charging_enabled
+    chown root system /sys/class/hw_power/charger/charge_data/enable_charger
+    chmod 0664 /sys/class/hw_power/charger/charge_data/enable_charger
+    chown root system /sys/class/hw_power/charger/charge_data/iin_runningtest
+    chmod 0664 /sys/class/hw_power/charger/charge_data/iin_runningtest
+    chown system system /sys/class/power_supply/battery/factory_diag
+    chown system system /sys/class/power_supply/battery/hot_current_limit
+    restorecon /sys/class/power_supply/battery/hot_current_limit
+    chown system system /sys/class/power_supply/battery/input_current_max
+
+    chown system system /sys/devices/8789.huawei_hall_sensor/enable_hall_sensor
+    chown system system /sys/devices/8789.huawei_hall_sensor/camera_overturn_num
+    chown system system /sys/devices/8789.huawei_hall_sensor/get_camera_status
+    chown system system /sys/devices/8789.huawei_hall_sensor/mmi_camera_hall_status
+    chown root system /sys/devices/soc0/huawei_product
+
+    chown system system /sys/class/graphics/fb0/mipi_crc
+    chown system system /sys/class/graphics/fb0/inversion_mode
+    chown system system /sys/class/graphics/fb0/panel_status
+    chown system system /sys/class/graphics/fb0/lcd_checksum
+    # BEGIN PN: DTS2015082001462 fwx295956 20150820
+    chown system system /sys/class/graphics/fb0/lcd_comform_mode
+    chown system system /sys/class/graphics/fb0/lcd_support_mode
+    # END PN: DTS2015082001462 fwx295956 20150820
+
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_calib_target
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_calibration
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_device_name
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_enable
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_force_calib
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_reg_read
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_reg_write
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_status
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_prox_status
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_cap_value
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_sw_reset
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_threshold
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_calib
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_config
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_vendor
+    mkdir /data/log/sar_cap
+    chown system system /data/log/sar_cap
+    chown system system /sys/bus/i2c/devices/0-001e/ps_calibration
+    chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration
+    chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration_result
+    chown system system /sys/bus/i2c/devices/0-001e/dump_reg
+    chown system system /sys/bus/i2c/devices/0-001e/pdata
+    chown system system /sys/bus/i2c/devices/0-0038/module_tpcolor
+    chown system system /sys/bus/i2c/devices/0-0052/module_tpcolor
+    chown media media /sys/bus/platform/drivers/qcom,ois/0.qcom,ois/ois_pixel
+
+on property:ro.build.hide="true"
+       write /proc/sys/kernel/hide_info 1
+on property:ro.build.hide="false"
+       write /proc/sys/kernel/hide_info 0
+
+service powerlogd /system/bin/powerlogd
+    class core
+    socket powerlogd stream 0600 system system
+    socket powerlogdr seqpacket 0600 system system
+    socket powerlogdw dgram 0220 system system
+
+# stock's init.rc adds sdcard_rw as a group for ril-daemon
+
+service ddrtest /system/bin/do_ddrtest
+    user root
+    disabled
+    oneshot
+
+service stop_ddrtest /system/bin/do_ddrtest
+    user root
+    disabled
+    oneshot
+
+on property:debug.rt.ddr.test=1
+    stop ddrtest
+    start ddrtest
+on property:debug.rt.ddr.test=2
+    start ddrtest
+on property:debug.rt.ddr.test=3
+    start ddrtest
+on property:debug.rt.ddr.test=4
+    start stop_ddrtest
+
+# service drm adds sdcard_r media_rw shell groups
+
+service filebackup /system/bin/filebackup
+    class main
+    socket filebackup stream 0660 radio system
+
+# service media adds system dsm shell sdcard_rw sdcard_r groups
+
+# service bootanim runs as user media
+
+service oeminfo_server /system/bin/oeminfo_server
+    class core
+    user root
+    seclabel u:r:oeminfo_domain:s0
+
+service rmt_oeminfo /sbin/rmt_oeminfo
+    class core
+    user root
+    seclabel u:r:oeminfo_domain:s0
+
+service teecd /system/bin/teecd
+    class core
+    user system
+    group system
+    seclabel u:r:tee:s0
+
+service signinfolistener /sbin/signinfolistener
+    class core
+    user system
+    seclabel u:r:signinfolistener:s0
+
+service libqmi_oem_main /sbin/libqmi_oem_main
+    class main
+    seclabel u:r:libqmi_oem_main:s0
+
+service rebootmgr /system/bin/rebootmgr
+    class core
+    oneshot
+    disabled
+
+# disable enable_swap
+
+service chargelog  /sbin/chargelog.sh 2 51200
+    class main
+    root charger
+    disabled
+    seclabel u:r:chargelog:s0
+
+service chargemonitor /system/bin/chargemonitor
+    class late_start
+    user system
+    group system
+
+service wifi_aging /system/xbin/wifi_aging
+    user root
+    disabled
+    oneshot
+
+service wifi_power_off /system/xbin/wifi_power_off
+    user root
+    disabled
+    oneshot
+
+service wlan_detect /system/bin/wlan_detect
+    class main
+    user root
+    group root
+    oneshot
+
+service bt_aging /system/xbin/bt_aging
+    user root
+    group bluetooth net_bt_admin system
+    disabled
+    oneshot
+
+service bt_power_off /system/xbin/bt_power_off
+    user root
+    group bluetooth net_bt_admin system
+    disabled
+    oneshot
+
+service huawei_version /sbin/huawei_version
+    class core
+    user root
+    oneshot
+    seclabel u:r:huawei_version:s0
+
+service test_diag /sbin/test_diag
+    user root
+    disabled
+    seclabel u:r:test_diag:s0
+
+
+service oem_sar_main /system/bin/oem_sar_main
+    class core
+    user root
+
+service send_data_srv /system/bin/send_data_srv
+    class core
+    user system
+    group system
+    disabled
+    oneshot
+
+service mmc_ro_daemon /system/bin/huawei_crc_daemon
+    class main
+    user system
+    group system
+    enable
+    oneshot
+
+service mmc_ro_monitor /sbin/huawei_mmc_monitor -f -c
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:huawei_mmc_monitor:s0
+
+service mmc_ro_scan /sbin/huawei_mmc_monitor -f -c -d
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:huawei_mmc_monitor:s0
+
+on property:debug.rt.emmc.test=1
+    stop mmc_ro_monitor
+    start mmc_ro_monitor
+
+on property:debug.emmc.daemon.test=1
+    stop mmc_ro_scan
+    start mmc_ro_scan
+
+on property:ro.runmode=factory
+    start send_data_srv
+        mkdir /data/img media media
+        chmod 0777 /data/img
+        mkdir /data/camera camera camera
+        chmod 0777 /data/camera
+    mkdir /data/misp root root
+    chmod 0777 /data/misp
+    chmod 0777 /sys/bus/spi/devices/spi1.0/misp_config
+# for hwnff
+service hwnffserver /system/bin/hwnffserver
+    class core
+    oneshot
+
+service hwpged /system/bin/hwpged
+    class main
+    socket MsgHubSock stream 0660 root system
+    user root
+
+service check_root /sbin/check_root
+    user root
+    group radio system
+    oneshot
+    disabled
+    seclabel u:r:check_root:s0
+
+on property:sys.boot_completed=1
+    start check_root
+    huawei_boot_complete_save_action
+
+on property:persist.sys.hlcharging=true
+    write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
+mkdir system/etc/tp_test_parameters
+
+
+service cust /system/bin/cust
+       user root   
+       oneshot  
+       disabled  
+
+service systeminfo /system/bin/systeminfo
+    class main
+    user root
+    seclabel u:r:systeminfo:s0
+    oneshot    
+
+service fingerprint_log  /system/bin/fingerprint_log
+    class main
+    user system
+    group system system 
+    oneshot
+
+on property:ro.cust.complete="true"
+    start  rebootmgr
+
+on property:hw.accel.calib="true"
+    chmod 0664 /dev/input/event0
+    chmod 0664 /dev/input/event1
+    chmod 0664 /dev/input/event2
+    chmod 0664 /dev/input/event3
+    chmod 0664 /dev/input/event4
+    chmod 0664 /dev/input/event5
+    chmod 0664 /dev/input/event6
+    chmod 0664 /dev/input/event7
+    chmod 0664 /dev/input/event8
+    chmod 0664 /dev/input/event9
+    chmod 0664 /dev/input/event10
+    chmod 0664 /dev/input/event11
+    chmod 0664 /dev/input/event12
+    chmod 0664 /dev/input/event13
+    chmod 0664 /dev/input/event14
+    chmod 0664 /dev/input/event15
+    chmod 0664 /dev/input/event16
+    chmod 0664 /dev/input/event17
+    chmod 0664 /dev/input/event18
+    chmod 0664 /dev/input/event19
+    chmod 0664 /dev/input/event20

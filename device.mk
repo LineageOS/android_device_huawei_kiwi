@@ -89,7 +89,19 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     fstab.qcom \
     init.class_main.sh \
-    init.target.rc
+    init.qcom.bms.sh \
+    init.qcom.class_core.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.rc \
+    init.qcom.sh \
+    init.qcom.syspart_fixup.sh \
+    init.qcom.usb.rc \
+    init.qcom.usb.sh \
+    init.startoff_usbcharger.rc \
+    init.target-from-init.rc \
+    init.target.rc \
+    init.usb.sh \
+    ueventd.qcom.rc
 
 # Sensors
 PRODUCT_PACKAGES += \
