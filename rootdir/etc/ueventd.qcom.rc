@@ -221,3 +221,16 @@
 # Add device block for FRP
 /dev/block/bootdevice/by-name/config    0660   system     system
 /dev/block/bootdevice/by-name/pad    0660   system     system
+
+# Huawei added these to /ueventd.rc
+/dev/dsm                  0660   system     dsm
+/dev/log/main             0662   root       log
+/dev/log/radio            0662   root       log
+/dev/log/system           0662   root       log
+/dev/block/bootdevice/by-name/config                 0660   system     system
+/dev/block/bootdevice/by-name/pad                 0660   system     system
+/dev/pil_mss_ctl          0660   root       system
+# for nxp smartPA
+/dev/i2c-1               0660   media      media
+/dev/i2c-0               0660   media      media
+/dev/i2c-6               0660   media      media
