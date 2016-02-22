@@ -137,6 +137,13 @@ static char *camera_fixup_setparams(int id, const char *settings)
     params.dump();
 #endif
 
+    const char *sceneMode = params.get(android::CameraParameters::KEY_SCENE_MODE);
+    if (sceneMode != NULL) {
+        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
+            params.set("hdr-need-1x", "false");
+        }
+    }
+
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
     params.dump();
