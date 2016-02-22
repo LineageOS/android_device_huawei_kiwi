@@ -228,12 +228,12 @@ service filebackup /system/bin/filebackup
 service oeminfo_server /system/bin/oeminfo_server
     class core
     user root
-    seclabel u:r:oeminfo_domain:s0
+    #seclabel u:r:oeminfo_domain:s0
 
 service rmt_oeminfo /sbin/rmt_oeminfo
     class core
     user root
-    seclabel u:r:oeminfo_domain:s0
+    #seclabel u:r:oeminfo_domain:s0
 
 service teecd /system/bin/teecd
     class core
@@ -244,11 +244,11 @@ service teecd /system/bin/teecd
 service signinfolistener /sbin/signinfolistener
     class core
     user system
-    seclabel u:r:signinfolistener:s0
+    #seclabel u:r:signinfolistener:s0
 
 service libqmi_oem_main /sbin/libqmi_oem_main
     class main
-    seclabel u:r:libqmi_oem_main:s0
+    #seclabel u:r:libqmi_oem_main:s0
 
 service rebootmgr /system/bin/rebootmgr
     class core
@@ -300,7 +300,7 @@ service huawei_version /sbin/huawei_version
     class core
     user root
     oneshot
-    seclabel u:r:huawei_version:s0
+    #seclabel u:r:huawei_version:s0
 
 service test_diag /sbin/test_diag
     user root
@@ -331,14 +331,14 @@ service mmc_ro_monitor /sbin/huawei_mmc_monitor -f -c
     group root
     disabled
     oneshot
-    seclabel u:r:huawei_mmc_monitor:s0
+    #seclabel u:r:huawei_mmc_monitor:s0
 
 service mmc_ro_scan /sbin/huawei_mmc_monitor -f -c -d
     user root
     group root
     disabled
     oneshot
-    seclabel u:r:huawei_mmc_monitor:s0
+    #seclabel u:r:huawei_mmc_monitor:s0
 
 on property:debug.rt.emmc.test=1
     stop mmc_ro_monitor
@@ -391,7 +391,7 @@ service cust /system/bin/cust
 service systeminfo /system/bin/systeminfo
     class main
     user root
-    seclabel u:r:systeminfo:s0
+    #seclabel u:r:systeminfo:s0
     oneshot    
 
 service fingerprint_log  /system/bin/fingerprint_log
