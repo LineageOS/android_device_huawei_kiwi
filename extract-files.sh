@@ -7,12 +7,13 @@ export VENDOR=huawei
 if [ $# -eq 0 ]; then
   SRC=adb
 else
-  if [ $# -eq 1 ]; then
+  if [ $# -eq 2 ]; then
     SRC=$1
+    RAMDISK=$2
   else
     echo "$0: bad number of arguments"
     echo ""
-    echo "usage: $0 [PATH_TO_EXPANDED_ROM]"
+    echo "usage: $0 [PATH_TO_EXPANDED_ROM RAMDISK_TO_EXPAND_FROM]"
     echo ""
     echo "If PATH_TO_EXPANDED_ROM is not specified, blobs will be extracted from"
     echo "the device using adb pull."
@@ -31,22 +32,29 @@ for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
   then
     DEST=$FILE
   fi
+  if [ "${FILE:0:6}" = "/sbin/" ]; then
+    DIR_PREFIX=""
+    LOCAL_DIR=$RAMDISK
+  else
+    DIR_PREFIX=/system/
+    LOCAL_DIR=$SRC
+  fi
   DIR=`dirname $DEST`
   if [ ! -d $BASE/$DIR ]; then
     mkdir -p $BASE/$DIR
   fi
   # Try CM target first
   if [ "$SRC" = "adb" ]; then
-    adb pull /system/$DEST $BASE/$DEST
+    adb pull $DIR_PREFIX/$DEST $BASE/$DEST
     # if file does not exist try OEM target
     if [ "$?" != "0" ]; then
-        adb pull /system/$FILE $BASE/$DEST
+        adb pull $DIR_PREFIX/$FILE $BASE/$DEST
     fi
   else
-    if [ -r $SRC/system/$DEST ]; then
-        cp $SRC/system/$DEST $BASE/$DEST
+    if [ -r $LOCAL_DIR/$DIR_PREFIX/$DEST ]; then
+        cp $LOCAL_DIR/$DIR_PREFIX/$DEST $BASE/$DEST
     else
-        cp $SRC/system/$FILE $BASE/$DEST
+        cp $LOCAL_DIR/$DIR_PREFIX/$FILE $BASE/$DEST
     fi
   fi
 done

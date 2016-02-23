@@ -26,7 +26,8 @@ MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 PRODUCT_COPY_FILES += \\
 EOF
 
-LINEEND=" \\"
+LINEEND=' \'
+
 COUNT=`wc -l proprietary-files.txt | awk {'print $1'}`
 DISM=`egrep -c '(^#|^$)' proprietary-files.txt`
 COUNT=`expr $COUNT - $DISM`
@@ -43,7 +44,11 @@ for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
     if [ -n "$DEST" ]; then
       FILE=$DEST
     fi
-    echo "    $OUTDIR/proprietary/$FILE:system/$FILE$LINEEND" >> $MAKEFILE
+    if [ "${FILE:0:6}" = "/sbin/" ] ; then
+      echo "    $OUTDIR/proprietary/$FILE:root/$FILE$LINEEND" >> $MAKEFILE
+    else
+      echo "    $OUTDIR/proprietary/$FILE:system/$FILE$LINEEND" >> $MAKEFILE
+    fi
   fi
 done
 
@@ -130,16 +135,16 @@ LOCAL_PATH := \$(call my-dir)
 ifeq (\$(TARGET_DEVICE),kiwi)
 ifeq (\$(QCPATH),)
 
-include \$(CLEAR_VARS)
-LOCAL_MODULE := com.qualcomm.location
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES := proprietary/priv-app/com.qualcomm.location/com.qualcomm.location.apk
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
-LOCAL_MODULE_CLASS := APPS
-LOCAL_PRIVILEGED_MODULE := true
-LOCAL_CERTIFICATE := platform
-include \$(BUILD_PREBUILT)
+#include \$(CLEAR_VARS)
+#LOCAL_MODULE := com.qualcomm.location
+#LOCAL_MODULE_OWNER := $VENDOR
+#LOCAL_SRC_FILES := proprietary/priv-app/com.qualcomm.location/com.qualcomm.location.apk
+#LOCAL_MODULE_TAGS := optional
+#LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+#LOCAL_MODULE_CLASS := APPS
+#LOCAL_PRIVILEGED_MODULE := true
+#LOCAL_CERTIFICATE := platform
+#include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := qcrilmsgtunnel
