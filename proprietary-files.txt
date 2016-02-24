@@ -993,9 +993,9 @@ bin/netmgrd
 bin/qmuxd
 bin/radish
 bin/rfs_access
-etc/data/dsi_config.xml
-etc/data/netmgr_config.xml
-etc/data/qmi_config.xml
+#etc/data/dsi_config.xml
+#etc/data/netmgr_config.xml
+#etc/data/qmi_config.xml
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
