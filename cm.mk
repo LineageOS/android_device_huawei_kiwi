@@ -19,7 +19,3 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 PRODUCT_NAME := cm_kiwi
 BOARD_VENDOR := huawei
-PRODUCT_DEVICE := kiwi
-
-TARGET_VENDOR_PRODUCT_NAME := HUAWEI
-TARGET_VENDOR_DEVICE_NAME := HUAWEI
