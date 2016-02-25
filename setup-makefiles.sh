@@ -80,11 +80,11 @@ PRODUCT_PACKAGES += \\
     shutdownlistener \\
     TimeService
 
+endif
+
 PRODUCT_PACKAGES += \\
     qcnvitems \\
     qcrilhook
-
-endif
 
 PRODUCT_PACKAGES += \\
     libmm-abl
