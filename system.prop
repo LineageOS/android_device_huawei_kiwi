@@ -6,3 +6,4 @@ ro.com.android.mobiledata=false
 ro.config.always_show_roaming=true
 ro.telephony.default_network=9,1
 ro.sf.lcd_density=480
+qemu.hw.mainkeys=0
