@@ -5,3 +5,4 @@ ril.ecclist=000,08,100,101,102,110,112,118,119,120,122,911,999
 ro.com.android.mobiledata=false
 ro.config.always_show_roaming=true
 ro.telephony.default_network=9,1
+ro.sf.lcd_density=480
