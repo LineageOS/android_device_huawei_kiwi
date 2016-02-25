@@ -37,6 +37,9 @@ on early-init
     mkdir /log 0770 system log
 
 on fs
+    wait /dev/block/platform/soc.0/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc.0/${ro.boot.bootdevice} /dev/block/bootdevice
+
     export LD_SHIM_LIBS \
         /system/bin/signinfolistener|libshim_signinfolistener.so:\
         /system/lib/libcutils.so|libshim_cutils.so:\
