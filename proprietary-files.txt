@@ -948,6 +948,7 @@ vendor/lib/libSHIMDivxDrm.so
 # Perf
 bin/msm_irqbalance
 bin/perfd
+vendor/etc/msm_irqbalance.conf
 vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
