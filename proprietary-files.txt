@@ -993,20 +993,28 @@ vendor/lib/libsmemlog.so
 # Radio
 -app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 -app/shutdownlistener/shutdownlistener.apk
+bin/imsqmidaemon
 bin/netmgrd
 bin/qmuxd
 bin/radish
 bin/rfs_access
-#etc/data/dsi_config.xml
-#etc/data/netmgr_config.xml
-#etc/data/qmi_config.xml
+bin/rild
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
+lib64/libhuawei_secure.so
+lib64/liboeminfo_oem_api.so
+lib64/liboeminfo.so
+lib64/libqmi_nv_api.so
+lib64/libqmi_oem_api.so
+lib64/libril.so
+lib64/librilutils.so
 lib64/librmnetctl.so
+lib64/libsecure_boot_keybox.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
+vendor/lib64/lib-imsdpl.so
 vendor/lib64/libmdmdetect.so
 vendor/lib64/libnetmgr.so
 vendor/lib64/libperipheral_client.so
@@ -1014,6 +1022,7 @@ vendor/lib64/libril-qc-qmi-1.so
 vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libxml.so
+vendor/lib/lib-imsdpl.so
 
 # Ramdisk
 /sbin/chargelog.sh
