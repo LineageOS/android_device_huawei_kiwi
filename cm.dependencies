@@ -1,6 +1,6 @@
 [
   {
-    "repository": "android_kernel_huawei_kiwi"
+    "repository": "android_kernel_huawei_kiwi",
     "target_path": "kernel/huawei/kiwi"
   }
 ]
