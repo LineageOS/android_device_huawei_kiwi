@@ -34,6 +34,8 @@ on early-init
     write /sys/devices/system/cpu/cpu2/online 1
 
 on init
+    export LD_PRELOAD libsigchain.so:libcm_kiwi_preload.so
+
     # Set permissions for persist partition
     mkdir /persist 0771 system system
     # See storage config details at http://source.android.com/tech/storage/

@@ -96,6 +96,7 @@ vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
 vendor/lib/libaudcal.so
 vendor/lib/libFlacSwDec.so
+vendor/lib/hw/sound_trigger.primary.msm8916.so
 vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
@@ -110,6 +111,11 @@ vendor/lib64/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
+lib/hw/camera.msm8916.so
+lib/libmmcamera_interface.so
+lib/libcamera_post_mediaserver.so
+lib/libmmjpeg_interface.so
+lib/libqomx_core.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so
@@ -933,6 +939,9 @@ vendor/lib/libscale.so
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
+# Keystore
+lib64/hw/keystore.qcom.so
+
 # Media
 vendor/lib/libDivxDrm.so
 vendor/lib/libExtendedExtractor.so
@@ -949,6 +958,7 @@ vendor/lib/libSHIMDivxDrm.so
 bin/msm_irqbalance
 bin/perfd
 vendor/etc/msm_irqbalance.conf
+vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
@@ -1003,6 +1013,11 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
+lib/libhuawei_secure.so
+lib/liboeminfo_oem_api.so
+lib/liboeminfo.so
+lib/libqmi_nv_api.so
+lib/libqmi_oem_api.so
 lib64/libhuawei_secure.so
 lib64/liboeminfo_oem_api.so
 lib64/liboeminfo.so
@@ -1012,6 +1027,7 @@ lib64/libril.so
 lib64/librilutils.so
 lib64/librmnetctl.so
 lib64/libsecure_boot_keybox.so
+vendor/lib/libmdmdetect.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/lib-imsdpl.so
@@ -1037,6 +1053,13 @@ vendor/lib/lib-imsdpl.so
 /sbin/rmt_storage
 /sbin/signinfolistener
 /sbin/usb_update
+
+# Sensors
+lib64/hw/sensors.msm8916.so
+lib/libdmd_report.so
+lib64/libdmd_report.so
+vendor/lib/libcalmodule_common.so
+vendor/lib64/libcalmodule_common.so
 
 # Thermal
 bin/thermal-engine
