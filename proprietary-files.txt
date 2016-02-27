@@ -933,6 +933,9 @@ vendor/lib/libscale.so
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
+# Keystore
+lib64/hw/keystore.qcom.so
+
 # Media
 vendor/lib/libDivxDrm.so
 vendor/lib/libExtendedExtractor.so
