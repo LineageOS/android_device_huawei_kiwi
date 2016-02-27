@@ -51,6 +51,11 @@ vendor/lib64/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
+lib/hw/camera.msm8916.so
+lib/libmmcamera_interface.so
+lib/libcamera_post_mediaserver.so
+lib/libmmjpeg_interface.so
+lib/libqomx_core.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so
@@ -893,6 +898,7 @@ vendor/lib/libSHIMDivxDrm.so
 bin/msm_irqbalance
 bin/perfd
 vendor/etc/msm_irqbalance.conf
+vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
@@ -947,6 +953,11 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
+lib/libhuawei_secure.so
+lib/liboeminfo_oem_api.so
+lib/liboeminfo.so
+lib/libqmi_nv_api.so
+lib/libqmi_oem_api.so
 lib64/libhuawei_secure.so
 lib64/liboeminfo_oem_api.so
 lib64/liboeminfo.so
@@ -956,6 +967,7 @@ lib64/libril.so
 lib64/librilutils.so
 lib64/librmnetctl.so
 lib64/libsecure_boot_keybox.so
+vendor/lib/libmdmdetect.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/lib-imsdpl.so
