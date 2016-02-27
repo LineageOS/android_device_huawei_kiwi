@@ -49,6 +49,10 @@ for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
     # if file does not exist try OEM target
     if [ "$?" != "0" ]; then
         adb pull $DIR_PREFIX/$FILE $BASE/$DEST
+        if [ "$?" != "0" ]; then
+            echo "Failed to load: $FILE"
+            exit 1
+        fi
     fi
   else
     if [ -r $LOCAL_DIR/$DIR_PREFIX/$DEST ]; then
