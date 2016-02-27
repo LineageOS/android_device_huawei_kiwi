@@ -1038,6 +1038,16 @@ vendor/lib/lib-imsdpl.so
 /sbin/signinfolistener
 /sbin/usb_update
 
+# Sensors
+lib64/hw/sensors.msm8916.so
+lib/libdmd_report.so
+lib64/libdmd_report.so
+vendor/etc/calmodule.cfg
+vendor/lib/libcalmodule_akm.so
+vendor/lib/libcalmodule_common.so
+vendor/lib64/libcalmodule_akm.so
+vendor/lib64/libcalmodule_common.so
+
 # Thermal
 bin/thermal-engine
 vendor/lib64/libthermalclient.so
