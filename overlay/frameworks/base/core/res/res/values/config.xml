@@ -97,4 +97,10 @@
                   Used to decide if the user can change the colors -->
     <bool name="config_multiColorNotificationLed">true</bool>
 
+    <!-- Default color for notification LED. -->
+    <color name="config_defaultNotificationColor">#ff00ff00</color>
+
+    <!-- Default value for led color when battery is medium charged -->
+    <integer name="config_notificationsBatteryMediumARGB">0xffff7f00</integer>
+
 </resources>
