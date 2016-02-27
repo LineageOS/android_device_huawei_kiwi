@@ -16,6 +16,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
+    hw_audio.c \
     hw_cutils.c \
     hw_exif.c \
     hw_gps.c \
