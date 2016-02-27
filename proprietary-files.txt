@@ -84,6 +84,8 @@ vendor/lib/libadsprpc.so
 vendor/lib/libfastcvopt.so
 
 # Audio
+-lib/libtfa9895.so
+-lib64/libtfa9895.so
 vendor/lib64/libacdb-fts.so
 vendor/lib64/libacdbloader.so
 vendor/lib64/libacdbrtac.so
