@@ -86,6 +86,10 @@ PRODUCT_PACKAGES += \
     camera.msm8916 \
     libmm-qcamera
 
+# Compat
+PRODUCT_PACKAGES += \
+    libcm_kiwi_preload
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8916 \
