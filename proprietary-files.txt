@@ -994,8 +994,8 @@ vendor/lib/libqmi.so
 vendor/lib/libsmemlog.so
 
 # Radio
--app/qcrilmsgtunnel/qcrilmsgtunnel.apk
--app/shutdownlistener/shutdownlistener.apk
+#-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+#-app/shutdownlistener/shutdownlistener.apk
 bin/imsqmidaemon
 bin/netmgrd
 bin/qmuxd
@@ -1058,7 +1058,7 @@ vendor/lib64/libthermalioctl.so
 vendor/lib/libthermalclient.so
 
 # Time services
--app/TimeService/TimeService.apk
+#-app/TimeService/TimeService.apk
 bin/time_daemon
 -vendor/lib64/libtime_genoff.so
 -vendor/lib/libtime_genoff.so
