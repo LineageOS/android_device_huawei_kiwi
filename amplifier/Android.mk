@@ -3,10 +3,12 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SHARED_LIBRARIES := \
-	liblog libutils libcutils
+	liblog libutils libcutils libtfa9895 libtinyalsa
 
 LOCAL_C_INCLUDES := \
+        external/tinyalsa/include \
 	hardware/libhardware/include
+
 
 LOCAL_SRC_FILES := \
 	audio_amplifier.c

@@ -24,17 +24,60 @@
 #include <hardware/audio_amplifier.h>
 #include <system/audio.h>
 
+#include <tinyalsa/asoundlib.h>
+
 typedef struct amp_device {
     amplifier_device_t amp_dev;
+    audio_mode_t mode;
+    int active;
 } amp_device_t;
 
 static amp_device_t *amp_dev = NULL;
+
+extern int exTfa98xx_calibration(void);
+extern int exTfa98xx_speakeron(uint32_t);
+extern int exTfa98xx_speakeroff();
+extern int exTfa98xx_set_volume(float, float);
+extern int exTfa98xx_setvolumestep(uint32_t, uint32_t);
+
+#define AMP_MIXER_CTL "Initial external PA"
+
+static int set_clocks_enabled(bool enable)
+{
+    enum mixer_ctl_type type;
+    struct mixer_ctl *ctl;
+    struct mixer *mixer = mixer_open(0);
+
+    if (mixer == NULL) {
+        ALOGE("Error opening mixer 0");
+        return -1;
+    }
+
+    ctl = mixer_get_ctl_by_name(mixer, AMP_MIXER_CTL);
+    if (ctl == NULL) {
+        mixer_close(mixer);
+        ALOGE("%s: Could not find %s\n", __func__, AMP_MIXER_CTL);
+        return -ENODEV;
+    }
+
+    type = mixer_ctl_get_type(ctl);
+    if (type != MIXER_CTL_TYPE_ENUM) {
+        ALOGE("%s: %s is not supported\n", __func__, AMP_MIXER_CTL);
+        mixer_close(mixer);
+        return -ENOTTY;
+    }
+
+    mixer_ctl_set_value(ctl, 0, enable);
+    mixer_close(mixer);
+    return 0;
+}
 
 static int amp_set_mode(amp_device_t *device, audio_mode_t mode)
 {
     int ret = 0;
     amp_device_t *dev = (amp_device_t *) device;
 
+    dev->mode = mode;
     return ret;
 }
 
@@ -49,6 +92,20 @@ static int amp_enable_output_devices(amp_device_t *device,
         uint32_t devices, bool enable)
 {
     amp_device_t *dev = (amp_device_t *) device;
+    /* TODO: 0, 1, 2 all look like they are use cases, map to something reasonable */
+    int new_active = enable ? 2 : -1;
+
+    if (new_active == dev->active) {
+        ALOGI("%s: active mode unchanged from %d\n", dev->active);
+    } else if (new_active >= 0) {
+        set_clocks_enabled(true);
+        exTfa98xx_setvolumestep(1, 1);
+        exTfa98xx_speakeron(new_active);
+    } else {
+        exTfa98xx_speakeroff();
+        set_clocks_enabled(false);
+    }
+    dev->active = new_active;
 
     return 0;
 }
@@ -94,6 +151,12 @@ static int amp_module_open(const hw_module_t *module, const char *name,
     amp_dev->amp_dev.input_stream_standby = NULL;
 
     *device = (hw_device_t *) amp_dev;
+
+    amp_dev->active = -1;
+
+    set_clocks_enabled(true);
+    exTfa98xx_calibration();
+    set_clocks_enabled(false);
 
     return 0;
 }
