@@ -1,0 +1,97 @@
+on enable-low-power
+
+    write /proc/sys/kernel/sched_boost 1
+
+    write /sys/class/net/rmnet0/queues/rx-0/rps_cpus 10
+
+    # Adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
+
+    # HMP scheduler load tracking settings
+    write /proc/sys/kernel/sched_window_stats_policy 3
+    write /proc/sys/kernel/sched_ravg_hist_size 5
+
+    # HMP Task packing settings for 8939, 8929
+    write /proc/sys/kernel/sched_small_task 20
+    write /proc/sys/kernel/sched_mostly_idle_load 30
+    write /proc/sys/kernel/sched_mostly_idle_nr_run 3
+
+    write /sys/class/devfreq/qcom,cpubw.64/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,cpubw.64/bw_hwmon/io_percent 20
+    write /sys/class/devfreq/qcom,gpubw.61/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,gpubw.61/bw_hwmon/io_percent 40
+    write /sys/class/devfreq/qcom,mincpubw.65/governor "cpufreq"
+
+    # disable thermal core_control to update interactive gov settings
+    write /sys/module/msm_thermal/core_control/enabled 0
+
+    # enable governor for perf cluster
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "20000 1113600:50000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1113600
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "1 960000:85 1113600:90 1344000:80"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 960000
+
+    # enable governor for power cluster
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "25000 800000:50000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 998400
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "1 800000:90"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 800000
+
+    # enable thermal core_control now
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+    # HMP scheduler (big.Little cluster related) settings
+    write /proc/sys/kernel/sched_upmigrate 75
+    write /proc/sys/kernel/sched_downmigrate 60
+
+    # Enable sched guided freq control
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 1
+    write /proc/sys/kernel/sched_freq_inc_notify 50000
+    write /proc/sys/kernel/sched_freq_dec_notify 50000
+
+    # cpu idle load threshold
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu6/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu7/sched_mostly_idle_load 30
+
+    # bring all CPUs online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+
+    start perfd
+
+on charger
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+
+on class_start:late_start
+    trigger enable-low-power
+
+on property:init.svc.recovery=running
+    trigger enable-low-power
