@@ -182,8 +182,6 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    libjni_proximityCalibrate \
-    ProximityCalibrate \
     sensors.msm8916
 
 # Thermal
