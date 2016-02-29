@@ -19,8 +19,7 @@ LOCAL_SRC_FILES := \
     hw_cutils.c \
     hw_exif.c \
     hw_gps.c \
-    hw_log.c \
-    hw_widevine.c
+    hw_log.c
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
 LOCAL_MODULE := libc_huawei_symbols
