@@ -23,6 +23,8 @@ persist.radio.msgtunnel.start=false
 ro.cdma.home.operator.numeric=46003
 ro.config.nostore_nw_sel_mode=false
 ro.multi.rild=true
+ro.ril.multi_rat_capable=true
+telephony.lteOnCdmaDevice=1
 
 persist.cne.feature=0
 persist.data.ds_fmc_app.mode=0
