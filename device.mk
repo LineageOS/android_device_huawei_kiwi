@@ -121,6 +121,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
     $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
 
+# IRSC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/goodix.kl:system/usr/keylayout/goodix.kl \
