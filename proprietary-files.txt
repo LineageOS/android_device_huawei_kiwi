@@ -1045,5 +1045,6 @@ etc/firmware/RIO_miniBoot.bin
 etc/firmware/RIO_TBM_Latour2.bin
 etc/firmware/T2A_fw.bin
 vendor/firmware/libpn547_fw.so
+-lib64/libwcnss_qmi.so
 # note: etc/firmware/wlan has symlinks I'm ignoring for now
 # note: etc/firmware/wcd9306 has symlinks I'm ignoring for now
