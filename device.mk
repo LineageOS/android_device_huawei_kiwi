@@ -86,6 +86,10 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    init.qcom.bt.sh
+
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8916 \

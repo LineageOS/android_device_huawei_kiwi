@@ -47,6 +47,8 @@ bin/vm_bms
 # Bluetooth
 bin/btnvtool
 bin/hci_qcomm_init
+lib64/libbtaddr.so
+lib64/libbtpower.so
 vendor/lib64/libbtnv.so
 
 # Camera
