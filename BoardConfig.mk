@@ -70,7 +70,7 @@ BLUETOOTH_HCI_USE_MCT := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 # Camera
-BOARD_CAMERA_SENSORS := imx135_cp8675 imx214_cp8675 ov5648_cp8675
+BOARD_CAMERA_SENSORS := imx214_foxconn_kiw s5k3m2_sunny_kiw imx214_ofilm_kiw imx214_sunny_kiw ov5648_ofilm_ohw5f03_kiw s5k4e1_sunny_kivi ov5648_foxconn_kivi
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
