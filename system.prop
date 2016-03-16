@@ -155,3 +155,4 @@ ro.sf.lcd_density=480
 qemu.hw.mainkeys=0
 ro.qcom.ad.sensortype=2
 ro.vendor.extension_library=libqti-perfd-client.so
+persist.sys.isUsbOtgEnabled=true
