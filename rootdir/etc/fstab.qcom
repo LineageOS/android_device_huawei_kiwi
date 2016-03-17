@@ -12,9 +12,9 @@
 /dev/block/bootdevice/by-name/cust       /cust              ext4     ro,nosuid,nodev,barrier=1,noauto_da_alloc,discard            wait,continue
 /dev/block/bootdevice/by-name/cache      /cache             ext4     nosuid,nodev,barrier=1                                       wait,check,continue
 /dev/block/bootdevice/by-name/persist    /persist           ext4     nosuid,nodev,barrier=1                                       wait,check,continue
-/devices/soc.0/7864900.sdhci/mmc_host    /storage/sdcard1   vfat     nosuid,nodev                                                 wait,voldmanaged=sdcard1:auto,noemulatedsd
+/devices/soc.0/7864900.sdhci/mmc_host    auto               auto     defaults                                                     voldmanaged=sdcard1:auto,noemulatedsd
 /dev/block/zram0                         none               swap     defaults zramsize=536870912
-/devices/platform/msm_hsusb              /storage/usbdisk   vfat     nosuid,nodev                                                 wait,voldmanaged=usbdisk:auto
+/devices/platform/msm_hsusb              auto               auto     defaults                                                     voldmanaged=usbdisk:auto,noemulatedsd
 /dev/block/bootdevice/by-name/config         /frp         emmc    defaults                                            defaults
 /dev/block/bootdevice/by-name/pad        /persistent         emmc    defaults                                            defaults
 /dev/block/bootdevice/by-name/boot       /boot              emmc     defaults                                                     recoveryonly
