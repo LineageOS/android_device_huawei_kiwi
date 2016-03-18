@@ -41,6 +41,7 @@ TARGET_CPU_CORTEX_A53 := true
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8916
 TARGET_NO_BOOTLOADER := true
+TARGET_OTA_ASSERT_DEVICE := kiwi
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
@@ -139,6 +140,11 @@ TARGET_RIL_VARIANT := proprietary
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
+
+# Vendor Init
+TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_kiwi
+TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_PATH)/init/init_kiwi.c
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
