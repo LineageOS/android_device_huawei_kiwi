@@ -14,14 +14,12 @@ on enable-low-power
 
     # HMP Task packing settings for 8939, 8929
     write /proc/sys/kernel/sched_small_task 20
-    write /proc/sys/kernel/sched_mostly_idle_load 30
-    write /proc/sys/kernel/sched_mostly_idle_nr_run 3
 
-    write /sys/class/devfreq/qcom,cpubw.64/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,cpubw.64/bw_hwmon/io_percent 20
-    write /sys/class/devfreq/qcom,gpubw.61/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,gpubw.61/bw_hwmon/io_percent 40
-    write /sys/class/devfreq/qcom,mincpubw.65/governor "cpufreq"
+    write /sys/class/devfreq/qcom,cpubw.61/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,cpubw.61/bw_hwmon/io_percent 20
+    write /sys/class/devfreq/qcom,gpubw.58/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,gpubw.58/bw_hwmon/io_percent 40
+    write /sys/class/devfreq/qcom,mincpubw.62/governor "cpufreq"
 
     # disable thermal core_control to update interactive gov settings
     write /sys/module/msm_thermal/core_control/enabled 0
@@ -65,6 +63,14 @@ on enable-low-power
     write /proc/sys/kernel/sched_freq_inc_notify 50000
     write /proc/sys/kernel/sched_freq_dec_notify 50000
 
+    # bring all CPUs online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+
     # cpu idle load threshold
     write /sys/devices/system/cpu/cpu0/sched_mostly_idle_load 30
     write /sys/devices/system/cpu/cpu1/sched_mostly_idle_load 30
@@ -75,13 +81,16 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu6/sched_mostly_idle_load 30
     write /sys/devices/system/cpu/cpu7/sched_mostly_idle_load 30
 
-    # bring all CPUs online
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/devices/system/cpu/cpu5/online 1
-    write /sys/devices/system/cpu/cpu6/online 1
-    write /sys/devices/system/cpu/cpu7/online 1
+    # cpu idle nr run threshold
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu6/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu7/sched_mostly_idle_nr_run 3
+
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
     start perfd
