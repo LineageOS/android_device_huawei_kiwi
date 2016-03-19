@@ -95,6 +95,10 @@ PRODUCT_PACKAGES += \
     camera.msm8916 \
     libmm-qcamera
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images
+
 # CMHw
 BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
 
