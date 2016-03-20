@@ -18,6 +18,7 @@
 //#define LOG_NDEBUG 0
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <cutils/log.h>
 #include <cutils/str_parms.h>
 
