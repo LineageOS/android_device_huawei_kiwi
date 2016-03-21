@@ -99,6 +99,10 @@ PRODUCT_PACKAGES += \
 # CMHw
 BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
 
+# Compatibility
+PRODUCT_PACKAGES += \
+    libboringssl-compat
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8916 \

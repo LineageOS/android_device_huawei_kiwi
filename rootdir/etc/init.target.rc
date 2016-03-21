@@ -37,6 +37,7 @@ on early-init
     mkdir /log 0770 system log
 
 on fs
+    export LD_PRELOAD "libboringssl-compat.so"
     mount_all fstab.qcom
 
     # Keeping following partitions outside fstab file. As user may not have
