@@ -8,6 +8,10 @@
     "target_path": "external/sony/boringssl-compat"
   },
   {
+    "repository": "android_external_stlport",
+    "target_path": "external/stlport"
+  },
+  {
     "repository": "android_kernel_huawei_kiwi",
     "target_path": "kernel/huawei/kiwi"
   }

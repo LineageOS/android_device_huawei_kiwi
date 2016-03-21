@@ -101,7 +101,8 @@ BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
 
 # Compatibility
 PRODUCT_PACKAGES += \
-    libboringssl-compat
+    libboringssl-compat \
+    libstlport
 
 # Display
 PRODUCT_PACKAGES += \
