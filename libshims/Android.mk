@@ -13,21 +13,27 @@
 # limitations under the License.
 
 LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-    hw_audio.c \
-    hw_cutils.c \
-    hw_exif.c \
-    hw_gps.c \
-    hw_log.c
-
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
-LOCAL_MODULE := libc_huawei_symbols
+LOCAL_SRC_FILES := hw_exif.c
+LOCAL_MODULE := libshim_camera_post_mediaserver
 LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
 
-# Debugging (uncomment to enable)
-# LOCAL_CFLAGS += -DHW_LIBC_DEBUG
-# LOCAL_WHOLE_STATIC_LIBRARIES := liblog
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := hw_cutils.c hw_log.c
+LOCAL_MODULE := libshim_cutils
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
 
-include $(BUILD_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := hw_gps.c
+LOCAL_MODULE := libshim_gps
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := hw_audio.c
+LOCAL_MODULE := libshim_sound_trigger
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)

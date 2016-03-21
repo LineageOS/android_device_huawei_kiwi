@@ -38,6 +38,8 @@ on early-init
 
 on fs
     export LD_PRELOAD "libboringssl-compat.so"
+    export LD_SHIM_LIBS /system/lib/libcamera_post_mediaserver.so|libshim_camera_post_mediaserver:/system/lib64/libcutils.so|libshim_cutils.so:/system/vendor/lib64/liblocationservice.so|libshim_gps.so:/system/lib/hw/audio.primary.msm8916.so|libshim_sound_trigger.so
+
     mount_all fstab.qcom
 
     # Keeping following partitions outside fstab file. As user may not have
