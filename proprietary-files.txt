@@ -1593,10 +1593,10 @@ vendor/lib/lib-imsdpl.so
 /sbin/libqmi_oem_main
 /sbin/rmt_oeminfo
 /sbin/rmt_storage
-/sbin/signinfolistener
 /sbin/usb_update
 
 # Sensors
+bin/oeminfo_server
 lib64/hw/sensors.msm8916.so
 lib/libdmd_report.so
 lib64/libdmd_report.so
