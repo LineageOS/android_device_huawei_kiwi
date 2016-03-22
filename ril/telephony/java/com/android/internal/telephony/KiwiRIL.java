@@ -38,7 +38,7 @@ public class KiwiRIL extends RIL {
     @Override
     protected void
     send(RILRequest rr) {
-        if (rr.mRequest >= 114) {
+        if (rr.mRequest >= 132) {
             Rlog.i(RILJ_LOG_TAG, "KiwiRil: Unsupported request " + rr.mRequest);
             rr.onError(REQUEST_NOT_SUPPORTED, null);
             rr.release();
