@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-int _ZN7android6Parcel13writeString16EPKtm(void *addr, unsigned long size);
+int _ZN7android6Parcel13writeString16EPKDsm(void *addr, unsigned long size);
 int _ZN7android6Parcel13writeString16EPKtm(void *addr, unsigned long size) {
-    return _ZN7android6Parcel13writeString16EPKtm(addr, size);
+    return _ZN7android6Parcel13writeString16EPKDsm(addr, size);
 }
 
