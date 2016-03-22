@@ -96,9 +96,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-# CMHw
-BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
-
 # Compatibility
 PRODUCT_PACKAGES += \
     libboringssl-compat \
