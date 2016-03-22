@@ -1436,7 +1436,7 @@ vendor/lib64/egl/libRBEGL_adreno.so
 vendor/lib64/egl/libRBGLESv1_CM_adreno.so
 vendor/lib64/egl/libRBGLESv2_adreno.so
 vendor/lib64/libadreno_utils.so
-vendor/lib64/libc2d30-a3xx.so
+vendor/lib64/libc2d30-a4xx.so
 vendor/lib64/libC2D2.so
 vendor/lib64/libCB.so
 vendor/lib64/libgsl.so
@@ -1446,6 +1446,7 @@ vendor/lib64/libOpenCL.so
 vendor/lib64/libRSDriver_adreno.so
 vendor/lib64/librs_adreno.so
 vendor/lib64/librs_adreno_sha1.so
+vendor/lib64/libsc-a2xx.so
 vendor/lib64/libsc-a3xx.so
 vendor/lib64/libscale.so
 vendor/lib/egl/eglsubAndroid.so
@@ -1462,7 +1463,7 @@ vendor/lib/egl/libRBEGL_adreno.so
 vendor/lib/egl/libRBGLESv1_CM_adreno.so
 vendor/lib/egl/libRBGLESv2_adreno.so
 vendor/lib/libadreno_utils.so
-vendor/lib/libc2d30-a3xx.so
+vendor/lib/libc2d30-a4xx.so
 vendor/lib/libC2D2.so
 vendor/lib/libCB.so
 vendor/lib/libgsl.so
@@ -1472,12 +1473,9 @@ vendor/lib/libOpenCL.so
 vendor/lib/libRSDriver_adreno.so
 vendor/lib/librs_adreno.so
 vendor/lib/librs_adreno_sha1.so
+vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
-
-# Graphics from stock that we still need when using other blobs
-vendor/lib64/libc2d30-a4xx.so
-vendor/lib/libc2d30-a4xx.so
 
 # Graphics firmware
 etc/firmware/a420_pfp.fw
