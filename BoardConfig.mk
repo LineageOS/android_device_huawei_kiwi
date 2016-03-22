@@ -135,10 +135,10 @@ TARGET_RECOVERY_DENSITY := xhdpi
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # RIL
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 BOARD_RIL_CLASS := ../../../device/huawei/kiwi/ril
 PROTOBUF_SUPPORTED := true
 TARGET_RIL_VARIANT := proprietary
-
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
