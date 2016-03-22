@@ -44,8 +44,8 @@ static match_t matches[] = {
     /* Honor 5x USA L24 */
     {
         "KIW-L24",
-        "KIW-L24-user 5.1.1 GRJ90 C567B1.0 release-keys",
-        "HONOR/KIW-L24/HNKIW-Q:5.1.1/HONORKIW-L24/C567B130:user/release-keys"
+        "KIW-L24-user 5.1.1 GRJ90 C567B140 release-keys",
+        "HONOR/KIW-L24/HNKIW-Q:5.1.1/HONORKIW-L24/C567B140:user/release-keys"
     },
     /* Honor 5x Russia L23 */
     {
