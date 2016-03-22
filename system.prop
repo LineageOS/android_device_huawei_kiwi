@@ -59,6 +59,8 @@ ro.config.launcher_matchcard=1
 ro.hwpp_sig_stability_switch=true
 persist.radio.use_nv_force=false
 
+ro.telephony.ril_class=KiwiRIL
+
 # Camera
 ro.config.hw_burst_snapshot=true
 ro.config.hw_camera_bestShot=true
