@@ -1,4 +1,5 @@
 # Radio
+ro.telephony.ril.config=simactivation
 persist.radio.multisim.config=dsds
 ro.config.dsds_mode=umts_gsm
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
