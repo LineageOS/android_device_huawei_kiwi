@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7faddb67_2e919953",
+        "filename": "overlay/frameworks/base/core/res/res/xml/power_profile.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2016-03-24T09:12:40Z",
+      "side": 1,
+      "message": "5X has a 3000mAh battery",
+      "range": {
+        "startLine": 60,
+        "startChar": 32,
+        "endLine": 60,
+        "endChar": 36
+      },
+      "revId": "db357390370fbd637b6891d5881df74f22bec0ed",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
