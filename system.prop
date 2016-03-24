@@ -1,3 +1,10 @@
+# ActivityManager
+ro.config.max_starting_bg=8
+
+# Art
+dalvik.vm.dex2oat-flags=--no-watch-dog
+ro.sys.fw.dex2oat_thread_count=4
+
 # Radio
 ro.telephony.ril.config=simactivation
 persist.radio.multisim.config=dsds
