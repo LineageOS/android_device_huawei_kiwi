@@ -121,6 +121,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # blockdev --getbsz /dev/block/mmcblk0p19
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom
+TARGET_POWERHAL_DISABLE_DISP_ON_OFF_FREQUENCIES := true
 TARGET_TAP_TO_WAKE_NODE := /sys/touch_screen/easy_wakeup_gesture
 
 # Properties
