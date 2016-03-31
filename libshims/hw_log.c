@@ -17,6 +17,10 @@
 void __android_logPower_print(void) {
 }
 
+int __android_janklog_print(void) {
+    return 0;
+}
+
 int isLogEnabled(void) {
     return 0;
 }
