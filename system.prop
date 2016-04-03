@@ -24,7 +24,7 @@ persist.radio.msgtunnel.start=false
 ro.cdma.home.operator.numeric=46003
 ro.config.nostore_nw_sel_mode=false
 ro.multi.rild=true
-ro.ril.multi_rat_capable=true
+ro.ril.multi_rat_capable=false
 telephony.lteOnCdmaDevice=1
 
 persist.cne.feature=0
