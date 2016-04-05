@@ -80,6 +80,9 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_HAL_STATIC_LIBRARIES += libhealthd.msm8916
 
+# CM Hardware
+BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw
+
 # Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
@@ -123,7 +126,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # blockdev --getbsz /dev/block/mmcblk0p19
 TARGET_POWERHAL_VARIANT := qcom
 TARGET_POWERHAL_SET_INTERACTIVE_EXT := device/huawei/kiwi/power/power_ext.c
 TARGET_TAP_TO_WAKE_NODE := /sys/touch_screen/easy_wakeup_gesture
-
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
