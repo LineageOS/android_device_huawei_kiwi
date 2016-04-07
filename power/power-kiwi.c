@@ -48,6 +48,11 @@
 #include "performance.h"
 #include "power-common.h"
 
+#define DEFAULT_INTERACTION_BOOST_MS    50
+#define LAUNCH_BOOST_DURATION_MS        100
+#define MAX_INTERACTION_BOOST_MS        100
+#define MAX_CPU_BOOST_MS                100
+
 #define LOW_POWER_MODE_PATH "/sys/module/cluster_plug/parameters/low_power_mode"
 
 int get_number_of_profiles() {
@@ -122,14 +127,16 @@ int power_hint_override(struct power_module *module __unused, power_hint_t hint,
     }
 
     if (hint == POWER_HINT_INTERACTION) {
-        int duration = 500, duration_hint = 0;
+        int duration = 0;
         static unsigned long long previous_boost_time = 0;
 
         if (data) {
-            duration_hint = *((int *)data);
+            duration = *((int *)data);
         }
 
-        duration = duration_hint > 0 ? duration_hint : 500;
+        if (duration == 0) {
+            duration = DEFAULT_INTERACTION_BOOST_MS;
+        }
 
         struct timeval cur_boost_timeval = {0, 0};
         gettimeofday(&cur_boost_timeval, NULL);
@@ -145,6 +152,10 @@ int power_hint_override(struct power_module *module __unused, power_hint_t hint,
 
         previous_boost_time = cur_boost_time;
 
+        if (duration > MAX_INTERACTION_BOOST_MS) {
+            duration = MAX_INTERACTION_BOOST_MS;
+        }
+
         if (duration >= 1500) {
             int resources[] = { SCHED_BOOST_ON, 0x20D, 0x101, 0x3E01 };
             interaction(duration, sizeof(resources)/sizeof(resources[0]), resources);
@@ -156,20 +167,24 @@ int power_hint_override(struct power_module *module __unused, power_hint_t hint,
     }
 
     if (hint == POWER_HINT_LAUNCH_BOOST) {
-        int duration = 2000;
+        int duration = LAUNCH_BOOST_DURATION_MS;
         int resources[] = { SCHED_BOOST_ON, 0x20F, 0x101, 0x1C00, 0x3E01, 0x4001, 0x4101, 0x4201 };
 
         interaction(duration, sizeof(resources)/sizeof(resources[0]), resources);
 
         return HINT_HANDLED;
-	}
+    }
 
     if (hint == POWER_HINT_CPU_BOOST) {
         int duration = *(int32_t *)data / 1000;
         int resources[] = { SCHED_BOOST_ON, 0x20D, 0x3E01, 0x101 };
 
-        if (duration > 0)
+        if (duration > 0) {
+            if (duration > MAX_CPU_BOOST_MS) {
+                duration = MAX_CPU_BOOST_MS;
+            }
             interaction(duration, sizeof(resources)/sizeof(resources[0]), resources);
+        }
 
         return HINT_HANDLED;
 	}
