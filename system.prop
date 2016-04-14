@@ -74,6 +74,7 @@ ro.config.hw_camera_refocus=true
 ro.config.hw_camera_smartae=false
 ro.config.hw_camera_zsl=true
 ro.config.hw_video_beauty=true
+persist.camera.hal.debug=0
 
 # Display
 debug.sf.hw=0
