@@ -183,7 +183,6 @@ case "$target" in
         start_charger_monitor
         ;;
     "msm8916")
-        #start_msm_irqbalance_8939
         ;;
     "msm8994")
         start_msm_irqbalance
