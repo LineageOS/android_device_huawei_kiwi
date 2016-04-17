@@ -218,6 +218,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
+# VM_BMS
+PRODUCT_PACKAGES += \
+    libshim_vm_bms_log
+
 # Wifi
 PRODUCT_PACKAGES += \
     libqsap_sdk \
