@@ -32,6 +32,11 @@ import init.target.rc
 on early-init
     #mount debugfs debugfs /sys/kernel/debug
     write /sys/devices/system/cpu/cpu2/online 1
+    #Allow subsystems to be restarted instead of crashing the system
+    # 0=venus, 1=pronto, 2=mms == modem
+    write /sys/bus/msm_subsys/devices/subsys0/restart_level related
+    write /sys/bus/msm_subsys/devices/subsys1/restart_level related
+    write /sys/bus/msm_subsys/devices/subsys2/restart_level related
 
 on init
     # Set permissions for persist partition
