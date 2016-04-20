@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_f33ff3b2",
+        "filename": "rootdir/etc/init.qcom.early_boot.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2016-04-20T21:36:56Z",
+      "side": 0,
+      "message": "Shouldn\u0027t you move this part into init.qcom.rc?",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 40
+      },
+      "revId": "cdd6e1cbbb9bc46943bb8fc535d2d5f1ddea8846",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_3356eb08",
+        "filename": "rootdir/etc/init.qcom.usb.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2016-04-20T21:36:56Z",
+      "side": 0,
+      "message": "You are deleting init.usb.sh, not this one.",
+      "range": {
+        "startLine": 41,
+        "startChar": 35,
+        "endLine": 41,
+        "endChar": 52
+      },
+      "revId": "cdd6e1cbbb9bc46943bb8fc535d2d5f1ddea8846",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
