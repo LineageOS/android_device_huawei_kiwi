@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5faad753_536fe6c4",
+        "filename": "rootdir/etc/init.qcom.early_boot.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-04-21T08:23:34Z",
+      "side": 0,
+      "message": "Yeah, I already went through this to make sure we were setting all the right props which I think amounted to lcd_density.  I just never cleaned it up...",
+      "parentUuid": "5faad753_133baed1",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 40
+      },
+      "revId": "cdd6e1cbbb9bc46943bb8fc535d2d5f1ddea8846",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5faad753_3356eb08",
         "filename": "rootdir/etc/init.qcom.usb.rc",
         "patchSetId": 1
