@@ -60,6 +60,7 @@ ro.hwpp_sig_stability_switch=true
 persist.radio.use_nv_force=false
 
 ro.telephony.ril_class=KiwiRIL
+persist.data.qmi.adb_logmask=0
 
 # Camera
 ro.config.hw_burst_snapshot=true
