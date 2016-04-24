@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_4d089b27",
+        "filename": "rootdir/etc/init.qcom.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-04-24T22:34:46Z",
+      "side": 1,
+      "message": "I think that the normal config is to remove -dd and and not add -qq (aka, neither option specified).\n\nAny reason it would be better to silence it more than other devices?",
+      "revId": "2e12d69364be852dacd4de3aa7a7de486a036e8a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
