@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -182,19 +182,12 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.class_main.sh \
     init.qcom.bms.sh \
-    init.qcom.class_core.sh \
-    init.qcom.early_boot.sh \
     init.qcom.rc \
-    init.qcom.sh \
     init.qcom.power.rc \
     init.qcom.power.sh \
-    init.qcom.syspart_fixup.sh \
     init.qcom.usb.rc \
-    init.qcom.usb.sh \
-    init.startoff_usbcharger.rc \
     init.target-from-init.rc \
     init.target.rc \
-    init.usb.sh \
     ueventd.qcom.rc
 
 # RIL

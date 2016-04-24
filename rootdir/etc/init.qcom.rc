@@ -25,7 +25,6 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# /* disable init.qcom.usb.rc and init.qcom.usb.sh, we use init.usb.rc */
 import init.qcom.usb.rc
 import init.target.rc
 
@@ -201,6 +200,12 @@ on boot
     # Allow access for CCID command/response timeout configuration
     chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
 
+    # vm_bms
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+
 # msm specific files that need to be created on /data
 on post-fs-data
     # Create directory for TZ Apps
@@ -373,11 +378,6 @@ on property:bluetooth.startbtsnoop=true
 
 on property:bluetooth.startbtsnoop=false
     stop btsnoop
-
-service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
-    class core
-    user root
-    oneshot
 
 service qcom-c_main-sh /system/bin/sh /init.class_main.sh
     class main
@@ -697,11 +697,6 @@ on property:drmdiag.load=1
 on property:drmdiag.load=0
     stop drmdiag
 
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
-
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
     user root
@@ -905,15 +900,10 @@ on property:persist.sys.rootagent=1
 on property:persist.sys.rootagent=0
     stop rootagent
 
-service bms-sh /system/bin/sh /init.qcom.bms.sh
+service vm_bms /system/bin/vm_bms
     class main
     user root
-    oneshot
-
-service vm_bms /system/bin/vm_bms
-    user root
     group root
-    disabled
 
 service power_engine /system/bin/power_engine
     user root
