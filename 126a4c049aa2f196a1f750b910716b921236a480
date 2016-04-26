@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_b22acbe4",
+        "filename": "rootdir/etc/init.qcom.usb.sh",
+        "patchSetId": 9
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-04-26T11:52:49Z",
+      "side": 0,
+      "message": "I think we must have lost this property, I don\u0027t think it is important though.",
+      "revId": "126a4c049aa2f196a1f750b910716b921236a480",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
