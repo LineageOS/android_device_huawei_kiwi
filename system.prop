@@ -61,6 +61,7 @@ persist.radio.use_nv_force=false
 
 ro.telephony.ril_class=KiwiRIL
 persist.data.qmi.adb_logmask=0
+ro.telephony.call_ring.multiple=false
 
 # Camera
 ro.config.hw_burst_snapshot=true
@@ -101,7 +102,6 @@ persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location
 ro.gps.agps_provider=1
 ro.pip.gated=0
-
 
 # Media
 media.stagefright.enable-player=true
@@ -160,3 +160,6 @@ qemu.hw.mainkeys=0
 ro.qcom.ad.sensortype=2
 ro.vendor.extension_library=libqti-perfd-client.so
 persist.sys.isUsbOtgEnabled=true
+
+# WiFi
+wifi.interface=wlan0
