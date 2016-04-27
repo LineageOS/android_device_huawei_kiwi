@@ -90,39 +90,16 @@ on boot
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
-    setprop wifi.interface wlan0
-
     #change mode for CTS
     chmod 0664 /dev/smem_log
 
-#   Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.wifi    524288,2097152,4194304,262144,524288,1048576
-
-
-    setprop ro.telephony.call_ring.multiple false
-
     #Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
-
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
     #For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
-
-#   Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,524288,4096,16384,110208
-    setprop net.tcp.buffersize.lte     2097152,4194304,8388608,262144,524288,1048576
-    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.hspa    4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsupa   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsdpa   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
-    setprop net.tcp.buffersize.evdo    4094,87380,524288,4096,16384,262144
 
 #   Assign TCP buffer thresholds to be ceiling value of technology maximums
 #   Increased technology maximums should be reflected here.
@@ -158,35 +135,6 @@ on boot
     # connections on high-throughput links get dropped when
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
-
-    # NFC local data and nfcee xml storage
-    mkdir /data/nfc 0770 nfc nfc
-    mkdir /data/nfc/param 0770 nfc nfc
-   
-    setprop ro.nfc.port "I2C"
-    chmod 0660 /dev/pn544
-    chown nfc nfc /dev/pn544
-
-    chown nfc nfc /sys/nfc/nfc_fwupdate
-    chmod 0664 /sys/nfc/nfc_fwupdate
-    chown nfc nfc /sys/nfc/nxp_config_name
-    chmod 0664 /sys/nfc/nxp_config_name
-    chown nfc nfc /sys/nfc/nfc_brcm_conf_name
-    chmod 0664 /sys/nfc/nfc_brcm_conf_name
-    chown nfc nfc /sys/nfc/nfc_sim_switch
-    chmod 0664 /sys/nfc/nfc_sim_switch
-    chown nfc nfc /sys/nfc/nfc_sim_status
-    chmod 0444 /sys/nfc/nfc_sim_status
-    chown nfc nfc /sys/nfc/rd_nfc_sim_status
-    chmod 0444 /sys/nfc/rd_nfc_sim_status
-    chown nfc nfc /sys/nfc/nfc_enable_status
-    chmod 0664 /sys/nfc/nfc_enable_status
-    chown nfc nfc /sys/nfc/nfc_card_num
-    chmod 0444 /sys/nfc/nfc_card_num
-    chown nfc nfc /sys/nfc/nfc_chip_type
-    chmod 0444 /sys/nfc/nfc_chip_type
-    chown nfc nfc /sys/nfc/nfc_dmd_notify
-    chmod 0664 /sys/nfc/nfc_dmd_notify
 
     # Set the console loglevel to < KERN_INFO
     # Set the default message loglevel to KERN_INFO
