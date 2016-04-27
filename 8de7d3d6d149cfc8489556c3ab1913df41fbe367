@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_21cf6380",
+        "filename": "system.prop",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2016-04-27T18:54:14Z",
+      "side": 1,
+      "message": "Deprecated, see overylay",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 68
+      },
+      "revId": "8de7d3d6d149cfc8489556c3ab1913df41fbe367",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
