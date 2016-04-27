@@ -153,35 +153,6 @@ on boot
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
-    # NFC local data and nfcee xml storage
-    mkdir /data/nfc 0770 nfc nfc
-    mkdir /data/nfc/param 0770 nfc nfc
-   
-    setprop ro.nfc.port "I2C"
-    chmod 0660 /dev/pn544
-    chown nfc nfc /dev/pn544
-
-    chown nfc nfc /sys/nfc/nfc_fwupdate
-    chmod 0664 /sys/nfc/nfc_fwupdate
-    chown nfc nfc /sys/nfc/nxp_config_name
-    chmod 0664 /sys/nfc/nxp_config_name
-    chown nfc nfc /sys/nfc/nfc_brcm_conf_name
-    chmod 0664 /sys/nfc/nfc_brcm_conf_name
-    chown nfc nfc /sys/nfc/nfc_sim_switch
-    chmod 0664 /sys/nfc/nfc_sim_switch
-    chown nfc nfc /sys/nfc/nfc_sim_status
-    chmod 0444 /sys/nfc/nfc_sim_status
-    chown nfc nfc /sys/nfc/rd_nfc_sim_status
-    chmod 0444 /sys/nfc/rd_nfc_sim_status
-    chown nfc nfc /sys/nfc/nfc_enable_status
-    chmod 0664 /sys/nfc/nfc_enable_status
-    chown nfc nfc /sys/nfc/nfc_card_num
-    chmod 0444 /sys/nfc/nfc_card_num
-    chown nfc nfc /sys/nfc/nfc_chip_type
-    chmod 0444 /sys/nfc/nfc_chip_type
-    chown nfc nfc /sys/nfc/nfc_dmd_notify
-    chmod 0664 /sys/nfc/nfc_dmd_notify
-
     # Set the console loglevel to < KERN_INFO
     # Set the default message loglevel to KERN_INFO
     write /proc/sys/kernel/printk "6 6 1 7"
