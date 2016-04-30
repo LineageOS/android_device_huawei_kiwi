@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
  /*
- ** Copyright 2014, The CyanogenMod Project
+ ** Copyright 2016, The CyanogenMod Project
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
  ** you may not use this file except in compliance with the License.
@@ -172,7 +172,7 @@
     <!-- The RadioAccessFamilies supported by the device. + Empty is
          viewed as "all".  Only used on devices which + don't support
          RIL_REQUEST_GET_RADIO_CAPABILITY + format is UMTS|LTE|... -->
-    <string name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPA|LTE|HSPAP|GSM|TD_SCDMA|WCDMA</string>
+    <string translatable="false" name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPA|LTE|HSPAP|GSM|TD_SCDMA|WCDMA</string>
 
     <!-- Indicate whether closing the lid causes the device to go to sleep and opening
          it causes the device to wake up.
