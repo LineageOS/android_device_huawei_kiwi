@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_4645c7b2",
+        "filename": "overlay/frameworks/base/core/res/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-05-01T22:15:30Z",
+      "side": 1,
+      "message": "You shouldn\u0027t update copyright forward in time for a file that contains material created earlier.  When I copy a file and then change it I always preserve the earlier copyright date on it to indicate when the content was created.  There is intellectual property in this file created in 2014 and therefore that should be maintained.\n\nIf you feel the need to update the date to this year, you can do so as \"2014-2016\" but personally I am fine saying that we created it in 2014 and not worrying about it.  If we make significant changes then it would warrant updating the year to indicate that some of the content may be newer than the original 2014 copyright date.",
+      "revId": "951a1aa2bf67aa4a597b1a1afee6b1fb1adec533",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_e61393b7",
+        "filename": "overlay/packages/services/Telephony/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-05-01T22:15:30Z",
+      "side": 1,
+      "message": "Is this really translatable?",
+      "revId": "951a1aa2bf67aa4a597b1a1afee6b1fb1adec533",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
