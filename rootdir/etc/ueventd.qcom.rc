@@ -202,10 +202,6 @@
 /dev/wcnss_ctrl           0660   system     system
 /dev/rfkill               0660   root       wifi
 
-#nfc permissions
-/dev/nfc-nci              0660    nfc         nfc
-/dev/assd                 0660    nfc         nfc
-
 # UIO devices
 /dev/uio0                 0660   system     system
 /dev/uio1                 0660   system     system
