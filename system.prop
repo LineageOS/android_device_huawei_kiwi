@@ -152,9 +152,6 @@ voice.voip.conc.disabled=true
 # Net
 persist.data.netmgrd.qos.enable=true
 persist.timed.enable=true
-#ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax
-net.tcp.buffersize.default=4096,87380,524288,4096,16384,110208
-net.tcp.buffersize.wifi=524288,2097152,4194304,262144,524288,1048576
 
 # Other
 dev.pm.dyn_samplingrate=1
