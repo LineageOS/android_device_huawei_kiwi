@@ -250,12 +250,24 @@ on post-fs-data
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
 
+    # vibrator
     chown system system /sys/class/timed_output/vibrator/vtg_level
     chown system system /sys/class/timed_output/vibrator/vtg_max
     chown system system /sys/class/timed_output/vibrator/vtg_min
     chmod 0644 /sys/class/timed_output/vibrator/vtg_level
     chmod 0644 /sys/class/timed_output/vibrator/vtg_max
     chmod 0644 /sys/class/timed_output/vibrator/vtg_min
+
+    # leds
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/blue/blink
+    chown system system /sys/class/leds/red/delay_on
+    chown system system /sys/class/leds/green/delay_on
+    chown system system /sys/class/leds/blue/delay_on
+    chown system system /sys/class/leds/red/delay_off
+    chown system system /sys/class/leds/green/delay_off
+    chown system system /sys/class/leds/blue/delay_off
 
 service qcomsysd /system/bin/qcom-system-daemon
     class main

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
- * Copyright (C) 2014 The  Linux Foundation. All rights reserved.
- * Copyright (C) 2015 The CyanogenMod Project
+ * Copyright (C) 2014 The Linux Foundation. All rights reserved.
+ * Copyright (C) 2015-2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
-// #define LOG_NDEBUG 0
 
 #include <cutils/log.h>
 
@@ -45,6 +42,12 @@ static struct light_state_t g_attention;
 char const*const RED_LED_FILE
         = "/sys/class/leds/red/brightness";
 
+char const*const GREEN_LED_FILE
+        = "/sys/class/leds/green/brightness";
+
+char const*const BLUE_LED_FILE
+        = "/sys/class/leds/blue/brightness";
+
 char const*const RED_BLINK_FILE
 	= "/sys/class/leds/red/blink";
 
@@ -54,26 +57,26 @@ char const*const GREEN_BLINK_FILE
 char const*const BLUE_BLINK_FILE
 	= "/sys/class/leds/blue/blink";
 
-char const*const GREEN_LED_FILE
-        = "/sys/class/leds/green/brightness";
-
-char const*const BLUE_LED_FILE
-        = "/sys/class/leds/blue/brightness";
-
 char const*const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
 
-char const*const RED_BREATH_FILE
-        = "/sys/class/leds/red/led_time";
+char const*const RED_BLINK_DELAY_ON_FILE
+        = "/sys/class/leds/red/delay_on";
 
-char const*const GREEN_BREATH_FILE
-        = "/sys/class/leds/green/led_time";
+char const*const GREEN_BLINK_DELAY_ON_FILE
+        = "/sys/class/leds/green/delay_on";
 
-char const*const BLUE_BREATH_FILE
-        = "/sys/class/leds/blue/led_time";
+char const*const BLUE_BLINK_DELAY_ON_FILE
+        = "/sys/class/leds/blue/delay_on";
 
-char const*const BUTTON_FILE
-        = "/sys/class/leds/button-backlight/brightness";
+char const*const RED_BLINK_DELAY_OFF_FILE
+        = "/sys/class/leds/red/delay_off";
+
+char const*const GREEN_BLINK_DELAY_OFF_FILE
+        = "/sys/class/leds/green/delay_off";
+
+char const*const BLUE_BLINK_DELAY_OFF_FILE
+        = "/sys/class/leds/blue/delay_off";
 
 struct color {
     unsigned int r, g, b;
@@ -238,37 +241,6 @@ rgb_to_brightness(struct light_state_t const* state)
             + (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
 }
 
-// find the color with the shortest distance
-static struct color *
-nearest_color(unsigned int r, unsigned int g, unsigned int b)
-{
-    int i = 0;
-    float _L, _a, _b;
-    double L_dist, a_dist, b_dist, total;
-    double distance = 3 * 255;
-
-    struct color *nearest = NULL;
-
-    rgb2lab(r, g, b, &_L, &_a, &_b);
-
-    ALOGV("%s: r=%d g=%d b=%d L=%f a=%f b=%f", __func__,
-            r, g, b, _L, _a, _b);
-
-    for (i = 0; i < MAX_COLOR; i++) {
-        L_dist = pow(_L - colors[i]._L, 2);
-        a_dist = pow(_a - colors[i]._a, 2);
-        b_dist = pow(_b - colors[i]._b, 2);
-        total = sqrt(L_dist + a_dist + b_dist);
-        ALOGV("%s: total %f distance %f", __func__, total, distance);
-        if (total < distance) {
-            nearest = &colors[i];
-            distance = total;
-        }
-    }
-
-    return nearest;
-}
-
 static int
 set_light_backlight(struct light_device_t* dev,
         struct light_state_t const* state)
@@ -292,8 +264,6 @@ set_speaker_light_locked(struct light_device_t* dev,
     int blink;
     int onMS, offMS;
     unsigned int colorRGB;
-    char breath_pattern[64] = { 0, };
-    struct color *nearest = NULL;
 
     if(!dev) {
         return -1;
@@ -330,40 +300,16 @@ set_speaker_light_locked(struct light_device_t* dev,
 
     blink = onMS > 0 && offMS > 0;
 
-    if (blink) {
-        // Driver doesn't permit us to set individual duty cycles, so only
-        // pick pure colors at max brightness when blinking.
-        nearest = nearest_color(red, green, blue);
-
-        red = nearest->r;
-        green = nearest->g;
-        blue = nearest->b;
-
-        // Make sure the values are between 1 and 7 seconds
-        if (onMS < 1000)
-            onMS = 1000;
-        else if (onMS > 7000)
-            onMS = 7000;
-
-        if (offMS < 1000)
-            offMS = 1000;
-        else if (offMS > 7000)
-            offMS = 7000;
-
-        // ramp up, lit, ramp down, unlit. in seconds.
-        sprintf(breath_pattern,"1 %d 1 %d",(int)(onMS/1000),(int)(offMS/1000));
-
-    } else {
-        blink = 0;
-        sprintf(breath_pattern,"1 2 1 2");
-    }
+    write_int(RED_BLINK_DELAY_ON_FILE, onMS);
+    write_int(GREEN_BLINK_DELAY_ON_FILE, onMS);
+    write_int(BLUE_BLINK_DELAY_ON_FILE, onMS);
+    write_int(RED_BLINK_DELAY_OFF_FILE, offMS);
+    write_int(GREEN_BLINK_DELAY_OFF_FILE, offMS);
+    write_int(BLUE_BLINK_DELAY_OFF_FILE, offMS);
 
     // Do everything with the lights out, then turn up the brightness
-    write_str(RED_BREATH_FILE, breath_pattern);
     write_int(RED_BLINK_FILE, (blink && red ? 1 : 0));
-    write_str(GREEN_BREATH_FILE, breath_pattern);
     write_int(GREEN_BLINK_FILE, (blink && green ? 1 : 0));
-    write_str(BLUE_BREATH_FILE, breath_pattern);
     write_int(BLUE_BLINK_FILE, (blink && blue ? 1 : 0));
 
     write_int(RED_LED_FILE, red);
@@ -429,20 +375,6 @@ set_light_attention(struct light_device_t* dev,
     return 0;
 }
 
-static int
-set_light_buttons(struct light_device_t* dev,
-        struct light_state_t const* state)
-{
-    int err = 0;
-    if(!dev) {
-        return -1;
-    }
-    pthread_mutex_lock(&g_lock);
-    err = write_int(BUTTON_FILE, state->color & 0xFF);
-    pthread_mutex_unlock(&g_lock);
-    return err;
-}
-
 /** Close the lights device */
 static int
 close_lights(struct light_device_t *dev)
@@ -475,8 +407,6 @@ static int open_lights(const struct hw_module_t* module, char const* name,
         set_light = set_light_notifications;
     else if (0 == strcmp(LIGHT_ID_ATTENTION, name))
         set_light = set_light_attention;
-    else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
-        set_light = set_light_buttons;
     else
         return -EINVAL;
 
