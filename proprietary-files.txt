@@ -1392,6 +1392,13 @@ vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
+# Fingerprint
+bin/fingerprintd
+lib64/hw/fingerprintd.ex.msm8916.so
+lib64/hw/fingerprint.msm8916.so
+lib64/lib_fpc_tac_shared.so
+lib64/libservices.huawei.so
+
 # GPS
 bin/location-mq
 -lib64/libloc_api_v02.so
