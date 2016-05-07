@@ -425,3 +425,9 @@ on property:hw.accel.calib="true"
     chmod 0664 /dev/input/event18
     chmod 0664 /dev/input/event19
     chmod 0664 /dev/input/event20
+
+service teecd /system/bin/teecd
+    class core
+    user system
+    group system
+    #seclabel u:r:tee:s0
