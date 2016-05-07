@@ -221,7 +221,7 @@
 /dev/block/bootdevice/by-name/pad    0660   system     system
 
 # Huawei added these to /ueventd.rc
-/dev/dsm                  0660   system     dsm
+/dev/dsm                  0660   system     system
 /dev/log/main             0662   root       log
 /dev/log/radio            0662   root       log
 /dev/log/system           0662   root       log
