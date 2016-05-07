@@ -119,6 +119,10 @@ PRODUCT_PACKAGES += \
     e2fsck \
     make_ext4fs
 
+# Fingerprint
+PRODUCT_PACKAGES += \
+    fingerprintd
+
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
