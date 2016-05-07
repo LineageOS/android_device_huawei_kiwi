@@ -1601,6 +1601,10 @@ vendor/lib/libcalmodule_common.so
 vendor/lib64/libcalmodule_akm.so
 vendor/lib64/libcalmodule_common.so
 
+# Tee
+bin/teecd
+lib64/libteec.so
+
 # Thermal
 vendor/bin/thermal-engine
 vendor/lib64/libthermalclient.so
