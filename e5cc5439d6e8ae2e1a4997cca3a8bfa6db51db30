@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_81caa417",
+        "filename": "system.prop",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2016-05-12T10:08:56Z",
+      "side": 1,
+      "message": "You may want to enable fluence so it will use dual mic in calls",
+      "range": {
+        "startLine": 5,
+        "startChar": 28,
+        "endLine": 5,
+        "endChar": 32
+      },
+      "revId": "e5cc5439d6e8ae2e1a4997cca3a8bfa6db51db30",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_61c76814",
+        "filename": "system.prop",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2016-05-12T10:08:56Z",
+      "side": 1,
+      "message": "Deprecated in cm13",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "e5cc5439d6e8ae2e1a4997cca3a8bfa6db51db30",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
