@@ -127,5 +127,8 @@ ro.telephony.ril.config=simactivation,sim2gsmonly
 ro.use_data_netmgrd=true
 telephony.lteOnCdmaDevice=1
 
+# Tethering
+sys.usb.rps_mask=10
+
 # WiFi
 wifi.interface=wlan0
