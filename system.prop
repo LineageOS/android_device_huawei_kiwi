@@ -1,67 +1,23 @@
-# Radio
-ro.telephony.ril.config=simactivation,sim2gsmonly
-persist.radio.multisim.config=dsds
-ro.config.dsds_mode=umts_gsm
-rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
-rild.libargs=-d /dev/smd0
-persist.rild.nitz_plmn=
-persist.rild.nitz_long_ons_0=
-persist.rild.nitz_long_ons_1=
-persist.rild.nitz_long_ons_2=
-persist.rild.nitz_long_ons_3=
-persist.rild.nitz_short_ons_0=
-persist.rild.nitz_short_ons_1=
-persist.rild.nitz_short_ons_2=
-persist.rild.nitz_short_ons_3=
-persist.radio.rat_on=combine
-ril.subscription.types=NV,RUIM
-DEVICE_PROVISIONED=1
-ro.telephony.default_network=9,9
+# Audio
+persist.audio.fluence.voicecall=true
+persist.audio.fluence.voicerec=false
+persist.audio.fluence.speaker=true
+ro.fm.transmitter=false
+ro.qc.sdk.audio.fluencetype=none # can be "fluence" or "fluencepro" or "none"
+ro.qc.sdk.audio.ssr=false
+tunnel.audio.encode=false
+use.voice.path.for.pcm.voip=true
+voice.playback.conc.disabled=false
+voice.record.conc.disabled=false
+voice.voip.conc.disabled=true
 
-persist.radio.force_nw_search=1
-ro.config.eons_always_ap=false
-persist.radio.msgtunnel.start=false
-ro.cdma.home.operator.numeric=46003
-ro.config.nostore_nw_sel_mode=false
-ro.multi.rild=true
-telephony.lteOnCdmaDevice=1
-
-persist.cne.feature=0
-persist.data.ds_fmc_app.mode=0
-persist.omh.enabled=0
-ro.config.hw_fast_dormancy=true
-ro.config.hw_fdtimer_screenOff=3000
-ro.config.hw_fdtimer_screenOn=-1
-ro.config.hw_USB_on_enable_FD=true
-ro.config.hw_always_allow_mms=true
-ro.use_data_netmgrd=true
-ro.hwpp_dorecoverylevel=1
-ro.hwpp_ds_fail=111,-3
-ro.hwpp.disable_IA=true
-
-ro.config.hwft_simrefresh=true
-persist.radio.apm_sim_not_pwdn=1
-persist.radio.no_wait_for_card=1
-
-ro.ril.hsxpa=1
-ro.ril.gprsclass=10
-
-persist.radio.sib16_support=1
-
-ro.config.AC_optimize_plmn_srch=true
-ro.config.force_reject_cause=true
-ro.config.hw_dsda=false
-ro.config.hw_roaming_optimize=true
-ro.config.NW_rescan_after_rej=true
-ro.config.optimize_signal=true
-ro.hwpp.cust_ons_bin=true
-ro.config.launcher_matchcard=1
-ro.hwpp_sig_stability_switch=true
-persist.radio.use_nv_force=false
-
-ro.telephony.ril_class=KiwiRIL
-persist.data.qmi.adb_logmask=0
-ro.telephony.call_ring.multiple=false
+# Audio Offload
+audio.offload.buffer.size.kb=64
+audio.offload.min.duration.secs=30
+audio.offload.pcm.enable=false
+audio.offload.disable=1
+audio.offload.gapless.enabled=true
+av.offload.enable=true
 
 # Camera
 ro.config.hw_burst_snapshot=true
@@ -79,21 +35,18 @@ ro.config.hw_video_beauty=true
 persist.camera.hal.debug=0
 
 # Display
-debug.sf.hw=0
-debug.egl.hw=0
-persist.hwc.mdpcomp.enable=true
-debug.mdpcomp.logs=0
 dalvik.vm.heapsize=512m
 dalvik.vm.zygotemaxfailedboots=5
-persist.demo.hdmirotationlock=false
-debug.mdpcomp.idletime=600
-debug.enable.sglscale=1
-# disable vsync for cpu render apps
 debug.cpurend.vsync=false
+debug.egl.hw=0
+debug.enable.sglscale=1
+debug.mdpcomp.logs=0
+debug.mdpcomp.idletime=600
+debug.sf.hw=0
+persist.demo.hdmirotationlock=false
+persist.hwc.mdpcomp.enable=true
 ro.opengles.version=196608
-# System property for cabl
 ro.qualcomm.cabl=0
-
 ro.qcom.ad=1
 ro.qcom.ad.calib.data=/system/etc/calib_kiw.cfg
 
@@ -104,50 +57,17 @@ ro.gps.agps_provider=1
 ro.pip.gated=0
 
 # Media
+media.aac_51_output_enabled=true
+media.msm8929hw=0
+media.msm8939hw=0
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true
 media.stagefright.enable-aac=true
 media.stagefright.enable-qcp=true
 media.stagefright.enable-fma2dp=true
 media.stagefright.enable-scan=true
-media.msm8939hw=0
-media.msm8929hw=0
 mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
-media.aac_51_output_enabled=true
-ro.qc.sdk.audio.ssr=false
-##fluencetype can be "fluence" or "fluencepro" or "none"
-ro.qc.sdk.audio.fluencetype=none
-persist.audio.fluence.voicecall=true
-persist.audio.fluence.voicerec=false
-persist.audio.fluence.speaker=true
-#Set for msm8916
-tunnel.audio.encode = false
-#Buffer size in kbytes for compress offload playback
-audio.offload.buffer.size.kb=64
-#Minimum duration for offload playback in secs
-audio.offload.min.duration.secs=30
-#Enable offload audio video playback by default
-av.offload.enable=true
-#tenghui modify for software menu  2014/11/20
-#enable voice path for PCM VoIP by default
-use.voice.path.for.pcm.voip=true
-#/* < DTS2015072103021 tianli/220177 20150721 begin */
-#disable offload audio playback for DTS in the DSP
-audio.offload.pcm.enable=false
-audio.offload.disable=1
-#/* < DTS2015042705935 tianli/220177 20150422 begin */
-#Enable offload audio playback for DTS in the DSP
-#/* DTS2015042705935 tianli/220177 20150422 end > */
-#/* DTS2015072103021 tianli/220177 20150721 end > */
-#System property for FM transmitter
-ro.fm.transmitter=false
-#enable dsp gapless mode by default
-audio.offload.gapless.enabled=true
-#Audio voice concurrency related flags
-voice.playback.conc.disabled=false
-voice.record.conc.disabled=false
-voice.voip.conc.disabled=true
 
 # Net
 persist.data.netmgrd.qos.enable=true
@@ -155,11 +75,69 @@ persist.timed.enable=true
 
 # Other
 dev.pm.dyn_samplingrate=1
-ro.sf.lcd_density=480
+persist.sys.isUsbOtgEnabled=true
 qemu.hw.mainkeys=0
 ro.qcom.ad.sensortype=2
+ro.sf.lcd_density=480
 ro.vendor.extension_library=libqti-perfd-client.so
-persist.sys.isUsbOtgEnabled=true
+
+# Radio
+DEVICE_PROVISIONED=1
+persist.cne.feature=0
+persist.data.ds_fmc_app.mode=0
+persist.data.qmi.adb_logmask=0
+persist.omh.enabled=0
+persist.radio.apm_sim_not_pwdn=1
+persist.radio.force_nw_search=1
+persist.radio.msgtunnel.start=false
+persist.radio.multisim.config=dsds
+persist.radio.no_wait_for_card=1
+persist.radio.rat_on=combine
+persist.radio.sib16_support=1
+persist.radio.use_nv_force=false
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_plmn=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+ril.subscription.types=NV,RUIM
+rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
+rild.libargs=-d /dev/smd0
+ro.cdma.home.operator.numeric=46003
+ro.config.AC_optimize_plmn_srch=true
+ro.config.dsds_mode=umts_gsm
+ro.config.eons_always_ap=false
+ro.config.force_reject_cause=true
+ro.config.hw_dsda=false
+ro.config.hw_fast_dormancy=true
+ro.config.hw_fdtimer_screenOff=3000
+ro.config.hw_fdtimer_screenOn=-1
+ro.config.hw_roaming_optimize=true
+ro.config.hw_USB_on_enable_FD=true
+ro.config.hw_always_allow_mms=true
+ro.config.hwft_simrefresh=true
+ro.config.launcher_matchcard=1
+ro.config.NW_rescan_after_rej=true
+ro.config.nostore_nw_sel_mode=false
+ro.config.optimize_signal=true
+ro.hwpp.cust_ons_bin=true
+ro.hwpp_dorecoverylevel=1
+ro.hwpp_ds_fail=111,-3
+ro.hwpp.disable_IA=true
+ro.hwpp_sig_stability_switch=true
+ro.multi.rild=true
+ro.ril.hsxpa=1
+ro.ril.gprsclass=10
+ro.telephony.call_ring.multiple=false
+ro.telephony.default_network=9,9
+ro.telephony.ril_class=KiwiRIL
+ro.telephony.ril.config=simactivation,sim2gsmonly
+ro.use_data_netmgrd=true
+telephony.lteOnCdmaDevice=1
 
 # WiFi
 wifi.interface=wlan0
