@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_2a25c5ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-05-13T09:01:27Z",
+      "side": 1,
+      "message": "Can you please do that in a separate commit.  Doing it in this commit makes it a real pain to understand in the future.\n\nIMO an \"alphabetize\" or \"organize\" commit should be able to be verified with grep / sort / diff and that\u0027s no longer the case...",
+      "revId": "a4f4b1d7c918b0bf289acb7dfede9abf39d3bf09",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
