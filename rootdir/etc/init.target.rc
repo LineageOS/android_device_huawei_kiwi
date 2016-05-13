@@ -239,7 +239,6 @@ on charger
     start vm_bms
     load_all_props
     usb_init_setting
-    start qcom-post-boot
     start chargemonitor
 
 service dts_configurator /system/bin/dts_configurator
