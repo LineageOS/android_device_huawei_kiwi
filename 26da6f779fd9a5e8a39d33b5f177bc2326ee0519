@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_da163ef2",
+        "filename": "system.prop",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-05-14T16:11:46Z",
+      "side": 1,
+      "message": "\u0027#\u0027 isn\u0027t a comment character in the value.  If you getprop this property it will be\n\nfluence # can be ...\n\nYou should move the comment to a separate line.",
+      "revId": "26da6f779fd9a5e8a39d33b5f177bc2326ee0519",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
