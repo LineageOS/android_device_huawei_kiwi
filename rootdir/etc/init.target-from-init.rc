@@ -228,12 +228,12 @@ service filebackup /system/bin/filebackup
 service oeminfo_server /system/bin/oeminfo_server
     class core
     user root
-    #seclabel u:r:oeminfo_domain:s0
+    seclabel u:r:oeminfo:s0
 
 service rmt_oeminfo /sbin/rmt_oeminfo
     class core
     user root
-    #seclabel u:r:oeminfo_domain:s0
+    seclabel u:r:oeminfo:s0
 
 service teecd /system/bin/teecd
     class core
@@ -248,7 +248,7 @@ service signinfolistener /sbin/signinfolistener
 
 service libqmi_oem_main /sbin/libqmi_oem_main
     class main
-    #seclabel u:r:libqmi_oem_main:s0
+    seclabel u:r:libqmi_oem_main:s0
 
 service rebootmgr /system/bin/rebootmgr
     class core
@@ -300,7 +300,7 @@ service huawei_version /sbin/huawei_version
     class core
     user root
     oneshot
-    #seclabel u:r:huawei_version:s0
+    seclabel u:r:oeminfo:s0
 
 service test_diag /sbin/test_diag
     user root

@@ -1,0 +1,19 @@
+type oeminfo, domain;
+type oeminfo_exec, exec_type, file_type;
+
+init_daemon_domain(oeminfo)
+
+allow oeminfo oem_block_device:blk_file { read write open };
+allow oeminfo self:capability { fowner chown fsetid };
+allow oeminfo socket_device:dir { write add_name };
+allow oeminfo socket_device:sock_file { create setattr };
+
+allow oeminfo init:unix_stream_socket connectto;
+allow oeminfo libqmi_oem_main:unix_stream_socket connectto;
+allow oeminfo log_device:chr_file { write open };
+allow oeminfo property_socket:sock_file write;
+allow oeminfo rootfs:file entrypoint;
+allow oeminfo self:socket { read bind create write ioctl };
+
+# FIX-ME: violating neverallow, permissive instead
+permissive oeminfo;
