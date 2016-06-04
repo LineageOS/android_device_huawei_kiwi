@@ -1,0 +1,4 @@
+allow qmuxd property_socket:sock_file write;
+allow qmuxd init:unix_stream_socket connectto;
+allow qmuxd radio_prop:property_service set;
+

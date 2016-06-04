@@ -1,0 +1,9 @@
+/dev/rfkill                                                u:object_r:rfkill_device:s0
+/system/bin/init.qcom.power.sh                             u:object_r:init-power-sh_exec:s0
+/dev/i2c-1                                                 u:object_r:smartamp_device:s0
+/dev/block/platform/soc.0/7824900.sdhci/mmcblk0p18         u:object_r:fsc_block_device:s0
+/dev/block/platform/soc.0/7824900.sdhci/mmcblk0p9          u:object_r:oem_block_device:s0
+/system/bin/oeminfo_server                                 u:object_r:oeminfo_exec:s0
+/sbin/huawei_version                                       u:object_r:oeminfo_exec:s0
+/sbin/rmt_oeminfo                                          u:object_r:oeminfo_exec:s0
+/sbin/libqmi_oem_main                                      u:object_r:libqmi_oem_main_exec:s0
