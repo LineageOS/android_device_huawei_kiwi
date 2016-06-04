@@ -1,0 +1,2 @@
+#allow wpa device:chr_file { read open };
+
