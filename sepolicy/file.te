@@ -1,0 +1,2 @@
+type fingerprint_sysfs, sysfs_type;
+type gesture_sysfs, sysfs_type;

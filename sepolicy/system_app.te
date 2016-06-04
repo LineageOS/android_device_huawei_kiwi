@@ -1,0 +1,1 @@
+allow system_app gesture_sysfs:file rw_file_perms;

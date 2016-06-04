@@ -1,0 +1,12 @@
+boardserialno                      u:object_r:hw_version_prop:s0
+confg.hw_appsbootversion           u:object_r:hw_version_prop:s0
+confg.hw_bootversion               u:object_r:hw_version_prop:s0
+confg.hw_systemversion             u:object_r:hw_version_prop:s0
+confg.hw_sbl1version               u:object_r:hw_version_prop:s0
+confg.hw_recoveryversion           u:object_r:hw_version_prop:s0
+confg.hw_hardwareversion           u:object_r:hw_version_prop:s0
+confg.hw_modemversion              u:object_r:hw_version_prop:s0
+confg.hw_efsversion                u:object_r:hw_version_prop:s0
+confg.hw_chipidversion             u:object_r:hw_version_prop:s0
+product.CustCVersion               u:object_r:hw_version_prop:s0
+product.CustDVersion               u:object_r:hw_version_prop:s0

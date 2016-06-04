@@ -1,0 +1,1 @@
+allow ueventd fingerprint_sysfs:file rw_file_perms;

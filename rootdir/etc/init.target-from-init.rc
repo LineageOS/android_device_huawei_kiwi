@@ -229,22 +229,21 @@ service filebackup /system/bin/filebackup
 service rmt_oeminfo /sbin/rmt_oeminfo
     class core
     user root
-    #seclabel u:r:oeminfo_domain:s0
+    seclabel u:r:oeminfo:s0
 
 service teecd /system/bin/teecd
     class core
     user system
     group system
-    seclabel u:r:tee:s0
 
 service signinfolistener /sbin/signinfolistener
     class core
     user system
-    #seclabel u:r:signinfolistener:s0
+    seclabel u:r:signinfolistener:s0
 
 service libqmi_oem_main /sbin/libqmi_oem_main
     class main
-    #seclabel u:r:libqmi_oem_main:s0
+    seclabel u:r:libqmi_oem_main:s0
 
 service rebootmgr /system/bin/rebootmgr
     class core
@@ -296,7 +295,7 @@ service huawei_version /sbin/huawei_version
     class core
     user root
     oneshot
-    #seclabel u:r:huawei_version:s0
+    seclabel u:r:oeminfo:s0
 
 service test_diag /sbin/test_diag
     user root
@@ -383,7 +382,6 @@ service cust /system/bin/cust
 service systeminfo /system/bin/systeminfo
     class main
     user root
-    #seclabel u:r:systeminfo:s0
     oneshot
 
 service fingerprint_log  /system/bin/fingerprint_log
@@ -397,9 +395,3 @@ on property:ro.cust.complete="true"
 
 on property:hw.accel.calib="true"
     chmod 0664 /dev/input/event*
-
-service teecd /system/bin/teecd
-    class core
-    user system
-    group system
-    #seclabel u:r:tee:s0
