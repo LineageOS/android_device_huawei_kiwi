@@ -1,0 +1,2 @@
+allow system_server shell_exec:file { read execute open execute_no_trans };
+allow system_server oeminfo:unix_stream_socket connectto;
