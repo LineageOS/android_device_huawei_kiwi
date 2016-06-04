@@ -153,6 +153,9 @@ TARGET_RIL_VARIANT := proprietary
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
+BOARD_SEPOLICY_DIRS += \
+    device/huawei/kiwi/sepolicy
+
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_kiwi

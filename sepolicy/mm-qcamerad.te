@@ -1,0 +1,2 @@
+allow mm-qcamerad system_data_file:dir { write add_name };
+
