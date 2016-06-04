@@ -1,0 +1,7 @@
+type dsm_device, dev_type;
+type fingerprint_device, dev_type;
+type rfkill_device, dev_type;
+type smartamp_device, dev_type;
+
+type fsc_block_device, dev_type;
+type oem_block_device, dev_type;

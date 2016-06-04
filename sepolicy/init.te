@@ -1,0 +1,21 @@
+allow init block_device:blk_file write;
+allow init mpctl_socket:sock_file write;
+allow init self:socket read;
+
+allow init block_device:blk_file setattr;
+allow init log_device:chr_file write;
+allow init mpctl_data_file:file append;
+allow init property_socket:sock_file write;
+allow init qmuxd:unix_stream_socket connectto;
+allow init qmuxd_socket:sock_file write;
+allow init self:socket { write bind create ioctl };
+allow init socket_device:sock_file { create setattr };
+allow init sysfs:lnk_file setattr;
+allow init sysfs_mpdecision:file getattr;
+allow init thermal_device:chr_file { write ioctl };
+allow init vfat:dir setattr;
+allow init vfat:file { write open };
+allow init vfat:dir search;
+allow init oem_block_device:blk_file write;
+allow init gesture_sysfs:file setattr;
+allow init fingerprint_sysfs:file setattr;

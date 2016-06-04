@@ -1,0 +1,2 @@
+allow mm-qcamerad system_data_file:dir w_dir_perms;
+allow mm-qcamerad dsm_device:chr_file rw_file_perms;
