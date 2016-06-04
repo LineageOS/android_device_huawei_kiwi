@@ -1,0 +1,2 @@
+/dev/rfkill                                                u:object_r:rfkill_device:s0
+/system/bin/init.qcom.power.sh                             u:object_r:init-power-sh_exec:s0
