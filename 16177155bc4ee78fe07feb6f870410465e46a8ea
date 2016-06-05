@@ -22,6 +22,30 @@
       "revId": "16177155bc4ee78fe07feb6f870410465e46a8ea",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_d21fd558",
+        "filename": "sepolicy/oeminfo.te",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-06-05T07:06:57Z",
+      "side": 1,
+      "message": "Yes, you need to enumerate the different properties it sets to avoid that...",
+      "parentUuid": "5faad753_377e5baf",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 19
+      },
+      "revId": "16177155bc4ee78fe07feb6f870410465e46a8ea",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
