@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_377e5baf",
+        "filename": "sepolicy/oeminfo.te",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 848
+      },
+      "writtenOn": "2016-06-05T03:46:50Z",
+      "side": 1,
+      "message": "\"allow oeminfo default_prop:property_service set;\"\n\nViolates a never allow rule",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 19
+      },
+      "revId": "16177155bc4ee78fe07feb6f870410465e46a8ea",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
