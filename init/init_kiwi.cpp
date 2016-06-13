@@ -102,6 +102,7 @@ void vendor_load_properties()
 {
     char platform[PROP_VALUE_MAX];
     char model[110];
+    char hwsim[PROP_VALUE_MAX];
     FILE* fp;
     int rc;
     match_t *match;
@@ -124,5 +125,16 @@ void vendor_load_properties()
             property_set("ro.build.fingerprint", match->fingerprint);
             break;
         }
+    }
+
+    // Fix single sim variant based on property set by the bootloader
+    rc = property_get("ro.boot.hwsim", hwsim);
+
+    if (rc > 0 && !strncmp(hwsim, "single", PROP_VALUE_MAX)) {
+        property_set("ro.telephony.default_network", "9");
+    } else {
+        property_set("persist.radio.multisim.config", "dsds");
+        property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
+        property_set("ro.telephony.default_network", "9,9");
     }
 }

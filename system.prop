@@ -89,7 +89,6 @@ persist.omh.enabled=0
 persist.radio.apm_sim_not_pwdn=1
 persist.radio.force_nw_search=1
 persist.radio.msgtunnel.start=false
-persist.radio.multisim.config=dsds
 persist.radio.no_wait_for_card=1
 persist.radio.rat_on=combine
 persist.radio.sib16_support=1
@@ -123,9 +122,7 @@ ro.multi.rild=true
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
 ro.telephony.call_ring.multiple=false
-ro.telephony.default_network=9,9
 ro.telephony.ril_class=KiwiRIL
-ro.telephony.ril.config=simactivation,sim2gsmonly
 ro.use_data_netmgrd=true
 telephony.lteOnCdmaDevice=1
 
