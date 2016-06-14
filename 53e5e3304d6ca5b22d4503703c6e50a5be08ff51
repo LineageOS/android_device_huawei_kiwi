@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_4d9c8d0d",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsSettings.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:41:42Z",
+      "side": 1,
+      "message": "With that comment, you need to make the constructor private ;)",
+      "revId": "53e5e3304d6ca5b22d4503703c6e50a5be08ff51",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
