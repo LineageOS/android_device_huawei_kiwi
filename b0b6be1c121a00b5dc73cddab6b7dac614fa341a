@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_6dd389d6",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:29:00Z",
+      "side": 1,
+      "message": "Can be inlined below now.",
+      "revId": "b0b6be1c121a00b5dc73cddab6b7dac614fa341a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_0ddc55e2",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:29:00Z",
+      "side": 1,
+      "message": "As above",
+      "revId": "b0b6be1c121a00b5dc73cddab6b7dac614fa341a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_cde15d9d",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:29:00Z",
+      "side": 1,
+      "message": "Nuke me",
+      "revId": "b0b6be1c121a00b5dc73cddab6b7dac614fa341a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_2dd911f2",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:29:00Z",
+      "side": 1,
+      "message": "Nuke me",
+      "revId": "b0b6be1c121a00b5dc73cddab6b7dac614fa341a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_8df1256e",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:29:00Z",
+      "side": 1,
+      "message": "This check seems pointless.",
+      "revId": "b0b6be1c121a00b5dc73cddab6b7dac614fa341a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_4de7adad",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:29:00Z",
+      "side": 1,
+      "message": "Add @Override here",
+      "revId": "b0b6be1c121a00b5dc73cddab6b7dac614fa341a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_6dece98e",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T11:29:00Z",
+      "side": 1,
+      "message": "mContext -\u003e TouchscreenGestureSettings.this",
+      "revId": "b0b6be1c121a00b5dc73cddab6b7dac614fa341a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
