@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_4d3ecd8b",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/BootCompletedReceiver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T06:26:42Z",
+      "side": 1,
+      "message": "Why? Is it disabled anywhere?",
+      "revId": "d9877e5f0663908e7e30092e04fc924982b53d24",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_6d438914",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T06:26:42Z",
+      "side": 1,
+      "message": "This class is utterly pointless.",
+      "revId": "d9877e5f0663908e7e30092e04fc924982b53d24",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_0d4c5540",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T06:26:42Z",
+      "side": 1,
+      "message": "mIsCGestureEnabled\n\nBut besides that, just nuke those variables and read directly from prefs in updateGestureMode().",
+      "revId": "d9877e5f0663908e7e30092e04fc924982b53d24",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_ed4e9936",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsSettings.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T06:26:42Z",
+      "side": 1,
+      "message": "You could convert this into a static method, call it from your UI and from the boot completed receiver (passing a Context into it) and nuke the whole remainder of this class.",
+      "revId": "d9877e5f0663908e7e30092e04fc924982b53d24",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_8d6125ac",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/ServiceWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T06:26:42Z",
+      "side": 1,
+      "message": "This class is completely pointless.",
+      "revId": "d9877e5f0663908e7e30092e04fc924982b53d24",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
