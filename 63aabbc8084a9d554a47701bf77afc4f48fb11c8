@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5faad753_eded39b7",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T09:58:10Z",
+      "side": 1,
+      "message": "gestureMode",
+      "revId": "63aabbc8084a9d554a47701bf77afc4f48fb11c8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_8d2cc502",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/CMActionsSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T09:58:10Z",
+      "side": 1,
+      "message": "Drop the m prefix, it\u0027s for members.\n\n(But why have the variables in the first place? Just do \u0027if (sharedPrefs.getBoolean()) { ... )",
+      "revId": "63aabbc8084a9d554a47701bf77afc4f48fb11c8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_0d40d5a4",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T09:58:10Z",
+      "side": 1,
+      "message": "You don\u0027t need those member variables.\n\nJust define an array in CMActionsSettings:\n\npublic static final String[] ALL_GESTURE_KEYS \u003d {\n    TOUCHSCREEN_C_GESTURE_KEY,\n    [...]\n};\n\nand use it from onCreate():\n\nfor (String gestureKey : CMActionsSettings.ALL_GESTURE_KEYS) {\n    Preference pref \u003d findPreference(gestureKey);\n    pref.setOnPreferenceChangeListener(mGesturePrefListener);\n}",
+      "revId": "63aabbc8084a9d554a47701bf77afc4f48fb11c8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_ad31815c",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T09:58:10Z",
+      "side": 1,
+      "message": "Is the delay really needed here?",
+      "revId": "63aabbc8084a9d554a47701bf77afc4f48fb11c8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_4d324d60",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T09:58:10Z",
+      "side": 1,
+      "message": "run() {",
+      "revId": "63aabbc8084a9d554a47701bf77afc4f48fb11c8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5faad753_6d37094f",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/TouchscreenGestureSettings.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1063
+      },
+      "writtenOn": "2016-06-14T09:58:10Z",
+      "side": 1,
+      "message": "Generic exception catching shouldn\u0027t be done. What kind of exception are you thinking of here?",
+      "revId": "63aabbc8084a9d554a47701bf77afc4f48fb11c8",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
