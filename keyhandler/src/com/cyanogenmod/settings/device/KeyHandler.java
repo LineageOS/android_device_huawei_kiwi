@@ -18,9 +18,11 @@ package com.cyanogenmod.settings.device;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
@@ -36,6 +38,7 @@ import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
 import android.util.Log;
@@ -122,9 +125,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
             switch (msg.arg1) {
                 case KEY_GESTURE_C:
-                    startIntent = new Intent(
-                            cyanogenmod.content.Intent.ACTION_SCREEN_CAMERA_GESTURE);
-                    broadcast = true;
+                    startIntent = getCameraIntent();
                     break;
 
                 case KEY_GESTURE_E:
@@ -252,6 +253,21 @@ public class KeyHandler implements DeviceKeyHandler {
             org.cyanogenmod.platform.internal.R.bool.config_proximityCheckOnWakeEnabledByDefault);
     }
 
+    private Intent getCameraIntent() {
+        // Keyguard won't allow a picker, try to pick the secure intent in the package
+        // that would be the one used for a default action of launching the camera
+        Intent normalIntent = createIntent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        Intent secureIntent = createIntent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE);
+        ActivityInfo normalActivity = getBestActivityInfo(normalIntent);
+        ActivityInfo secureActivity = getBestActivityInfo(secureIntent, normalActivity);
+        if (secureActivity != null) {
+            secureIntent.setComponent(componentName(secureActivity));
+            return secureIntent;
+        } else {
+            return normalIntent;
+        }
+    }
+
     private Intent getLaunchableIntent(Intent intent) {
         Intent returnIntent = null;
         PackageManager pm = mContext.getPackageManager();
@@ -263,5 +279,46 @@ public class KeyHandler implements DeviceKeyHandler {
         }
 
         return returnIntent;
+    }
+
+    private ActivityInfo getBestActivityInfo(Intent intent) {
+        PackageManager pm = mContext.getPackageManager();
+        ResolveInfo resolveInfo = pm.resolveActivity(intent, 0);
+        if (resolveInfo != null) {
+            return resolveInfo.activityInfo;
+        } else {
+            // If the resolving failed, just find our own best match
+            return getBestActivityInfo(intent, null);
+        }
+    }
+
+    private ActivityInfo getBestActivityInfo(Intent intent, ActivityInfo match) {
+        PackageManager pm = mContext.getPackageManager();
+        List <ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
+        ActivityInfo best = null;
+        if (activities.size() > 0) {
+            best = activities.get(0).activityInfo;
+            if (match != null) {
+                String packageName = match.applicationInfo.packageName;
+                for (int i = activities.size()-1; i >= 0; i--) {
+                    ActivityInfo activityInfo = activities.get(i).activityInfo;
+                    if (packageName.equals(activityInfo.applicationInfo.packageName)) {
+                        best = activityInfo;
+                    }
+                }
+            }
+        }
+        return best;
+    }
+
+    private Intent createIntent(String intentName) {
+        Intent intent = new Intent(intentName);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+        return intent;
+    }
+
+    private ComponentName componentName(ActivityInfo activity) {
+        return new ComponentName(activity.applicationInfo.packageName, activity.name);
     }
 }
