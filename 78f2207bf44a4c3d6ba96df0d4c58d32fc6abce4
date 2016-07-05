@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_56f27208",
+        "filename": "liblight/lights.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-07-05T07:55:58Z",
+      "side": 1,
+      "message": "I wonder if this call should actually be:\n\nret \u003d oem_qmi_common_stream_from_modem_len(QMI_HUAWEI_NOT_ID, \u0026notifConfig, sizeof(notifConfig), \u0026buf_out)\n\nand drop buf_out_size entirely (aka, from the check below).\n\nDoes that still work and does it fix your extraneous log messages?",
+      "revId": "78f2207bf44a4c3d6ba96df0d4c58d32fc6abce4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
