@@ -166,9 +166,12 @@ set_speaker_light_locked(struct light_device_t* dev,
     ret = oem_qmi_common_stream_from_modem_len(QMI_HUAWEI_NOT_ID, &notifConfig,
                                                sizeof(notifConfig), &buf_out,
                                                &buf_out_size);
+
+#ifdef LOG_NDEBUG
     if (ret || buf_out_size != 1)
-        ALOGE("failed to write notification LED ret=%d buf_out_size=%d\n",
+        ALOGD("failed to write notification LED ret=%d buf_out_size=%d\n",
               ret, buf_out_size);
+#endif
 
     return 0;
 }
