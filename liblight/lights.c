@@ -130,7 +130,7 @@ set_speaker_light_locked(struct light_device_t* dev,
     unsigned int colorRGB;
     int ret;
     struct qmi_huawei_not notifConfig;
-    size_t buf_out_size = sizeof(notifConfig);
+    size_t buf_out_size;
     char buf_out = 0;
 
     if(!dev) {
