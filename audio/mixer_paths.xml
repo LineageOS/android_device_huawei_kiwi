@@ -435,13 +435,13 @@
     <path name="play-fm">
         <ctl name="Internal FM RX Volume" value="1" />
         <ctl name="PRI_MI2S_RX Port Mixer INTERNAL_FM_TX" value="1" />
-        <ctl name="MI2S_DL_HL Switch" value="1" />
+        <ctl name="PRI_MI2S_RX_DL_HL Switch" value="1" />
     </path>
 
     <path name="play-fm smart-pa">
         <ctl name="Internal FM RX Volume" value="1" />
         <ctl name="QUAT_MI2S_RX Port Mixer INTERNAL_FM_TX" value="1" />
-        <ctl name="MI2S_RX_DL_HL Switch" value="1" />
+        <ctl name="QUAT_MI2S_RX_DL_HL Switch" value="1" />
     </path>
 
     <path name="vowlan-call">
