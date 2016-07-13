@@ -103,7 +103,6 @@ PRODUCT_PACKAGES += \
     libshim_cutils \
     libshim_gps \
     libshim_ril \
-    libshim_sensormanager \
     libshim_sound_trigger \
     libstlport
 
