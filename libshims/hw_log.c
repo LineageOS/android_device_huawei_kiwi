@@ -21,6 +21,10 @@ int __android_janklog_print(void) {
     return 0;
 }
 
+int __android_log_exception_write(void) {
+    return 0;
+}
+
 int isLogEnabled(void) {
     return 0;
 }
