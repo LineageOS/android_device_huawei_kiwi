@@ -1393,12 +1393,15 @@ vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # GPS
-bin/location-mq
+bin/garden_app
+bin/gpsone_daemon
+bin/lowi-server
+bin/xtwifi-inet-agent
+bin/xtwifi-client
 -lib64/libloc_api_v02.so
--lib64/libloc_ds_api.so
 -lib/libloc_api_v02.so
--lib/libloc_ds_api.so
 vendor/lib64/hw/flp.default.so
+vendor/lib64/libflp.so
 vendor/lib64/libgeofence.so
 vendor/lib64/libizat_core.so
 vendor/lib64/liblbs_core.so
@@ -1410,6 +1413,7 @@ vendor/lib64/libxtadapter.so
 vendor/lib64/libxtwifi_ulp_adaptor.so
 vendor/lib64/libxtwifi_zpp_adaptor.so
 vendor/lib/hw/flp.default.so
+vendor/lib/libflp.so
 vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
@@ -1436,8 +1440,6 @@ vendor/lib64/egl/libRBEGL_adreno.so
 vendor/lib64/egl/libRBGLESv1_CM_adreno.so
 vendor/lib64/egl/libRBGLESv2_adreno.so
 vendor/lib64/libadreno_utils.so
-vendor/lib64/libc2d30-a4xx.so
-vendor/lib64/libC2D2.so
 vendor/lib64/libCB.so
 vendor/lib64/libgsl.so
 vendor/lib64/libllvm-glnext.so
@@ -1470,9 +1472,6 @@ vendor/lib/libgsl.so
 vendor/lib/libllvm-glnext.so
 vendor/lib/libllvm-qcom.so
 vendor/lib/libOpenCL.so
-vendor/lib/libRSDriver_adreno.so
-vendor/lib/librs_adreno.so
-vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
@@ -1482,7 +1481,7 @@ etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
 # Keystore
-lib64/hw/keystore.qcom.so
+vendor/lib64/hw/keystore.msm8916.so
 
 # Media
 vendor/lib/libDivxDrm.so
@@ -1497,7 +1496,7 @@ vendor/lib/libOmxQcelp13Dec.so
 vendor/lib/libSHIMDivxDrm.so
 
 # Perf
-bin/perfd
+vendor/bin/perfd
 vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
 
@@ -1541,9 +1540,9 @@ vendor/lib/libqmi.so
 vendor/lib/libsmemlog.so
 
 # Radio
-ons.bin
+global/ons/ons.bin
 -app/qcrilmsgtunnel/qcrilmsgtunnel.apk
--app/shutdownlistener/shutdownlistener.apk
+#-app/shutdownlistener/shutdownlistener.apk
 bin/imsqmidaemon
 bin/netmgrd
 bin/qmuxd
@@ -1555,12 +1554,12 @@ etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
 lib/libhuawei_secure.so
-lib/liboeminfo_oem_api.so
+lib/lib_oeminfo_interface.so
 lib/liboeminfo.so
 lib/libqmi_nv_api.so
 -lib/libqmi_oem_api.so
 lib64/libhuawei_secure.so
-lib64/liboeminfo_oem_api.so
+lib64/lib_oeminfo_interface.so
 lib64/liboeminfo.so
 lib64/libqmi_nv_api.so
 -lib64/libqmi_oem_api.so
@@ -1588,17 +1587,14 @@ vendor/lib/lib-imsdpl.so
 /sbin/hdbd
 /sbin/huawei_mmc_monitor
 /sbin/huawei_version
-/sbin/hw_scsi_switch
 /sbin/libqmi_oem_main
 /sbin/rmt_oeminfo
 /sbin/rmt_storage
-/sbin/usb_update
 
 # Sensors
-bin/oeminfo_server
 lib64/hw/sensors.msm8916.so
-lib/libdmd_report.so
-lib64/libdmd_report.so
+lib/libdmd.so
+lib64/libdmd.so
 vendor/etc/calmodule.cfg
 vendor/lib/libcalmodule_akm.so
 vendor/lib/libcalmodule_common.so
@@ -1606,7 +1602,7 @@ vendor/lib64/libcalmodule_akm.so
 vendor/lib64/libcalmodule_common.so
 
 # Thermal
-bin/thermal-engine
+vendor/bin/thermal-engine
 vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalioctl.so
 vendor/lib/libthermalclient.so

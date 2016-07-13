@@ -225,11 +225,6 @@ service filebackup /system/bin/filebackup
 
 # service bootanim runs as user media
 
-service oeminfo_server /system/bin/oeminfo_server
-    class core
-    user root
-    #seclabel u:r:oeminfo_domain:s0
-
 service rmt_oeminfo /sbin/rmt_oeminfo
     class core
     user root
