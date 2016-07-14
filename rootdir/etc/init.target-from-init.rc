@@ -193,7 +193,18 @@ service powerlogd /system/bin/powerlogd
     socket powerlogdr seqpacket 0600 system system
     socket powerlogdw dgram 0220 system system
 
-# stock's init.rc adds sdcard_rw as a group for ril-daemon
+service_redefine ril-daemon /system/bin/rild
+    class main
+    socket rild stream 660 root radio
+    socket sap_uim_socket1 stream 660 bluetooth bluetooth
+    socket rild-debug stream 660 radio system
+    user root
+    group radio cache inet misc audio log qcom_diag system
+
+service_redefine drm /system/bin/drmserver
+    class main
+    user drm
+    group drm system inet drmrpc sdcard_rw media_rw shell
 
 service ddrtest /system/bin/do_ddrtest
     user root
