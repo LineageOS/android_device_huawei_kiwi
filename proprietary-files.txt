@@ -1398,6 +1398,9 @@ lib64/hw/fingerprint.msm8916.so
 lib64/lib_fpc_tac_shared.so
 lib64/libservices.huawei.so
 
+# Gatekeeper
+vendor/lib64/hw/gatekeeper.msm8916.so
+
 # GPS
 bin/garden_app
 bin/gpsone_daemon
