@@ -431,3 +431,8 @@ service teecd /system/bin/teecd
 service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
     class late_start
     user system
+
+service signinfolistener /system/bin/signinfolistener
+    class core
+    user system
+    seclabel u:r:signinfolistener:s0

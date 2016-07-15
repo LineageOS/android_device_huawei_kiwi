@@ -1398,6 +1398,7 @@ lib64/hw/fingerprintd.ex.so
 lib64/hw/fingerprint.msm8916.so
 lib64/lib_fpc_tac_shared.so
 lib64/libservices.huawei.so
+/sbin/signinfolistener
 
 # Gatekeeper
 bin/gatekeeperd
