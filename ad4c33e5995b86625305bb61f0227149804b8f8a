@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3fa7e38b_23351ddb",
+        "filename": "system.prop",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-07-17T12:03:22Z",
+      "side": 1,
+      "message": "I was a little nervous to bump that because the stock rom does not.  It is still on this version.",
+      "parentUuid": "3fa7e38b_28a89c1d",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "ad4c33e5995b86625305bb61f0227149804b8f8a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa7e38b_c8622817",
         "filename": "system.prop",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-07-17T10:35:12Z",
       "side": 1,
       "message": "https://github.com/CyanogenMod/android_device_asus_msm8916-common/commit/2d806f3a24b520a15f8bd949a372ff6db010c1db",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 21
+      },
+      "revId": "ad4c33e5995b86625305bb61f0227149804b8f8a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_433299f3",
+        "filename": "system.prop",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2016-07-17T12:03:22Z",
+      "side": 1,
+      "message": "Cool, thanks.",
+      "parentUuid": "3fa7e38b_c8622817",
       "range": {
         "startLine": 130,
         "startChar": 0,
