@@ -16,14 +16,18 @@ voice.voip.conc.disabled=true
 # Audio Offload
 audio.offload.buffer.size.kb=64
 audio.offload.min.duration.secs=30
-audio.offload.pcm.enable=false
-audio.offload.disable=1
+audio.offload.pcm.enable=true
+audio.offload.disable=false
 audio.offload.gapless.enabled=true
 av.offload.enable=true
 
 # Camera
+persist.camera.hal.debug=0
+persist.camera.promode=true
+persist.hw_camera.video_sta=true
 ro.config.hw_burst_snapshot=true
 ro.config.hw_camera_bestShot=true
+ro.config.hw_camera_blureffect=false
 ro.config.hw_camera_davinci=true
 ro.config.hw_camera_docbeauty=true
 ro.config.hw_camera_hdr=true
@@ -34,12 +38,10 @@ ro.config.hw_camera_refocus=true
 ro.config.hw_camera_smartae=false
 ro.config.hw_camera_zsl=true
 ro.config.hw_video_beauty=true
-persist.camera.hal.debug=0
 
 # Display
 dalvik.vm.heapsize=512m
 dalvik.vm.zygotemaxfailedboots=5
-debug.cpurend.vsync=false
 debug.egl.hw=0
 debug.enable.sglscale=1
 debug.mdpcomp.logs=0
@@ -125,6 +127,9 @@ ro.telephony.call_ring.multiple=false
 ro.telephony.ril_class=KiwiRIL
 ro.use_data_netmgrd=true
 telephony.lteOnCdmaDevice=1
+persist.dpm.feature=7
+persist.radio.add_power_save=1
+persist.radio.modem.cap=7E442
 
 # Tethering
 sys.usb.rps_mask=10
