@@ -25,6 +25,7 @@ import android.content.Context;
 import android.os.Parcel;
 
 import android.telephony.Rlog;
+import android.telephony.SignalStrength;
 
 /**
  * RIL customization for kiwi devices
@@ -65,5 +66,30 @@ public class KiwiRIL extends RIL {
         } else {
             super.send(rr);
         }
+    }
+
+    @Override
+    protected Object
+    responseSignalStrength(Parcel p) {
+        int gsmSignalStrength = p.readInt();
+        int gsmBitErrorRate = p.readInt();
+        int wcdmaRscp = p.readInt();
+        int wcdmaEcio = p.readInt();
+        int cdmaDbm = p.readInt();
+        int cdmaEcio = p.readInt();
+        int evdoDbm = p.readInt();
+        int evdoEcio = p.readInt();
+        int evdoSnr = p.readInt();
+        int lteSignalStrength = p.readInt();
+        int lteRsrp = p.readInt();
+        int lteRsrq = p.readInt();
+        int lteRssnr = p.readInt();
+        int lteCqi = p.readInt();
+
+        return new SignalStrength(gsmSignalStrength, gsmBitErrorRate,
+                        cdmaDbm, cdmaEcio,
+                        evdoDbm, evdoEcio, evdoSnr,
+                        lteSignalStrength, lteRsrp, lteRsrq, lteRssnr, lteCqi,
+                        wcdmaRscp, true);
     }
 }
