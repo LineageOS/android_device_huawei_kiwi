@@ -161,8 +161,8 @@ Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]
                 name, ret);
     }
 
-    for (i = 1; i <= argc; i++) {
-        ret = ReadArgs(state, argv, i, &tz_version);
+    for (i = 0; i < argc; i++) {
+        ret = ReadArgs(state, &argv[i], 1, &tz_version);
         if (ret < 0) {
             return ErrorAbort(state, "%s() error parsing arguments: %d",
                 name, ret);
