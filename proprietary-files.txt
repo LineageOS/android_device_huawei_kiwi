@@ -1399,13 +1399,6 @@ lib64/lib_fpc_tac_shared.so
 lib64/libservices.huawei.so
 /sbin/signinfolistener
 
-# Fingerprint firmware
-fpc-fw/fingerpr.b00
-fpc-fw/fingerpr.b01
-fpc-fw/fingerpr.b02
-fpc-fw/fingerpr.b03
-fpc-fw/fingerpr.mdt
-
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8916.so
 
