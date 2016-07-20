@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_6eac558c",
+        "filename": "camera/CameraWrapper.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-07-20T02:19:31Z",
+      "side": 1,
+      "message": "Would it make more sense to set this param unconditionally?",
+      "revId": "47e22aac091876bd294cfa57f41a834db8952013",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
