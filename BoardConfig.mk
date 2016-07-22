@@ -124,7 +124,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # blockdev --getbsz /dev/block/mmcblk0p19
 # Power
 TARGET_POWERHAL_VARIANT := qcom
 BOARD_POWER_CUSTOM_BOARD_LIB := libpower_kiwi
-TARGET_TAP_TO_WAKE_NODE := /sys/touch_screen/easy_wakeup_gesture
+TARGET_POWER_SET_FEATURE_LIB := libpower_kiwi
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
