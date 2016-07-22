@@ -47,6 +47,7 @@
 #include "hint-data.h"
 #include "performance.h"
 #include "power-common.h"
+#include "power-feature.h"
 
 #define DEFAULT_INTERACTION_BOOST_MS    50
 #define LAUNCH_BOOST_DURATION_MS        100
@@ -54,6 +55,7 @@
 #define MAX_CPU_BOOST_MS                100
 
 #define LOW_POWER_MODE_PATH "/sys/module/cluster_plug/parameters/low_power_mode"
+#define TAP_TO_WAKE_NODE "/sys/touch_screen/easy_wakeup_gesture"
 
 int get_number_of_profiles() {
     return 3;
@@ -152,4 +154,40 @@ int power_hint_override(struct power_module *module __unused, power_hint_t hint,
     }
 
     return HINT_NONE;
+}
+
+void set_feature(struct power_module *module, feature_t feature, int state)
+{
+#ifdef TAP_TO_WAKE_NODE
+    char tmp_str[NODE_MAX];
+    if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
+        FILE *f;
+        if ((f = fopen(TAP_TO_WAKE_NODE, "r")) != NULL) {
+            if (fgets(tmp_str, sizeof(tmp_str), f) != NULL) {
+                int curr_state;
+                sscanf(tmp_str, "%x", &curr_state);
+                ALOGD("Curr state: %d state: %d", curr_state, state);
+                if (state == 0) {
+                    curr_state &= ~1;
+                } else {
+                    curr_state |= 1;
+                }
+                ALOGD("Curr state: %d state: %d", curr_state, state);
+                snprintf(tmp_str, NODE_MAX, "%d", curr_state);
+                if (sysfs_write(TAP_TO_WAKE_NODE, tmp_str) != 0) {
+                    ALOGE("Failed to write to node at %s", TAP_TO_WAKE_NODE);
+                }
+            } else {
+                ALOGE("Failed to read from %s", TAP_TO_WAKE_NODE);
+            }
+
+            fclose(f);
+        } else {
+            ALOGE("Failed to open file %s", TAP_TO_WAKE_NODE);
+        }
+
+        return;
+    }
+#endif
+    set_device_specific_feature(module, feature, state);
 }
