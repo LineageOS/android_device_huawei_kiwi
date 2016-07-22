@@ -19,6 +19,7 @@ package com.cyanogenmod.settings.device;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 
 import org.cyanogenmod.internal.util.FileUtils;
@@ -54,7 +55,9 @@ public final class CMActionsSettings {
 
     /* Use bitwise logic to set gesture_mode in kernel driver */
     public static void updateGestureMode(Context context) {
-        int gestureMode = 0;
+        boolean doubleTapWakeEnabled = Settings.Secure.getInt(context.getContentResolver(),
+                Settings.Secure.DOUBLE_TAP_TO_WAKE, 0) != 0;
+        int gestureMode = (doubleTapWakeEnabled ? 1 : 0);
 
         // Make sure both arrays are set up correctly
         if (ALL_GESTURE_KEYS.length != ALL_GESTURE_MASKS.length) {
