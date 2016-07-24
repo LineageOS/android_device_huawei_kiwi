@@ -35,7 +35,6 @@ on post-fs-data
     mkdir /data/log/fac_log 0755 system system
     mkdir /data/log/android_logs 0755 system system
     mkdir /data/log/tp_cap 0755 system system
-    chown system system /data/log/tp_cap
     mkdir /data/log/sleeplog 0755 system system
     mkdir /data/log/sleeplog/powerlog 0755 system system
 
@@ -47,11 +46,7 @@ on post-fs-data
     mkdir /data/drm/rights 0770 drm drm
     mkdir /data/drm/widevine 0770 drm drm
 
-    # DTS2014081000069 wangyong/00205756 20140811 begin sync DTS2013082803931
-    mkdir /data/midi
-    chmod 0770 /data/midi
-    chown media audio /data/midi
-    # DTS2014081000069 wangyong/00205756 20140811 end
+    mkdir /data/midi 0770 media audio
 
     sys_wp_init_action
     start goldeneye
@@ -94,7 +89,6 @@ on post-fs-data
     chown system system /sys/touch_screen/touch_mmi_test/command
     chown system system /sys/touch_screen/touch_mmi_test/status
     chown system system /sys/touch_screen/touch_mmi_test/response
-    # BEGIN PN:DTS2015061604204 xutao 00182802 20150627
     restorecon /sys/class/leds/lcd-backlight/brightness
     restorecon /sys/class/power_supply/battery/charging_enabled
     restorecon /sys/class/graphics/fb0/inversion_mode
@@ -102,9 +96,8 @@ on post-fs-data
     restorecon /sys/class/leds/red/brightness
     restorecon /sys/class/leds/blue/brightness
     restorecon /sys/class/hw_power/charger/charge_data/enable_charger
-    # END PN:DTS2015061604204 xutao 00182802 20150627
-    #add for fingerprint
 
+    #add for fingerprint
     chown system system /dev/fpc1020
     chmod 0660 /dev/fpc1020
     chown system system /sys/devices/platform/fingerprint/diag/result
@@ -130,8 +123,8 @@ on post-fs-data
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
     chown root system /sys/class/power_supply/battery/charging_enabled
-    chown root system /sys/module/qpnp_linear_charger/parameters/charge_no_limit
     chmod 0664 /sys/class/power_supply/battery/charging_enabled
+    chown root system /sys/module/qpnp_linear_charger/parameters/charge_no_limit
     chown root system /sys/class/hw_power/charger/charge_data/enable_charger
     chmod 0664 /sys/class/hw_power/charger/charge_data/enable_charger
     chown root system /sys/class/hw_power/charger/charge_data/iin_runningtest
@@ -151,10 +144,8 @@ on post-fs-data
     chown system system /sys/class/graphics/fb0/inversion_mode
     chown system system /sys/class/graphics/fb0/panel_status
     chown system system /sys/class/graphics/fb0/lcd_checksum
-    # BEGIN PN: DTS2015082001462 fwx295956 20150820
     chown system system /sys/class/graphics/fb0/lcd_comform_mode
     chown system system /sys/class/graphics/fb0/lcd_support_mode
-    # END PN: DTS2015082001462 fwx295956 20150820
 
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_calib_target
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_calibration
@@ -171,8 +162,7 @@ on post-fs-data
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_calib
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_config
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_vendor
-    mkdir /data/log/sar_cap
-    chown system system /data/log/sar_cap
+    mkdir /data/log/sar_cap system system
     chown system system /sys/bus/i2c/devices/0-001e/ps_calibration
     chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration
     chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration_result
@@ -313,7 +303,6 @@ service test_diag /sbin/test_diag
     disabled
     seclabel u:r:test_diag:s0
 
-
 service oem_sar_main /system/bin/oem_sar_main
     class core
     user root
@@ -356,13 +345,11 @@ on property:debug.emmc.daemon.test=1
 
 on property:ro.runmode=factory
     start send_data_srv
-        mkdir /data/img media media
-        chmod 0777 /data/img
-        mkdir /data/camera camera camera
-        chmod 0777 /data/camera
-    mkdir /data/misp root root
-    chmod 0777 /data/misp
+    mkdir /data/img 0777 media media
+    mkdir /data/camera 0777 camera camera
+    mkdir /data/misp 0777 root root
     chmod 0777 /sys/bus/spi/devices/spi1.0/misp_config
+
 # for hwnff
 service hwnffserver /system/bin/hwnffserver
     class core
@@ -386,51 +373,30 @@ on property:sys.boot_completed=1
 
 on property:persist.sys.hlcharging=true
     write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
-mkdir system/etc/tp_test_parameters
-
+    mkdir system/etc/tp_test_parameters
 
 service cust /system/bin/cust
-       user root   
-       oneshot  
-       disabled  
+    user root
+    oneshot
+    disabled
 
 service systeminfo /system/bin/systeminfo
     class main
     user root
     #seclabel u:r:systeminfo:s0
-    oneshot    
+    oneshot
 
 service fingerprint_log  /system/bin/fingerprint_log
     class main
     user system
-    group system system 
+    group system system
     oneshot
 
 on property:ro.cust.complete="true"
     start  rebootmgr
 
 on property:hw.accel.calib="true"
-    chmod 0664 /dev/input/event0
-    chmod 0664 /dev/input/event1
-    chmod 0664 /dev/input/event2
-    chmod 0664 /dev/input/event3
-    chmod 0664 /dev/input/event4
-    chmod 0664 /dev/input/event5
-    chmod 0664 /dev/input/event6
-    chmod 0664 /dev/input/event7
-    chmod 0664 /dev/input/event8
-    chmod 0664 /dev/input/event9
-    chmod 0664 /dev/input/event10
-    chmod 0664 /dev/input/event11
-    chmod 0664 /dev/input/event12
-    chmod 0664 /dev/input/event13
-    chmod 0664 /dev/input/event14
-    chmod 0664 /dev/input/event15
-    chmod 0664 /dev/input/event16
-    chmod 0664 /dev/input/event17
-    chmod 0664 /dev/input/event18
-    chmod 0664 /dev/input/event19
-    chmod 0664 /dev/input/event20
+    chmod 0664 /dev/input/event*
 
 service teecd /system/bin/teecd
     class core
