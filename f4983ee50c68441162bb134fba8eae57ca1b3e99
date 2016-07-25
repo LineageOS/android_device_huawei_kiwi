@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_6ff685fc",
+        "filename": "camera/CameraWrapper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2016-07-25T06:12:34Z",
+      "side": 1,
+      "message": "May want to move this line below the !device check, else you could dereference a null-ptr with the log-call",
+      "revId": "f4983ee50c68441162bb134fba8eae57ca1b3e99",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_0fdd916f",
+        "filename": "camera/CameraWrapper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2016-07-25T06:12:34Z",
+      "side": 1,
+      "message": "Same",
+      "revId": "f4983ee50c68441162bb134fba8eae57ca1b3e99",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_2fd88d7d",
+        "filename": "camera/CameraWrapper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2016-07-25T06:12:34Z",
+      "side": 1,
+      "message": "Same",
+      "revId": "f4983ee50c68441162bb134fba8eae57ca1b3e99",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_cfe69945",
+        "filename": "camera/CameraWrapper.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2016-07-25T06:12:34Z",
+      "side": 1,
+      "message": "Up to here I think",
+      "revId": "f4983ee50c68441162bb134fba8eae57ca1b3e99",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
