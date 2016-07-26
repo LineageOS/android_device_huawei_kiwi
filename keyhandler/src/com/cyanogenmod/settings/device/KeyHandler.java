@@ -51,6 +51,7 @@ import java.util.List;
 public class KeyHandler implements DeviceKeyHandler {
 
     private static final String TAG = KeyHandler.class.getSimpleName();
+    private static final boolean DBG = false;
     private static final int GESTURE_REQUEST = 1;
 
     /*
@@ -155,19 +156,22 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     public boolean handleKeyEvent(KeyEvent event) {
-        boolean isKeySupported = ArrayUtils.contains(sSupportedGestures, event.getScanCode());
+        int scanCode = event.getScanCode();
+        if (DBG) Log.d(TAG, "ScanCode: " + scanCode);
+
+        boolean isKeySupported = ArrayUtils.contains(sSupportedGestures, scanCode);
         if (!isKeySupported) {
             return false;
         }
 
         if (!mEventHandler.hasMessages(GESTURE_REQUEST)) {
-            Message msg = getMessageForKeyEvent(event.getScanCode());
+            Message msg = getMessageForKeyEvent(scanCode);
             boolean defaultProximity = isProximityDefaultEnabled();
             boolean proximityWakeCheckEnabled = CMSettings.System.getInt(mContentResolver,
                     CMSettings.System.PROXIMITY_ON_WAKE, defaultProximity ? 1 : 0) == 1;
             if (mProximityWakeSupported && proximityWakeCheckEnabled && mProximitySensor != null) {
                 mEventHandler.sendMessageDelayed(msg, mProximityTimeOut);
-                processEvent(event.getScanCode());
+                processEvent(scanCode);
             } else {
                 mEventHandler.sendMessage(msg);
             }
