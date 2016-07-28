@@ -63,6 +63,8 @@ on fs
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
 
+    mkdir /data/fpc 0700 system system
+
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
