@@ -62,13 +62,13 @@ on fs
     write /sys/kernel/boot_adsp/boot 1
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
-    
-    service ota_detect /sbin/ota_sudden_poweroff_detect
-        class main
-        user root
-        group root
-        oneshot
-        seclabel u:r:ota_detect:s0 
+
+service ota_detect /sbin/ota_sudden_poweroff_detect
+    class main
+    user root
+    group root
+    oneshot
+    seclabel u:r:ota_detect:s0
 
 on post-fs-data
     mkdir /data/tombstones 0771 system system
