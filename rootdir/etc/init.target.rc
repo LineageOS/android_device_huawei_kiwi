@@ -63,6 +63,8 @@ on fs
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
 
+    mkdir /data/fpc 0700 system system
+
 service ota_detect /sbin/ota_sudden_poweroff_detect
     class main
     user root
