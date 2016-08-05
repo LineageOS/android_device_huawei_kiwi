@@ -66,14 +66,31 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int KEY_GESTURE_M = 68;
     private static final int KEY_GESTURE_W = 87;
 
+    private static final int KEY_FP_GESTURE_TAP = 174;
+    private static final int KEY_FP_GESTURE_DOUBLE_TAP = 111;
+    private static final int KEY_FP_GESTURE_HOLD = 28;
+    private static final int KEY_FP_GESTURE_UP = 103;
+    private static final int KEY_FP_GESTURE_DOWN = 108;
+
     private static final int GESTURE_WAKELOCK_DURATION = 3000;
 
     private static final int[] sSupportedGestures = new int[] {
         KEY_GESTURE_C,
         KEY_GESTURE_E,
         KEY_GESTURE_M,
-        KEY_GESTURE_W
+        KEY_GESTURE_W,
+        KEY_FP_GESTURE_TAP,
+        KEY_FP_GESTURE_DOUBLE_TAP,
+        KEY_FP_GESTURE_HOLD,
+        KEY_FP_GESTURE_UP,
+        KEY_FP_GESTURE_DOWN
     };
+
+    private static final String FP_GESTURE_TAP = "fp_gesture_tap";
+    private static final String FP_GESTURE_DOUBLE_TAP = "fp_gesture_double_tap";
+    private static final String FP_GESTURE_HOLD = "fp_gesture_hold";
+    private static final String FP_GESTURE_UP = "fp_gesture_up";
+    private static final String FP_GESTURE_DOWN = "fp_gesture_down";
 
     private final Context mContext;
     private final PowerManager mPowerManager;
@@ -143,6 +160,46 @@ public class KeyHandler implements DeviceKeyHandler {
                 case KEY_GESTURE_W:
                     startIntent = getLaunchableIntent(
                             new Intent(Intent.ACTION_VIEW, Uri.parse("http:")));
+                    break;
+
+                case KEY_FP_GESTURE_TAP:
+                    if (isGestureEnabled(FP_GESTURE_TAP)) {
+                        Log.d(TAG, "Tap");
+                    } else {
+                        ignoreKey = true;
+                    }
+                    break;
+
+                case KEY_FP_GESTURE_DOUBLE_TAP:
+                    if (isGestureEnabled(FP_GESTURE_DOUBLE_TAP)) {
+                        Log.d(TAG, "DoubleTap");
+                    } else {
+                        ignoreKey = true;
+                    }
+                    break;
+
+                case KEY_FP_GESTURE_HOLD:
+                    if (isGestureEnabled(FP_GESTURE_HOLD)) {
+                        Log.d(TAG, "Hold");
+                    } else {
+                        ignoreKey = true;
+                    }
+                    break;
+
+                case KEY_FP_GESTURE_UP:
+                    if (isGestureEnabled(FP_GESTURE_UP)) {
+                        Log.d(TAG, "Up");
+                    } else {
+                        ignoreKey = true;
+                    }
+                    break;
+
+                case KEY_FP_GESTURE_DOWN:
+                    if (isGestureEnabled(FP_GESTURE_DOWN)) {
+                        Log.d(TAG, "Down");
+                    } else {
+                        ignoreKey = true;
+                    }
                     break;
 
                 default:
@@ -267,5 +324,9 @@ public class KeyHandler implements DeviceKeyHandler {
         }
 
         return returnIntent;
+    }
+
+    private boolean isGestureEnabled(String gesture) {
+        return CMSettings.Global.getInt(mContext.getContentResolver(), gesture, 0) != 0;
     }
 }

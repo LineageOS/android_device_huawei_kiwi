@@ -28,4 +28,16 @@
     <string name="touchscreen_w_gesture_title">Browser</string>
     <string name="touchscreen_w_gesture_summary">Draw a \"W\" to open the browser app</string>
 
+    <string name="fp_display_title">Fingerprint gestures</string>
+
+    <string name="fp_gesture_tap_title">Tap</string>
+    <string name="fp_gesture_tap_summary">Tap to do something</string>
+    <string name="fp_gesture_double_tap_title">Double-Tap</string>
+    <string name="fp_gesture_double_tap_summary">Double-Tap to do something</string>
+    <string name="fp_gesture_hold_title">Hold</string>
+    <string name="fp_gesture_hold_summary">Hold to do something</string>
+    <string name="fp_gesture_down_title">Swipe down</string>
+    <string name="fp_gesture_down_summary">Swipe down to expand the status bar</string>
+    <string name="fp_gesture_up_title">Swipe up</string>
+    <string name="fp_gesture_up_summary">Swipe up to collapse the status bar</string>
 </resources>
