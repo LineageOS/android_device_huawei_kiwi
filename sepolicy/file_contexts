@@ -1,3 +1,4 @@
+/dev/bluetooth                                             u:object_r:bluetooth_device:s0
 /dev/dsm                                                   u:object_r:dsm_device:s0
 /dev/fpc1020                                               u:object_r:fingerprint_device:s0
 /dev/rfkill                                                u:object_r:rfkill_device:s0
