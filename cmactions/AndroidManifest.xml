@@ -19,18 +19,16 @@
         android:icon="@mipmap/ic_launcher_settings"
         android:theme="@android:style/Theme.Material.Settings" >
 
-        <receiver android:name="com.cyanogenmod.settings.device.BootCompletedReceiver">
+        <receiver android:name="com.cyanogenmod.settings.device.Receiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </receiver>
-
-        <service android:name="ServiceWrapper" android:permission="ServiceWrapper">
             <intent-filter>
-                <action android:name="ServiceWrapper"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </service>
+        </receiver>
 
         <service android:name="com.cyanogenmod.settings.device.SensorsDozeService"
                  android:permission="SensorsDozeService">
