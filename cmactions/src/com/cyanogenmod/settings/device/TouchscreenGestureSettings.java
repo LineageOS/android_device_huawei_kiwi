@@ -35,6 +35,7 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
     private static final String KEY_HAPTIC_FEEDBACK = "touchscreen_gesture_haptic_feedback";
 
     private Handler mGestureHandler = new Handler();
+    private Handler mFpGestureHandler = new Handler();
     private SwitchPreference mHapticFeedback;
 
     @Override
@@ -47,6 +48,11 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
         for (String gestureKey : CMActionsSettings.ALL_GESTURE_KEYS) {
             Preference pref = findPreference(gestureKey);
             pref.setOnPreferenceChangeListener(mGesturePrefListener);
+        }
+
+        for (String fpKey : CMActionsSettings.ALL_FP_KEYS) {
+            Preference pref = findPreference(fpKey);
+            pref.setOnPreferenceChangeListener(mFpPrefListener);
         }
 
         final ActionBar actionBar = getActionBar();
@@ -97,4 +103,16 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
             CMActionsSettings.updateGestureMode(TouchscreenGestureSettings.this);
         }
     };
+
+    private Preference.OnPreferenceChangeListener mFpPrefListener =
+            new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    final boolean value = (boolean) newValue;
+                    final String key = preference.getKey();
+                    CMSettings.Global.putInt(getContentResolver(), key, value ? 1 : 0);
+                    CMActionsSettings.enableFpGestures(TouchscreenGestureSettings.this);
+                    return true;
+                }
+            };
 }

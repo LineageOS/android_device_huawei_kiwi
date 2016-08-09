@@ -19,15 +19,28 @@ package com.cyanogenmod.settings.device;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Handler;
 import android.util.Log;
 
-public class BootCompletedReceiver extends BroadcastReceiver {
+public class Receiver extends BroadcastReceiver {
     static final String TAG = "CMActions";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        Log.d(TAG, "Booting");
-        // Call here to have the sysnode written / restored
-        CMActionsSettings.updateGestureMode(context);
+        switch (intent.getAction()) {
+            case Intent.ACTION_BOOT_COMPLETED:
+                Log.d(TAG, "Booting");
+                // Call here to have the sysnode written / restored
+                CMActionsSettings.updateGestureMode(context);
+                break;
+
+            case Intent.ACTION_USER_PRESENT:
+                Log.d(TAG, "User present");
+                // Call here to reenable gestures (if set) after user is there
+                CMActionsSettings.enableFpGestures(context);
+                break;
+        }
+
     }
 }

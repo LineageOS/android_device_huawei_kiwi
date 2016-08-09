@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 
+import cyanogenmod.providers.CMSettings;
 import org.cyanogenmod.internal.util.FileUtils;
 
 public final class CMActionsSettings {
@@ -30,6 +31,8 @@ public final class CMActionsSettings {
     // Proc nodes
     private static final String TOUCHSCREEN_GESTURE_MODE_NODE =
             "/sys/touch_screen/easy_wakeup_gesture";
+    private static final String FP_GESTURE_NODE =
+            "/sys/devices/platform/fingerprint/diag/navigation_enable";
 
     // Preference keys
     public static final String[] ALL_GESTURE_KEYS = {
@@ -48,6 +51,19 @@ public final class CMActionsSettings {
             0x400   // Gesture W
     };
 
+    public static final String FP_GESTURE_TAP = "fp_gesture_tap";
+    public static final String FP_GESTURE_DOUBLE_TAP = "fp_gesture_double_tap";
+    public static final String FP_GESTURE_HOLD = "fp_gesture_hold";
+    public static final String FP_GESTURE_UP = "fp_gesture_up";
+    public static final String FP_GESTURE_DOWN = "fp_gesture_down";
+
+    public static final String[] ALL_FP_KEYS = {
+            FP_GESTURE_TAP,
+            FP_GESTURE_DOUBLE_TAP,
+            FP_GESTURE_HOLD,
+            FP_GESTURE_UP,
+            FP_GESTURE_DOWN
+    };
 
     private CMActionsSettings() {
         // this class is not supposed to be instantiated
@@ -74,5 +90,23 @@ public final class CMActionsSettings {
 
         Log.d(TAG, "finished gesture mode: " + gestureMode);
         FileUtils.writeLine(TOUCHSCREEN_GESTURE_MODE_NODE, String.valueOf(gestureMode));
+    }
+
+    public static boolean isFpGestureEnabled(Context context, String key) {
+        return CMSettings.Global.getInt(context.getContentResolver(), key, 0) != 0;
+    }
+
+    public static boolean areFpGesturesEnabled(Context context) {
+        for (int i = 0; i < ALL_FP_KEYS.length; i++) {
+            if (isFpGestureEnabled(context, ALL_FP_KEYS[i])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void enableFpGestures(Context context) {
+        FileUtils.writeLine(FP_GESTURE_NODE, areFpGesturesEnabled(context) ? "1" : "0");
     }
 }
