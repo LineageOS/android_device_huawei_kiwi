@@ -145,9 +145,11 @@ on boot
     chmod 0664 /sys/class/power_supply/bms/current_now
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
 
-    # Toucscreen gestures
+    # Toucscreen gestures & glove mode
     chown system system /sys/touch_screen/easy_wakeup_gesture
     chmod 0664 /sys/touch_screen/easy_wakeup_gesture
+    chown system system /sys/touch_screen/glove_func/signal_disparity
+    chmode 0664 /sys/touch_screen/glove_func/signal_disparity
 
 # msm specific files that need to be created on /data
 on post-fs-data

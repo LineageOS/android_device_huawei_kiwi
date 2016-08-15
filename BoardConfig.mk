@@ -81,7 +81,9 @@ BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_HAL_STATIC_LIBRARIES += libhealthd.msm8916
 
 # CM Hardware
-BOARD_HARDWARE_CLASS := hardware/cyanogen/cmhw
+BOARD_HARDWARE_CLASS += \
+    hardware/cyanogen/cmhw \
+    $(DEVICE_PATH)/cmhw
 
 # Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
