@@ -78,7 +78,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
-BOARD_HAL_STATIC_LIBRARIES += libhealthd.msm8916
+BACKLIGHT_PATH := /sys/devices/soc.0/1a00000.qcom,mdss_mdp/qcom,mdss_fb_primary.136/leds/lcd-backlight/brightness
 
 # CM Hardware
 BOARD_HARDWARE_CLASS += \
