@@ -206,12 +206,6 @@
          com.android.internal.os.DeviceKeyHandler interface. -->
     <string name="config_deviceKeyHandlerClass" translatable="false">com.cyanogenmod.settings.device.KeyHandler</string>
 
-    <!-- enable doze powersaving mode -->
-    <bool name="config_enableAutoPowerModes">true</bool>
-
-    <!-- Enable UI blur feature -->
-    <bool name="config_ui_blur_enabled">true</bool>
-
     <!--  Whether Multiuser UI should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
 
