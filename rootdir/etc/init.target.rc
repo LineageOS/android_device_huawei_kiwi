@@ -45,15 +45,6 @@ on fs
     write /proc/sys/vm/swappiness 100
     write /proc/sys/vm/page-cluster 0
 
-    # Keeping following partitions outside fstab file. As user may not have
-    # these partition flashed on the device. Failure to mount any partition in fstab file
-    # results in failure to launch late-start class.
-
-    #wait /dev/block/bootdevice/by-name/cache
-    #mount ext4 /dev/block/bootdevice/by-name/cache /cache nosuid nodev barrier=1
-
-    #wait /dev/block/bootdevice/by-name/persist
-    #mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev barrier=1
     mkdir /persist/data 0700 system system
     restorecon_recursive /persist
 
@@ -107,11 +98,6 @@ service qseecomd /system/bin/qseecomd
    class core
    user root
    group root
-
-#service aostlmd /system/bin/aostlmd
-#   class late_start
-#   user system
-#   group system net_raw
 
 service perfd /system/vendor/bin/perfd
    class main
@@ -202,20 +188,6 @@ service imscmservice /system/bin/imscmservice
 on property:sys.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
     start imscmservice
-
-service ppd /system/bin/mm-pp-daemon
-    class late_start
-    disabled
-    user system
-    socket pps stream 0660 system system
-    group system graphics
-
-on property:init.svc.surfaceflinger=stopped
-    stop ppd
-
-on property:init.svc.surfaceflinger=running
-    start ppd
-
 
 on charger-fs
     mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
