@@ -92,10 +92,6 @@ PRODUCT_PACKAGES += \
     camera.msm8916 \
     libmm-qcamera
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
 # Compatibility
 PRODUCT_PACKAGES += \
     libboringssl-compat \
