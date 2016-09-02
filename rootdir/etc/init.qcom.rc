@@ -296,6 +296,7 @@ service rmt_storage /sbin/rmt_storage
     user root
     disabled
     seclabel u:r:rmt_storage:s0
+    group wakelock
 
 service rfs_access /system/bin/rfs_access
    class core
@@ -331,11 +332,12 @@ service btsnoop /system/bin/btsnoop
 service qmuxd /system/bin/qmuxd
     class main
     user root
-    group radio audio bluetooth gps qcom_diag
+    group radio audio bluetooth gps qcom_diag wakelock
     disabled
 
 service netmgrd /system/bin/netmgrd
     class main
+    group wakelock
     disabled
 
 service qti /system/vendor/bin/qti
@@ -432,7 +434,7 @@ on property:sys.qbcharger.enable=false
 service vm_bms /system/bin/vm_bms
     class main
     user root
-    group root
+    group root wakelock
 
 # set primary sd directory
 service preparesdservice /system/bin/vdc volume storagetosd
