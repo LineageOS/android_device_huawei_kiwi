@@ -86,7 +86,9 @@ public class KiwiRIL extends RIL {
         int lteRssnr = p.readInt();
         int lteCqi = p.readInt();
 
-        return new SignalStrength(gsmSignalStrength, gsmBitErrorRate,
+        return new SignalStrength(
+                        wcdmaRscp <= 0 ? gsmSignalStrength : wcdmaRscp,
+                        gsmBitErrorRate,
                         cdmaDbm, cdmaEcio,
                         evdoDbm, evdoEcio, evdoSnr,
                         lteSignalStrength, lteRsrp, lteRsrq, lteRssnr, lteCqi,
