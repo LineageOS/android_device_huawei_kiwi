@@ -138,5 +138,8 @@ persist.radio.modem.cap=7E442
 sys.usb.rps_mask=10
 persist.sys.usb.config.extra=none
 
+# Storage
+ro.sys.sdcardfs=true
+
 # WiFi
 wifi.interface=wlan0
