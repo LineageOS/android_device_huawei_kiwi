@@ -24,9 +24,11 @@
 #include "power-feature.h"
 #include "utils.h"
 
+#define UNUSED __attribute__ ((unused))
+
 #define TAP_TO_WAKE_NODE "/sys/touch_screen/easy_wakeup_gesture"
 
-void set_device_specific_feature(struct power_module *module, feature_t feature, int state)
+void set_device_specific_feature(struct power_module *module UNUSED, feature_t feature, int state)
 {
     char tmp_str[NODE_MAX];
     if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
