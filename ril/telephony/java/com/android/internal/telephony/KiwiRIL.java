@@ -33,6 +33,8 @@ import android.telephony.SignalStrength;
  * {@hide}
  */
 public class KiwiRIL extends RIL {
+    private final boolean DBG = false;
+
     public KiwiRIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
         super(context, networkMode, cdmaSubscription, instanceId);
     }
@@ -86,12 +88,22 @@ public class KiwiRIL extends RIL {
         int lteRssnr = p.readInt();
         int lteCqi = p.readInt();
 
-        return new SignalStrength(
+        if (gsmSignalStrength != -1) {
+            gsmSignalStrength = -(gsmSignalStrength - 113) / 2;
+        }
+
+        SignalStrength ss = new SignalStrength(
                         wcdmaRscp <= 0 ? gsmSignalStrength : wcdmaRscp,
                         gsmBitErrorRate,
                         cdmaDbm, cdmaEcio,
                         evdoDbm, evdoEcio, evdoSnr,
                         lteSignalStrength, lteRsrp, lteRsrq, lteRssnr, lteCqi,
                         wcdmaRscp, true);
+
+        if (DBG) {
+            Rlog.i(RILJ_LOG_TAG, "KiwiRil: " + ss.toString() + " " + gsmSignalStrength);
+        }
+
+        return ss;
     }
 }
