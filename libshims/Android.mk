@@ -41,6 +41,13 @@ LOCAL_MULTILIB := 64
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_SRC_FILES := icu55.c
+LOCAL_SHARED_LIBRARIES := libicuuc libicui18n
+LOCAL_MODULE := libshim_signinfolistener
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_SRC_FILES := hw_audio.c
 LOCAL_MODULE := libshim_sound_trigger
 LOCAL_MODULE_TAGS := optional
