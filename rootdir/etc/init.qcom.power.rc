@@ -18,6 +18,8 @@ on enable-low-power
 
     # HMP Task packing settings for 8939, 8929
     write /proc/sys/kernel/sched_small_task 20
+    write /proc/sys/kernel/sched_mostly_idle_load 30
+    write /proc/sys/kernel/sched_mostly_idle_nr_run 3
 
     start lp-helper
 
