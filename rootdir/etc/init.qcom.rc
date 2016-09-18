@@ -240,11 +240,6 @@ on post-fs-data
     mkdir /data/misc/perfd 2755 root system
     mkdir /data/system/perfd 2770 root system
 
-service qcomsysd /system/bin/qcom-system-daemon
-    class main
-    user root
-    group root qcom_diag
-
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 
@@ -419,11 +414,6 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service loc_launcher /system/bin/loc_launcher
-    #loc_launcher will start as root and set its uid to gps
-    class late_start
-    group gps inet net_raw qcom_diag net_admin wifi
-
 on property:crypto.driver.load=1
      insmod /system/lib/modules/qce.ko
      insmod /system/lib/modules/qcedev.ko
@@ -460,12 +450,6 @@ on ffbm
     trigger fs
     trigger post-fs
     trigger post-fs-data
-
-    # Load properties from /system/ + /factory after fs mount. Place
-    # this in another action so that the load will be scheduled after the prior
-    # issued fs triggers have completed.
-    trigger load_all_props_action
-
     trigger early-boot
 
 service qbcharger /charger -m 1

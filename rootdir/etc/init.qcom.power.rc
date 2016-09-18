@@ -119,7 +119,7 @@ on property:sys.boot_completed=1
 on property:init.svc.recovery=running
     trigger enable-low-power
 
-service lp-helper /init.qcom.power.sh
+service lp-helper /system/bin/init.qcom.power.sh
     # seclabel qti_init_shell:s0
     oneshot
     disabled

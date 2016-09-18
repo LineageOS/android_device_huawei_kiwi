@@ -79,11 +79,6 @@ on property:persist.usb.chgdisabled=1
 on property:persist.usb.chgdisabled=0
     write /sys/class/power_supply/battery/charging_enabled 1
 
-service qrngd /system/bin/qrngd -f
-   class main
-   user root
-   group root
-
 service qrngp /system/bin/qrngp -f
    class main
    user root
@@ -162,16 +157,6 @@ service imsqmidaemon /system/bin/imsqmidaemon
     socket ims_qmid stream 0660 system radio
     group radio net_raw log qcom_diag
 
-service imsdatadaemon /system/bin/imsdatadaemon
-    class main
-    user system
-    socket ims_datad stream 0660 system radio
-    group system wifi radio inet net_raw log qcom_diag net_admin
-    disabled
-
-on property:sys.ims.QMI_DAEMON_STATUS=1
-    start imsdatadaemon
-
 service ims_rtp_daemon /system/bin/ims_rtp_daemon
    class main
    user system
@@ -206,11 +191,3 @@ on charger
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
     start vm_bms
     load_all_props
-    usb_init_setting
-    start chargemonitor
-
-service dts_configurator /system/bin/dts_configurator
-    class main
-    user system
-    group system
-    oneshot
