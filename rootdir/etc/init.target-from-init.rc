@@ -26,9 +26,6 @@ on init
     chown root system /dev/block/mmcblk0p8
     chmod 0660 /dev/block/mmcblk0p8
 
-on load_all_props_action
-    usb_init_setting
-
 on post-fs-data
     # Create log dir to collect logs.
     mkdir /data/log 0751 system system
@@ -48,11 +45,8 @@ on post-fs-data
 
     mkdir /data/midi 0770 media audio
 
-    sys_wp_init_action
     start goldeneye
     start goldeneye_test
-
-    start cust
 
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
     chown system system /sys/touch_screen/touch_mmi_test
@@ -177,12 +171,6 @@ on property:ro.build.hide="true"
 on property:ro.build.hide="false"
        write /proc/sys/kernel/hide_info 0
 
-service powerlogd /system/bin/powerlogd
-    class core
-    socket powerlogd stream 0600 system system
-    socket powerlogdr seqpacket 0600 system system
-    socket powerlogdw dgram 0220 system system
-
 service_redefine ril-daemon /system/bin/rild
     class main
     socket rild stream 660 root radio
@@ -216,16 +204,6 @@ on property:debug.rt.ddr.test=3
 on property:debug.rt.ddr.test=4
     start stop_ddrtest
 
-# service drm adds sdcard_r media_rw shell groups
-
-service filebackup /system/bin/filebackup
-    class main
-    socket filebackup stream 0660 radio system
-
-# service media adds system dsm shell sdcard_rw sdcard_r groups
-
-# service bootanim runs as user media
-
 service rmt_oeminfo /sbin/rmt_oeminfo
     class core
     user root
@@ -258,11 +236,6 @@ service chargelog  /sbin/chargelog.sh 2 51200
     disabled
     seclabel u:r:chargelog:s0
 
-service chargemonitor /system/bin/chargemonitor
-    class late_start
-    user system
-    group system
-
 service wifi_aging /system/xbin/wifi_aging
     user root
     disabled
@@ -271,12 +244,6 @@ service wifi_aging /system/xbin/wifi_aging
 service wifi_power_off /system/xbin/wifi_power_off
     user root
     disabled
-    oneshot
-
-service wlan_detect /system/bin/wlan_detect
-    class main
-    user root
-    group root
     oneshot
 
 service bt_aging /system/xbin/bt_aging
@@ -302,22 +269,11 @@ service test_diag /sbin/test_diag
     disabled
     seclabel u:r:test_diag:s0
 
-service oem_sar_main /system/bin/oem_sar_main
-    class core
-    user root
-
 service send_data_srv /system/bin/send_data_srv
     class core
     user system
     group system
     disabled
-    oneshot
-
-service mmc_ro_daemon /system/bin/huawei_crc_daemon
-    class main
-    user system
-    group system
-    enable
     oneshot
 
 service mmc_ro_monitor /sbin/huawei_mmc_monitor -f -c
@@ -349,46 +305,9 @@ on property:ro.runmode=factory
     mkdir /data/misp 0777 root root
     chmod 0777 /sys/bus/spi/devices/spi1.0/misp_config
 
-# for hwnff
-service hwnffserver /system/bin/hwnffserver
-    class core
-    oneshot
-
-service hwpged /system/bin/hwpged
-    class main
-    socket MsgHubSock stream 0660 root system
-    user root
-
-service check_root /sbin/check_root
-    user root
-    group radio system
-    oneshot
-    disabled
-    seclabel u:r:check_root:s0
-
-on property:sys.boot_completed=1
-    start check_root
-    huawei_boot_complete_save_action
-
 on property:persist.sys.hlcharging=true
     write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
     mkdir system/etc/tp_test_parameters
-
-service cust /system/bin/cust
-    user root
-    oneshot
-    disabled
-
-service systeminfo /system/bin/systeminfo
-    class main
-    user root
-    oneshot
-
-service fingerprint_log  /system/bin/fingerprint_log
-    class main
-    user system
-    group system system
-    oneshot
 
 on property:ro.cust.complete="true"
     start  rebootmgr
