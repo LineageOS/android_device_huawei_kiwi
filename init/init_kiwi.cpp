@@ -83,13 +83,13 @@ static match_t matches[] = {
         "KIW-UL00-user 5.1.1 GRJ90 C00B140 release-keys",
         "HONOR/KIW-UL00/HNKIW-Q:5.1.1/HONORKIW-UL00/C00B140:user/release-keys"
     },
-    /* HUAWEI GX5 version KII-L22 (same as honor, evidently from Japan) */
+    /* HUAWEI GR5 version KII-L22 (same as honor, evidently from Japan) */
     {
         "KII-L22",
         "KII-L22-user 5.1.1 GRJ90 C635B131 release-keys",
         "HUAWEI/KII-L22/HWKII-Q:5.1.1/HUAWEIKII-L22/C635B131:user/release-keys"
     },
-    /* HUAWEI GX5 version KII-L21 (same as honor) */
+    /* HUAWEI GR5 version KII-L21 (same as honor) */
     {
         "KII-L21",
         "KII-L21-user 5.1.1 GRJ90 C185B130 release-keys",
