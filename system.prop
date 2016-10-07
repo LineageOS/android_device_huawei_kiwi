@@ -25,6 +25,8 @@ av.offload.enable=true
 qcom.bluetooth.soc=smd
 
 # Camera
+media.stagefright.legacyencoder=true
+media.stagefright.less-secure=true
 persist.camera.cpp.duplication=false
 persist.camera.hal.debug=0
 persist.camera.promode=true
