@@ -157,6 +157,9 @@ TARGET_RIL_VARIANT := proprietary
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
+# Security Level
+PLATFORM_SECURITY_PATCH := 2016-10-05
+
 BOARD_SEPOLICY_DIRS += \
     device/huawei/kiwi/sepolicy
 
