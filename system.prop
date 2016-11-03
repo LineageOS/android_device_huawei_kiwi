@@ -132,6 +132,7 @@ persist.radio.modem.cap=7E442
 
 # Tethering
 sys.usb.rps_mask=10
+persist.sys.usb.config.extra=none
 
 # WiFi
 wifi.interface=wlan0
