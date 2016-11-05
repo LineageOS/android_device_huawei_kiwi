@@ -171,7 +171,7 @@ on property:ro.build.hide="true"
 on property:ro.build.hide="false"
        write /proc/sys/kernel/hide_info 0
 
-service_redefine ril-daemon /system/bin/rild
+service ril-daemon /system/bin/rild
     class main
     socket rild stream 660 root radio
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
@@ -179,7 +179,7 @@ service_redefine ril-daemon /system/bin/rild
     user root
     group radio cache inet misc audio log qcom_diag system
 
-service_redefine drm /system/bin/drmserver
+service drm /system/bin/drmserver
     class main
     user drm
     group drm system inet drmrpc sdcard_rw media_rw shell
