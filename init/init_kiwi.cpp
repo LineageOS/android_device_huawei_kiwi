@@ -112,9 +112,12 @@ void vendor_load_properties()
         return;
 
     fp = fopen("/proc/app_info", "rb");
-    while (fgets(model, 100, fp))
-        if (strstr(model, "huawei_fac_product_name") != NULL)
-            break;
+    if (fp != NULL) {
+        while (fgets(model, 100, fp))
+            if (strstr(model, "huawei_fac_product_name") != NULL)
+                break;
+        fclose(fp);
+    }
 
     for (match = matches; match->model; match++) {
         if (strstr(model, match->model)) {
