@@ -82,6 +82,9 @@ ro.qcom.ad.sensortype=2
 ro.sf.lcd_density=480
 ro.vendor.extension_library=libqti-perfd-client.so
 
+# Performance
+ro.am.reschedule_service=true
+
 # Radio
 DEVICE_PROVISIONED=1
 persist.cne.feature=0
