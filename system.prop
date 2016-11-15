@@ -22,6 +22,7 @@ audio.offload.gapless.enabled=true
 av.offload.enable=true
 
 # Camera
+persist.camera.cpp.duplication=false
 persist.camera.hal.debug=0
 persist.camera.promode=true
 persist.hw_camera.video_sta=true
