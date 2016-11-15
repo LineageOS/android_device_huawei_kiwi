@@ -117,6 +117,7 @@ static char *camera_fixup_getparams(int id, const char *settings)
 #endif
 
     params.set("scene-mode-values", "auto");
+    params.set("longshot-supported", "false");
 
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
