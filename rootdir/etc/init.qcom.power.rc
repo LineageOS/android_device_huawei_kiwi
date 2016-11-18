@@ -1,8 +1,8 @@
 on early-init
-    write /sys/block/mmcblk0/queue/scheduler noop
+    setprop sys.io.scheduler noop
 
 on enable-low-power
-    write /sys/block/mmcblk0/queue/scheduler cfq
+    setprop sys.io.scheduler cfq
 
     write /proc/sys/kernel/sched_boost 1
 
