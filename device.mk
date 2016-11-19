@@ -159,6 +159,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.msm8916
 
+# Logjank
+PRODUCT_PACKAGES += \
+    libshim_log
+
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
