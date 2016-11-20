@@ -41,7 +41,7 @@ on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
-    symlink /sdcard /mnt/sdcard0
+on post-fs
     symlink /sdcard /storage/sdcard0
 
 on early-boot
