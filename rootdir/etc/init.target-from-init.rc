@@ -38,7 +38,7 @@ on post-fs-data
 # right trigger?
     mkdir /data/misc/wifi/load 0775 system system
     mkdir /data/misc/dts 0770 media media
-    symlink /system/etc/srs/srs_processing.cfg /data/misc/dts/srs_processing.cfg 2>/data/log/dts-log
+    symlink /system/etc/srs/srs_processing.cfg /data/misc/dts/srs_processing.cfg
 
     mkdir /data/drm/rights 0770 drm drm
     mkdir /data/drm/widevine 0770 drm drm
@@ -233,7 +233,7 @@ service rebootmgr /system/bin/rebootmgr
 
 service chargelog  /sbin/chargelog.sh 2 51200
     class main
-    root charger
+    user root
     disabled
     seclabel u:r:chargelog:s0
 
