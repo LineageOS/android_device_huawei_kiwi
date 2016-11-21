@@ -50,7 +50,6 @@ on fs
 
     wait /dev/block/bootdevice/by-name/modem
     mount vfat /dev/block/bootdevice/by-name/modem /firmware ro context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=222,fmask=333
-    write /sys/kernel/boot_adsp/boot 1
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
 
