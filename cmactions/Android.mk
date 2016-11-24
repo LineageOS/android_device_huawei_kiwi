@@ -14,6 +14,10 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
+LOCAL_RESOURCE_DIR := \
+    $(LOCAL_PATH)/res \
+    $(LOCAL_PATH)/../../../../packages/resources/devicesettings/res
+
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 
 include $(BUILD_PACKAGE)
