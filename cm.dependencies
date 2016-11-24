@@ -14,5 +14,9 @@
   {
     "repository": "android_kernel_huawei_kiwi",
     "target_path": "kernel/huawei/kiwi"
+  },
+  {
+    "repository": "android_packages_resources_devicesettings",
+    "target_path": "packages/resources/devicesettings"
   }
 ]
