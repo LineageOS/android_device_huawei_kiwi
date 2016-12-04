@@ -26,6 +26,8 @@ persist.camera.cpp.duplication=false
 persist.camera.hal.debug=0
 persist.camera.promode=true
 persist.hw_camera.video_sta=true
+ro.config.camera_target_track=true
+ro.config.hw_auto_scene=true
 ro.config.hw_burst_snapshot=true
 ro.config.hw_camera_bestShot=true
 ro.config.hw_camera_blureffect=false
@@ -38,6 +40,8 @@ ro.config.hw_camera_omron=true
 ro.config.hw_camera_refocus=true
 ro.config.hw_camera_smartae=false
 ro.config.hw_camera_zsl=true
+ro.config.hw_manual_focus=true
+ro.config.hw_photo_beauty=true
 ro.config.hw_video_beauty=true
 
 # Display
