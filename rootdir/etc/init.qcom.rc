@@ -132,6 +132,9 @@ on boot
     chown system system /sys/touch_screen/glove_func/signal_disparity
     chmode 0664 /sys/touch_screen/glove_func/signal_disparity
 
+    # Wifi firmware reload path
+    chown wifi wifi /sys/module/wlan/parameters/fwpath
+
 # msm specific files that need to be created on /data
 on post-fs-data
     # Create directory for TZ Apps
