@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f681702_26d604f3",
+        "filename": "overlay/vendor/cmsdk/cm/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 13589
+      },
+      "writtenOn": "2016-12-10T23:24:02Z",
+      "side": 1,
+      "message": "LIGHTS_PULSATING_LED is default true, hence should be 9 here to preserve the old configuration.",
+      "revId": "d2a59b920ac9afe2ee356b72c51cc1ba1e6b2152",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
