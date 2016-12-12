@@ -294,9 +294,8 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    disabled
-    seclabel u:r:rmt_storage:s0
     group wakelock
+    seclabel u:r:rmt_storage:s0
 
 service rfs_access /system/bin/rfs_access
    class core
