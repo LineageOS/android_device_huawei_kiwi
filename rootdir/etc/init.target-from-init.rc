@@ -231,12 +231,6 @@ service rebootmgr /system/bin/rebootmgr
 
 # disable enable_swap
 
-service chargelog  /sbin/chargelog.sh 2 51200
-    class main
-    user root
-    disabled
-    seclabel u:r:chargelog:s0
-
 service wifi_aging /system/xbin/wifi_aging
     user root
     disabled
@@ -276,28 +270,6 @@ service send_data_srv /system/bin/send_data_srv
     group system
     disabled
     oneshot
-
-service mmc_ro_monitor /sbin/huawei_mmc_monitor -f -c
-    user root
-    group root
-    disabled
-    oneshot
-    #seclabel u:r:huawei_mmc_monitor:s0
-
-service mmc_ro_scan /sbin/huawei_mmc_monitor -f -c -d
-    user root
-    group root
-    disabled
-    oneshot
-    #seclabel u:r:huawei_mmc_monitor:s0
-
-on property:debug.rt.emmc.test=1
-    stop mmc_ro_monitor
-    start mmc_ro_monitor
-
-on property:debug.emmc.daemon.test=1
-    stop mmc_ro_scan
-    start mmc_ro_scan
 
 on property:ro.runmode=factory
     start send_data_srv

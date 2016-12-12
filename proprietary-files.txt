@@ -1560,6 +1560,7 @@ bin/qmuxd
 bin/radish
 bin/rfs_access
 bin/rild
+bin/rmt_storage
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
@@ -1592,15 +1593,9 @@ vendor/lib64/libxml.so
 vendor/lib/lib-imsdpl.so
 
 # Ramdisk
-/sbin/chargelog.sh
-/sbin/e2fsck_s
-/sbin/fsck_msdos_s
-/sbin/hdbd
-/sbin/huawei_mmc_monitor
 /sbin/huawei_version
 /sbin/libqmi_oem_main
 /sbin/rmt_oeminfo
-/sbin/rmt_storage
 
 # Sensors
 lib64/hw/sensors.msm8916.so
