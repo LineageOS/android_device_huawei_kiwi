@@ -21,6 +21,9 @@ audio.offload.disable=false
 audio.offload.gapless.enabled=true
 av.offload.enable=true
 
+# Bluetooth
+qcom.bluetooth.soc=smd
+
 # Camera
 persist.camera.cpp.duplication=false
 persist.camera.hal.debug=0
