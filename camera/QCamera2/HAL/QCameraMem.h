@@ -196,7 +196,8 @@ public:
     virtual camera_memory_t *getMemory(uint32_t index, bool metadata) const;
     virtual int getMatchBufIndex(const void *opaque, bool metadata) const;
     native_handle_t *updateNativeHandle(uint32_t index, bool metadata = true);
-    int closeNativeHandle(const void *data, bool metadata = true);
+    int closeNativeHandle(const void *data, bool metadata);
+    static int closeNativeHandle(const void *data);
 
 private:
     camera_memory_t *mMetadata[MM_CAMERA_MAX_NUM_FRAMES];
