@@ -375,14 +375,14 @@ void LocEngAdapter::reportPosition(UlpLocation &location,
     }
 }
 
-void LocInternalAdapter::reportSv(GnssSvStatus &svStatus,
+void LocInternalAdapter::reportSv(QcomSvStatus &svStatus,
                                   GpsLocationExtended &locationExtended,
                                   void* svExt){
     sendMsg(new LocEngReportSv(mLocEngAdapter, svStatus,
                                locationExtended, svExt));
 }
 
-void LocEngAdapter::reportSv(GnssSvStatus &svStatus,
+void LocEngAdapter::reportSv(QcomSvStatus &svStatus,
                              GpsLocationExtended &locationExtended,
                              void* svExt)
 {
@@ -564,10 +564,10 @@ enum loc_api_adapter_err LocEngAdapter::setXtraVersionCheck(int check)
     return ret;
 }
 
-void LocEngAdapter::reportGnssMeasurementData(GnssData &gnssMeasurementData)
+void LocEngAdapter::reportGpsMeasurementData(GpsData &gpsMeasurementData)
 {
-    sendMsg(new LocEngReportGnssMeasurement(mOwner,
-                                           gnssMeasurementData));
+    sendMsg(new LocEngReportGpsMeasurement(mOwner,
+                                           gpsMeasurementData));
 }
 
 /*
