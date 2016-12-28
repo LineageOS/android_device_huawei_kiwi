@@ -136,7 +136,7 @@ void vendor_load_properties()
         property_set("ro.telephony.default_network", "9");
     } else {
         property_set("persist.radio.multisim.config", "dsds");
-        property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
+        property_set("ro.telephony.ril.config", "simactivation");
         property_set("ro.telephony.default_network", "9,9");
     }
 }
