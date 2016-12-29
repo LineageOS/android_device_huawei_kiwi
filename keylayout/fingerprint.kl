@@ -1,0 +1,21 @@
+#
+# Touch sensor driver
+#
+# Copyright (c) 2013,2014 Fingerprint Cards AB <tech@fingerprints.com>
+# Copyright (c) 2017 The LinageOS Project
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License Version 2
+# as published by the Free Software Foundation.
+#
+
+#  "click"
+key 28    ENTER
+
+#  "finger wakeup"
+key 111   BUTTON_SELECT VIRTUAL
+key 105   DPAD_LEFT VIRTUAL
+key 106   DPAD_RIGHT VIRTUAL
+key 108   PAGE_DOWN VIRTUAL
+key 103   PAGE_UP VIRTUAL
+key 174   BUTTON_SELECT VIRTUAL
