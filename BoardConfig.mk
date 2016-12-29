@@ -152,7 +152,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 # RIL
 BOARD_RIL_CLASS := ../../../device/huawei/kiwi/ril
 PROTOBUF_SUPPORTED := true
-TARGET_RIL_VARIANT := proprietary
+TARGET_RIL_VARIANT := caf
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
