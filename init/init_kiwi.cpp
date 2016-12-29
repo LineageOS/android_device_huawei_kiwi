@@ -100,13 +100,11 @@ static match_t matches[] = {
 
 void vendor_load_properties()
 {
-    std::string platform;
-    char model[110];
-    std::string hwsim;
+    char model[110] ="";
     FILE* fp;
     match_t *match;
 
-    platform = property_get("ro.board.platform");
+    std::string platform = property_get("ro.board.platform");
     if (platform != ANDROID_TARGET)
         return;
 
@@ -119,18 +117,17 @@ void vendor_load_properties()
     }
 
     for (match = matches; match->model; match++) {
-        if (strstr(model, match->model)) {
+        if (model == match->model) {
             property_set("ro.build.product", "kiwi");
             property_set("ro.product.device", "kiwi");
             property_set("ro.product.model", match->model);
             property_set("ro.build.description", match->description);
-            property_set("ro.build.fingerprint", match->fingerprint);
             break;
         }
     }
 
     // Fix single sim variant based on property set by the bootloader
-    hwsim = property_get("ro.boot.hwsim");
+    std::string hwsim = property_get("ro.boot.hwsim");
 
     if (hwsim == "single") {
         property_set("ro.telephony.default_network", "9");
