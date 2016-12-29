@@ -1559,7 +1559,6 @@ bin/netmgrd
 bin/qmuxd
 bin/radish
 bin/rfs_access
-bin/rild
 bin/rmt_storage
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
@@ -1575,8 +1574,6 @@ lib64/lib_oeminfo_interface.so
 lib64/liboeminfo.so
 lib64/libqmi_nv_api.so
 -lib64/libqmi_oem_api.so
-lib64/libril.so
-lib64/librilutils.so
 lib64/librmnetctl.so
 lib64/libsecure_boot_keybox.so
 vendor/lib/libmdmdetect.so
