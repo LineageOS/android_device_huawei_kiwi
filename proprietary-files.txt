@@ -922,37 +922,20 @@ bin/signinfolistener
 vendor/lib64/hw/gatekeeper.msm8916.so
 
 # GPS
-bin/garden_app
-bin/gpsone_daemon
-bin/lowi-server
-bin/xtwifi-inet-agent
-bin/xtwifi-client
 -lib64/libloc_api_v02.so
+-lib64/libloc_ds_api.so
 -lib/libloc_api_v02.so
+-lib/libloc_ds_api.so
 vendor/lib64/hw/flp.default.so
 vendor/lib64/libflp.so
 vendor/lib64/libgeofence.so
 vendor/lib64/libizat_core.so
 vendor/lib64/liblbs_core.so
-vendor/lib64/liblocationservice.so
-vendor/lib64/liblowi_client.so
-vendor/lib64/libquipc_os_api.so
-vendor/lib64/libulp2.so
-vendor/lib64/libxtadapter.so
-vendor/lib64/libxtwifi_ulp_adaptor.so
-vendor/lib64/libxtwifi_zpp_adaptor.so
 vendor/lib/hw/flp.default.so
 vendor/lib/libflp.so
 vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
-vendor/lib/liblocationservice.so
-vendor/lib/liblowi_client.so
-vendor/lib/libquipc_os_api.so
-vendor/lib/libulp2.so
-vendor/lib/libxtadapter.so
-vendor/lib/libxtwifi_ulp_adaptor.so
-vendor/lib/libxtwifi_zpp_adaptor.so
 
 # Graphics
 vendor/lib64/egl/eglsubAndroid.so
