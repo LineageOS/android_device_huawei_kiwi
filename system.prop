@@ -60,12 +60,6 @@ ro.qualcomm.cabl=0
 ro.qcom.ad=1
 ro.qcom.ad.calib.data=/system/etc/calib_kiw.cfg
 
-# GPS
-persist.gps.qc_nlp_in_use=1
-persist.loc.nlp_name=com.qualcomm.location
-ro.gps.agps_provider=1
-ro.pip.gated=0
-
 # Log
 log.tag.VM_BMS=WARN
 
@@ -96,7 +90,6 @@ ro.am.reschedule_service=true
 
 # Radio
 DEVICE_PROVISIONED=1
-persist.cne.feature=0
 persist.data.ds_fmc_app.mode=0
 persist.data.qmi.adb_logmask=0
 persist.omh.enabled=0
