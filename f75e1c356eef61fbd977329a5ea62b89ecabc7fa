@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a1d315d_7d12cbb5",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2016-12-31T16:38:53Z",
+      "side": 1,
+      "message": "Derp?",
+      "revId": "f75e1c356eef61fbd977329a5ea62b89ecabc7fa",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
