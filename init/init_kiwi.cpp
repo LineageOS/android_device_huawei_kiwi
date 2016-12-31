@@ -83,6 +83,24 @@ static match_t matches[] = {
         "KIW-UL00-user 5.1.1 GRJ90 C00B140 release-keys",
         "HONOR/KIW-UL00/HNKIW-Q:5.1.1/HONORKIW-UL00/C00B140:user/release-keys"
     },
+    /* Chinese CDMA version KIW-CL00 */
+    {
+        "KIW-CL00",
+        "KIW-CL00-user 5.1.1 GRJ90 C92B140 release-keys",
+        "HONOR/KIW-CL00/HNKIW-Q:5.1.1/HONORKIW-CL00/C92B140:user/release-keys"
+    },
+    /* Chinese TD-SCDMA version KIW-TL00H */
+    {
+        "KIW-TL00H",
+        "KIW-TL00H-user 5.1.1 GRJ90 C00B140 release-keys",
+        "HONOR/KIW-TL00H/HNKIW-Q:5.1.1/HONORKIW-TL00H/C00B140:user/release-keys"
+    },
+    /* Chinese TD-SCDMA version KIW-TL00 */
+    {
+        "KIW-TL00",
+        "KIW-TL00-user 5.1.1 GRJ90 C00B140 release-keys",
+        "HONOR/KIW-TL00/HNKIW-Q:5.1.1/HONORKIW-TL00/C00B140:user/release-keys"
+    },
     /* HUAWEI GR5 version KII-L22 (same as honor, evidently from Japan) */
     {
         "KII-L22",
