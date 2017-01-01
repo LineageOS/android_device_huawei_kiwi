@@ -51,7 +51,6 @@ import java.util.List;
 public class KeyHandler implements DeviceKeyHandler {
 
     private static final String TAG = KeyHandler.class.getSimpleName();
-    private static final boolean DBG = false;
     private static final int GESTURE_REQUEST = 1;
 
     /*
@@ -66,13 +65,16 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int KEY_GESTURE_M = 68;
     private static final int KEY_GESTURE_W = 87;
 
+    // Supported scancodes
+    private static final int KEY_DOUBLE_TAP = 59; //KEY_F1
+
     private static final int GESTURE_WAKELOCK_DURATION = 3000;
 
     private static final int[] sSupportedGestures = new int[] {
         KEY_GESTURE_C,
         KEY_GESTURE_E,
         KEY_GESTURE_M,
-        KEY_GESTURE_W
+        KEY_GESTURE_W,
     };
 
     private final Context mContext;
@@ -112,6 +114,7 @@ public class KeyHandler implements DeviceKeyHandler {
         if (mVibrator == null || !mVibrator.hasVibrator()) {
             mVibrator = null;
         }
+
     }
 
     private class EventHandler extends Handler {
@@ -156,22 +159,22 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     public boolean handleKeyEvent(KeyEvent event) {
-        int scanCode = event.getScanCode();
-        if (DBG) Log.d(TAG, "ScanCode: " + scanCode);
-
-        boolean isKeySupported = ArrayUtils.contains(sSupportedGestures, scanCode);
+        boolean isKeySupported = ArrayUtils.contains(sSupportedGestures, event.getScanCode());
         if (!isKeySupported) {
             return false;
         }
-
+        if (event.getScanCode() == KEY_DOUBLE_TAP && !mPowerManager.isScreenOn()) {
+                mPowerManager.wakeUpWithProximityCheck(SystemClock.uptimeMillis(), "wakeup-gesture-proximity");
+	    return true;
+	}
         if (!mEventHandler.hasMessages(GESTURE_REQUEST)) {
-            Message msg = getMessageForKeyEvent(scanCode);
+            Message msg = getMessageForKeyEvent(event.getScanCode());
             boolean defaultProximity = isProximityDefaultEnabled();
             boolean proximityWakeCheckEnabled = CMSettings.System.getInt(mContentResolver,
                     CMSettings.System.PROXIMITY_ON_WAKE, defaultProximity ? 1 : 0) == 1;
             if (mProximityWakeSupported && proximityWakeCheckEnabled && mProximitySensor != null) {
                 mEventHandler.sendMessageDelayed(msg, mProximityTimeOut);
-                processEvent(scanCode);
+                processEvent(event.getScanCode());
             } else {
                 mEventHandler.sendMessage(msg);
             }
@@ -268,4 +271,5 @@ public class KeyHandler implements DeviceKeyHandler {
 
         return returnIntent;
     }
+
 }
