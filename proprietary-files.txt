@@ -996,16 +996,11 @@ etc/firmware/a420_pm4.fw
 vendor/lib64/hw/keystore.msm8916.so
 
 # Media
-vendor/lib/libDivxDrm.so
-vendor/lib/libExtendedExtractor.so
 vendor/lib/libI420colorconvert.so
-vendor/lib/libmmosal.so
-vendor/lib/libmmparser.so
 vendor/lib/libmm-color-convertor.so
 vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
-vendor/lib/libSHIMDivxDrm.so
 
 # Perf
 vendor/bin/perfd
@@ -1132,34 +1127,15 @@ etc/firmware/venus.mbn
 etc/firmware/venus.mdt
 
 # OTHER FIRMWARE
-# not needed?
-etc/firmware/a225p5_pm4.fw
-etc/firmware/a225_pfp.fw
-etc/firmware/a225_pm4.fw
-etc/firmware/a300_pfp.fw
-etc/firmware/a300_pm4.fw
-etc/firmware/a330_pfp.fw
-etc/firmware/a330_pm4.fw
-# end not needed?
-etc/firmware/ale-HB3742A0EBC+_ATL_SCUD.fw
-etc/firmware/ale-HB3742A0EBC+_LS_LS.fw
-etc/firmware/ale-HB3742A0EBC+_SDI_SWD.fw
 etc/firmware/Alice_fw.bin
 etc/firmware/athena_boe_fw.img
 etc/firmware/athena_jdi_fw.img
-etc/firmware/ATH_miniBoot.bin
-etc/firmware/ATH_TBM_Latour2.bin
-etc/firmware/g620A_eely_fw.img
-etc/firmware/g620A_ofilm_fw.img
 etc/firmware/ice40.bin
 etc/firmware/kiw-HB396481EBC_ATL_SCUD.fw
 etc/firmware/kiw-HB396481EBC_SONY_SWD.fw
 etc/firmware/Kiwi_fw.bin
 etc/firmware/leia_pfp_470.fw
 etc/firmware/leia_pm4_470.fw
-etc/firmware/Rio_fw.bin
-etc/firmware/RIO_miniBoot.bin
-etc/firmware/RIO_TBM_Latour2.bin
 etc/firmware/T2A_fw.bin
 vendor/firmware/libpn547_fw.so
 # note: etc/firmware/wlan has symlinks I'm ignoring for now
