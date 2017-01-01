@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a1a2d67_16aa9ad4",
+        "filename": "init/init_kiwi.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2017-01-01T15:41:03Z",
+      "side": 1,
+      "message": "Reordering unneccessary",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "931d8119da9e60a0e5fc9bfc88985cedcc05bd2e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_36a59604",
+        "filename": "init/init_kiwi.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2017-01-01T15:41:03Z",
+      "side": 1,
+      "message": "Whitespace",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 3
+      },
+      "revId": "931d8119da9e60a0e5fc9bfc88985cedcc05bd2e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
