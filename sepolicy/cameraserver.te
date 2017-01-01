@@ -1,0 +1,3 @@
+allow cameraserver proc_meminfo:file { getattr open read };
+allow cameraserver mpctl_socket:dir search;
+
