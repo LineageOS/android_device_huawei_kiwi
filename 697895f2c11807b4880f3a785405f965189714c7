@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a1a2d67_d347941c",
+        "filename": "sepolicy/audioserver.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "Please use macros whenever possible, it makes this easier to read and avoids problems the commonly occur when you miss one infrequently used attribute (e.g. create or append).\n\nThis could be:\n\nallow audioserver smartamp_device:chr_file rw_file_perms;",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_b35418cb",
+        "filename": "sepolicy/cameraserver.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "r_file_perms",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_735e80eb",
+        "filename": "sepolicy/cameraserver.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "Is this actually necessary? I feel like it should be covered in device/qcom/sepolicy.",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_536384b1",
+        "filename": "sepolicy/hostapd.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "r_file_perms",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_335808fa",
+        "filename": "sepolicy/isolated_app.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "-2: I don\u0027t think we should give any special rights to isolatedapps.  Let these requests fail and just remove this file entirely.",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_135d0cea",
+        "filename": "sepolicy/netd.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "These should probably just be allowed to fail as well.  Does anything break if you remove this file entirely?\n\nFor example, module_request is probably going to fail anyway since we don\u0027t have module enabled!",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_9368fc88",
+        "filename": "sepolicy/netmgrd.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "What denial is this fixing?  I feel like it\u0027s more of a config/perms problem than an selinux problem.",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_730560c1",
+        "filename": "sepolicy/priv_app.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "What is this fixing?  If android wanted to give all priv_apps the ability to enumerate the device files it would probably have done so...",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_330fe8e3",
+        "filename": "sepolicy/rild.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-01T10:12:48Z",
+      "side": 1,
+      "message": "This should probably be using a macro of the form:\n\nunix_socket_connect(cameraserver, mpctl, perfd)\n\nunless it\u0027s doing something very wonky to allow connections.  What is it connecting to?",
+      "revId": "697895f2c11807b4880f3a785405f965189714c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
