@@ -100,13 +100,11 @@ static match_t matches[] = {
 
 void vendor_load_properties()
 {
-    std::string platform;
     char model[110];
-    std::string hwsim;
     FILE* fp;
     match_t *match;
 
-    platform = property_get("ro.board.platform");
+    std::string platform = property_get("ro.board.platform");
     if (platform != ANDROID_TARGET)
         return;
 
@@ -130,7 +128,7 @@ void vendor_load_properties()
     }
 
     // Fix single sim variant based on property set by the bootloader
-    hwsim = property_get("ro.boot.hwsim");
+    std::string hwsim = property_get("ro.boot.hwsim");
 
     if (hwsim == "single") {
         property_set("ro.telephony.default_network", "9");
