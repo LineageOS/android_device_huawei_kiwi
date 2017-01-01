@@ -32,6 +32,12 @@
 #define ALPHABET_LEN 256
 #define KB 1024
 
+#define BASEBAND_PART_PATH "/dev/block/bootdevice/by-name/modem"
+#define BASEBAND_VER_STR_START "QC_IMAGE_VERSION_STRING=MPSS.DPM."
+#define BASEBAND_VER_STR_START_LEN 33
+#define BASEBAND_VER_BUF_LEN 255
+#define BASEBAND_SZ 64000 * KB    /* MMAP 64M of BASEBAND, BASEBAND partition is 64M */
+
 #define TZ_PART_PATH "/dev/block/bootdevice/by-name/tz"
 #define TZ_VER_STR "QC_IMAGE_VERSION_STRING="
 #define TZ_VER_STR_LEN 24
@@ -116,6 +122,39 @@ static char * bm_search(const char *str, size_t str_len, const char *pat,
     return NULL;
 }
 
+static int get_baseband_version(char *ver_str, size_t len) {
+    int ret = 0;
+    int fd;
+    char *baseband_data = NULL;
+    char *offset = NULL;
+
+    fd = open(BASEBAND_PART_PATH, O_RDONLY);
+    if (fd < 0) {
+        ret = errno;
+        goto err_ret;
+    }
+
+    baseband_data = (char *) mmap(NULL, BASEBAND_SZ, PROT_READ, MAP_PRIVATE, fd, 0);
+    if (baseband_data == (char *)-1) {
+        ret = errno;
+        goto err_fd_close;
+    }
+
+    /* Do Boyer-Moore search across BASEBAND data */
+    offset = bm_search(baseband_data, BASEBAND_SZ, BASEBAND_VER_STR_START, BASEBAND_VER_STR_START_LEN);
+    if (offset != NULL) {
+        strncpy(ver_str, offset + BASEBAND_VER_STR_START_LEN, len);
+    } else {
+        ret = -ENOENT;
+    }
+
+    munmap(baseband_data, BASEBAND_SZ);
+err_fd_close:
+    close(fd);
+err_ret:
+    return ret;
+}
+
 static int get_tz_version(char *ver_str, size_t len) {
     int ret = 0;
     int fd;
@@ -149,6 +188,36 @@ err_ret:
     return ret;
 }
 
+/* verify_baseband("BASEBAND_VERSION", "BASEBAND_VERSION", ...) */
+Value * VerifyBasebandFn(const char *name, State *state, int argc, Expr *argv[]) {
+    char current_baseband_version[BASEBAND_VER_BUF_LEN];
+    char *baseband_version;
+    int i, ret;
+
+    ret = get_baseband_version(current_baseband_version, BASEBAND_VER_BUF_LEN);
+    if (ret) {
+        return ErrorAbort(state, kVendorFailure, "%s() failed to read current BASEBAND version: %d",
+                name, ret);
+    }
+
+    for (i = 0; i < argc; i++) {
+        baseband_version = Evaluate(state, argv[i]);
+        if (baseband_version < 0) {
+            return ErrorAbort(state, kArgsParsingFailure, "%s() error parsing arguments: %d",
+                name, baseband_version);
+        }
+
+        uiPrintf(state, "Comparing BASEBAND version %s to %s",
+                baseband_version, current_baseband_version);
+        if (strncmp(baseband_version, current_baseband_version, strlen(baseband_version)) == 0) {
+            return StringValue(strdup("1"));
+        }
+    }
+
+    uiPrintf(state, "ERROR: It appears you are running an unsupported baseband.");
+    return StringValue(strdup("0"));
+}
+
 /* verify_trustzone("TZ_VERSION", "TZ_VERSION", ...) */
 Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]) {
     char current_tz_version[TZ_VER_BUF_LEN];
@@ -179,5 +248,6 @@ Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]
 }
 
 void Register_librecovery_updater_kiwi() {
+    RegisterFunction("kiwi.verify_baseband", VerifyBasebandFn);
     RegisterFunction("kiwi.verify_trustzone", VerifyTrustZoneFn);
 }

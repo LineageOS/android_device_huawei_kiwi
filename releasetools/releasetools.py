@@ -15,10 +15,22 @@
 import re
 
 def FullOTA_Assertions(info):
+  AddBasebandAssertion(info, info.input_zip)
   AddTrustZoneAssertion(info, info.input_zip)
 
 def IncrementalOTA_Assertions(info):
+  AddBasebandAssertion(info, info.input_zip)
   AddTrustZoneAssertion(info, info.input_zip)
+
+def AddBasebandAssertion(info, input_zip):
+  android_info = info.input_zip.read("OTA/android-info.txt")
+  m = re.search(r'require\s+version-baseband\s*=\s*(\S+)', android_info)
+  if m:
+    versions = m.group(1).split('|')
+    if len(versions) and '*' not in versions:
+      cmd = 'assert(cm.verify_baseband(' + ','.join(['"%s"' % baseband for baseband in versions]) + ') == "1");'
+      info.script.AppendExtra(cmd)
+  return
 
 def AddTrustZoneAssertion(info, input_zip):
   android_info = info.input_zip.read("OTA/android-info.txt")
