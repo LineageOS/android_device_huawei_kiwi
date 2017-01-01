@@ -157,6 +157,10 @@ PRODUCT_PACKAGES += \
     CMActions \
     com.cyanogenmod.keyhandler
 
+# Doze
+PRODUCT_PACKAGES += \
+    KiwiDoze
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8916
