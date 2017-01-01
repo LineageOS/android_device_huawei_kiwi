@@ -130,7 +130,6 @@ ro.ril.gprsclass=10
 ro.telephony.call_ring.multiple=false
 ro.telephony.ril_class=KiwiRIL
 ro.use_data_netmgrd=true
-telephony.lteOnCdmaDevice=1
 persist.radio.add_power_save=1
 persist.radio.modem.cap=7E442
 
