@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_f5127257",
+        "filename": "init/init_kiwi.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-02T13:36:11Z",
+      "side": 1,
+      "message": "Unnecessary change.",
+      "revId": "65a17aa08410756a5d001ffb4c673a26b4848214",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
