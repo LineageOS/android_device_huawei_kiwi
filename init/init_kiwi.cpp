@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -121,23 +122,23 @@ void vendor_load_properties()
     std::string platform;
     char model[110];
     std::string hwsim;
-    FILE* fp;
+    std::FILE* fp;
     match_t *match;
 
     platform = property_get("ro.board.platform");
     if (platform != ANDROID_TARGET)
         return;
 
-    fp = fopen("/proc/app_info", "rb");
+    fp = std::fopen("/proc/app_info", "rb");
     if (fp != NULL) {
-        while (fgets(model, 100, fp))
-            if (strstr(model, "huawei_fac_product_name") != NULL)
+        while (std::fgets(model, 100, fp))
+            if (std::strstr(model, "huawei_fac_product_name") != NULL)
                 break;
-        fclose(fp);
+        std::fclose(fp);
     }
 
     for (match = matches; match->model; match++) {
-        if (strstr(model, match->model)) {
+        if (std::strstr(model, match->model)) {
             property_set("ro.build.product", "kiwi");
             property_set("ro.product.device", "kiwi");
             property_set("ro.product.model", match->model);
