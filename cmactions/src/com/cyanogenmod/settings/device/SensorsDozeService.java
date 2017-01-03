@@ -61,15 +61,15 @@ public class SensorsDozeService extends Service {
     private SensorManager mSensorManager;
     private WakeLock mSensorsWakeLock;
 
-    private boolean mDozeEnabled = false;
-    private boolean mHandwaveDoze = false;
-    private boolean mHandwaveGestureEnabled = false;
-    private boolean mPickUpDoze = false;
-    private boolean mPickUpGestureEnabled = false;
-    private boolean mPickUpState = false;
-    private boolean mPocketDoze = false;
-    private boolean mPocketGestureEnabled = false;
-    private boolean mProximityNear = false;
+    private boolean mDozeEnabled;
+    private boolean mHandwaveDoze;
+    private boolean mHandwaveGestureEnabled;
+    private boolean mPickUpDoze;
+    private boolean mPickUpGestureEnabled;
+    private boolean mPickUpState;
+    private boolean mPocketDoze;
+    private boolean mPocketGestureEnabled;
+    private boolean mProximityNear;
     private long mLastPulseTimestamp = 0;
     private long mLastStowedTimestamp = 0;
 
