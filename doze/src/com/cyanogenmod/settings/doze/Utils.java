@@ -81,7 +81,7 @@ public final class Utils {
                 .getBoolean(GESTURE_POCKET_KEY, false);
     }
 
-    protected static boolean sensorsEnabled(Context context) {
+    protected static boolean proximityGestureEnabled(Context context) {
         return handwaveGestureEnabled(context) || pocketGestureEnabled(context);
     }
 }

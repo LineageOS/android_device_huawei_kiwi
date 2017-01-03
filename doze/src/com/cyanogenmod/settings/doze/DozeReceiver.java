@@ -34,7 +34,7 @@ public class DozeReceiver extends RemotePreferenceUpdater {
         super.onReceive(context, intent);
 
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            if (Utils.isDozeEnabled(context) && Utils.sensorsEnabled(context)) {
+            if (Utils.isDozeEnabled(context) && Utils.proximityGestureEnabled(context)) {
                 if (DEBUG) Log.d(TAG, "Starting service");
                 Utils.startService(context);
             }
