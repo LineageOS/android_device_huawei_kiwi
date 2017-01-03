@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (c) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,10 +65,8 @@ public class OrientationSensor implements SensorEventListener {
             OrientationListener orientationListener) {
         mEnabled = false;
         reset();
-        mAccelerometerSensor = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER, false);
-        mMagneticFieldSensor = sensorManager.getDefaultSensor(
-                Sensor.TYPE_MAGNETIC_FIELD, false);
+        mAccelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER, false);
+        mMagneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD, false);
 
         mOrientationListener = orientationListener;
         mSensorManager = sensorManager;
@@ -92,8 +91,7 @@ public class OrientationSensor implements SensorEventListener {
 
         if (mGravity != null && mMagnetic != null) {
             float[] rotationMatrix = new float[9];
-            if (SensorManager.getRotationMatrix(rotationMatrix, new float[9],
-                    mGravity, mMagnetic))
+            if (SensorManager.getRotationMatrix(rotationMatrix, new float[9], mGravity, mMagnetic))
             {
                 float[] values = new float[3];
                 mState = ORIENTATION_UNKNOWN;
