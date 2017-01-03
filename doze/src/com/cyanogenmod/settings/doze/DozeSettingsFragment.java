@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 The CyanogenMod Project
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +45,6 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
 
     private Switch mSwitch;
 
-    private SwitchPreference mPickUpPreference;
     private SwitchPreference mHandwavePreference;
     private SwitchPreference mPocketPreference;
 
@@ -92,10 +92,6 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
             showHelp();
         }
 
-        mPickUpPreference =
-                (SwitchPreference) findPreference(Utils.GESTURE_PICK_UP_KEY);
-        mPickUpPreference.setOnPreferenceChangeListener(this);
-
         mHandwavePreference =
                 (SwitchPreference) findPreference(Utils.GESTURE_HAND_WAVE_KEY);
         mHandwavePreference.setOnPreferenceChangeListener(this);
@@ -120,7 +116,6 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
     }
 
     private void updateSwitches(boolean enabled) {
-        mPickUpPreference.setEnabled(enabled);
         mHandwavePreference.setEnabled(enabled);
         mPocketPreference.setEnabled(enabled);
     }
@@ -147,9 +142,7 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         final String key = preference.getKey();
         final boolean value = (Boolean) newValue;
-        if (Utils.GESTURE_PICK_UP_KEY.equals(key)) {
-            mPickUpPreference.setChecked(value);
-        } else if (Utils.GESTURE_HAND_WAVE_KEY.equals(key)) {
+        if (Utils.GESTURE_HAND_WAVE_KEY.equals(key)) {
             mHandwavePreference.setChecked(value);
         } else if (Utils.GESTURE_POCKET_KEY.equals(key)) {
             mPocketPreference.setChecked(value);
