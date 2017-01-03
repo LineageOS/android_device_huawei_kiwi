@@ -20,15 +20,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.SwitchPreference;
+import android.support.v14.preference.PreferenceFragment;
+import android.support.v14.preference.SwitchPreference;
+import android.support.v7.preference.Preference;
 import android.provider.Settings;
 import android.view.ViewGroup;
 
 import cyanogenmod.providers.CMSettings;
 
-public class TouchscreenGestureSettings extends PreferenceActivity {
+public class TouchscreenGestureFragment extends PreferenceFragment {
 
     private static final String KEY_AMBIENT_DISPLAY_ENABLE = "ambient_display_enable";
     private static final String KEY_GESTURE_HAND_WAVE = "gesture_hand_wave";
@@ -45,8 +45,7 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
     private SwitchPreference mPocketPreference;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.touchscreen_panel);
         boolean dozeEnabled = isDozeEnabled();
 
@@ -66,24 +65,22 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
             Preference pref = findPreference(gestureKey);
             pref.setOnPreferenceChangeListener(mGesturePrefListener);
         }
-
-        ((ViewGroup)getListView().getParent()).setPadding(0, 0, 0, 0);
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        mHapticFeedback.setChecked(CMSettings.System.getInt(getContentResolver(),
+        mHapticFeedback.setChecked(CMSettings.System.getInt(getContext().getContentResolver(),
                 CMSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK, 1) != 0);
     }
 
     private boolean enableDoze(boolean enable) {
-        return Settings.Secure.putInt(getContentResolver(),
+        return Settings.Secure.putInt(getContext().getContentResolver(),
                 Settings.Secure.DOZE_ENABLED, enable ? 1 : 0);
     }
 
     private boolean isDozeEnabled() {
-        return Settings.Secure.getInt(getContentResolver(),
+        return Settings.Secure.getInt(getContext().getContentResolver(),
                 Settings.Secure.DOZE_ENABLED, 1) != 0;
     }
 
@@ -107,7 +104,7 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             final boolean value = (Boolean) newValue;
-            CMSettings.System.putInt(getContentResolver(),
+            CMSettings.System.putInt(getContext().getContentResolver(),
                     CMSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK, value ? 1 : 0);
             return true;
         }
@@ -125,7 +122,7 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
     private final Runnable mUpdateGestures = new Runnable() {
         @Override
         public void run() {
-            CMActionsSettings.updateGestureMode(TouchscreenGestureSettings.this);
+            CMActionsSettings.updateGestureMode(getContext());
         }
     };
 }
