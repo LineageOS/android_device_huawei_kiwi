@@ -1,0 +1,2 @@
+allow cameraserver proc_meminfo:file r_file_perms;
+
