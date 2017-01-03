@@ -34,11 +34,8 @@ public final class Utils {
 
     private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
 
-    protected static final String AMBIENT_DISPLAY_KEY = "doze_enabled";
     protected static final String GESTURE_HAND_WAVE_KEY = "gesture_hand_wave";
     protected static final String GESTURE_POCKET_KEY = "gesture_pocket";
-
-    public static final Uri DOZE_ENABLED_URI = Settings.Secure.getUriFor(DOZE_ENABLED);
 
     protected static void startService(Context context) {
         if (DEBUG) Log.d(TAG, "Starting service");
