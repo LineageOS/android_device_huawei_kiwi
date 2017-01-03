@@ -29,7 +29,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (Utils.isDozeEnabled(context) && Utils.sensorsEnabled(context)) {
+        if (Utils.isDozeEnabled(context) && Utils.proximityGestureEnabled(context)) {
             if (DEBUG) Log.d(TAG, "Starting service");
             Utils.startService(context);
         }
