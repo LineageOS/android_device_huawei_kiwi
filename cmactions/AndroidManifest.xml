@@ -6,7 +6,10 @@
     android:sharedUserId="android.uid.system"
     >
 
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-sdk
         android:minSdkVersion="23"
@@ -30,6 +33,10 @@
             <intent-filter>
                 <action android:name="ServiceWrapper"/>
             </intent-filter>
+        </service>
+
+        <service android:name="com.cyanogenmod.settings.device.SensorsDozeService"
+                 android:permission="SensorsDozeService">
         </service>
 
         <service android:name="com.cyanogenmod.settings.device.SensorsDozeService"

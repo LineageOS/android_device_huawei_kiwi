@@ -32,15 +32,35 @@ import cyanogenmod.providers.CMSettings;
 
 public class TouchscreenGestureSettings extends PreferenceActivity {
 
+    private static final String KEY_AMBIENT_DISPLAY_ENABLE = "ambient_display_enable";
+    private static final String KEY_GESTURE_HAND_WAVE = "gesture_hand_wave";
+    private static final String KEY_GESTURE_PICK_UP = "gesture_pick_up";
+    private static final String KEY_GESTURE_POCKET = "gesture_pocket";
     private static final String KEY_HAPTIC_FEEDBACK = "touchscreen_gesture_haptic_feedback";
 
     private Handler mGestureHandler = new Handler();
+
+    private SwitchPreference mAmbientDisplayPreference;
+    private SwitchPreference mHandwavePreference;
     private SwitchPreference mHapticFeedback;
+    private SwitchPreference mPickupPreference;
+    private SwitchPreference mPocketPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.touchscreen_panel);
+        boolean dozeEnabled = isDozeEnabled();
+
+        mAmbientDisplayPreference = (SwitchPreference) findPreference(KEY_AMBIENT_DISPLAY_ENABLE);
+        mAmbientDisplayPreference.setChecked(dozeEnabled);
+        mAmbientDisplayPreference.setOnPreferenceChangeListener(mAmbientDisplayPrefListener);
+        mHandwavePreference = (SwitchPreference) findPreference(KEY_GESTURE_HAND_WAVE);
+        mHandwavePreference.setEnabled(dozeEnabled);
+        mPickupPreference = (SwitchPreference) findPreference(KEY_GESTURE_PICK_UP);
+        mPickupPreference.setEnabled(dozeEnabled);
+        mPocketPreference = (SwitchPreference) findPreference(KEY_GESTURE_POCKET);
+        mPocketPreference.setEnabled(dozeEnabled);
         mHapticFeedback = (SwitchPreference) findPreference(KEY_HAPTIC_FEEDBACK);
         mHapticFeedback.setOnPreferenceChangeListener(mHapticPrefListener);
 
@@ -70,6 +90,31 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
         }
         return false;
     }
+
+    private boolean enableDoze(boolean enable) {
+        return Settings.Secure.putInt(getContentResolver(),
+                Settings.Secure.DOZE_ENABLED, enable ? 1 : 0);
+    }
+
+    private boolean isDozeEnabled() {
+        return Settings.Secure.getInt(getContentResolver(),
+                Settings.Secure.DOZE_ENABLED, 1) != 0;
+    }
+
+    private Preference.OnPreferenceChangeListener mAmbientDisplayPrefListener =
+        new Preference.OnPreferenceChangeListener() {
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            boolean enable = (boolean) newValue;
+            boolean ret = enableDoze(enable);
+            if (ret) {
+                mHandwavePreference.setEnabled(enable);
+                mPickupPreference.setEnabled(enable);
+                mPocketPreference.setEnabled(enable);
+            }
+            return ret;
+        }
+    };
 
     private Preference.OnPreferenceChangeListener mHapticPrefListener =
         new Preference.OnPreferenceChangeListener() {
