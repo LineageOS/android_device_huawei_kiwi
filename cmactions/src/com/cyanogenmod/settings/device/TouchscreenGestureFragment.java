@@ -20,15 +20,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.SwitchPreference;
+import android.support.v14.preference.PreferenceFragment;
+import android.support.v14.preference.SwitchPreference;
+import android.support.v7.preference.Preference;
 import android.provider.Settings;
 import android.view.ViewGroup;
 
 import cyanogenmod.providers.CMSettings;
 
-public class TouchscreenGestureSettings extends PreferenceActivity {
+public class TouchscreenGestureFragment extends PreferenceFragment {
 
     private static final String KEY_HAPTIC_FEEDBACK = "touchscreen_gesture_haptic_feedback";
 
@@ -36,7 +36,7 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
     private SwitchPreference mHapticFeedback;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.touchscreen_panel);
         mHapticFeedback = (SwitchPreference) findPreference(KEY_HAPTIC_FEEDBACK);
@@ -46,14 +46,12 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
             Preference pref = findPreference(gestureKey);
             pref.setOnPreferenceChangeListener(mGesturePrefListener);
         }
-
-        ((ViewGroup)getListView().getParent()).setPadding(0, 0, 0, 0);
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        mHapticFeedback.setChecked(CMSettings.System.getInt(getContentResolver(),
+        mHapticFeedback.setChecked(CMSettings.System.getInt(getContext().getContentResolver(),
                 CMSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK, 1) != 0);
     }
 
@@ -62,7 +60,7 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             final boolean value = (Boolean) newValue;
-            CMSettings.System.putInt(getContentResolver(),
+            CMSettings.System.putInt(getContext().getContentResolver(),
                     CMSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK, value ? 1 : 0);
             return true;
         }
@@ -80,7 +78,7 @@ public class TouchscreenGestureSettings extends PreferenceActivity {
     private final Runnable mUpdateGestures = new Runnable() {
         @Override
         public void run() {
-            CMActionsSettings.updateGestureMode(TouchscreenGestureSettings.this);
+            CMActionsSettings.updateGestureMode(getContext());
         }
     };
 }
