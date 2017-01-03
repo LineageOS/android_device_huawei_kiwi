@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (c) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,7 @@ import android.util.Log;
 public class BootCompletedReceiver extends BroadcastReceiver {
 
     private static final boolean DEBUG = false;
-    private static final String TAG = "OneplusDoze";
+    private static final String TAG = "KiwiDoze";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
