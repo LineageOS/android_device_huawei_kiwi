@@ -62,16 +62,14 @@ public class DozeService extends Service {
 
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
-        if (Utils.handwaveGestureEnabled(this) ||
-                Utils.pocketGestureEnabled(this)) {
+        if (Utils.proximityGestureEnabled(this)) {
             mProximitySensor.disable();
         }
     }
 
     private void onDisplayOff() {
         if (DEBUG) Log.d(TAG, "Display off");
-        if (Utils.handwaveGestureEnabled(this) ||
-                Utils.pocketGestureEnabled(this)) {
+        if (Utils.proximityGestureEnabled(this)) {
             mProximitySensor.enable();
         }
     }
