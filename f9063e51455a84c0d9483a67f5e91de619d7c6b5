@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_c7c33c37",
+        "filename": "cmactions/src/com/cyanogenmod/settings/device/SensorsDozeService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-04T17:48:35Z",
+      "side": 1,
+      "message": "Should probably remove the \u003d 0 on these two as well for consistency.",
+      "revId": "f9063e51455a84c0d9483a67f5e91de619d7c6b5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
