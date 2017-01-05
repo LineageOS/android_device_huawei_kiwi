@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (c) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,9 +54,7 @@ public class PickUpSensor implements SensorEventListener {
             PickUpListener pickUpListener) {
         mEnabled = false;
         reset();
-        mPickUpSensor = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER, false);
-
+        mPickUpSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER, false);
         mPickUpListener = pickUpListener;
         mSensorManager = sensorManager;
     }
@@ -102,8 +101,7 @@ public class PickUpSensor implements SensorEventListener {
     public void enable() {
         if (!mEnabled && mPickUpSensor != null) {
             reset();
-            mSensorManager.registerListener(this, mPickUpSensor,
-                    PICKUP_DELAY, PICKUP_LATENCY);
+            mSensorManager.registerListener(this, mPickUpSensor, PICKUP_DELAY, PICKUP_LATENCY);
             mEnabled = true;
         }
     }

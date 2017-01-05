@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (c) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,17 +62,17 @@ public class SensorsDozeService extends Service {
     private SensorManager mSensorManager;
     private WakeLock mSensorsWakeLock;
 
-    private boolean mDozeEnabled = false;
-    private boolean mHandwaveDoze = false;
-    private boolean mHandwaveGestureEnabled = false;
-    private boolean mPickUpDoze = false;
-    private boolean mPickUpGestureEnabled = false;
-    private boolean mPickUpState = false;
-    private boolean mPocketDoze = false;
-    private boolean mPocketGestureEnabled = false;
-    private boolean mProximityNear = false;
-    private long mLastPulseTimestamp = 0;
-    private long mLastStowedTimestamp = 0;
+    private boolean mDozeEnabled;
+    private boolean mHandwaveDoze;
+    private boolean mHandwaveGestureEnabled;
+    private boolean mPickUpDoze;
+    private boolean mPickUpGestureEnabled;
+    private boolean mPickUpState;
+    private boolean mPocketDoze;
+    private boolean mPocketGestureEnabled;
+    private boolean mProximityNear;
+    private long mLastPulseTimestamp;
+    private long mLastStowedTimestamp;
 
     private OrientationSensor.OrientationListener mOrientationListener =
             new OrientationSensor.OrientationListener() {
@@ -117,22 +118,15 @@ public class SensorsDozeService extends Service {
         super.onCreate();
         mContext = this;
 
-        mPowerManager = (PowerManager) mContext.getSystemService(
-                Context.POWER_SERVICE);
-        mSensorManager = (SensorManager) mContext.getSystemService(
-                Context.SENSOR_SERVICE);
-        mSensorsWakeLock = mPowerManager.newWakeLock(
-                PowerManager.PARTIAL_WAKE_LOCK, TAG + "WakeLock");
+        mPowerManager = (PowerManager) mContext.getSystemService( Context.POWER_SERVICE);
+        mSensorManager = (SensorManager) mContext.getSystemService( Context.SENSOR_SERVICE);
+        mSensorsWakeLock = mPowerManager.newWakeLock( PowerManager.PARTIAL_WAKE_LOCK, TAG + "WakeLock");
 
-        mOrientationSensor = new OrientationSensor(mContext, mSensorManager,
-                mOrientationListener);
-        mPickUpSensor = new PickUpSensor(mContext, mSensorManager,
-                mPickUpListener);
-        mProximitySensor = new ProximitySensor(mContext, mSensorManager,
-                mProximityListener);
+        mOrientationSensor = new OrientationSensor(mContext, mSensorManager, mOrientationListener);
+        mPickUpSensor = new PickUpSensor(mContext, mSensorManager, mPickUpListener);
+        mProximitySensor = new ProximitySensor(mContext, mSensorManager, mProximityListener);
 
-        SharedPreferences sharedPrefs = PreferenceManager.
-                getDefaultSharedPreferences(mContext);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         loadPreferences(sharedPrefs);
         sharedPrefs.registerOnSharedPreferenceChangeListener(mPrefListener);
     }
@@ -166,8 +160,7 @@ public class SensorsDozeService extends Service {
     private void getDozeEnabled() {
         boolean enabled = true;
         if (android.provider.Settings.Secure.getInt(
-                mContext.getContentResolver(), Settings.Secure.DOZE_ENABLED,
-                1) == 0) {
+                mContext.getContentResolver(), Settings.Secure.DOZE_ENABLED, 1) == 0) {
             enabled = false;
         }
         mDozeEnabled = enabled;
@@ -206,8 +199,7 @@ public class SensorsDozeService extends Service {
             mPocketDoze = false;
 
             // Handwave / Pick-up / Pocket gestures activated
-            if (isHandwaveEnabled() && isPickUpEnabled() &&
-                    isPocketEnabled()) {
+            if (isHandwaveEnabled() && isPickUpEnabled() && isPocketEnabled()) {
                 mHandwaveDoze = quickWave;
                 mPickUpDoze = !quickWave;
                 mPocketDoze = !quickWave;
@@ -324,8 +316,7 @@ public class SensorsDozeService extends Service {
     private void launchAcknowledge() {
         AudioManager audioManager = (AudioManager) mContext.getSystemService(
                 Context.AUDIO_SERVICE);
-        Vibrator vibrator = (Vibrator) mContext.getSystemService(
-                Context.VIBRATOR_SERVICE);
+        Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
         boolean enabled = CMSettings.System.getInt(mContext.getContentResolver(),
                 CMSettings.System.TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK, 1) != 0;
@@ -413,12 +404,9 @@ public class SensorsDozeService extends Service {
     }
 
     private void loadPreferences(SharedPreferences sharedPreferences) {
-        mHandwaveGestureEnabled = sharedPreferences.getBoolean(
-                KEY_GESTURE_HAND_WAVE, false);
-        mPickUpGestureEnabled = sharedPreferences.getBoolean(
-                KEY_GESTURE_PICK_UP, false);
-        mPocketGestureEnabled = sharedPreferences.getBoolean(
-                KEY_GESTURE_POCKET, false);
+        mHandwaveGestureEnabled = sharedPreferences.getBoolean(KEY_GESTURE_HAND_WAVE, false);
+        mPickUpGestureEnabled = sharedPreferences.getBoolean(KEY_GESTURE_PICK_UP, false);
+        mPocketGestureEnabled = sharedPreferences.getBoolean(KEY_GESTURE_POCKET, false);
     }
 
     private BroadcastReceiver mScreenStateReceiver = new BroadcastReceiver() {

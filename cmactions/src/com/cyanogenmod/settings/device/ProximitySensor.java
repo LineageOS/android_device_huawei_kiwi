@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (c) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +45,7 @@ public class ProximitySensor implements SensorEventListener {
             ProximityListener proximitylistener) {
         mEnabled = false;
         reset();
-        mProximitySensor = sensorManager.getDefaultSensor(
-                Sensor.TYPE_PROXIMITY, true);
+        mProximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY, true);
 
         mProximityListener = proximitylistener;
         mSensorManager = sensorManager;
@@ -79,8 +79,7 @@ public class ProximitySensor implements SensorEventListener {
 
     public void enable() {
         if (!mEnabled && mProximitySensor != null) {
-            mSensorManager.registerListener(this, mProximitySensor,
-                    PROXIMITY_DELAY, PROXIMITY_LATENCY);
+            mSensorManager.registerListener(this, mProximitySensor, PROXIMITY_DELAY, PROXIMITY_LATENCY);
             mEnabled = true;
         }
     }
