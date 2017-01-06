@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.IBinder;
@@ -59,7 +58,6 @@ public class SensorsDozeService extends Service {
     private PickUpSensor mPickUpSensor;
     private PowerManager mPowerManager;
     private ProximitySensor mProximitySensor;
-    private SensorManager mSensorManager;
     private WakeLock mSensorsWakeLock;
 
     private boolean mDozeEnabled;
@@ -118,13 +116,14 @@ public class SensorsDozeService extends Service {
         super.onCreate();
         mContext = this;
 
-        mPowerManager = (PowerManager) mContext.getSystemService( Context.POWER_SERVICE);
-        mSensorManager = (SensorManager) mContext.getSystemService( Context.SENSOR_SERVICE);
-        mSensorsWakeLock = mPowerManager.newWakeLock( PowerManager.PARTIAL_WAKE_LOCK, TAG + "WakeLock");
-
-        mOrientationSensor = new OrientationSensor(mContext, mSensorManager, mOrientationListener);
-        mPickUpSensor = new PickUpSensor(mContext, mSensorManager, mPickUpListener);
-        mProximitySensor = new ProximitySensor(mContext, mSensorManager, mProximityListener);
+        mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        mSensorsWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                TAG + "WakeLock");
+        SensorManager sensorManager = (SensorManager)
+                mContext.getSystemService(Context.SENSOR_SERVICE);
+        mOrientationSensor = new OrientationSensor(mContext, sensorManager, mOrientationListener);
+        mPickUpSensor = new PickUpSensor(mContext, sensorManager, mPickUpListener);
+        mProximitySensor = new ProximitySensor(mContext, sensorManager, mProximityListener);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         loadPreferences(sharedPrefs);
