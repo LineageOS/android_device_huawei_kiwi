@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_c04afc82",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 16071
+      },
+      "writtenOn": "2017-01-06T12:11:40Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "187344fa8c1758b7f8bec442c91a02720cfe9e97",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_c0631c19",
+        "filename": "lineage.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 16071
+      },
+      "writtenOn": "2017-01-06T12:11:40Z",
+      "side": 1,
+      "message": "You must add Lineage Copyright.",
+      "revId": "187344fa8c1758b7f8bec442c91a02720cfe9e97",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
