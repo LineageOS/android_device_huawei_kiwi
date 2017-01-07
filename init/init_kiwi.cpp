@@ -39,6 +39,7 @@ typedef struct {
     const char *model;
     const char *description;
     const char *fingerprint;
+    bool is_cdma;
 } match_t;
 
 static match_t matches[] = {
@@ -46,75 +47,87 @@ static match_t matches[] = {
     {
         "KIW-L24",
         "KIW-L24-user 5.1.1 GRJ90 C567B140 release-keys",
-        "HONOR/KIW-L24/HNKIW-Q:5.1.1/HONORKIW-L24/C567B140:user/release-keys"
+        "HONOR/KIW-L24/HNKIW-Q:5.1.1/HONORKIW-L24/C567B140:user/release-keys",
+        false
     },
     /* Honor 5x Russia L23 */
     {
         "KIW-L23",
         "KIW-L23-user 5.1.1 GRJ90 C567B140 release-keys",
-        "HONOR/KIW-L23/HNKIW-Q:5.1.1/HONORKIW-L23/C567B140:user/release-keys"
+        "HONOR/KIW-L23/HNKIW-Q:5.1.1/HONORKIW-L23/C567B140:user/release-keys",
+        false
     },
     /* Honor 5x India L22 */
     {
         "KIW-L22",
         "KIW-L22-user 5.1.1 GRJ90 C675B130 release-keys",
-        "HONOR/KIW-L22/HNKIW-Q:5.1.1/HONORKIW-L22/C675B130:user/release-keys"
+        "HONOR/KIW-L22/HNKIW-Q:5.1.1/HONORKIW-L22/C675B130:user/release-keys",
+        false
     },
     /* Honor 5x EU L21 */
     {
         "KIW-L21",
         "KIW-L21-user 5.1.1 GRJ90 C432B130 release-keys",
-        "HONOR/KIW-L21/HNKIW-Q:5.1.1/HONORKIW-L21/C432B130:user/release-keys"
+        "HONOR/KIW-L21/HNKIW-Q:5.1.1/HONORKIW-L21/C432B130:user/release-keys",
+        false
     },
     /* Honor 5x AL10 Chinese */
     {
         "KIW-AL10",
         "KIW-AL10-user 5.1.1 GRJ90 C92B175 release-keys",
-        "HONOR/KIW-AL10/HNKIW-Q:5.1.1/HONORKIW-AL10/C92B175:user/release-keys"
+        "HONOR/KIW-AL10/HNKIW-Q:5.1.1/HONORKIW-AL10/C92B175:user/release-keys",
+        false
     },
     /* Honor 5x AL20 Chinese */
     {
         "KIW-AL20",
         "KIW-AL20-user 5.1.1 GRJ90 C432B130 release-keys",
-        "HONOR/KIW-AL20/HNKIW-Q:5.1.1/HONORKIW-AL20/C432B130:user/release-keys"
+        "HONOR/KIW-AL20/HNKIW-Q:5.1.1/HONORKIW-AL20/C432B130:user/release-keys",
+        false
     },
     /* Chinese WCDMA version KIW-UL00 */
     {
         "KIW-UL00",
         "KIW-UL00-user 5.1.1 GRJ90 C00B140 release-keys",
-        "HONOR/KIW-UL00/HNKIW-Q:5.1.1/HONORKIW-UL00/C00B140:user/release-keys"
+        "HONOR/KIW-UL00/HNKIW-Q:5.1.1/HONORKIW-UL00/C00B140:user/release-keys",
+        false
     },
     /* Chinese CDMA version KIW-CL00 */
     {
         "KIW-CL00",
         "KIW-CL00-user 5.1.1 GRJ90 C92B140 release-keys",
-        "HONOR/KIW-CL00/HNKIW-Q:5.1.1/HONORKIW-CL00/C92B140:user/release-keys"
+        "HONOR/KIW-CL00/HNKIW-Q:5.1.1/HONORKIW-CL00/C92B140:user/release-keys",
+        true
     },
     /* Chinese TD-SCDMA version KIW-TL00H */
     {
         "KIW-TL00H",
         "KIW-TL00H-user 5.1.1 GRJ90 C00B140 release-keys",
-        "HONOR/KIW-TL00H/HNKIW-Q:5.1.1/HONORKIW-TL00H/C00B140:user/release-keys"
+        "HONOR/KIW-TL00H/HNKIW-Q:5.1.1/HONORKIW-TL00H/C00B140:user/release-keys",
+        true
     },
     /* Chinese TD-SCDMA version KIW-TL00 */
     {
         "KIW-TL00",
         "KIW-TL00-user 5.1.1 GRJ90 C00B140 release-keys",
-        "HONOR/KIW-TL00/HNKIW-Q:5.1.1/HONORKIW-TL00/C00B140:user/release-keys"
+        "HONOR/KIW-TL00/HNKIW-Q:5.1.1/HONORKIW-TL00/C00B140:user/release-keys",
+        true
     },
     /* HUAWEI GR5 version KII-L22 (same as honor, evidently from Japan) */
     {
         "KII-L22",
         "KII-L22-user 5.1.1 GRJ90 C635B131 release-keys",
-        "HUAWEI/KII-L22/HWKII-Q:5.1.1/HUAWEIKII-L22/C635B131:user/release-keys"
+        "HUAWEI/KII-L22/HWKII-Q:5.1.1/HUAWEIKII-L22/C635B131:user/release-keys",
+        false
     },
     /* HUAWEI GR5 version KII-L21 (same as honor) */
     {
         "KII-L21",
         "KII-L21-user 5.1.1 GRJ90 C185B130 release-keys",
-        "HUAWEI/KII-L21/HWKII-Q:5.1.1/HUAWEIKII-L21/C185B130:user/release-keys"
+        "HUAWEI/KII-L21/HWKII-Q:5.1.1/HUAWEIKII-L21/C185B130:user/release-keys",
+        false
     },
-    { 0, 0, 0 }
+    { 0, 0, 0, false }
 };
 
 void vendor_load_properties()
@@ -137,15 +150,21 @@ void vendor_load_properties()
         std::fclose(fp);
     }
 
-    for (match = matches; match->model; match++) {
-        if (std::strstr(model, match->model)) {
-            property_set("ro.build.product", "kiwi");
-            property_set("ro.product.device", "kiwi");
-            property_set("ro.product.model", match->model);
-            property_set("ro.build.description", match->description);
-            property_set("ro.build.fingerprint", match->fingerprint);
-            break;
-        }
+    for (match = matches; match->model && std::strstr(model, match->model) == NULL; match++) {
+    }
+
+    if (!match) {
+        WARNING("Unknown variant: %s", model);
+        return;
+    }
+
+    property_set("ro.build.product", "kiwi");
+    property_set("ro.product.device", "kiwi");
+    property_set("ro.product.model", match->model);
+    property_set("ro.build.description", match->description);
+    property_set("ro.build.fingerprint", match->fingerprint);
+    if (match->is_cdma) {
+        property_set("telephony.lteOnCdmaDevice", "1");
     }
 
     // Fix single sim variant based on property set by the bootloader
