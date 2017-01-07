@@ -40,92 +40,105 @@ typedef struct {
     string model;
     string description;
     string fingerprint;
+    string default_network;
     bool is_cdma;
 } match_t;
 
 static match_t matches[] = {
-    /* Honor 5x USA L24 */
+    /* Honor 5x USA L24 (LTE, GSM/WCDMA) */
     {
         "KIW-L24",
         "KIW-L24-user 5.1.1 GRJ90 C567B140 release-keys",
         "HONOR/KIW-L24/HNKIW-Q:5.1.1/HONORKIW-L24/C567B140:user/release-keys",
+        "9",
         false
     },
-    /* Honor 5x Russia L23 */
+    /* Honor 5x Russia L23 (LTE, GSM/WCDMA) */
     {
         "KIW-L23",
         "KIW-L23-user 5.1.1 GRJ90 C567B140 release-keys",
         "HONOR/KIW-L23/HNKIW-Q:5.1.1/HONORKIW-L23/C567B140:user/release-keys",
+        "9",
         false
     },
-    /* Honor 5x India L22 */
+    /* Honor 5x India L22 (LTE, GSM/WCDMA) */
     {
         "KIW-L22",
         "KIW-L22-user 5.1.1 GRJ90 C675B130 release-keys",
         "HONOR/KIW-L22/HNKIW-Q:5.1.1/HONORKIW-L22/C675B130:user/release-keys",
+        "9",
         false
     },
-    /* Honor 5x EU L21 */
+    /* Honor 5x EU L21 (LTE, GSM/WCDMA) */
     {
         "KIW-L21",
         "KIW-L21-user 5.1.1 GRJ90 C432B130 release-keys",
         "HONOR/KIW-L21/HNKIW-Q:5.1.1/HONORKIW-L21/C432B130:user/release-keys",
+        "9",
         false
     },
-    /* Honor 5x AL10 Chinese */
+    /* Honor 5x AL10 Chinese (TD-SCDMA/LTE/GSM/WCDMA, CDMA, and EvDo) */
     {
         "KIW-AL10",
         "KIW-AL10-user 5.1.1 GRJ90 C92B175 release-keys",
         "HONOR/KIW-AL10/HNKIW-Q:5.1.1/HONORKIW-AL10/C92B175:user/release-keys",
-        false
+        "22",
+        true
     },
-    /* Honor 5x AL20 Chinese */
+    /* Honor 5x AL20 Chinese (TD-SCDMA/LTE/GSM/WCDMA, CDMA, and EvDo) */
     {
         "KIW-AL20",
         "KIW-AL20-user 5.1.1 GRJ90 C432B130 release-keys",
         "HONOR/KIW-AL20/HNKIW-Q:5.1.1/HONORKIW-AL20/C432B130:user/release-keys",
-        false
+        "22",
+        true
     },
-    /* Chinese WCDMA version KIW-UL00 */
+    /* Chinese WCDMA/TD-SCDMA version KIW-UL00 (TD-SCDMA, GSM/WCDMA and LTE) */
     {
         "KIW-UL00",
         "KIW-UL00-user 5.1.1 GRJ90 C00B140 release-keys",
         "HONOR/KIW-UL00/HNKIW-Q:5.1.1/HONORKIW-UL00/C00B140:user/release-keys",
+        "20",
         false
     },
-    /* Chinese CDMA version KIW-CL00 */
+    /* Chinese CDMA version KIW-CL00 (LTE, CDMA and EvDo) */
     {
         "KIW-CL00",
         "KIW-CL00-user 5.1.1 GRJ90 C92B140 release-keys",
         "HONOR/KIW-CL00/HNKIW-Q:5.1.1/HONORKIW-CL00/C92B140:user/release-keys",
+        "8",
         true
     },
-    /* Chinese TD-SCDMA version KIW-TL00H */
+    /* Chinese TD-SCDMA version KIW-TL00H (TD-SCDMA,GSM and LTE) */
     {
         "KIW-TL00H",
         "KIW-TL00H-user 5.1.1 GRJ90 C00B140 release-keys",
         "HONOR/KIW-TL00H/HNKIW-Q:5.1.1/HONORKIW-TL00H/C00B140:user/release-keys",
-        true
+        "17",
+        false
     },
-    /* Chinese TD-SCDMA version KIW-TL00 */
+    /* Chinese TD-SCDMA version KIW-TL00 (TD-SCDMA,GSM and LTE) */
     {
         "KIW-TL00",
         "KIW-TL00-user 5.1.1 GRJ90 C00B140 release-keys",
         "HONOR/KIW-TL00/HNKIW-Q:5.1.1/HONORKIW-TL00/C00B140:user/release-keys",
-        true
+        "17",
+        false
     },
-    /* HUAWEI GR5 version KII-L22 (same as honor, evidently from Japan) */
+    /* HUAWEI GR5 version KII-L22 (same as honor, evidently from Japan) (LTE, GSM/WCDMA) */
     {
         "KII-L22",
         "KII-L22-user 5.1.1 GRJ90 C635B131 release-keys",
         "HUAWEI/KII-L22/HWKII-Q:5.1.1/HUAWEIKII-L22/C635B131:user/release-keys",
+        "9",
         false
     },
-    /* HUAWEI GR5 version KII-L21 (same as honor) */
+    /* HUAWEI GR5 version KII-L21 (same as honor) (LTE, GSM/WCDMA) */
     {
         "KII-L21",
         "KII-L21-user 5.1.1 GRJ90 C185B130 release-keys",
         "HUAWEI/KII-L21/HWKII-Q:5.1.1/HUAWEIKII-L21/C185B130:user/release-keys",
+        "9",
         false
     },
     /* HUAWEI GR5 version KII-L05 (same as honor, from Canada) */
@@ -133,6 +146,7 @@ static match_t matches[] = {
         "KII-L05",
         "KII-L05-user 6.0.1 GRJ90 C654B340 release-keys",
         "HUAWEI/KII-L05/HWKII-Q:6.0.1/HUAWEIKII-L05/C654B340:user/release-keys",
+        "9",
         false
     },
 };
@@ -188,10 +202,11 @@ void vendor_load_properties()
     hwsim = property_get("ro.boot.hwsim");
 
     if (hwsim == "single") {
-        property_set("ro.telephony.default_network", "9");
+        property_set("ro.telephony.default_network", match->default_network);
     } else {
         property_set("persist.radio.multisim.config", "dsds");
         property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-        property_set("ro.telephony.default_network", "9,9");
+        property_set("ro.telephony.default_network", match->default_network + "," +
+                match->default_network);
     }
 }

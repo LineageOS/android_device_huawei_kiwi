@@ -169,7 +169,7 @@
     <!-- The RadioAccessFamilies supported by the device. + Empty is
          viewed as "all".  Only used on devices which + don't support
          RIL_REQUEST_GET_RADIO_CAPABILITY + format is UMTS|LTE|... -->
-    <string translatable="false" name="config_radio_access_family">GSM|UMTS|LTE</string>
+    <string translatable="false" name="config_radio_access_family">GSM|UMTS|LTE|CDMA|EVDO</string>
 
     <!-- Operating voltage for bluetooth controller. 0 by default-->
     <integer name="config_bluetooth_operating_voltage_mv">3300</integer>
