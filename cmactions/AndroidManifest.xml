@@ -6,7 +6,12 @@
     android:sharedUserId="android.uid.system"
     >
 
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
     <uses-sdk
         android:minSdkVersion="23"
@@ -17,8 +22,7 @@
         android:label="@string/device_settings_app_name"
         android:persistent="true"
         android:icon="@mipmap/ic_launcher_settings"
-        android:theme="@android:style/Theme.Material.Settings">
-
+        android:theme="@style/CMActions" >
         <receiver android:name="com.cyanogenmod.settings.device.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -30,6 +34,10 @@
             <intent-filter>
                 <action android:name="ServiceWrapper"/>
             </intent-filter>
+        </service>
+
+        <service android:name="com.cyanogenmod.settings.device.SensorsDozeService"
+                 android:permission="SensorsDozeService">
         </service>
 
         <service android:name="com.cyanogenmod.settings.device.SensorsDozeService"
@@ -51,7 +59,7 @@
         </activity>
 
         <activity
-            android:name=".TouchscreenGestureSettings"
+            android:name=".TouchscreenGestureActivity"
             android:label="@string/screen_gestures_panel_title">
             <intent-filter>
                 <action android:name="com.android.settings.action.EXTRA_SETTINGS" />

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (c) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.cyanogenmod.settings.device;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
 
-public class BootCompletedReceiver extends BroadcastReceiver {
-    static final String TAG = "CMActions";
+import com.android.settingslib.drawer.SettingsDrawerActivity;
 
-    @Override
-    public void onReceive(final Context context, Intent intent) {
-        Log.d(TAG, "Booting");
-        context.startService(new Intent(context, SensorsDozeService.class));
-        // Call here to have the sysnode written / restored
-        CMActionsSettings.updateGestureMode(context);
+public class TouchscreenGestureActivity extends SettingsDrawerActivity {
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getFragmentManager().beginTransaction().replace(R.id.content_frame,
+                new TouchscreenGestureFragment()).commit();
     }
 }
