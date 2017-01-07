@@ -935,9 +935,7 @@ vendor/lib64/hw/gatekeeper.msm8916.so
 
 # GPS
 -lib64/libloc_api_v02.so
--lib64/libloc_ds_api.so
 -lib/libloc_api_v02.so
--lib/libloc_ds_api.so
 vendor/lib64/hw/flp.default.so
 vendor/lib64/libflp.so
 vendor/lib64/libgeofence.so
