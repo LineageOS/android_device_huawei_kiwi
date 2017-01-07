@@ -25,20 +25,21 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+#include <iostream>
+#include <fstream>
+#include <string>
 
 #include "vendor_init.h"
 #include "property_service.h"
 #include "log.h"
 #include "util.h"
 
+using namespace std;
+
 typedef struct {
-    const char *model;
-    const char *description;
-    const char *fingerprint;
+    string model;
+    string description;
+    string fingerprint;
     bool is_cdma;
 } match_t;
 
@@ -127,34 +128,43 @@ static match_t matches[] = {
         "HUAWEI/KII-L21/HWKII-Q:5.1.1/HUAWEIKII-L21/C185B130:user/release-keys",
         false
     },
-    { 0, 0, 0, false }
 };
+
+static const int n_matches = sizeof(matches) / sizeof(matches[0]);
+
+static int property_set(const char *key, string value)
+{
+    return property_set(key, value.c_str());
+}
+
+static bool contains(string str, string substr)
+{
+    return str.find(substr) != string::npos;
+}
 
 void vendor_load_properties()
 {
-    std::string platform;
-    char model[110];
-    std::string hwsim;
-    std::FILE* fp;
+    string platform;
+    string model;
+    string hwsim;
     match_t *match;
 
     platform = property_get("ro.board.platform");
     if (platform != ANDROID_TARGET)
         return;
 
-    fp = std::fopen("/proc/app_info", "rb");
-    if (fp != NULL) {
-        while (std::fgets(model, 100, fp))
-            if (std::strstr(model, "huawei_fac_product_name") != NULL)
-                break;
-        std::fclose(fp);
+    ifstream app_info("/proc/app_info");
+    if (app_info.is_open()) {
+        while (getline(app_info, model) && !contains(model, "huawei_fac_product_name")) {
+        }
+        app_info.close();
     }
 
-    for (match = matches; match->model && std::strstr(model, match->model) == NULL; match++) {
+    for (match = matches; match - matches < n_matches && !contains(model, match->model); match++) {
     }
 
     if (!match) {
-        WARNING("Unknown variant: %s", model);
+        WARNING("Unknown variant: %s", model.c_str());
         return;
     }
 
