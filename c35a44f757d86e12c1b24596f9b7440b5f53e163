@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_4723bb05",
+        "filename": "fingerprint/FingerprintWrapper.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2017-01-08T17:04:31Z",
+      "side": 1,
+      "message": "Duplicated, line 103",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 28
+      },
+      "revId": "c35a44f757d86e12c1b24596f9b7440b5f53e163",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
