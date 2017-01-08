@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_c730cb58",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2017-01-08T16:18:50Z",
+      "side": 1,
+      "message": "derp",
+      "range": {
+        "startLine": 927,
+        "startChar": 28,
+        "endLine": 927,
+        "endChar": 35
+      },
+      "revId": "4619290ffb7ecc1db4cf6bdeae3d02cc570720fc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
