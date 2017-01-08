@@ -121,6 +121,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
+    fingerprint.msm8996.so \
     fingerprintd
 
 # FM
