@@ -36,9 +36,9 @@ public class ProximitySensor implements SensorEventListener {
     private Sensor mProximitySensor;
     private SensorManager mSensorManager;
 
-    public static interface ProximityListener {
-        public abstract void onEvent(boolean isNear, long timestamp);
-        public abstract void onInit(boolean isNear, long timestamp);
+    public interface ProximityListener {
+        void onEvent(boolean isNear, long timestamp);
+        void onInit(boolean isNear, long timestamp);
     }
 
     public ProximitySensor(Context context, SensorManager sensorManager,
@@ -79,7 +79,8 @@ public class ProximitySensor implements SensorEventListener {
 
     public void enable() {
         if (!mEnabled && mProximitySensor != null) {
-            mSensorManager.registerListener(this, mProximitySensor, PROXIMITY_DELAY, PROXIMITY_LATENCY);
+            mSensorManager.registerListener(this, mProximitySensor, PROXIMITY_DELAY,
+                    PROXIMITY_LATENCY);
             mEnabled = true;
         }
     }

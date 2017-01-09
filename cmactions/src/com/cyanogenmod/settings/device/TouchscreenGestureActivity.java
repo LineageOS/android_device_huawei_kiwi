@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016 The CyanogenMod Project
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +16,6 @@
  */
 package com.cyanogenmod.settings.device;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.android.settingslib.drawer.SettingsDrawerActivity;
