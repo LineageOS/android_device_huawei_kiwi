@@ -1,6 +1,8 @@
 allow qti_init_shell bluetooth_data_file:dir rw_dir_perms;
 allow qti_init_shell bluetooth_data_file:file create_file_perms;
 allow qti_init_shell bluetooth_device:chr_file rw_file_perms;
+allow qti_init_shell bluetooth_loader_exec:file r_file_perms;
 allow qti_init_shell btnvtool_exec:file { read getattr open execute execute_no_trans };
 allow qti_init_shell socket_device:sock_file write;
 allow qti_init_shell oeminfo:unix_stream_socket connectto;
+allow qti_init_shell hci_attach_dev:chr_file rw_file_perms;
