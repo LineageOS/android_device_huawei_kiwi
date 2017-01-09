@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_20be5d00",
+        "filename": "sepolicy/init-power-sh.te",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-09T14:38:58Z",
+      "side": 1,
+      "message": "These seem rather broad, I would look at what is triggering them and label what it should be accessing instead of just granting \"everything\".",
+      "revId": "cef7ed41de95fbef98cb0d4c021c85f6a6dc8e93",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_00bb590f",
+        "filename": "sepolicy/system_app.te",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-09T14:38:58Z",
+      "side": 1,
+      "message": "This is a surprising rule to me.  Is it really needed and if so, what is triggering it?",
+      "revId": "cef7ed41de95fbef98cb0d4c021c85f6a6dc8e93",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
