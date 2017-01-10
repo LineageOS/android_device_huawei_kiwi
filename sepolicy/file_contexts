@@ -6,6 +6,7 @@
 /dev/i2c-1                                                 u:object_r:smartamp_device:s0
 /dev/block/platform/soc.0/7824900.sdhci/mmcblk0p18         u:object_r:fsc_block_device:s0
 /dev/block/platform/soc.0/7824900.sdhci/mmcblk0p9          u:object_r:oem_block_device:s0
+/system/bin/signinfolistener                               u:object_r:signinfolistener_exec:s0
 /system/bin/oeminfo_server                                 u:object_r:oeminfo_exec:s0
 /system/bin/teecd                                          u:object_r:tee_exec:s0
 /sbin/huawei_version                                       u:object_r:oeminfo_exec:s0
