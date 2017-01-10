@@ -12,6 +12,5 @@ allow libqmi_oem_main smem_log_device:chr_file { read write ioctl open };
 
 allow libqmi_oem_main log_device:chr_file { write open };
 allow libqmi_oem_main log_device:dir search;
-allow libqmi_oem_main rootfs:file entrypoint;
 
 set_prop(libqmi_oem_main, debug_prop);

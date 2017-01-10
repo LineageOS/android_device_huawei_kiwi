@@ -9,7 +9,6 @@ allow oeminfo self:capability { fowner chown fsetid };
 allow oeminfo log_device:dir r_dir_perms;
 allow oeminfo log_device:chr_file w_file_perms;
 allow oeminfo proc_app_info:file r_file_perms;
-allow oeminfo rootfs:file entrypoint;
 allow oeminfo self:socket { read bind create write ioctl };
 
 set_prop(oeminfo, hw_version_prop);

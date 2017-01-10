@@ -1,7 +1,6 @@
 type signinfolistener, domain;
 type signinfolistener_exec, exec_type, file_type;
 
-allow signinfolistener rootfs:file entrypoint;
 allow signinfolistener tee_device:chr_file rw_file_perms;
 allow signinfolistener fingerprintd:dir r_dir_perms;
 allow signinfolistener fingerprintd:file r_file_perms;
