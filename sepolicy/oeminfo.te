@@ -11,5 +11,8 @@ allow oeminfo log_device:chr_file w_file_perms;
 allow oeminfo rootfs:file entrypoint;
 allow oeminfo self:socket { read bind create write ioctl };
 
+allow oeminfo sysfs:dir r_dir_perms;
+allow oeminfo sysfs:file r_file_perms;
+
 set_prop(oeminfo, hw_version_prop);
 unix_socket_connect(oeminfo, qmuxd, libqmi_oem_main);
