@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_1be50ea8",
+        "filename": "sepolicy/init-power-sh.te",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-10T10:15:14Z",
+      "side": 1,
+      "message": "Can this be improved?\n\n[remove and deal with as a separate commit]",
+      "revId": "8482ae6f48a085efbba81e3ca2fd38408f2aa4bc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_fbe12a9b",
+        "filename": "sepolicy/libqmi_oem_main.te",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-10T10:15:14Z",
+      "side": 1,
+      "message": "This should probably be\n\nset_prop(libqmi_oem_main, debug_prop);\n\nor something like that.\n\n[fix before commit]",
+      "revId": "8482ae6f48a085efbba81e3ca2fd38408f2aa4bc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_3bd8d2ee",
+        "filename": "sepolicy/oeminfo.te",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-01-10T10:15:14Z",
+      "side": 1,
+      "message": "This should probably be labelled and made more precise.\n\n[remove and deal with as a separate commit]",
+      "revId": "8482ae6f48a085efbba81e3ca2fd38408f2aa4bc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
