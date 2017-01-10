@@ -1,5 +1,6 @@
+allow system_server gesture_sysfs:file rw_file_perms;
+allow system_server proc_app_info:file r_file_perms;
+
 allow system_server shell_exec:file { read execute open execute_no_trans };
 allow system_server oeminfo:unix_stream_socket connectto;
-allow system_server gesture_sysfs:file rw_file_perms;
-
 unix_socket_connect(system_server, qmuxd, libqmi_oem_main);
