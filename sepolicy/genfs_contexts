@@ -1,0 +1,1 @@
+genfscon proc /app_info u:object_r:proc_app_info:s0
