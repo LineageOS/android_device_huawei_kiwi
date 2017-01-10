@@ -196,10 +196,9 @@ on property:debug.rt.ddr.test=3
 on property:debug.rt.ddr.test=4
     start stop_ddrtest
 
-service rmt_oeminfo /sbin/rmt_oeminfo
+service rmt_oeminfo /system/bin/rmt_oeminfo
     class core
     user root
-    seclabel u:r:oeminfo:s0
 
 service teecd /system/bin/teecd
     class core
@@ -210,11 +209,9 @@ service signinfolistener /system/bin/signinfolistener
     class core
     user system
     group system readproc
-    seclabel u:r:signinfolistener:s0
 
-service libqmi_oem_main /sbin/libqmi_oem_main
+service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
-    seclabel u:r:libqmi_oem_main:s0
     group wakelock
 
 service rebootmgr /system/bin/rebootmgr
@@ -246,11 +243,10 @@ service bt_power_off /system/xbin/bt_power_off
     disabled
     oneshot
 
-service huawei_version /sbin/huawei_version
+service huawei_version /system/bin/huawei_version
     class core
     user root
     oneshot
-    seclabel u:r:oeminfo:s0
 
 service test_diag /sbin/test_diag
     user root

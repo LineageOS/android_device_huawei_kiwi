@@ -1,4 +1,3 @@
 allow rmt_storage log_device:chr_file { write open };
-allow rmt_storage rootfs:file entrypoint;
 allow rmt_storage log_device:dir search;
 
