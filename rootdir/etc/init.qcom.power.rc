@@ -9,6 +9,7 @@ on enable-low-power
     write /sys/class/net/rmnet0/queues/rx-0/rps_cpus 10
 
     # Adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/adj_max_shift 606
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
 
