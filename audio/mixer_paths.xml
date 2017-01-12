@@ -88,7 +88,11 @@
     <ctl name="EAR PA Gain" value="POS_1P5_DB" />
     <ctl name="MI2S_RX Channels" value="One" />
     <ctl name="MI2S_TX Channels" value="One" />
+<!--
+      Remove this control because our amplifier HAL controls it
+      externally to what is done with mixer-paths
     <ctl name="Initial external PA" value="disable" />
+  -->
 
     <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia1" value="0" />
     <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia1" value="0" />
