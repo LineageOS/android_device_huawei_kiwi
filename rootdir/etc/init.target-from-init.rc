@@ -129,6 +129,8 @@ on post-fs-data
     chown system system /sys/class/power_supply/battery/input_current_max
 
     chown system system /sys/devices/8789.huawei_hall_sensor/enable_hall_sensor
+    # Don't let blobs disable this sensor
+    chmod 000 /sys/devices/8789.huawei_hall_sensor/enable_hall_sensor
     chown system system /sys/devices/8789.huawei_hall_sensor/camera_overturn_num
     chown system system /sys/devices/8789.huawei_hall_sensor/get_camera_status
     chown system system /sys/devices/8789.huawei_hall_sensor/mmi_camera_hall_status
