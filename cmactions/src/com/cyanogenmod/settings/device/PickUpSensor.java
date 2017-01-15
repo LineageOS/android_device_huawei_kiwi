@@ -41,9 +41,9 @@ public class PickUpSensor implements SensorEventListener {
     private PickUpListener mPickUpListener;
     private SensorManager mSensorManager;
 
-    public static interface PickUpListener {
-        public abstract void onEvent();
-        public abstract void onInit();
+    public interface PickUpListener {
+        void onEvent();
+        void onInit();
     }
 
     public boolean isPickedUp() {
@@ -79,9 +79,9 @@ public class PickUpSensor implements SensorEventListener {
                 }
             }
         }
-        // Device is layed down
+        // Device is put down
         else if (mState != PICK_UP_FALSE) {
-            mState = mState = PICK_UP_FALSE;
+            mState = PICK_UP_FALSE;
             if (mReady) {
                 mPickUpListener.onEvent();
             }

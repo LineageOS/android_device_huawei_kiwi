@@ -1,3 +1,4 @@
 type bluetooth_device, dev_type;
 type fingerprint_sysfs, sysfs_type, file_type;
 type gesture_sysfs, sysfs_type, file_type;
+type proc_app_info, file_type;

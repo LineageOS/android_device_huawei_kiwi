@@ -45,8 +45,8 @@ public class OrientationSensor implements SensorEventListener {
     private Sensor mMagneticFieldSensor;
     private SensorManager mSensorManager;
 
-    public static interface OrientationListener {
-        public abstract void onEvent();
+    public interface OrientationListener {
+        void onEvent();
     }
 
     public boolean isFaceDown() {
