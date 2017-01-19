@@ -128,6 +128,13 @@ static match_t matches[] = {
         "HUAWEI/KII-L21/HWKII-Q:5.1.1/HUAWEIKII-L21/C185B130:user/release-keys",
         false
     },
+    /* HUAWEI GR5 version KII-L05 (same as honor, from Canada) */
+    {
+        "KII-L05",
+        "KII-L05-user 6.0.1 GRJ90 C654B340 release-keys",
+        "HUAWEI/KII-L05/HWKII-Q:6.0.1/HUAWEIKII-L05/C654B340:user/release-keys",
+        false
+    },
 };
 
 static const int n_matches = sizeof(matches) / sizeof(matches[0]);
