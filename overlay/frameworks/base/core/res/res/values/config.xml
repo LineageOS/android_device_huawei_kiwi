@@ -170,11 +170,6 @@
          RIL_REQUEST_GET_RADIO_CAPABILITY + format is UMTS|LTE|... -->
     <string translatable="false" name="config_radio_access_family">GSM|UMTS|LTE</string>
 
-    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
-         it causes the device to wake up.
-         The default is false. -->
-    <bool name="config_lidControlsSleep">true</bool>
-
     <!-- Operating voltage for bluetooth controller. 0 by default-->
     <integer name="config_bluetooth_operating_voltage_mv">3300</integer>
 
