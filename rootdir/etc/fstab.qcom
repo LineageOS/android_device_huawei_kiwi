@@ -19,3 +19,4 @@
 /dev/block/bootdevice/by-name/pad        /persistent        emmc     defaults                                                     defaults
 /dev/block/bootdevice/by-name/boot       /boot              emmc     defaults                                                     recoveryonly
 /dev/block/bootdevice/by-name/recovery   /recovery          emmc     defaults                                                     recoveryonly
+/dev/block/bootdevice/by-name/misc       /misc              emmc     defaults                                                     defaults
