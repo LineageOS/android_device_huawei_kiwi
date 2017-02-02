@@ -113,6 +113,10 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     memtrack.msm8916
 
+# Doze
+PRODUCT_PACKAGES += \
+   KiwiDoze
+
 # Filesystem
 PRODUCT_PACKAGES += \
     e2fsck \
@@ -156,11 +160,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/cyttsp5_mt.kl:system/usr/keylayout/cyttsp5_mt.kl \
     $(LOCAL_PATH)/keylayout/goodix.kl:system/usr/keylayout/goodix.kl \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
-
-# Keyhandler
-PRODUCT_PACKAGES += \
-    CMActions \
-    com.cyanogenmod.keyhandler
 
 # Lights
 PRODUCT_PACKAGES += \
