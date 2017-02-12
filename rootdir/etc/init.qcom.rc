@@ -297,11 +297,6 @@ service rmt_storage /system/bin/rmt_storage
     group wakelock
     seclabel u:r:rmt_storage:s0
 
-service rfs_access /system/bin/rfs_access
-   class core
-   user root
-   group system net_raw wakelock
-
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
     user root
