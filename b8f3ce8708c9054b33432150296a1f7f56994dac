@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa5d592f_fe67e9e8",
+        "filename": "sepolicy/libqmi_oem_main.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-02-15T19:35:49Z",
+      "side": 1,
+      "message": "What is it reading?\n\nThis would probably be better as r_file_perns.",
+      "revId": "b8f3ce8708c9054b33432150296a1f7f56994dac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa5d592f_de6425e7",
+        "filename": "sepolicy/rmt_storage.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-02-15T19:35:49Z",
+      "side": 1,
+      "message": "Do we actually need the DAC_override?  I assume you added that because it was a denial, but I wanted to verify that you didn\u0027t just add the two perms that were deleted...",
+      "revId": "b8f3ce8708c9054b33432150296a1f7f56994dac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
