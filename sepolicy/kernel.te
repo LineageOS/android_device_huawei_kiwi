@@ -6,3 +6,5 @@ allow kernel log_device:file { read write open };
 
 # ashmem shrinker causes this denial from kswapd
 allow kernel untrusted_app:fd use;
+
+allow kernel untrusted_app_tmpfs:file write;
