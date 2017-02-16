@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa5d592f_b9aceb8d",
+        "filename": "sepolicy/libqmi_oem_main.te",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-02-16T00:20:20Z",
+      "side": 1,
+      "message": "I missed this on the first review.  These two look like they should be rw_file_dir_perms (or whatever the right macro name is).  But that would be better as a separate commit anyway.",
+      "revId": "a19a1d1084d426260e65628be5e44ef5a0523d30",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
