@@ -130,7 +130,7 @@ int power_hint_override(struct power_module *module __unused, power_hint_t hint,
         return HINT_HANDLED;
     }
 
-    if (hint == POWER_HINT_LAUNCH_BOOST) {
+    if (hint == POWER_HINT_LAUNCH) {
         int duration = LAUNCH_BOOST_DURATION_MS;
         int resources[] = { SCHED_BOOST_ON, 0x20F, 0x101, 0x1C00, 0x3E01, 0x4001, 0x4101, 0x4201 };
 
