@@ -49,24 +49,16 @@ on post-fs-data
     start goldeneye_test
 
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
-    chown system system /sys/touch_screen/touch_mmi_test
-    chown system system /sys/touch_screen/touch_calibration
-    chown system system /sys/touch_screen/synaptics_mmi_test_result
-    chown system system /sys/touch_screen/synaptics_mmi_test
     chown system system /sys/touch_screen/holster_touch_window
-    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity
-    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold 
     chown system system /sys/touch_screen/glove_func/signal_disparity
-    chown system system /sys/touch_screen/glove_func/holster_sensitivity
-    chown system system /sys/touch_screen/glove_func/finger_threshold 
     chown system system /sys/touch_screen/easy_wakeup_gesture
     chown system system /sys/touch_screen/easy_wakeup_supported_gestures
     chown system system /sys/touch_screen/easy_wakeup_position
-    chown system system /sys/touch_screen/openshort
 
     chown system system /sys/touch_screen/cyttsp5/command
     chown system system /sys/touch_screen/cyttsp5/status
     chown system system /sys/touch_screen/cyttsp5/response
+    chown system system /sys/touch_screen/touch_mmi_test
     chown system system /sys/touch_screen/touch_mmi_test/calibrate_idacs
     chown system system /sys/touch_screen/touch_mmi_test/disable_single_tx
     chown system system /sys/touch_screen/touch_mmi_test/enable_single_tx
@@ -223,28 +215,6 @@ service rebootmgr /system/bin/rebootmgr
 
 # disable enable_swap
 
-service wifi_aging /system/xbin/wifi_aging
-    user root
-    disabled
-    oneshot
-
-service wifi_power_off /system/xbin/wifi_power_off
-    user root
-    disabled
-    oneshot
-
-service bt_aging /system/xbin/bt_aging
-    user root
-    group bluetooth net_bt_admin system
-    disabled
-    oneshot
-
-service bt_power_off /system/xbin/bt_power_off
-    user root
-    group bluetooth net_bt_admin system
-    disabled
-    oneshot
-
 service huawei_version /system/bin/huawei_version
     class core
     user root
@@ -254,13 +224,6 @@ service test_diag /sbin/test_diag
     user root
     disabled
     seclabel u:r:test_diag:s0
-
-service send_data_srv /system/bin/send_data_srv
-    class core
-    user system
-    group system
-    disabled
-    oneshot
 
 on property:ro.runmode=factory
     start send_data_srv
