@@ -78,16 +78,6 @@ on property:persist.usb.chgdisabled=1
 on property:persist.usb.chgdisabled=0
     write /sys/class/power_supply/battery/charging_enabled 1
 
-service qrngp /system/bin/qrngp -f
-   class main
-   user root
-   group root
-   oneshot
-   disabled
-
-on property:sys.boot_completed=1
-   start qrngp
-
 service qseecomd /system/bin/qseecomd
    class core
    user root
@@ -151,23 +141,6 @@ service imsqmidaemon /system/bin/imsqmidaemon
     user system
     socket ims_qmid stream 0660 system radio
     group radio net_raw log qcom_diag
-
-service ims_rtp_daemon /system/bin/ims_rtp_daemon
-   class main
-   user system
-   socket ims_rtpd stream 0660 system radio
-   group radio net_raw diag qcom_diag log
-   disabled
-
-service imscmservice /system/bin/imscmservice
-   class main
-   user system
-   group radio net_raw diag qcom_diag log
-   disabled
-
-on property:sys.ims.DATA_DAEMON_STATUS=1
-    start ims_rtp_daemon
-    start imscmservice
 
 on charger-fs
     mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
