@@ -45,28 +45,17 @@ on post-fs-data
 
     mkdir /data/midi 0770 media audio
 
-    start goldeneye
-    start goldeneye_test
-
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
-    chown system system /sys/touch_screen/touch_mmi_test
-    chown system system /sys/touch_screen/touch_calibration
-    chown system system /sys/touch_screen/synaptics_mmi_test_result
-    chown system system /sys/touch_screen/synaptics_mmi_test
     chown system system /sys/touch_screen/holster_touch_window
-    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity
-    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold 
     chown system system /sys/touch_screen/glove_func/signal_disparity
-    chown system system /sys/touch_screen/glove_func/holster_sensitivity
-    chown system system /sys/touch_screen/glove_func/finger_threshold 
     chown system system /sys/touch_screen/easy_wakeup_gesture
     chown system system /sys/touch_screen/easy_wakeup_supported_gestures
     chown system system /sys/touch_screen/easy_wakeup_position
-    chown system system /sys/touch_screen/openshort
 
     chown system system /sys/touch_screen/cyttsp5/command
     chown system system /sys/touch_screen/cyttsp5/status
     chown system system /sys/touch_screen/cyttsp5/response
+    chown system system /sys/touch_screen/touch_mmi_test
     chown system system /sys/touch_screen/touch_mmi_test/calibrate_idacs
     chown system system /sys/touch_screen/touch_mmi_test/disable_single_tx
     chown system system /sys/touch_screen/touch_mmi_test/enable_single_tx
@@ -143,27 +132,7 @@ on post-fs-data
     chown system system /sys/class/graphics/fb0/lcd_comform_mode
     chown system system /sys/class/graphics/fb0/lcd_support_mode
 
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_calib_target
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_calibration
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_device_name
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_enable
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_force_calib
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_reg_read
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_reg_write
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_status
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_prox_status
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_cap_value
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_sw_reset
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_threshold
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_calib
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_config
-    chown system system /sys/bus/i2c/devices/0-002c/adux1050_vendor
     mkdir /data/log/sar_cap system system
-    chown system system /sys/bus/i2c/devices/0-001e/ps_calibration
-    chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration
-    chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration_result
-    chown system system /sys/bus/i2c/devices/0-001e/dump_reg
-    chown system system /sys/bus/i2c/devices/0-001e/pdata
     chown system system /sys/bus/i2c/devices/0-0038/module_tpcolor
     chown system system /sys/bus/i2c/devices/0-0052/module_tpcolor
     chown media media /sys/bus/platform/drivers/qcom,ois/0.qcom,ois/ois_pixel
@@ -177,26 +146,6 @@ service drm /system/bin/drmserver
     class main
     user drm
     group drm system inet drmrpc sdcard_rw media_rw shell
-
-service ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
-
-service stop_ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
-
-on property:debug.rt.ddr.test=1
-    stop ddrtest
-    start ddrtest
-on property:debug.rt.ddr.test=2
-    start ddrtest
-on property:debug.rt.ddr.test=3
-    start ddrtest
-on property:debug.rt.ddr.test=4
-    start stop_ddrtest
 
 service rmt_oeminfo /system/bin/rmt_oeminfo
     class core
@@ -216,54 +165,14 @@ service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
     group wakelock
 
-service rebootmgr /system/bin/rebootmgr
-    class core
-    oneshot
-    disabled
-
 # disable enable_swap
-
-service wifi_aging /system/xbin/wifi_aging
-    user root
-    disabled
-    oneshot
-
-service wifi_power_off /system/xbin/wifi_power_off
-    user root
-    disabled
-    oneshot
-
-service bt_aging /system/xbin/bt_aging
-    user root
-    group bluetooth net_bt_admin system
-    disabled
-    oneshot
-
-service bt_power_off /system/xbin/bt_power_off
-    user root
-    group bluetooth net_bt_admin system
-    disabled
-    oneshot
 
 service huawei_version /system/bin/huawei_version
     class core
     user root
     oneshot
 
-service test_diag /sbin/test_diag
-    user root
-    disabled
-    seclabel u:r:test_diag:s0
-
-service send_data_srv /system/bin/send_data_srv
-    class core
-    user system
-    group system
-    disabled
-    oneshot
-
 on property:ro.runmode=factory
-    start send_data_srv
     mkdir /data/img 0777 media media
     mkdir /data/camera 0777 camera camera
     mkdir /data/misp 0777 root root
@@ -272,9 +181,6 @@ on property:ro.runmode=factory
 on property:persist.sys.hlcharging=true
     write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
     mkdir system/etc/tp_test_parameters
-
-on property:ro.cust.complete="true"
-    start  rebootmgr
 
 on property:hw.accel.calib="true"
     chmod 0664 /dev/input/event*
