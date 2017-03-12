@@ -196,9 +196,6 @@
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
 
-    <!-- Disable IpReachability monitor -->
-    <bool name="config_wifi_ipreachability_monitor">false</bool>
-
     <!-- ComponentName of a dream to show whenever the system would otherwise have
          gone to sleep.  When the PowerManager is asked to go to sleep, it will instead
          try to start this dream if possible.  The dream should typically call startDozing()
