@@ -10,7 +10,7 @@ on enable-low-power
 
     # Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/adj_max_shift 606
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 0
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
 
     # HMP scheduler load tracking settings
