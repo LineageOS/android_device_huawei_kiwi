@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba57610f_70178b52",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-03-23T23:07:48Z",
+      "side": 1,
+      "message": "Isn\u0027t \"false\" the default?  If so, it\u0027s probably better to just delete this line instead of forcing it to false.",
+      "revId": "b5f81ac1dd489d48521ffdd123439f2d935b7523",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
