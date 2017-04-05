@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a51691d_49ee4524",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-04-05T15:48:33Z",
+      "side": 1,
+      "message": "I don\u0027t believe that you need to add the HW_PATH, it is found automatically by the lineage build at this location.",
+      "revId": "23a20cb781a1617f6e00717682f8a0452a389b60",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a51691d_29f3090c",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-04-05T15:48:33Z",
+      "side": 1,
+      "message": "I believe that this is built from vendor/qcom/opensource/libcryptfs_hw and not needed as a proprietary blob.",
+      "revId": "23a20cb781a1617f6e00717682f8a0452a389b60",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
