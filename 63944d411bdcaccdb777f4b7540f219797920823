@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a51691d_0ce29b03",
+        "filename": "proprietary-files.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2017-04-06T13:18:31Z",
+      "side": 1,
+      "message": "No, you really don\u0027t need this.\n\nIt is built in vendor/qcom/opensource/libcryptfs_hw in lineage and if you are adding this because you are building twrp in omni then it is built from device/qcom/common/libcryptfs_hw in that case.",
+      "revId": "63944d411bdcaccdb777f4b7540f219797920823",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
