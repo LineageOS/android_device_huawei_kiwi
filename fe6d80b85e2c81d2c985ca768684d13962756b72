@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a486d77_72b686de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 11801
+      },
+      "writtenOn": "2017-04-26T21:56:13Z",
+      "side": 1,
+      "message": "Please fix spacing here\n\"* Fixes camera on `user` build\"",
+      "revId": "fe6d80b85e2c81d2c985ca768684d13962756b72",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
