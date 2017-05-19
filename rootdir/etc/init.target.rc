@@ -27,8 +27,8 @@
 #
 #
 
-import /init.target-from-init.rc
-import /init.qcom.power.rc
+import /vendor/etc/init/hw/init.target-from-init.rc
+import /vendor/etc/init/hw/init.qcom.power.rc
 
 on early-init
     mkdir /firmware 0771 system system
