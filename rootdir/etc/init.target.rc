@@ -42,7 +42,6 @@ on fs
 
     mount_all /vendor/etc/fstab.qcom --early
 
-    swapon_all /vendor/etc/fstab.qcom
     write /proc/sys/vm/page-cluster 0
 
     mkdir /persist/data 0700 system system
@@ -74,6 +73,8 @@ on property:sys.boot_completed=1
     write /sys/block/mmcblk0/queue/nr_requests 128
     write /sys/block/mmcblk0/queue/iostats 1 
     write /sys/block/mmcblk1/queue/read_ahead_kb 128
+    # Enable ZRAM on boot_complete
+    swapon_all /vendor/etc/fstab.qcom
 
 on post-fs-data
     mkdir /data/tombstones 0771 system system
@@ -145,7 +146,6 @@ on charger-fs
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     write /sys/class/android_usb/android0/f_ffs/aliases adb
-    mount vfat /dev/block/bootdevice/by-name/log /log uid=1000,gid=1007
 
 on charger
     wait /dev/block/bootdevice/by-name/system
