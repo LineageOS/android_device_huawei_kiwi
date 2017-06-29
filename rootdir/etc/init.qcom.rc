@@ -268,7 +268,7 @@ service irsc_util /system/vendor/bin/irsc_util "/system/vendor/etc/sec_config"
 service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
-    group wakelock
+    group system wakelock
     seclabel u:r:rmt_storage:s0
 
 service hciattach /system/vendor/bin/init.qcom.bt.sh
