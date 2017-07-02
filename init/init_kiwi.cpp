@@ -167,9 +167,9 @@ static match_t matches[] = {
 
 static const int n_matches = sizeof(matches) / sizeof(matches[0]);
 
-static int property_set(const char *key, string value)
+static void property_set(const char *key, string value)
 {
-    return property_set(key, value.c_str());
+    property_override(key, value.c_str());
 }
 
 static bool contains(string str, string substr)
