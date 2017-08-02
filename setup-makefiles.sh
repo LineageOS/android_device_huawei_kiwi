@@ -45,5 +45,10 @@ write_headers
 # The blobs
 write_makefiles "$MY_DIR"/proprietary-files.txt
 
+# Blobs for TWRP data decryption
+cat << EOF >> "$BOARDMK"
+TARGET_RECOVERY_DEVICE_DIRS += vendor/$VENDOR/$DEVICE/proprietary
+EOF
+
 # We are done!
 write_footers

@@ -164,6 +164,11 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/bin/signinfolistener|libshim_signinfolistener.so:\
     /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so
 
+# TWRP
+TARGET_RECOVERY_DEVICE_DIRS += device/huawei/kiwi/twrp
+TW_INCLUDE_CRYPTO := true
+TW_THEME := portrait_hdpi
+
 # Vendor Init
 TARGET_INIT_VENDOR_LIB := libinit_kiwi
 
