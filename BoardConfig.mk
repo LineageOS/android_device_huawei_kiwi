@@ -163,6 +163,11 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/bin/signinfolistener|libshim_signinfolistener.so:\
     /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so
 
+# TWRP
+ifeq ($(WITH_TWRP),true)
+include $(DEVICE_PATH)/twrp.mk
+endif
+
 # Vendor Init
 TARGET_INIT_VENDOR_LIB := libinit_kiwi
 
