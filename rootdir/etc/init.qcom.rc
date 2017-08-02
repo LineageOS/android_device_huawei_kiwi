@@ -265,6 +265,7 @@ service rmt_storage /system/vendor/bin/rmt_storage
     user root
     group system wakelock
     seclabel u:r:rmt_storage:s0
+    shutdown critical
 
 service hciattach /system/vendor/bin/init.qcom.bt.sh
     class late_start
