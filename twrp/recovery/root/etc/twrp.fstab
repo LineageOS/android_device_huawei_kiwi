@@ -1,0 +1,13 @@
+/boot         emmc   /dev/block/bootdevice/by-name/boot
+/firmware     vfat   /dev/block/bootdevice/by-name/modem      flags=mounttodecrypt;fsflags=ro
+/cache        ext4   /dev/block/bootdevice/by-name/cache
+/data         ext4   /dev/block/bootdevice/by-name/userdata   flags=encryptable=footer
+/recovery     emmc   /dev/block/bootdevice/by-name/recovery   flags=backup=1
+/misc         emmc   /dev/block/bootdevice/by-name/misc
+/system       ext4   /dev/block/bootdevice/by-name/system
+/cust         ext4   /dev/block/bootdevice/by-name/cust
+/efs1         emmc   /dev/block/bootdevice/by-name/modemst1   flags=backup=1;display=EFS
+/efs2         emmc   /dev/block/bootdevice/by-name/modemst2   flags=backup=1;subpartitionof=/efs1
+
+/external_sd  vfat   /dev/block/mmcblk1p1 /dev/block/mmcblk1  flags=display="Micro SDcard";storage;wipeingui;removable;encryptable=userdata
+/usb-otg      vfat   /dev/block/sda1      /dev/block/sda      flags=removable;storage;display=USB-OTG
