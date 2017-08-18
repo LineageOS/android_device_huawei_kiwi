@@ -26,6 +26,9 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <string>
+#include <vector>
+
 #include "edify/expr.h"
 
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -201,9 +204,10 @@ err_ret:
 }
 
 /* verify_baseband("BASEBAND_VERSION", "BASEBAND_VERSION", ...) */
-Value * VerifyBasebandFn(const char *name, State *state, int argc, Expr *argv[]) {
+Value * VerifyBasebandFn(const char *name, State *state,
+                     const std::vector<std::unique_ptr<Expr>>& argv) {
     char current_baseband_version[BASEBAND_VER_BUF_LEN];
-    int i, ret;
+    int ret;
 
     ret = get_baseband_version(current_baseband_version, BASEBAND_VER_BUF_LEN);
     if (ret) {
@@ -211,37 +215,27 @@ Value * VerifyBasebandFn(const char *name, State *state, int argc, Expr *argv[])
                 name, ret);
     }
 
-    char** baseband_version = ReadVarArgs(state, argc, argv);
-    if (baseband_version == NULL) {
+    std::vector<std::string> args;
+    if (!ReadArgs(state, argv, &args)) {
         return ErrorAbort(state, kArgsParsingFailure, "%s() error parsing arguments", name);
     }
 
     ret = 0;
-    for (i = 0; i < argc; i++) {
-        uiPrintf(state, "Comparing baseband version %s to %s",
-                 baseband_version[i], current_baseband_version);
-        if (strncmp(baseband_version[i], current_baseband_version, strlen(baseband_version[i])) == 0) {
+    for (auto& baseband_version : args) {
+        if (strncmp(baseband_version.c_str(), current_baseband_version, strlen(baseband_version.c_str())) == 0) {
             ret = 1;
             break;
         }
     }
 
-    if (ret == 0) {
-        uiPrintf(state, "ERROR: It appears you are running an unsupported baseband.");
-    }
-
-    for (i = 0; i < argc; i++) {
-        free(baseband_version[i]);
-    }
-    free(baseband_version);
-
     return StringValue(strdup(ret ? "1" : "0"));
 }
 
 /* verify_trustzone("TZ_VERSION", "TZ_VERSION", ...) */
-Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]) {
+Value * VerifyTrustZoneFn(const char *name, State *state,
+                     const std::vector<std::unique_ptr<Expr>>& argv) {
     char current_tz_version[TZ_VER_BUF_LEN];
-    int i, ret;
+    int ret;
 
     ret = get_tz_version(current_tz_version, TZ_VER_BUF_LEN);
     if (ret) {
@@ -249,29 +243,18 @@ Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]
                 name, ret);
     }
 
-    char** tz_version = ReadVarArgs(state, argc, argv);
-    if (tz_version == NULL) {
+    std::vector<std::string> args;
+    if (!ReadArgs(state, argv, &args)) {
         return ErrorAbort(state, kArgsParsingFailure, "%s() error parsing arguments", name);
     }
 
     ret = 0;
-    for (i = 0; i < argc; i++) {
-        uiPrintf(state, "Comparing TZ version %s to %s",
-                tz_version[i], current_tz_version);
-        if (strncmp(tz_version[i], current_tz_version, strlen(tz_version[i])) == 0) {
+    for (auto& tz_version : args) {
+        if (strncmp(tz_version.c_str(), current_tz_version, strlen(tz_version.c_str())) == 0) {
             ret = 1;
             break;
         }
     }
-
-    if (ret == 0) {
-        uiPrintf(state, "ERROR: It appears you are running an unsupported TZ.");
-    }
-
-    for (i = 0; i < argc; i++) {
-        free(tz_version[i]);
-    }
-    free(tz_version);
 
     return StringValue(strdup(ret ? "1" : "0"));
 }
