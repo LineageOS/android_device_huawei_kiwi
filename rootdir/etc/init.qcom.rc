@@ -378,8 +378,3 @@ service preparesdservice /system/bin/vdc volume storagetosd
 
 on property:persist.sys.primarysd=*
    start preparesdservice
-
-service fingerprintd /system/bin/fingerprintd
-    class late_start
-    user system
-    group system input
