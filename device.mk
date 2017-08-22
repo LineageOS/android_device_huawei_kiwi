@@ -135,7 +135,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    fingerprintd
+    android.hardware.biometrics.fingerprint@1.0-service.kiwi
 
 # FlipFlap
 PRODUCT_PACKAGES += \
