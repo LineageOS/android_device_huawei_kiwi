@@ -34,3 +34,9 @@ LOCAL_SHARED_LIBRARIES := libloc_core
 LOCAL_MODULE := libshim_libloc
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := flp.c
+LOCAL_MODULE := libshim_flp
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
