@@ -472,17 +472,11 @@ vendor/lib64/hw/gatekeeper.msm8916.so
 
 # GPS
 -lib64/libloc_api_v02.so
--lib/libloc_api_v02.so
 vendor/lib64/hw/flp.default.so|22300e06491cb1fdf9bbf8c816d3c789790d09b9
 vendor/lib64/libflp.so|4bd0052875205a4b106169ddd8451e2e0151a7fe
 vendor/lib64/libgeofence.so|5be57ed7ddb8005a06a0779c3104cacaf52f607b
 vendor/lib64/libizat_core.so|2516fd1cbaa2e2ec9e374076c907ab3aed345ba5
 vendor/lib64/liblbs_core.so|60f08a78db2f1e70b66b80c781d494d49aaf7773
-vendor/lib/hw/flp.default.so|6d0fbc257f55373274a970f7081c3504a0a5178f
-vendor/lib/libflp.so|aec819da2d22967c4b2c49ca55b4f3f74c4af0f8
-vendor/lib/libgeofence.so|b91de149da071fddb42772bb10439077d7b0b39a
-vendor/lib/libizat_core.so|bf23714f97dbe611148c592c6677ee0171d36336
-vendor/lib/liblbs_core.so|30c760ea301230e3205c077cbd3d4f507548183e
 
 # Graphics - from crackling
 vendor/lib64/egl/eglsubAndroid.so|1043fd1935186ef1d54328e17bbbce810ba8e8fa
