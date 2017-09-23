@@ -69,30 +69,25 @@ Light::Light(std::ofstream&& backlight) :
 
 // Methods from ::android::hardware::light::V2_0::ILight follow.
 Return<Status> Light::setLight(Type type, const LightState& state) {
-    if (mLights.find(type) != mLights.end()) {
-        mLights.at(type)(state);
-        return Status::SUCCESS;
+    auto it = mLights.find(type);
+
+    if (it == mLights.end()) {
+        return Status::LIGHT_NOT_SUPPORTED;
     }
-    return Status::LIGHT_NOT_SUPPORTED;
+
+    it->second(state);
+
+    return Status::SUCCESS;
 }
 
 Return<void> Light::getSupportedTypes(getSupportedTypes_cb _hidl_cb) {
-    Type *types = new Type[mLights.size()];
-    int idx = 0;
+    std::vector<Type> types;
 
-    for (auto const &kv : mLights) {
-        Type t = kv.first;
-        types[idx++] = t;
+    for (auto const& light : mLights) {
+        types.push_back(light.first);
     }
 
-    {
-        hidl_vec<Type> hidl_types{};
-        hidl_types.setToExternal(types, mLights.size());
-
-        _hidl_cb(hidl_types);
-    }
-
-    delete[] types;
+    _hidl_cb(types);
 
     return Void();
 }
