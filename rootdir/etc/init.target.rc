@@ -137,7 +137,7 @@ on property:init.svc.surfaceflinger=stopped
 on property:init.svc.surfaceflinger=running
     start ppd
 
-service wcnss-service /system/bin/wcnss_service
+service wcnss-service /vendor/bin/wcnss_service
     class main
     user system
     group system wifi radio
