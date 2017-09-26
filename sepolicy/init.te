@@ -17,3 +17,6 @@ allow init vfat:dir search;
 allow init oem_block_device:blk_file write;
 allow init gesture_sysfs:file setattr;
 allow init fingerprint_sysfs:file setattr;
+
+# required for LD_SHIM_LIBS
+allow init { domain -lmkd -crash_dump }:process noatsecure;
