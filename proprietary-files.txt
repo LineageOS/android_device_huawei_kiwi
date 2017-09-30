@@ -458,8 +458,6 @@ etc/firmware/a420_pm4.fw:vendor/firmware/a420_pm4.fw
 vendor/lib64/hw/keystore.msm8916.so
 
 # Media
-vendor/lib/libI420colorconvert.so
-vendor/lib/libmm-color-convertor.so
 vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
