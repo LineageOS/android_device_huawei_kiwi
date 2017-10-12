@@ -28,15 +28,16 @@
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
+#include <android-base/logging.h>
+#include <android-base/properties.h>
 #include <iostream>
 #include <fstream>
 #include <string>
 
 #include "vendor_init.h"
 #include "property_service.h"
-#include "log.h"
-#include "util.h"
 
+using android::base::GetProperty;
 using namespace std;
 
 typedef struct {
@@ -184,7 +185,7 @@ void vendor_load_properties()
     string hwsim;
     match_t *match;
 
-    platform = property_get("ro.board.platform");
+    platform = GetProperty("ro.board.platform", "");
     if (platform != ANDROID_TARGET)
         return;
 
@@ -199,7 +200,7 @@ void vendor_load_properties()
     }
 
     if (!match) {
-        WARNING("Unknown variant: %s", model.c_str());
+        LOG(WARNING) << "Unknown variant: " << model.c_str();
         return;
     }
 
@@ -213,7 +214,7 @@ void vendor_load_properties()
     }
 
     // Fix single sim variant based on property set by the bootloader
-    hwsim = property_get("ro.boot.hwsim");
+    hwsim = GetProperty("ro.boot.hwsim", "");
 
     if (hwsim == "single") {
         property_set("ro.telephony.default_network", match->default_network);
