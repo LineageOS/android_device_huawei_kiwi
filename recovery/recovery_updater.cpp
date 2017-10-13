@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2015, The CyanogenMod Project
+ * Copyright (C) 2015-2016, The CyanogenMod Project
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +26,10 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <string>
+#include <vector>
+
 #include "edify/expr.h"
-#include "updater/install.h"
 
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -151,32 +154,31 @@ err_ret:
 }
 
 /* verify_trustzone("TZ_VERSION", "TZ_VERSION", ...) */
-Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]) {
+Value* VerifyTrustZoneFn(const char* name, State* state,
+                     const std::vector<std::unique_ptr<Expr>>& argv) {
     char current_tz_version[TZ_VER_BUF_LEN];
     char *tz_version;
-    int i, ret;
+    int ret;
 
     ret = get_tz_version(current_tz_version, TZ_VER_BUF_LEN);
     if (ret) {
-        return ErrorAbort(state, "%s() failed to read current TZ version: %d",
+        return ErrorAbort(state, kArgsParsingFailure, "%s() failed to read current TZ version: %d",
                 name, ret);
     }
 
-    for (i = 0; i < argc; i++) {
-        ret = ReadArgs(state, &argv[i], 1, &tz_version);
-        if (ret < 0) {
-            return ErrorAbort(state, "%s() error parsing arguments: %d",
-                name, ret);
-        }
+    std::vector<std::string> args;
+    if (!ReadArgs(state, argv, &args)) {
+        return ErrorAbort(state, kArgsParsingFailure, "%s() error parsing arguments", name);
+    }
 
-        uiPrintf(state, "Comparing TZ version %s to %s",
-                tz_version, current_tz_version);
-        if (strncmp(tz_version, current_tz_version, strlen(tz_version)) == 0) {
-            return StringValue(strdup("1"));
+    for (auto& tz_version : args) {
+        if (tz_version == current_tz_version) {
+            ret = 1;
+            break;
         }
     }
 
-    return StringValue(strdup("0"));
+    return StringValue(strdup(ret ? "1" : "0"));
 }
 
 void Register_librecovery_updater_kiwi() {
