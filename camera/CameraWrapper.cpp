@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016, The CyanogenMod Project
+ * Copyright (C) 2017, The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -94,7 +95,7 @@ static int check_vendor_module()
     rv = hw_get_module_by_class("camera", "vendor",
             (const hw_module_t**)&gVendorModule);
     if (rv)
-        ALOGE("failed to open vendor camera module", __FUNCTION__);
+        ALOGE("%s: failed to open vendor camera module", __FUNCTION__);
     return rv;
 }
 
@@ -106,7 +107,7 @@ static bool can_talk_to_sensormanager()
     return sensorManager.getSensorList(&sensorList) >= 0;
 }
 
-static char *camera_fixup_getparams(int id, const char *settings)
+static char *camera_fixup_getparams(int __attribute__((unused)) id, const char *settings)
 {
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
