@@ -120,7 +120,17 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id, const char *
     params.dump();
 #endif
 
-    params.set("scene-mode-values", "auto");
+    // strip "hdr" from the scene modes
+    const char* modes = params.get("scene-mode-values");
+    if (modes && *modes) {
+        std::string sceneModes(modes);
+        std::string::size_type i = sceneModes.find("hdr");
+        if (i != std::string::npos) {
+            sceneModes.erase(i, 3);
+        }
+        params.set("scene-mode-values", sceneModes.c_str());
+    }
+
     params.set("longshot-supported", "false");
 
 #if !LOG_NDEBUG
