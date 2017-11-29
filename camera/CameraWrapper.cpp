@@ -22,7 +22,7 @@
 *
 */
 
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 
 #define LOG_TAG "CameraWrapper"
 #include <cutils/log.h>
@@ -120,7 +120,26 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id, const char *
     params.dump();
 #endif
 
-    params.set("scene-mode-values", "auto");
+    // strip "hdr" from the scene modes
+    const char* modes = params.get("scene-mode-values");
+    if (modes && *modes) {
+        std::string sceneModes(modes);
+        std::string delimiter = ",";
+        std::string token;
+        std::string finalSceneModes = "";
+
+        size_t pos;
+        while ((pos = sceneModes.find(delimiter)) != std::string::npos) {
+            token = sceneModes.substr(0, pos);
+            if (token != "hdr") {
+                finalSceneModes.append(token);
+                finalSceneModes.append(delimiter);
+            }
+            sceneModes.erase(0, pos + delimiter.length());
+        }
+        finalSceneModes = finalSceneModes.substr(0, finalSceneModes.length() - 1);
+        params.set("scene-mode-values", finalSceneModes.c_str());
+    }
     params.set("longshot-supported", "false");
 
 #if !LOG_NDEBUG
