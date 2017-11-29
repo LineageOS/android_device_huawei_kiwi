@@ -120,7 +120,8 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id, const char *
     params.dump();
 #endif
 
-    params.set("scene-mode-values", "auto");
+    params.set("scene-mode-values", "auto,action,backlight,beach,candlelight,fireworks,flowers,"
+               "landscape,night,night-portrait,party,portrait,snow,steadyphoto,sunset,theatre");
     params.set("longshot-supported", "false");
 
 #if !LOG_NDEBUG
