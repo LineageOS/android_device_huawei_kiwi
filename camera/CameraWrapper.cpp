@@ -116,12 +116,12 @@ static char *camera_fixup_getparams(int id, const char *settings)
     params.dump();
 #endif
 
-    params.set("scene-mode-values", "auto");
-
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
     params.dump();
 #endif
+
+    params.set("scene-mode-values", "auto");
 
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
