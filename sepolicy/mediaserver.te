@@ -1,4 +1,3 @@
 allow mediaserver smartamp_device:chr_file { read write ioctl open };
 allow mediaserver audiod:binder call;
-allow mediaserver sensorservice_service:service_manager find;
 allow mediaserver camera_data_file:dir search;

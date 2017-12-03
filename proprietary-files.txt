@@ -65,7 +65,7 @@ vendor/lib64/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
-lib/hw/camera.msm8916.omrom.so:lib/hw/camera.vendor.msm8916.so
+lib/hw/camera.msm8916.omrom.so:lib/hw/camera.msm8916.so
 lib/libmm-qcamera.so
 lib/libmmcamera_interface.so
 lib/libcamera_post_mediaserver.so
