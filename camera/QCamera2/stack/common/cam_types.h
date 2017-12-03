@@ -52,7 +52,7 @@
 #define CEILING2(X)  (((X) + 0x0001) & 0xFFFE)
 
 #define MAX_ZOOMS_CNT 79
-#define MAX_SIZES_CNT 24
+#define MAX_SIZES_CNT 26
 #define MAX_EXP_BRACKETING_LENGTH 32
 #define MAX_ROI 5
 #define MAX_STREAM_NUM_IN_BUNDLE 4
@@ -1018,9 +1018,13 @@ typedef  struct {
     uint8_t is_ae_params_valid;
     cam_ae_params_t ae_params;
 
+    uint8_t vendor_magic[16];
+
     /* AWB parameters */
     uint8_t is_awb_params_valid;
     cam_awb_params_t awb_params;
+
+    uint8_t vendor_magic2[12];
 
     /* AE exif debug parameters */
     uint8_t is_ae_exif_debug_valid;
