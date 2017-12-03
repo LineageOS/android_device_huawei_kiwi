@@ -97,7 +97,6 @@ PRODUCT_PACKAGES += \
 # Compatibility
 PRODUCT_PACKAGES += \
     libboringssl-compat \
-    libshim_camera \
     libshim_camera_post_mediaserver \
     libshim_cutils \
     libshim_gps \
