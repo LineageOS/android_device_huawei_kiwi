@@ -227,8 +227,10 @@ OMX_ERRORTYPE mm_jpeg_session_change_state(mm_jpeg_job_session_t* p_session,
   }
 
   p_session->state_change_pending = OMX_TRUE;
+  pthread_mutex_unlock(&p_session->lock);
   ret = OMX_SendCommand(p_session->omx_handle, OMX_CommandStateSet,
     new_state, NULL);
+  pthread_mutex_lock(&p_session->lock);
   if (ret) {
     CDBG_ERROR("%s:%d] Error %d", __func__, __LINE__, ret);
     pthread_mutex_unlock(&p_session->lock);
@@ -1852,6 +1854,49 @@ uint32_t mm_jpeg_new_client(mm_jpeg_obj *my_obj)
   return client_hdl;
 }
 
+/** mm_jpeg_check_resolution_change:
+ *
+ *  Arguments:
+ *    @my_obj: jpeg object
+ *    @work_bufs_need: work buffers needed
+ *    @curr_width: currnet frame width
+ *    @curr_height: currnet frame height
+ *    @prev_width: previous frame width
+ *    @prev_height: previous frame height
+ *
+ *  Return:
+ *       0 for success else failure
+ *
+ *  Description:
+ *       Check resolution change and deallocate internally
+ *       allocated work buffers
+ *
+ **/
+static int32_t mm_jpeg_check_resolution_change(mm_jpeg_obj *my_obj,
+  uint32_t work_bufs_need,
+  int32_t curr_width,
+  int32_t curr_height,
+  int32_t prev_width,
+  int32_t prev_height)
+{
+  int32_t rc = 0;
+  if (my_obj->work_buf_cnt > work_bufs_need) {
+    CDBG_ERROR("%s: %d] Unexpected work buffer count", __func__, __LINE__);
+    return -1;
+  }
+  if ((my_obj->work_buf_cnt == work_bufs_need) &&
+      ((curr_width * curr_height) != (prev_width * prev_height))) {
+    CDBG_HIGH("%s: %d] curr_width %d curr_height %d prev_width %d prev_height %d",
+      __func__, __LINE__, curr_width, curr_height, prev_width, prev_height);
+    /* resolution changed, release the previously allocated work buffer */
+    while (my_obj->work_buf_cnt) {
+      my_obj->work_buf_cnt--;
+      buffer_deallocate(&my_obj->ionBuffer[my_obj->work_buf_cnt]);
+    }
+  }
+  return 0;
+}
+
 /** mm_jpeg_start_job:
  *
  *  Arguments:
@@ -1877,16 +1922,24 @@ int32_t mm_jpeg_start_job(mm_jpeg_obj *my_obj,
   uint8_t client_idx = 0;
   mm_jpeg_job_q_node_t* node = NULL;
   mm_jpeg_job_session_t *p_session = NULL;
-  mm_jpeg_encode_job_t *p_jobparams  = &job->encode_job;
+  mm_jpeg_encode_job_t *p_jobparams  = NULL;
   uint32_t work_bufs_need;
-  uint32_t work_buf_size, i;
+  uint32_t work_buf_size = 0, i = 0;
+  int32_t curr_width, prev_width;
+  int32_t curr_height, prev_height;
 
   *job_id = 0;
+
+  if (!job) {
+    CDBG_ERROR("%s:%d] invalid job !!!", __func__, __LINE__);
+    return rc;
+  }
+  p_jobparams = &job->encode_job;
 
   /* check if valid session */
   session_idx = GET_SESSION_IDX(p_jobparams->session_id);
   client_idx = GET_CLIENT_IDX(p_jobparams->session_id);
-  CDBG("%s:%d] session_idx %d client idx %d", __func__, __LINE__,
+  CDBG_HIGH("%s:%d] session_idx %d client idx %d", __func__, __LINE__,
     session_idx, client_idx);
 
   if ((session_idx >= MM_JPEG_MAX_SESSION) ||
@@ -1903,25 +1956,64 @@ int32_t mm_jpeg_start_job(mm_jpeg_obj *my_obj,
   p_session->work_buffer.ion_info_fd.fd = p_jobparams->work_buf.fd;
   p_session->work_buffer.p_pmem_fd      = p_jobparams->work_buf.fd;
 
+  prev_width = my_obj->prev_w;
+  prev_height = my_obj->prev_h;
+
+  curr_width = p_jobparams->main_dim.src_dim.width;
+  curr_height = p_jobparams->main_dim.src_dim.height;
+
   work_bufs_need = my_obj->num_sessions + NUM_OMX_SESSIONS;
+
   if (work_bufs_need > MM_JPEG_CONCURRENT_SESSIONS_COUNT) {
     work_bufs_need = MM_JPEG_CONCURRENT_SESSIONS_COUNT;
   }
+
   if (p_session->work_buffer.addr) {
     work_bufs_need--;
-    CDBG_HIGH("%s:%d] HAL passed the work buffer of size = %d; don't alloc internally",
-        __func__, __LINE__, p_session->work_buffer.size);
-  } else
-      p_session->work_buffer = my_obj->ionBuffer[0];
+    // check change in resolution for the buffers allocated
+    // on top of HAL work buffer
+    if (work_bufs_need) {
+      rc = mm_jpeg_check_resolution_change(my_obj, work_bufs_need,
+        curr_width, curr_height, prev_width, prev_height);
+      if (rc < 0) {
+        CDBG_HIGH("%s: %d] Resolution check failed!!",
+          __func__, __LINE__);
+        return rc;
+      }
+    }
 
-  CDBG_ERROR("%s:%d] >>>> Work bufs need %d, %d", __func__, __LINE__,
+   CDBG_HIGH("%s:%d] HAL passed the work buffer of size = %d",
+      __func__, __LINE__, p_session->work_buffer.size);
+
+   CDBG_HIGH("%s:%d] Additional work buffers needed = %d",
+      __func__, __LINE__, work_bufs_need);
+
+  } else {
+    p_session->work_buffer = my_obj->ionBuffer[0];
+
+    CDBG_HIGH("%s:%d] work_bufs_need %d work_buf_cnt %d", __func__, __LINE__,
+      work_bufs_need, my_obj->work_buf_cnt);
+
+    rc = mm_jpeg_check_resolution_change(my_obj, work_bufs_need,
+      curr_width, curr_height, prev_width, prev_height);
+    if (rc < 0) {
+      CDBG_HIGH("%s: %d] Resolution check failed!!",
+        __func__, __LINE__);
+      return rc;
+    }
+
+  }
+  my_obj->prev_w = curr_width;
+  my_obj->prev_h = curr_height;
+  work_buf_size = CEILING64(curr_width) * CEILING64(curr_height) * 3 / 2;
+
+  CDBG_HIGH("%s:%d] >>>> Work bufs need %d, %d", __func__, __LINE__,
     work_bufs_need, my_obj->work_buf_cnt);
-  work_buf_size = CEILING64(my_obj->max_pic_w) *
-      CEILING64(my_obj->max_pic_h) * 3 / 2;
+
   for (i = my_obj->work_buf_cnt; i < work_bufs_need; i++) {
      my_obj->ionBuffer[i].size = CEILING32(work_buf_size);
-     CDBG_HIGH("%s: Max picture size %d x %d, WorkBufSize = %zu",__func__,
-         my_obj->max_pic_w, my_obj->max_pic_h, my_obj->ionBuffer[i].size);
+     CDBG_HIGH("%s: Picture size %d x %d, WorkBufSize = %zu",__func__,
+         curr_width, curr_height, my_obj->ionBuffer[i].size);
 
      my_obj->ionBuffer[i].addr = (uint8_t *)buffer_allocate(&my_obj->ionBuffer[i], 1);
      my_obj->work_buf_cnt++;
@@ -2431,6 +2523,11 @@ int32_t mm_jpeg_destroy_session_unlocked(mm_jpeg_obj *my_obj,
   }
 
   session_id = p_session->sessionId;
+  if ((GET_SESSION_IDX(session_id) >= MM_JPEG_MAX_SESSION)
+    ||(GET_CLIENT_IDX(session_id) >= MAX_JPEG_CLIENT_NUM)) {
+    CDBG_ERROR("%s:%d] Invalid Session or Client id", __func__, __LINE__);
+    return rc;
+  }
 
   /* abort job if in todo queue */
   CDBG("%s:%d] abort todo jobs", __func__, __LINE__);
