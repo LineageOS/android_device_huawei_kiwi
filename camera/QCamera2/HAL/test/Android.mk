@@ -1,3 +1,5 @@
+ifeq (0,1)
+
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -52,3 +54,4 @@ LOCAL_CFLAGS += -O0
 
 include $(BUILD_EXECUTABLE)
 
+endif

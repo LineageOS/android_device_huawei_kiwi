@@ -1,4 +1,4 @@
-/*Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/*Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -34,6 +34,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
 #include <pthread.h>
 #include <dlfcn.h>
 #include <stdlib.h>
+#include <string.h>
 #include "OMX_Component.h"
 
 #define TRUE 1
