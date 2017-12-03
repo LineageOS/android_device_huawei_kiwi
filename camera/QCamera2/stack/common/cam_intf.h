@@ -318,6 +318,8 @@ typedef struct{
     cam_af_bracketing_t  mtf_af_bracketing_parm;
     /* Sensor type information */
     cam_sensor_type_t sensor_type;
+
+    uint8_t vendor_magic[16];
 } cam_capability_t;
 
 typedef enum {
