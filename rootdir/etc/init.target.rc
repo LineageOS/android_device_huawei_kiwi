@@ -37,7 +37,7 @@ on early-init
     mkdir /log 0770 system log
 
 on fs
-    export LD_SHIM_LIBS /system/lib/libcamera_post_mediaserver.so|libshim_camera_post_mediaserver:/system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/vendor/lib64/liblocationservice.so|libshim_gps.so:/system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so:/system/lib64/libril.so|libshim_ril.so:/system/bin/signinfolistener|libshim_signinfolistener.so:/system/lib/hw/audio.primary.msm8916.so|libshim_sound_trigger.so:/system/lib/hw/camera.vendor.msm8916.so|libshim_camera.so
+    export LD_SHIM_LIBS /system/lib/libcamera_post_mediaserver.so|libshim_camera_post_mediaserver:/system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/vendor/lib64/liblocationservice.so|libshim_gps.so:/system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so:/system/lib64/libril.so|libshim_ril.so:/system/bin/signinfolistener|libshim_signinfolistener.so:/system/lib/hw/audio.primary.msm8916.so|libshim_sound_trigger.so
 
     mount_all fstab.qcom
 
