@@ -51,6 +51,11 @@ static void mm_app_metadata_notify_cb(mm_camera_super_buf_t *bufs,
           break;
       }
   }
+  if (NULL == channel) {
+      CDBG_ERROR("%s: Wrong channel id (%d)", __func__, bufs->ch_id);
+      return;
+  }
+
   /* find preview stream */
   for (i = 0; i < channel->num_streams; i++) {
       if (channel->streams[i].s_config.stream_info->stream_type == CAM_STREAM_TYPE_METADATA) {
@@ -91,6 +96,11 @@ static void mm_app_metadata_notify_cb(mm_camera_super_buf_t *bufs,
     }
   }
 
+  if (pme->user_metadata_cb) {
+      CDBG("[DBG] %s, user defined own metadata cb. calling it...", __func__);
+      pme->user_metadata_cb(frame);
+  }
+
   if (MM_CAMERA_OK != pme->cam->ops->qbuf(bufs->camera_handle,
                                           bufs->ch_id,
                                           frame)) {
@@ -119,6 +129,11 @@ static void mm_app_preview_notify_cb(mm_camera_super_buf_t *bufs,
             break;
         }
     }
+    if (NULL == channel) {
+        CDBG_ERROR("%s: Wrong channel id (%d)", __func__, bufs->ch_id);
+        return;
+    }
+
     /* find preview stream */
     for (i = 0; i < channel->num_streams; i++) {
         if (channel->streams[i].s_config.stream_info->stream_type == CAM_STREAM_TYPE_PREVIEW) {
@@ -126,6 +141,12 @@ static void mm_app_preview_notify_cb(mm_camera_super_buf_t *bufs,
             break;
         }
     }
+
+    if (NULL == p_stream) {
+        CDBG_ERROR("%s: cannot find preview stream", __func__);
+        return;
+    }
+
     /* find preview frame */
     for (i = 0; i < bufs->num_bufs; i++) {
         if (bufs->bufs[i]->stream_id == p_stream->s_id) {
@@ -225,6 +246,7 @@ static void mm_app_zsl_notify_cb(mm_camera_super_buf_t *bufs,
     }
     if (NULL == md_stream) {
         CDBG_ERROR("%s: cannot find metadata stream", __func__);
+        return;
     }
 
     /* find preview frame */
@@ -233,6 +255,11 @@ static void mm_app_zsl_notify_cb(mm_camera_super_buf_t *bufs,
             p_frame = bufs->bufs[i];
             break;
         }
+    }
+
+    if (!p_frame) {
+        CDBG_ERROR("%s: cannot find preview frame", __func__);
+        return;
     }
 
     if(md_stream) {
@@ -259,8 +286,8 @@ static void mm_app_zsl_notify_cb(mm_camera_super_buf_t *bufs,
         }
     }
 
-    if (!m_frame || !p_frame) {
-        CDBG_ERROR("%s: cannot find preview/snapshot frame", __func__);
+    if (!m_frame) {
+        CDBG_ERROR("%s: cannot find snapshot frame", __func__);
         return;
     }
 

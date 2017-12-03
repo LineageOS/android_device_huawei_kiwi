@@ -59,7 +59,7 @@
 #define MAX_NUM_STREAMS          8
 #define CHROMATIX_SIZE 21292
 #define COMMONCHROMATIX_SIZE 42044
-#define AFTUNE_SIZE 5000  //sizeof(actuator_driver_params_t) + sizeof(af_algo_tune_parms_t)
+#define AFTUNE_SIZE 5200  //sizeof(actuator_driver_params_t) + sizeof(af_algo_tune_parms_t)
 #define MAX_SCALE_SIZES_CNT 8
 #define MAX_SAMP_DECISION_CNT     64
 
@@ -903,6 +903,17 @@ typedef struct {
     float aperture_value;
 } cam_sensor_params_t;
 
+typedef enum {
+    CAM_METERING_MODE_UNKNOWN = 0,
+    CAM_METERING_MODE_AVERAGE = 1,
+    CAM_METERING_MODE_CENTER_WEIGHTED_AVERAGE = 2,
+    CAM_METERING_MODE_SPOT = 3,
+    CAM_METERING_MODE_MULTI_SPOT = 4,
+    CAM_METERING_MODE_PATTERN = 5,
+    CAM_METERING_MODE_PARTIAL = 6,
+    CAM_METERING_MODE_OTHER = 255,
+} cam_metering_mode_t;
+
 typedef struct {
     float exp_time;
     float real_gain;
@@ -1097,6 +1108,9 @@ typedef  struct {
 
     uint8_t is_focus_pos_info_valid;
     cam_focus_pos_info_t cur_pos_info;
+
+    /* Indication for Frame ID reset through recovery mechanism when bus overflow  */
+    uint8_t is_frame_id_reset;
 } cam_metadata_info_t;
 
 typedef enum {

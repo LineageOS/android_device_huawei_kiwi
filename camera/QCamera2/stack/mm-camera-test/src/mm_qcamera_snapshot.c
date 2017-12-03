@@ -599,7 +599,6 @@ int mm_app_start_capture(mm_camera_test_obj_t *test_obj,
     int32_t rc = MM_CAMERA_OK;
     mm_camera_channel_t *channel = NULL;
     mm_camera_stream_t *s_main = NULL;
-    mm_camera_stream_t *s_metadata = NULL;
     mm_camera_channel_attr_t attr;
 
     memset(&attr, 0, sizeof(mm_camera_channel_attr_t));
@@ -614,18 +613,7 @@ int mm_app_start_capture(mm_camera_test_obj_t *test_obj,
         CDBG_ERROR("%s: add channel failed", __func__);
         return -MM_CAMERA_E_GENERAL;
     }
-#if 0 // Removing metadata stream for snapshot in qcamera app.
-    s_metadata = mm_app_add_metadata_stream(test_obj,
-                                            channel,
-                                            mm_app_snapshot_metadata_notify_cb,
-                                            (void *)test_obj,
-                                            CAPTURE_BUF_NUM);
-     if (NULL == s_metadata) {
-        CDBG_ERROR("%s: add metadata stream failed\n", __func__);
-        mm_app_del_channel(test_obj, channel);
-        return -MM_CAMERA_E_GENERAL;
-    }
-#endif
+
     s_main = mm_app_add_snapshot_stream(test_obj,
                                         channel,
                                         NULL,
@@ -642,7 +630,6 @@ int mm_app_start_capture(mm_camera_test_obj_t *test_obj,
     if (MM_CAMERA_OK != rc) {
         CDBG_ERROR("%s:start zsl failed rc=%d\n", __func__, rc);
         mm_app_del_stream(test_obj, channel, s_main);
-        mm_app_del_stream(test_obj, channel, s_metadata);
         mm_app_del_channel(test_obj, channel);
         return rc;
     }
