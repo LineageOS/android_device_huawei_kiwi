@@ -120,7 +120,20 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id, const char *
     params.dump();
 #endif
 
-    params.set("scene-mode-values", "auto");
+    const char* modes = params.get("scene-mode-values");
+
+    std::string newmodes = "";
+    while (modes && *modes) {
+        const char* delim;
+        const char* nexttok;
+        delim = strchr(modes, ',');
+        nexttok = (delim ? delim + 1 : modes + strlen(modes));
+        if (strncmp(modes, "hdr", 3)) {
+            newmodes.append(modes, nexttok - modes);
+        }
+        modes = nexttok;
+    }
+    params.set("scene-mode-values", newmodes.c_str());
     params.set("longshot-supported", "false");
 
 #if !LOG_NDEBUG
