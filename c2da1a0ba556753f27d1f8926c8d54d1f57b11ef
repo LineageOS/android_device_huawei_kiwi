@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "588be484_71a57486",
+        "filename": "camera/QCamera2/stack/common/cam_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 16219
+      },
+      "writtenOn": "2017-12-06T20:14:47Z",
+      "side": 1,
+      "message": "Just for the notice: if someone want\u0027s to take this commit as a base, it is missing one cherry pick:\n72ed8303c QCamera2: Flush the Superbuf queue when Frame ID Reset\n\nIt actually worked nice but then I realized that size of cam_metadata_info_t to small and it is missing this one field.",
+      "revId": "c2da1a0ba556753f27d1f8926c8d54d1f57b11ef",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
