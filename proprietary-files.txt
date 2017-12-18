@@ -57,7 +57,10 @@ etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt:vendor/etc/sound_param/kiw_l/nxp/Tfa989
 bin/vm_bms:vendor/bin/vm_bms
 
 # Bluetooth
+# aptX - from marlin - OPM1.171019.011
 bin/hci_qcomm_init:vendor/bin/hci_qcomm_init
+lib64/libaptX_encoder.so:vendor/lib64/libaptX_encoder.so|0cebad28afcf29f931bdc2d24fce2730dc882ecf
+lib/libaptX_encoder.so:vendor/lib/libaptX_encoder.so|984739a0bc968e18f75ced205733fe3f51c2d4f0
 lib64/libbtaddr.so:vendor/lib64/libbtaddr.so
 lib64/libbtpower.so:vendor/lib64/libbtpower.so
 vendor/lib64/libbtnv.so
