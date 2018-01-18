@@ -39,7 +39,6 @@ on early-init
 on fs
     export LD_SHIM_LIBS \
         /system/bin/signinfolistener|libshim_signinfolistener.so:\
-        /system/lib/libcamera_post_mediaserver.so|libshim_camera_post_mediaserver.so:\
         /system/lib/libcutils.so|libshim_cutils.so:\
         /system/lib64/libcutils.so|libshim_cutils.so:\
         /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so

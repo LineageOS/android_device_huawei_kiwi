@@ -26,21 +26,6 @@ qcom.bluetooth.soc=smd
 # Camera
 persist.camera.cpp.duplication=false
 persist.camera.hal.debug=0
-persist.camera.promode=true
-persist.hw_camera.video_sta=true
-ro.config.hw_burst_snapshot=true
-ro.config.hw_camera_bestShot=true
-ro.config.hw_camera_blureffect=false
-ro.config.hw_camera_davinci=true
-ro.config.hw_camera_docbeauty=true
-ro.config.hw_camera_hdr=true
-ro.config.hw_camera_mfd=true
-ro.config.hw_camera_nicefood=true
-ro.config.hw_camera_omron=true
-ro.config.hw_camera_refocus=true
-ro.config.hw_camera_smartae=false
-ro.config.hw_camera_zsl=true
-ro.config.hw_video_beauty=true
 
 # Display
 dalvik.vm.heapsize=512m
