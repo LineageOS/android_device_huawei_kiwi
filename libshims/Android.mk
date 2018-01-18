@@ -15,13 +15,6 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := hw_exif.c
-LOCAL_MODULE := libshim_camera_post_mediaserver
-LOCAL_MODULE_TAGS := optional
-LOCAL_MULTILIB := 32
-include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
 LOCAL_SRC_FILES := hw_cutils.c hw_log.c
 LOCAL_MODULE := libshim_cutils
 LOCAL_MODULE_TAGS := optional

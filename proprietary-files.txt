@@ -65,16 +65,6 @@ vendor/lib64/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
-lib/libcamera_post_mediaserver.so
-lib/libFNVfbEngineLib.so
-lib/libhdr.so
-lib/libmrc_cg_filters.so
-lib/libmrc_cg_mfdenoise.so
-lib/libmrc_cg_myFilter.so
-lib/libmrc_cg_niceFood.so
-lib/libmrc_cg_postprocess.so
-lib/libSFBE.so
-lib/libSmartAE.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so

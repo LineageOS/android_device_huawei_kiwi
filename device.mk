@@ -96,7 +96,6 @@ PRODUCT_PACKAGES += \
 
 # Compatibility
 PRODUCT_PACKAGES += \
-    libshim_camera_post_mediaserver \
     libshim_cutils \
     libshim_signinfolistener
 
