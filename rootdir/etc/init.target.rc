@@ -41,11 +41,7 @@ on fs
         /system/bin/signinfolistener|libshim_signinfolistener.so:\
         /system/lib/libcamera_post_mediaserver.so|libshim_camera_post_mediaserver.so:\
         /system/lib/libcutils.so|libshim_cutils.so:\
-        /system/lib/hw/audio.primary.msm8916.so|libshim_sound_trigger.so:\
         /system/lib64/libcutils.so|libshim_cutils.so:\
-        /system/lib64/libril.so|libshim_ril.so:\
-        /system/vendor/lib64/liblocationservice.so|libshim_gps.so:\
-        /system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so:\
         /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so
 
     mount_all fstab.qcom
