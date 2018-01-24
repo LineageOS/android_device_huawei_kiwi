@@ -53,7 +53,6 @@ etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt:vendor/etc/sound_param/kiw_l/nxp/Tfa989
 bin/vm_bms:vendor/bin/vm_bms
 
 # Bluetooth
-bin/btnvtool:vendor/bin/btnvtool
 bin/hci_qcomm_init:vendor/bin/hci_qcomm_init
 lib64/libbtaddr.so:vendor/lib64/libbtaddr.so
 lib64/libbtpower.so:vendor/lib64/libbtpower.so

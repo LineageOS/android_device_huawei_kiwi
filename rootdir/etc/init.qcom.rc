@@ -252,7 +252,6 @@ service qcom-c_main-sh /system/vendor/bin/init.class_main.sh
 
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
-    start config_bt_addr
     start wcnss-service
 
 on property:persist.env.fastdorm.enabled=true
@@ -268,12 +267,6 @@ service rmt_storage /system/vendor/bin/rmt_storage
     user root
     group wakelock
     seclabel u:r:rmt_storage:s0
-
-service config_bt_addr /system/bin/btnvtool -O
-    class core
-    user bluetooth
-    group bluetooth radio
-    oneshot
 
 service hciattach /system/vendor/bin/init.qcom.bt.sh
     class late_start
