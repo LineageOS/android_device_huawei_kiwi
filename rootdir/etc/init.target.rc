@@ -103,11 +103,6 @@ service time_daemon /system/bin/time_daemon
    user root
    group root
 
-service audiod /system/bin/audiod
-   class late_start
-   user system
-   group system
-
 # access permission for secure touch
     chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0020/secure_touch_enable
     chmod 0440 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0020/secure_touch
