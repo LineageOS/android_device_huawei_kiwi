@@ -236,7 +236,7 @@ on property:bluetooth.startbtsnoop=true
 on property:bluetooth.startbtsnoop=false
     stop btsnoop
 
-service qcom-c_main-sh /system/bin/sh /init.class_main.sh
+service qcom-c_main-sh /system/vendor/bin/init.class_main.sh
     class main
     user root
     oneshot
