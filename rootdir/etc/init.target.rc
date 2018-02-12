@@ -136,7 +136,7 @@ service imsqmidaemon /system/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
-    group radio net_raw log qcom_diag
+    group radio net_raw log oem_2950
 
 on charger-fs
     mount ext4 /dev/block/bootdevice/by-name/userdata /data rw

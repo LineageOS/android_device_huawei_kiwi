@@ -289,7 +289,7 @@ service btsnoop /system/bin/btsnoop
 service qmuxd /system/bin/qmuxd
     class main
     user root
-    group radio audio bluetooth gps qcom_diag wakelock
+    group radio audio bluetooth gps oem_2950 wakelock
     disabled
 
 service netmgrd /system/bin/netmgrd
