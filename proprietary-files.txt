@@ -19,7 +19,6 @@ vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
 vendor/lib/libaudcal.so
 vendor/lib/libFlacSwDec.so
-vendor/lib/hw/sound_trigger.primary.msm8916.so
 vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
@@ -49,9 +48,6 @@ etc/sound_param/kiw_l/nxp/Tfa9895.cnt
 etc/sound_param/kiw_l/nxp/Tfa9895_coefficient.config
 etc/sound_param/kiw_l/nxp/Tfa9895-GD.cnt
 etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt
-etc/sound_trigger_mixer_paths_wcd9306.xml
-etc/sound_trigger_mixer_paths.xml
-etc/sound_trigger_platform_info.xml
 
 # Battery
 bin/vm_bms
