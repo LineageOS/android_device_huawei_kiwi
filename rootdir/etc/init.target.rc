@@ -40,12 +40,6 @@ on fs
     wait /dev/block/platform/soc.0/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc.0/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    export LD_SHIM_LIBS \
-        /system/bin/signinfolistener|libshim_signinfolistener.so:\
-        /system/lib/libcutils.so|libshim_cutils.so:\
-        /system/lib64/libcutils.so|libshim_cutils.so:\
-        /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so
-
     mount_all fstab.qcom
 
     swapon_all fstab.qcom
