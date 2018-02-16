@@ -200,7 +200,7 @@
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
-/dev/rfkill               0660   root       wifi
+/dev/rfkill               0660   wifi       wifi
 
 # UIO devices
 /dev/uio0                 0660   system     system
