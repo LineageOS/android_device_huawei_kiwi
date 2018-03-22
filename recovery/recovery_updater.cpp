@@ -35,12 +35,12 @@
 
 #define ALPHABET_LEN 256
 
-#define BASEBAND_PART_PATH "/dev/block/bootdevice/by-name/modem"
+#define BASEBAND_PART_PATH "/dev/block/platform/soc.0/7824900.sdhci/by-name/modem"
 #define BASEBAND_VER_STR_START "QC_IMAGE_VERSION_STRING=MPSS.DPM."
 #define BASEBAND_VER_STR_START_LEN 33
 #define BASEBAND_VER_BUF_LEN 255
 
-#define TZ_PART_PATH "/dev/block/bootdevice/by-name/tz"
+#define TZ_PART_PATH "/dev/block/platform/soc.0/7824900.sdhci/by-name/tz"
 #define TZ_VER_STR "QC_IMAGE_VERSION_STRING="
 #define TZ_VER_STR_LEN 24
 #define TZ_VER_BUF_LEN 255
