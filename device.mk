@@ -230,7 +230,8 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    libxml2
+    libxml2 \
+    libril-wrapper
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/dsi_config.xml:system/etc/data/dsi_config.xml \
