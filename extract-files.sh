@@ -1,26 +1,48 @@
 #!/bin/bash
+#
+# Copyright (C) 2016 The CyanogenMod Project
+#           (C) 2017 The LineageOS Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-#set -e
-export DEVICE=kiwi
-export VENDOR=huawei
+set -e
+
+DEVICE=kiwi
+VENDOR=huawei
+
+# Load extractutils and do some sanity checks
+MY_DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
+
+CM_ROOT="$MY_DIR"/../../..
+
+HELPER="$CM_ROOT"/vendor/cm/build/tools/extract_utils.sh
+if [ ! -f "$HELPER" ]; then
+    echo "Unable to find helper script at $HELPER"
+    exit 1
+fi
+. "$HELPER"
 
 if [ $# -eq 0 ]; then
   SRC=adb
 else
-  if [ $# -eq 2 ]; then
+  if [ $# -eq 1 ]; then
     SRC=$1
-    RAMDISK=$2
-    SRC2=$1
-    RAMDISK2=$2
-  elif [ $# -eq 4 ]; then
-    SRC=$1
-    RAMDISK=$2
-    SRC2=$3
-    RAMDISK2=$4
   else
     echo "$0: bad number of arguments"
     echo ""
-    echo "usage: $0 [PATH_TO_EXPANDED_ROM RAMDISK_TO_EXPAND_FROM [ALT_EXPANDED ALT_RAMDISK]]"
+    echo "usage: $0 [PATH_TO_EXPANDED_ROM]"
     echo ""
     echo "If PATH_TO_EXPANDED_ROM is not specified, blobs will be extracted from"
     echo "the device using adb pull."
@@ -28,55 +50,9 @@ else
   fi
 fi
 
-BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
-rm -rf $BASE/*
+# Initialize the helper
+setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT"
 
-for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
-  OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
-  FILE=`echo ${PARSING_ARRAY[0]} | sed -e "s/^-//g"`
-  DEST=${PARSING_ARRAY[1]}
-  if [ -z $DEST ]
-  then
-    DEST=$FILE
-  fi
-  if [ "${FILE:0:6}" = "/sbin/" ]; then
-    DIR_PREFIX=""
-    LOCAL_DIR=$RAMDISK
-    LOCAL_DIR2=$RAMDISK2
-  else
-    DIR_PREFIX=/system/
-    LOCAL_DIR=$SRC
-    LOCAL_DIR2=$SRC2
-  fi
-  DIR=`dirname $DEST`
-  if [ ! -d $BASE/$DIR ]; then
-    mkdir -p $BASE/$DIR
-  fi
-  # Try CM target first
-  if [ "$SRC" = "adb" ]; then
-    adb pull $DIR_PREFIX/$DEST $BASE/$DEST
-    # if file does not exist try OEM target
-    if [ "$?" != "0" ]; then
-        adb pull $DIR_PREFIX/$FILE $BASE/$DEST
-        if [ "$?" != "0" ]; then
-            echo "Failed to load: $FILE"
-            exit 1
-        fi
-    fi
-  else
-    if [ -r $LOCAL_DIR/$DIR_PREFIX/$DEST ]; then
-        cp $LOCAL_DIR/$DIR_PREFIX/$DEST $BASE/$DEST
-    elif [ -r $LOCAL_DIR/$DIR_PREFIX/$FILE ]; then
-        cp $LOCAL_DIR/$DIR_PREFIX/$FILE $BASE/$DEST
-    elif [ -r $LOCAL_DIR2/$DIR_PREFIX/$DEST ]; then
-        cp $LOCAL_DIR2/$DIR_PREFIX/$DEST $BASE/$DEST
-    elif [ -r $LOCAL_DIR2/$DIR_PREFIX/$FILE ]; then
-        cp $LOCAL_DIR2/$DIR_PREFIX/$FILE $BASE/$DEST
-    else
-        echo "error: missing file $FILE:$DEST"
-        exit 1
-    fi
-  fi
-done
+extract "$MY_DIR"/proprietary-files.txt "$SRC"
 
-./setup-makefiles.sh
+"$MY_DIR"/setup-makefiles.sh
