@@ -1,3 +1,6 @@
+on init
+    setprop ro.board.platform msm8916
+
 # separate copy needed to use /sbin/linker instead of /system/bin/linker
 service sbinqseecomd /sbin/qseecomd
     oneshot
