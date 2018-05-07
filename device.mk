@@ -191,6 +191,10 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
+# Radio
+PRODUCT_PACKAGES += \
+    qti-telephony-common
+
 # Recovery
 PRODUCT_PACKAGES += \
     librecovery_updater_kiwi
