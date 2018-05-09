@@ -195,6 +195,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     qti-telephony-common
 
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
 # Recovery
 PRODUCT_PACKAGES += \
     librecovery_updater_kiwi
