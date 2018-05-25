@@ -4,6 +4,9 @@
 /sys/devices/platform/fingerprint(/.*)?                    u:object_r:fingerprint_sysfs:s0
 /system/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@1\.0-service\.kiwi u:object_r:hal_fingerprint_default_exec:s0
 
+# Lights
+/sys/devices/soc\.0/gpio-leds\.[a-z0-9]+/leds(/.*)?        u:object_r:sysfs_leds:s0
+
 # Light hal
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.kiwi u:object_r:hal_light_default_exec:s0
 
