@@ -211,6 +211,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     libdashplayer \
+    libmm-omxcore \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
@@ -218,6 +219,7 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
+    libOmxVidcCommon \
     libstagefrighthw
 
 # Power HAL
