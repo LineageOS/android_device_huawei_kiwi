@@ -42,9 +42,6 @@ import org.codeaurora.internal.IExtTelephony;
 
 import java.util.Iterator;
 
-import static android.telephony.TelephonyManager.SIM_ACTIVATION_STATE_ACTIVATED;
-import static android.telephony.TelephonyManager.SIM_ACTIVATION_STATE_DEACTIVATED;
-
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
 import static com.android.internal.telephony.uicc.IccCardStatus.CardState.CARDSTATE_PRESENT;
@@ -245,8 +242,6 @@ public class HwExtTelephony extends IExtTelephony.Stub {
         sUiccStatus[slotId].mStatus = PROVISIONED;
 
         setUiccActivation(slotId, true);
-        sPhones[slotId].setVoiceActivationState(SIM_ACTIVATION_STATE_ACTIVATED);
-        sPhones[slotId].setDataActivationState(SIM_ACTIVATION_STATE_ACTIVATED);
 
         sBusy = false;
 
@@ -306,8 +301,6 @@ public class HwExtTelephony extends IExtTelephony.Stub {
                     subscriptionIdToPhoneAccountHandle(subIdToMakeDefault));
         }
 
-        sPhones[slotId].setVoiceActivationState(SIM_ACTIVATION_STATE_DEACTIVATED);
-        sPhones[slotId].setDataActivationState(SIM_ACTIVATION_STATE_DEACTIVATED);
         setUiccActivation(slotId, false);
 
         sBusy = false;
@@ -423,24 +416,6 @@ public class HwExtTelephony extends IExtTelephony.Stub {
 
     @Override
     public boolean isPrimaryCarrierSlotId(int slotId) {
-        // I hope we don't use this
-        return false;
-    }
-
-    @Override
-    public boolean setSmscAddress(int slotId, String smsc) {
-        // I hope we don't use this
-        return false;
-    }
-
-    @Override
-    public String getSmscAddress(int slotId) {
-        // I hope we don't use this
-        return null;
-    }
-
-    @Override
-    public boolean isVendorApkAvailable(String packageName) {
         // I hope we don't use this
         return false;
     }
