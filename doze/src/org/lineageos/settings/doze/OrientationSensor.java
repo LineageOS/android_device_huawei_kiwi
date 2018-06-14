@@ -23,6 +23,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class OrientationSensor implements SensorEventListener {
 
     public static final int ORIENTATION_UNKNOWN = 0;
@@ -44,6 +48,7 @@ public class OrientationSensor implements SensorEventListener {
     private Sensor mAccelerometerSensor;
     private Sensor mMagneticFieldSensor;
     private SensorManager mSensorManager;
+    private ExecutorService mExecutorService;
 
     public interface OrientationListener {
         void onEvent();
@@ -54,6 +59,8 @@ public class OrientationSensor implements SensorEventListener {
         mAccelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER, false);
         mMagneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD, false);
         mOrientationListener = orientationListener;
+
+        mExecutorService = Executors.newSingleThreadExecutor();
     }
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
@@ -121,11 +128,13 @@ public class OrientationSensor implements SensorEventListener {
         if (!mEnabled && mAccelerometerSensor != null && mMagneticFieldSensor != null) {
             reset();
             mState = ORIENTATION_UNKNOWN;
-            mSensorManager.registerListener(this, mAccelerometerSensor,
-                    ORIENTATION_DELAY, ORIENTATION_LATENCY);
-            mSensorManager.registerListener(this, mMagneticFieldSensor,
-                    ORIENTATION_DELAY, ORIENTATION_LATENCY);
-            mEnabled = true;
+            submit(() -> {
+                mSensorManager.registerListener(this, mAccelerometerSensor,
+                        ORIENTATION_DELAY, ORIENTATION_LATENCY);
+                mSensorManager.registerListener(this, mMagneticFieldSensor,
+                        ORIENTATION_DELAY, ORIENTATION_LATENCY);
+                mEnabled = true;
+            });
         }
     }
 
@@ -137,9 +146,15 @@ public class OrientationSensor implements SensorEventListener {
 
     public void disable() {
         if (mEnabled && mAccelerometerSensor != null && mMagneticFieldSensor != null) {
-            mSensorManager.unregisterListener(this, mAccelerometerSensor);
-            mSensorManager.unregisterListener(this, mMagneticFieldSensor);
-            mEnabled = false;
+            submit(() -> {
+                mSensorManager.unregisterListener(this, mAccelerometerSensor);
+                mSensorManager.unregisterListener(this, mMagneticFieldSensor);
+                mEnabled = false;
+            });
         }
+    }
+
+    private Future<?> submit(Runnable runnable) {
+        return mExecutorService.submit(runnable);
     }
 }

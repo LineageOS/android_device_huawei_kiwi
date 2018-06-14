@@ -23,6 +23,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class PickUpSensor implements SensorEventListener {
 
     public static final int PICK_UP_UNKNOWN = 0;
@@ -40,6 +44,7 @@ public class PickUpSensor implements SensorEventListener {
     private Sensor mPickUpSensor;
     private PickUpListener mPickUpListener;
     private SensorManager mSensorManager;
+    private ExecutorService mExecutorService;
 
     public interface PickUpListener {
         void onEvent();
@@ -50,6 +55,8 @@ public class PickUpSensor implements SensorEventListener {
         mSensorManager = context.getSystemService(SensorManager.class);
         mPickUpSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER, false);
         mPickUpListener = pickUpListener;
+
+        mExecutorService = Executors.newSingleThreadExecutor();
     }
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
@@ -93,8 +100,10 @@ public class PickUpSensor implements SensorEventListener {
     public void enable() {
         if (!mEnabled && mPickUpSensor != null) {
             reset();
-            mSensorManager.registerListener(this, mPickUpSensor, PICKUP_DELAY, PICKUP_LATENCY);
-            mEnabled = true;
+            submit(() -> {
+                mSensorManager.registerListener(this, mPickUpSensor, PICKUP_DELAY, PICKUP_LATENCY);
+                mEnabled = true;
+            });
         }
     }
 
@@ -105,12 +114,18 @@ public class PickUpSensor implements SensorEventListener {
 
     public void disable() {
         if (mEnabled && mPickUpSensor != null) {
-            mSensorManager.unregisterListener(this, mPickUpSensor);
-            mEnabled = false;
+            submit(() -> {
+                mSensorManager.unregisterListener(this, mPickUpSensor);
+                mEnabled = false;
+            });
         }
     }
 
     private boolean isPickUpAbove(float x, float y, float threshold) {
         return (x < -threshold || x > threshold || y > threshold);
+    }
+
+    private Future<?> submit(Runnable runnable) {
+        return mExecutorService.submit(runnable);
     }
 }
