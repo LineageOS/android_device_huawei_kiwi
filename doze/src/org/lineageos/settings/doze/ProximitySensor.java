@@ -23,6 +23,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class ProximitySensor implements SensorEventListener {
 
     private static final int PROXIMITY_DELAY = 1000 * 1000;
@@ -35,6 +39,7 @@ public class ProximitySensor implements SensorEventListener {
     private ProximityListener mProximityListener;
     private Sensor mProximitySensor;
     private SensorManager mSensorManager;
+    private ExecutorService mExecutorService;
 
     public interface ProximityListener {
         void onEvent(boolean isNear, long timestamp);
@@ -49,6 +54,8 @@ public class ProximitySensor implements SensorEventListener {
         if (mProximitySensor != null) {
             mMaxRange = mProximitySensor.getMaximumRange();
         }
+
+        mExecutorService = Executors.newSingleThreadExecutor();
     }
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
@@ -78,16 +85,25 @@ public class ProximitySensor implements SensorEventListener {
         }
         reset();
         if (enabled) {
-            mSensorManager.registerListener(this, mProximitySensor,
-                    PROXIMITY_DELAY, PROXIMITY_LATENCY);
+            submit(() -> {
+                mSensorManager.registerListener(this, mProximitySensor, PROXIMITY_DELAY,
+                        PROXIMITY_LATENCY);
+                mEnabled = true;
+            });
         } else {
-            mSensorManager.unregisterListener(this, mProximitySensor);
+            submit(() -> {
+                mSensorManager.unregisterListener(this, mProximitySensor);
+                mEnabled = false;
+            });
         }
-        mEnabled = enabled;
     }
 
     public void reset() {
         mReady = false;
         mState = false;
+    }
+
+    private Future<?> submit(Runnable runnable) {
+        return mExecutorService.submit(runnable);
     }
 }
