@@ -123,29 +123,10 @@ service time_daemon /system/vendor/bin/time_daemon
     group root
 
 service ppd /system/vendor/bin/mm-pp-daemon
-    class late_start
-    disabled
+    class hal
     user system
     socket pps stream 0660 system system
     group system graphics
-
-on property:init.svc.surfaceflinger=stopped
-    stop ppd
-
-on property:init.svc.surfaceflinger=running
-    start ppd
-
-on property:init.svc.surfaceflinger=restarting
-    stop ppd
-
-on property:init.svc.zygote=stopped
-    stop ppd
-
-on property:init.svc.zygote=running
-    start ppd
-
-on property:init.svc.zygote=restarting
-    stop ppd
 
 service wcnss-service /vendor/bin/wcnss_service
     class main
