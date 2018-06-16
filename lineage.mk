@@ -15,7 +15,7 @@
 $(call inherit-product, device/huawei/kiwi/full_kiwi.mk)
 
 # Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_NAME := lineage_kiwi
 BOARD_VENDOR := huawei
