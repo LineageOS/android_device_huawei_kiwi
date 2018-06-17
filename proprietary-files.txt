@@ -1080,7 +1080,7 @@ bin/libqmi_oem_main
 bin/rmt_oeminfo
 
 # Sensors
-lib64/hw/sensors.msm8916.so
+lib64/hw/sensors.msm8916.so:vendor/lib64/sensors.kiwi.so
 lib/libdmd.so
 lib64/libdmd.so
 vendor/etc/calmodule.cfg
