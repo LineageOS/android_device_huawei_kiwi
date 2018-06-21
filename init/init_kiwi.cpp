@@ -209,6 +209,13 @@ void vendor_load_properties()
     property_set("ro.product.model", match->model);
     property_set("ro.build.description", match->description);
     property_set("ro.build.fingerprint", match->fingerprint);
+
+    // Also write vendor properties to avoid mismatch
+    property_set("ro.vendor.product.device", "kiwi");
+    property_set("ro.vendor.product.model", match->model);
+    property_set("ro.vendor.product.name", match->model);
+    property_set("ro.vendor.build.fingerprint", match->fingerprint);
+
     if (match->is_cdma) {
         property_set("telephony.lteOnCdmaDevice", "1");
     }
