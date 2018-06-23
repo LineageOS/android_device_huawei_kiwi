@@ -1,4 +1,5 @@
 # Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2018 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,9 +19,10 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := lights.c
-LOCAL_MODULE_RELATIVE_PATH    := hw
+LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SHARED_LIBRARIES := liblog libcutils libqmi_oem_api
-LOCAL_MODULE := lights.msm8916
+LOCAL_CFLAGS := $(common_flags) -DLOG_TAG=\"qdlights\"
+LOCAL_MODULE := lights.$(TARGET_BOARD_PLATFORM)
 LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MODULE_TAGS := optional
 
