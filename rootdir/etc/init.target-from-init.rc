@@ -147,27 +147,27 @@ service drm /system/bin/drmserver
     user drm
     group drm system inet drmrpc sdcard_rw media_rw shell
 
-service rmt_oeminfo /system/bin/rmt_oeminfo
+service rmt_oeminfo /system/vendor/bin/rmt_oeminfo
     class core
     user root
 
-service teecd /system/bin/teecd
+service teecd /system/vendor/bin/teecd
     class core
     user system
     group system
 
-service signinfolistener /system/bin/signinfolistener
+service signinfolistener /system/vendor/bin/signinfolistener
     class core
     user system
     group system readproc
 
-service libqmi_oem_main /system/bin/libqmi_oem_main
+service libqmi_oem_main /system/vendor/bin/libqmi_oem_main
     class main
     group wakelock
 
 # disable enable_swap
 
-service huawei_version /system/bin/huawei_version
+service huawei_version /system/vendor/bin/huawei_version
     class core
     user root
     oneshot

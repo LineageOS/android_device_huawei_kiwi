@@ -164,8 +164,8 @@ BOARD_SEPOLICY_DIRS += \
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
-    /system/bin/mm-qcamera-daemon|libshim_cutils.so:\
-    /system/bin/signinfolistener|libshim_signinfolistener.so:\
+    /system/vendor/bin/mm-qcamera-daemon|libshim_cutils.so:\
+    /system/vendor/bin/signinfolistener|libshim_signinfolistener.so:\
     /system/vendor/bin/thermal-engine|libshim_cutils.so:\
     /system/vendor/lib/hw/camera.msm8916.so|libshim_cutils.so:\
     /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so:\
