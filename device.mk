@@ -234,9 +234,9 @@ PRODUCT_PACKAGES += \
     libril-wrapper
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/dsi_config.xml:system/etc/data/dsi_config.xml \
-    $(LOCAL_PATH)/configs/netmgr_config.xml:system/etc/data/netmgr_config.xml \
-    $(LOCAL_PATH)/configs/qmi_config.xml:system/etc/data/qmi_config.xml
+    $(LOCAL_PATH)/configs/dsi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/dsi_config.xml \
+    $(LOCAL_PATH)/configs/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml \
+    $(LOCAL_PATH)/configs/qmi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/qmi_config.xml
 
 # Seccomp
 PRODUCT_COPY_FILES += \
@@ -253,7 +253,7 @@ PRODUCT_COPY_FILES += \
 
 # Thermal
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+    $(LOCAL_PATH)/configs/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
 
 # USB
 PRODUCT_PACKAGES += \

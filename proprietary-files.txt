@@ -1,12 +1,12 @@
 # ADSP
-bin/adsprpcd
+bin/adsprpcd:vendor/bin/adsprpcd
 vendor/lib64/libadsprpc.so
 vendor/lib/libadsprpc.so
 vendor/lib/libfastcvopt.so
 
 # Audio
--lib/libtfa9895.so
--lib64/libtfa9895.so
+-lib64/libtfa9895.so:vendor/lib64/libtfa9895.so|54500df4e559836fa63e4876c60b491b8d79e33f
+-lib/libtfa9895.so:vendor/lib/libtfa9895.so|d46bfefccbeefce982b83e59ecb48e71e169e2d7
 vendor/lib64/libacdb-fts.so
 vendor/lib64/libacdbloader.so
 vendor/lib64/libacdbrtac.so
@@ -24,43 +24,43 @@ vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
 
 # Audio configuration
-etc/sound_param/kiw/Headset_cal.acdb
-etc/sound_param/kiw/Bluetooth_cal.acdb
-etc/sound_param/kiw/Speaker_cal.acdb
-etc/sound_param/kiw/General_cal.acdb
-etc/sound_param/kiw/Hdmi_cal.acdb
-etc/sound_param/kiw/Global_cal.acdb
-etc/sound_param/kiw/Handset_cal.acdb
-etc/sound_param/kiw/nxp/Tfa9895-AAC.cnt
-etc/sound_param/kiw/nxp/Tfa9895.cnt
-etc/sound_param/kiw/nxp/Tfa9895_coefficient.config
-etc/sound_param/kiw/nxp/Tfa9895-GD.cnt
-etc/sound_param/kiw/nxp/Tfa9895-GK.cnt
-etc/sound_param/kiw_l/Headset_cal.acdb
-etc/sound_param/kiw_l/Bluetooth_cal.acdb
-etc/sound_param/kiw_l/Speaker_cal.acdb
-etc/sound_param/kiw_l/General_cal.acdb
-etc/sound_param/kiw_l/Hdmi_cal.acdb
-etc/sound_param/kiw_l/Global_cal.acdb
-etc/sound_param/kiw_l/Handset_cal.acdb
-etc/sound_param/kiw_l/nxp/Tfa9895-AAC.cnt
-etc/sound_param/kiw_l/nxp/Tfa9895.cnt
-etc/sound_param/kiw_l/nxp/Tfa9895_coefficient.config
-etc/sound_param/kiw_l/nxp/Tfa9895-GD.cnt
-etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt
+etc/sound_param/kiw/Headset_cal.acdb:vendor/etc/sound_param/kiw/Headset_cal.acdb
+etc/sound_param/kiw/Bluetooth_cal.acdb:vendor/etc/sound_param/kiw/Bluetooth_cal.acdb
+etc/sound_param/kiw/Speaker_cal.acdb:vendor/etc/sound_param/kiw/Speaker_cal.acdb
+etc/sound_param/kiw/General_cal.acdb:vendor/etc/sound_param/kiw/General_cal.acdb
+etc/sound_param/kiw/Hdmi_cal.acdb:vendor/etc/sound_param/kiw/Hdmi_cal.acdb
+etc/sound_param/kiw/Global_cal.acdb:vendor/etc/sound_param/kiw/Global_cal.acdb
+etc/sound_param/kiw/Handset_cal.acdb:vendor/etc/sound_param/kiw/Handset_cal.acdb
+etc/sound_param/kiw/nxp/Tfa9895-AAC.cnt:vendor/etc/sound_param/kiw/nxp/Tfa9895-AAC.cnt
+etc/sound_param/kiw/nxp/Tfa9895.cnt:vendor/etc/sound_param/kiw/nxp/Tfa9895.cnt
+etc/sound_param/kiw/nxp/Tfa9895_coefficient.config:vendor/etc/sound_param/kiw/nxp/Tfa9895_coefficient.config
+etc/sound_param/kiw/nxp/Tfa9895-GD.cnt:vendor/etc/sound_param/kiw/nxp/Tfa9895-GD.cnt
+etc/sound_param/kiw/nxp/Tfa9895-GK.cnt:vendor/etc/sound_param/kiw/nxp/Tfa9895-GK.cnt
+etc/sound_param/kiw_l/Headset_cal.acdb:vendor/etc/sound_param/kiw_l/Headset_cal.acdb
+etc/sound_param/kiw_l/Bluetooth_cal.acdb:vendor/etc/sound_param/kiw_l/Bluetooth_cal.acdb
+etc/sound_param/kiw_l/Speaker_cal.acdb:vendor/etc/sound_param/kiw_l/Speaker_cal.acdb
+etc/sound_param/kiw_l/General_cal.acdb:vendor/etc/sound_param/kiw_l/General_cal.acdb
+etc/sound_param/kiw_l/Hdmi_cal.acdb:vendor/etc/sound_param/kiw_l/Hdmi_cal.acdb
+etc/sound_param/kiw_l/Global_cal.acdb:vendor/etc/sound_param/kiw_l/Global_cal.acdb
+etc/sound_param/kiw_l/Handset_cal.acdb:vendor/etc/sound_param/kiw_l/Handset_cal.acdb
+etc/sound_param/kiw_l/nxp/Tfa9895-AAC.cnt:vendor/etc/sound_param/kiw_l/nxp/Tfa9895-AAC.cnt
+etc/sound_param/kiw_l/nxp/Tfa9895.cnt:vendor/etc/sound_param/kiw_l/nxp/Tfa9895.cnt
+etc/sound_param/kiw_l/nxp/Tfa9895_coefficient.config:vendor/etc/sound_param/kiw_l/nxp/Tfa9895_coefficient.config
+etc/sound_param/kiw_l/nxp/Tfa9895-GD.cnt:vendor/etc/sound_param/kiw_l/nxp/Tfa9895-GD.cnt
+etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt:vendor/etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt
 
 # Battery
-bin/vm_bms
+bin/vm_bms:vendor/bin/vm_bms
 
 # Bluetooth
-bin/btnvtool
-bin/hci_qcomm_init
-lib64/libbtaddr.so
-lib64/libbtpower.so
+bin/btnvtool:vendor/bin/btnvtool
+bin/hci_qcomm_init:vendor/bin/hci_qcomm_init
+lib64/libbtaddr.so:vendor/lib64/libbtaddr.so
+lib64/libbtpower.so:vendor/lib64/libbtpower.so
 vendor/lib64/libbtnv.so
 
 # Camera
-bin/mm-qcamera-daemon
+bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so
@@ -441,14 +441,14 @@ etc/camera/smartae/imx219_liteon_pad/SmartAE.xml
 etc/camera/smartae/device.config
 
 # Camera firmware
-etc/firmware/cpp_firmware_v1_1_1.fw
-etc/firmware/cpp_firmware_v1_1_6.fw
-etc/firmware/cpp_firmware_v1_2_0.fw
-etc/firmware/cpp_firmware_v1_4_0.fw
+etc/firmware/cpp_firmware_v1_1_1.fw:vendor/firmware/cpp_firmware_v1_1_1.fw
+etc/firmware/cpp_firmware_v1_1_6.fw:vendor/firmware/cpp_firmware_v1_1_6.fw
+etc/firmware/cpp_firmware_v1_2_0.fw:vendor/firmware/cpp_firmware_v1_2_0.fw
+etc/firmware/cpp_firmware_v1_4_0.fw:vendor/firmware/cpp_firmware_v1_4_0.fw
 
 # DRM
-bin/qseecomd
-lib/libdrmdecrypt.so
+bin/qseecomd:vendor/bin/qseecomd
+lib/libdrmdecrypt.so:vendor/lib/libdrmdecrypt.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so
 vendor/lib64/libQSEEComAPI.so
@@ -463,15 +463,15 @@ vendor/lib/mediadrm/libwvdrmengine.so
 # Fingerprint
 lib64/hw/fingerprintd.ex.so:vendor/lib64/hw/fingerprintd.ex.so
 lib64/hw/fingerprint.msm8916.so:vendor/lib64/hw/fingerprint.msm8916.so
-lib64/lib_fpc_tac_shared.so
-lib64/libservices.huawei.so
-bin/signinfolistener
+lib64/lib_fpc_tac_shared.so:vendor/lib64/lib_fpc_tac_shared.so
+lib64/libservices.huawei.so:vendor/lib64/libservices.huawei.so
+bin/signinfolistener:vendor/bin/signinfolistener
 
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8916.so
 
 # GPS
--lib64/libloc_api_v02.so
+-lib64/libloc_api_v02.so:vendor/lib64/libloc_api_v02.so
 vendor/lib64/hw/flp.default.so|22300e06491cb1fdf9bbf8c816d3c789790d09b9
 vendor/lib64/libflp.so|4bd0052875205a4b106169ddd8451e2e0151a7fe
 vendor/lib64/libgeofence.so|5be57ed7ddb8005a06a0779c3104cacaf52f607b
@@ -535,8 +535,8 @@ vendor/lib/libsc-a3xx.so|a03fc9f0c929cb4adf013f8a463cfbef68d48090
 vendor/lib/libscale.so|972cbd87794b4ce0a5c23db946acbafd4cd6d073
 
 # Graphics firmware
-etc/firmware/a420_pfp.fw
-etc/firmware/a420_pm4.fw
+etc/firmware/a420_pfp.fw:vendor/firmware/a420_pfp.fw
+etc/firmware/a420_pm4.fw:vendor/firmware/a420_pm4.fw
 
 # Keystore
 vendor/lib64/hw/keystore.msm8916.so
@@ -554,15 +554,15 @@ vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
-bin/mm-pp-daemon
+bin/mm-pp-daemon:vendor/bin/mm-pp-daemon
 vendor/lib64/libdisp-aba.so
 -vendor/lib64/libmm-abl.so
 vendor/lib64/libmm-abl-oem.so
 
 # Qualcomm framework
-bin/irsc_util
+bin/irsc_util:vendor/bin/irsc_util
 vendor/lib64/libdiag.so
-vendor/lib64/libdsi_netctrl.so
+vendor/lib64/libdsi_netctrl.so|359222d6ce386d38ffa0ac8366e4f0169f938683
 vendor/lib64/libdsutils.so
 vendor/lib64/libidl.so
 vendor/lib64/libqcci_legacy.so
@@ -577,7 +577,7 @@ vendor/lib64/libqmiservices.so
 vendor/lib64/libqmi.so
 vendor/lib64/libsmemlog.so
 vendor/lib/libdiag.so
-vendor/lib/libdsi_netctrl.so
+vendor/lib/libdsi_netctrl.so|3473dcd25bde3b0d6aba752055c392bb3149515b
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libqcci_legacy.so
@@ -594,29 +594,28 @@ vendor/lib/libsmemlog.so
 
 # Radio
 global/ons/ons.bin
--app/qcrilmsgtunnel/qcrilmsgtunnel.apk
-#-app/shutdownlistener/shutdownlistener.apk
-bin/imsqmidaemon
-bin/netmgrd
-bin/qmuxd
-bin/radish
-bin/rmt_storage
-etc/permissions/qcnvitems.xml
-etc/permissions/qcrilhook.xml
--framework/qcnvitems.jar
--framework/qcrilhook.jar
-lib/libhuawei_secure.so
-lib/lib_oeminfo_interface.so
-lib/liboeminfo.so
-lib/libqmi_nv_api.so
--lib/libqmi_oem_api.so
-lib64/libhuawei_secure.so
-lib64/lib_oeminfo_interface.so
-lib64/liboeminfo.so
-lib64/libqmi_nv_api.so
--lib64/libqmi_oem_api.so
-lib64/librmnetctl.so
-lib64/libsecure_boot_keybox.so
+-app/qcrilmsgtunnel/qcrilmsgtunnel.apk:vendor/app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+bin/imsqmidaemon:vendor/bin/imsqmidaemon
+bin/netmgrd:vendor/bin/netmgrd|45834a323a8b2347eee775541167add0501f91f8
+bin/qmuxd:vendor/bin/qmuxd|b6318a3fdac0e247b85695dfe92330296b7fc507
+bin/radish:vendor/bin/radish
+bin/rmt_storage:vendor/bin/rmt_storage
+etc/permissions/qcnvitems.xml:vendor/etc/permissions/qcnvitems.xml|dd47edbccc24a5c254dca18250c0136ecab4f0d6
+etc/permissions/qcrilhook.xml:vendor/etc/permissions/qcrilhook.xml|5a65b197fbc65e3e89e829d07da11904eae3e938
+-framework/qcnvitems.jar:vendor/framework/qcnvitems.jar
+-framework/qcrilhook.jar:vendor/framework/qcrilhook.jar
+lib/libhuawei_secure.so:vendor/lib/libhuawei_secure.so
+lib/lib_oeminfo_interface.so:vendor/lib/lib_oeminfo_interface.so
+lib/liboeminfo.so:vendor/lib/liboeminfo.so
+lib/libqmi_nv_api.so:vendor/lib/libqmi_nv_api.so
+-lib/libqmi_oem_api.so:vendor/lib/libqmi_oem_api.so
+lib64/libhuawei_secure.so:vendor/lib64/libhuawei_secure.so
+lib64/lib_oeminfo_interface.so:vendor/lib64/lib_oeminfo_interface.so
+lib64/liboeminfo.so:vendor/lib64/liboeminfo.so
+lib64/libqmi_nv_api.so:vendor/lib64/libqmi_nv_api.so
+-lib64/libqmi_oem_api.so:vendor/lib64/libqmi_oem_api.so
+lib64/librmnetctl.so:vendor/lib64/librmnetctl.so
+lib64/libsecure_boot_keybox.so:vendor/lib64/libsecure_boot_keybox.so
 vendor/lib/libmdmdetect.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
@@ -631,57 +630,58 @@ vendor/lib64/libxml.so
 vendor/lib/lib-imsdpl.so
 
 # Ramdisk
-bin/huawei_version
-bin/libqmi_oem_main
-bin/rmt_oeminfo
+bin/huawei_version:vendor/bin/huawei_version
+bin/libqmi_oem_main:vendor/bin/libqmi_oem_main
+bin/rmt_oeminfo:vendor/bin/rmt_oeminfo
 
 # Sensors
 lib64/hw/sensors.msm8916.so:vendor/lib64/sensors.kiwi.so
-lib/libdmd.so
-lib64/libdmd.so
+lib/libdmd.so:vendor/lib/libdmd.so
+lib64/libdmd.so:vendor/lib64/libdmd.so
 vendor/etc/calmodule.cfg
 vendor/lib/libcalmodule_akm.so
 vendor/lib/libcalmodule_common.so
 vendor/lib64/libcalmodule_akm.so
 vendor/lib64/libcalmodule_common.so
 
+# Signed Venus (media) firmware
+etc/firmware/venus.b00:vendor/firmware/venus.b00
+etc/firmware/venus.b01:vendor/firmware/venus.b01
+etc/firmware/venus.b02:vendor/firmware/venus.b02
+etc/firmware/venus.b03:vendor/firmware/venus.b03
+etc/firmware/venus.b04:vendor/firmware/venus.b04
+etc/firmware/venus.mbn:vendor/firmware/venus.mbn
+etc/firmware/venus.mdt:vendor/firmware/venus.mdt
+
 # Tee
-bin/teecd
-lib64/libteec.so
+bin/teecd:vendor/bin/teecd
+lib64/libteec.so:vendor/lib64/libteec.so
 
 # Thermal
-vendor/bin/thermal-engine
+vendor/bin/thermal-engine|17a970c495eeff86c457ae4fd7ca067ba5536bd5
 vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalioctl.so
 vendor/lib/libthermalclient.so
 
 # Time services
--app/TimeService/TimeService.apk
-bin/time_daemon
+-app/TimeService/TimeService.apk:vendor/app/TimeService/TimeService.apk
+bin/time_daemon:vendor/bin/time_daemon
 -vendor/lib64/libtime_genoff.so
 -vendor/lib/libtime_genoff.so
 vendor/lib64/libTimeService.so
 vendor/lib/libTimeService.so
-# Signed Venus (media) firmware
-etc/firmware/venus.b00
-etc/firmware/venus.b01
-etc/firmware/venus.b02
-etc/firmware/venus.b03
-etc/firmware/venus.b04
-etc/firmware/venus.mbn
-etc/firmware/venus.mdt
 
 # OTHER FIRMWARE
-etc/firmware/Alice_fw.bin
-etc/firmware/athena_boe_fw.img
-etc/firmware/athena_jdi_fw.img
-etc/firmware/ice40.bin
-etc/firmware/kiw-HB396481EBC_ATL_SCUD.fw
-etc/firmware/kiw-HB396481EBC_SONY_SWD.fw
-etc/firmware/Kiwi_fw.bin
-etc/firmware/leia_pfp_470.fw
-etc/firmware/leia_pm4_470.fw
-etc/firmware/T2A_fw.bin
+etc/firmware/Alice_fw.bin:vendor/firmware/Alice_fw.bin
+etc/firmware/athena_boe_fw.img:vendor/firmware/athena_boe_fw.img
+etc/firmware/athena_jdi_fw.img:vendor/firmware/athena_jdi_fw.img
+etc/firmware/ice40.bin:vendor/firmware/ice40.bin
+etc/firmware/kiw-HB396481EBC_ATL_SCUD.fw:vendor/firmware/kiw-HB396481EBC_ATL_SCUD.fw
+etc/firmware/kiw-HB396481EBC_SONY_SWD.fw:vendor/firmware/kiw-HB396481EBC_SONY_SWD.fw
+etc/firmware/Kiwi_fw.bin:vendor/firmware/Kiwi_fw.bin
+etc/firmware/leia_pfp_470.fw:vendor/firmware/leia_pfp_470.fw
+etc/firmware/leia_pm4_470.fw:vendor/firmware/leia_pm4_470.fw
+etc/firmware/T2A_fw.bin:vendor/firmware/T2A_fw.bin
 vendor/firmware/libpn547_fw.so
 # note: etc/firmware/wlan has symlinks I'm ignoring for now
 # note: etc/firmware/wcd9306 has symlinks I'm ignoring for now
