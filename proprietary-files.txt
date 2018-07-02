@@ -8,13 +8,13 @@ vendor/lib/libfastcvopt.so
 -lib64/libtfa9895.so:vendor/lib64/libtfa9895.so|54500df4e559836fa63e4876c60b491b8d79e33f
 -lib/libtfa9895.so:vendor/lib/libtfa9895.so|d46bfefccbeefce982b83e59ecb48e71e169e2d7
 vendor/lib64/libacdb-fts.so
-vendor/lib64/libacdbloader.so
+vendor/lib64/libacdbloader.so|265aaef07bc15c06de3e73c58b114ed7f7d169fa
 vendor/lib64/libacdbrtac.so
 vendor/lib64/libadiertac.so
 vendor/lib64/libaudcal.so
 vendor/lib64/libFlacSwDec.so
 vendor/lib/libacdb-fts.so
-vendor/lib/libacdbloader.so
+vendor/lib/libacdbloader.so|d79585d1ec82b0711745fde6d5e034194b5f108f
 vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
 vendor/lib/libaudcal.so
