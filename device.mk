@@ -209,6 +209,13 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     power.msm8916
 
+# Radio
+PRODUCT_PACKAGES += \
+    qti-telephony-common
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
