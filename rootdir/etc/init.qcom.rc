@@ -348,9 +348,10 @@ service ril-daemon3 /vendor/bin/hw/rild -c 3
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
     disabled
 
-service charger /charger -h
+service charger /charger
     class charger
-    seclabel u:r:healthd:s0
+    group system graphics
+    seclabel u:r:charger:s0
 
 on ffbm
     trigger early-fs
@@ -382,3 +383,6 @@ service preparesdservice /system/bin/vdc volume storagetosd
 
 on property:persist.sys.primarysd=*
    start preparesdservice
+
+on charger
+    write /sys/class/backlight/panel0-backlight/brightness 150
