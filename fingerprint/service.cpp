@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@1.0-service.kiwi"
 
 #include <android/log.h>
 #include <hidl/HidlSupport.h>
 #include <hidl/HidlTransportSupport.h>
 #include <android/hardware/biometrics/fingerprint/2.1/IBiometricsFingerprint.h>
 #include <android/hardware/biometrics/fingerprint/2.1/types.h>
+#include <cstring>
 #include "BiometricsFingerprint.h"
 
 using android::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
@@ -29,7 +30,21 @@ using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 using android::sp;
 
-int main() {
+static void setProcessTitle(char* currentTitle, const char* newTitle) {
+    auto currentLength = std::strlen(currentTitle);
+    auto newLength = std::strlen(newTitle);
+
+    if (currentLength < newLength) {
+        ALOGE("Cannot set new process title");
+        return;
+    }
+
+    std::memset(currentTitle, 0, currentLength);
+    std::memcpy(currentTitle, newTitle, newLength);
+}
+
+int main(int, char** argv) {
+    setProcessTitle(argv[0], "/system/bin/fingerprintd");
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
 
     configureRpcThreadpool(1, true /*callerWillJoin*/);
