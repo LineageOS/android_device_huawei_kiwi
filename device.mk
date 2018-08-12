@@ -90,6 +90,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl-kiwi \
     android.hardware.bluetooth@1.0-service \
+    bt-mac-generator \
     libbt-vendor \
     init.qcom.bt.sh
 
