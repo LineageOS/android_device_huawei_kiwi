@@ -185,3 +185,9 @@ on charger
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
     start vm_bms
     load_system_props
+
+service bt-mac-generator /system/vendor/bin/bt-mac-generator
+    class late_start
+    user bluetooth
+    group bluetooth system
+    oneshot
