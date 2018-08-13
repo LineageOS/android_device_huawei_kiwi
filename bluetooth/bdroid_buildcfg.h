@@ -20,6 +20,4 @@
 
 #define BTM_DEF_LOCAL_NAME   "HUAWEI"
 
-#define BLE_VND_INCLUDED   TRUE
-
 #endif
