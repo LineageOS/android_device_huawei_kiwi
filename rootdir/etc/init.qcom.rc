@@ -48,6 +48,9 @@ on init
 on post-fs
     symlink /sdcard /storage/sdcard0
 
+    # Allow writing to the kernel trace log.
+    chmod 0222 /sys/kernel/debug/tracing/trace_marker
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
