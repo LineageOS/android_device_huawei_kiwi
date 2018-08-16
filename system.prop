@@ -29,6 +29,14 @@ ro.qualcomm.bt.hci_transport=smd
 persist.camera.cpp.duplication=false
 persist.camera.hal.debug=0
 
+# Dalvik
+dalvik.vm.heapstartsize=16m
+dalvik.vm.heapgrowthlimit=192m
+dalvik.vm.heapsize=512m
+dalvik.vm.heaptargetutilization=0.75
+dalvik.vm.heapminfree=2m
+dalvik.vm.heapmaxfree=8m
+
 # Display
 dalvik.vm.heapsize=512m
 dalvik.vm.zygotemaxfailedboots=5
