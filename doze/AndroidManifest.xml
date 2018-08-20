@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cyanogenmod.settings.doze"
+    package="org.lineageos.settings.doze"
     android:versionCode="1"
     android:versionName="1.0"
     android:sharedUserId="android.uid.system"
@@ -20,14 +20,14 @@
         android:allowBackup="true"
         android:persistent="true" >
 
-        <receiver android:name="com.cyanogenmod.settings.doze.BootCompletedReceiver">
+        <receiver android:name="org.lineageos.settings.doze.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.cyanogenmod.settings.doze.SensorsDozeService"
+        <service android:name="org.lineageos.settings.doze.SensorsDozeService"
                  android:permission="SensorsDozeService">
         </service>
 
@@ -36,14 +36,14 @@
             android:label="@string/ambient_display_title"
             android:theme="@style/DozeSettings">
             <intent-filter>
-                <action android:name="org.cyanogenmod.settings.device.DOZE_SETTINGS" />
+                <action android:name="org.lineageos.settings.device.DOZE_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data
-                android:name="org.cyanogenmod.settings.summary.receiver"
-                android:value="com.cyanogenmod.settings.doze.DozeReceiver" />
+                android:name="org.lineageos.settings.summary.receiver"
+                android:value="org.lineageos.settings.doze.DozeReceiver" />
             <meta-data
-                android:name="org.cyanogenmod.settings.summary.key"
+                android:name="org.lineageos.settings.summary.key"
                 android:value="doze_device_settings" />
         </activity>
 
