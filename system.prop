@@ -22,6 +22,7 @@ vendor.audio.offload.buffer.size.kb=64
 ro.bluetooth.dun=true
 ro.bluetooth.hfp.ver=1.6
 ro.bluetooth.sap=true
+ro.bt.bdaddr_path=/efs/bluetooth/bt_addr
 ro.qualcomm.bt.hci_transport=smd
 vendor.qcom.bluetooth.soc=smd
 
