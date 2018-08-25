@@ -51,7 +51,7 @@ failed ()
 POWER_CLASS=`getprop qcom.bt.dev_power_class`
 LE_POWER_CLASS=`getprop qcom.bt.le_dev_pwr_class`
 
-setprop bluetooth.status off
+setprop vendor.bluetooth.status off
 
 case $POWER_CLASS in
   1) PWR_CLASS="-p 0" ;
@@ -83,11 +83,11 @@ case $exit_code_hci_qcomm_init in
   0) logi "Bluetooth QSoC firmware download succeeded, $BTS_DEVICE $BTS_TYPE $BTS_BAUD $BTS_ADDRESS";;
   *) failed "Bluetooth QSoC firmware download failed" $exit_code_hci_qcomm_init;
 
-     setprop bluetooth.status off
+     setprop vendor.bluetooth.status off
 
      exit $exit_code_hci_qcomm_init;;
 esac
 
-setprop bluetooth.status on
+setprop vendor.bluetooth.status on
 
 exit 0
