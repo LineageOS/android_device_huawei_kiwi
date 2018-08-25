@@ -271,7 +271,7 @@ service hciattach /system/vendor/bin/init.qcom.bt.sh
     seclabel u:r:bluetooth_loader:s0
     oneshot
 
-on property:bluetooth.hciattach=true
+on property:vendor.bluetooth.hciattach=true
     start hciattach
 
 # FM
