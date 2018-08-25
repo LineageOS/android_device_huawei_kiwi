@@ -148,6 +148,9 @@ on post-fs-data
     mkdir /data/misc/ipa 0700 net_admin net_admin
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+    
+    # Ensure .bt_nv.bin is owned by bluetooth
+    chown bluetooth bluetooth /persist/.bt_nv.bin
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0770 wifi wifi
