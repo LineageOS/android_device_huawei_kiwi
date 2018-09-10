@@ -24,6 +24,8 @@
 
 #include <hardware/audio_amplifier.h>
 #include <system/audio.h>
+#include <voice.h>
+#include <msm8916/platform.h>
 
 #include <tinyalsa/asoundlib.h>
 
@@ -90,16 +92,24 @@ static int amp_set_mode(struct amplifier_device *device, audio_mode_t mode)
     return ret;
 }
 
-#define SMART_PA_DEVICES_MASK \
-    (AUDIO_DEVICE_OUT_EARPIECE | AUDIO_DEVICE_OUT_SPEAKER | AUDIO_DEVICE_OUT_WIRED_HEADSET | \
-     AUDIO_DEVICE_OUT_WIRED_HEADPHONE)
+static inline int is_smart_pa(uint32_t snd_device) {
+    switch (snd_device) {
+        case SND_DEVICE_OUT_SPEAKER:
+        case SND_DEVICE_OUT_SPEAKER_REVERSE:
+        case SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES:
+        case SND_DEVICE_OUT_VOICE_SPEAKER:
+            return 1;
+    }
+
+    return 0;
+}
 
 static int amp_enable_output_devices(struct amplifier_device *device, uint32_t devices, bool enable)
 {
     amp_device_t *dev = (amp_device_t *) device;
     int ret;
 
-    if ((devices & SMART_PA_DEVICES_MASK) != 0) {
+    if (is_smart_pa(devices)) {
         if (enable) {
             smart_pa_mode_t mode;
 
