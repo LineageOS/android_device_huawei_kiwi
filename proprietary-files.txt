@@ -512,14 +512,14 @@ etc/permissions/qcnvitems.xml:vendor/etc/permissions/qcnvitems.xml|dd47edbccc24a
 etc/permissions/qcrilhook.xml:vendor/etc/permissions/qcrilhook.xml|5a65b197fbc65e3e89e829d07da11904eae3e938
 -framework/qcnvitems.jar:vendor/framework/qcnvitems.jar
 -framework/qcrilhook.jar:vendor/framework/qcrilhook.jar
-lib/libhuawei_secure.so:vendor/lib/libhuawei_secure.so
+-lib/libhuawei_secure.so:vendor/lib/libhuawei_secure.so
 lib/lib_oeminfo_interface.so:vendor/lib/lib_oeminfo_interface.so
-lib/liboeminfo.so:vendor/lib/liboeminfo.so
+-lib/liboeminfo.so:vendor/lib/liboeminfo.so
 lib/libqmi_nv_api.so:vendor/lib/libqmi_nv_api.so
 -lib/libqmi_oem_api.so:vendor/lib/libqmi_oem_api.so
-lib64/libhuawei_secure.so:vendor/lib64/libhuawei_secure.so
+-lib64/libhuawei_secure.so:vendor/lib64/libhuawei_secure.so
 lib64/lib_oeminfo_interface.so:vendor/lib64/lib_oeminfo_interface.so
-lib64/liboeminfo.so:vendor/lib64/liboeminfo.so
+-lib64/liboeminfo.so:vendor/lib64/liboeminfo.so
 lib64/libqmi_nv_api.so:vendor/lib64/libqmi_nv_api.so
 -lib64/libqmi_oem_api.so:vendor/lib64/libqmi_oem_api.so
 lib64/librmnetctl.so:vendor/lib64/librmnetctl.so
@@ -540,6 +540,7 @@ vendor/lib/lib-imsdpl.so
 # Ramdisk
 bin/huawei_version:vendor/bin/huawei_version
 bin/libqmi_oem_main:vendor/bin/libqmi_oem_main
+bin/oeminfo_nvm_server:vendor/bin/oeminfo_nvm_server
 bin/rmt_oeminfo:vendor/bin/rmt_oeminfo
 
 # Sensors

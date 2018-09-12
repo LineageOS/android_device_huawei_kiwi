@@ -16,13 +16,14 @@
  */
 
 #define LOG_TAG "libwcnss_qmi"
+//#define LOG_NDEBUG 0
 
 #include <cutils/log.h>
 #include <string.h>
 
 /* liboeminfo_oem_api.so */
 #define RMT_OEMINFO_WIFI_MAC_ENC 0x34
-extern int remote_oeminfo_read(int cell, int size, void *buf);
+extern int rmt_oeminfo_read(int cell, int size, void *buf);
 
 /* libhuawei_secure.so */
 struct otp_key {
@@ -30,9 +31,8 @@ struct otp_key {
     uint8_t key2[0x104];
 } __attribute__((packed));
 
-/* Read RSA public key */
+extern int crc_check(void *key);
 extern int otp_data_read(void *key);
-
 extern int rsa_public_decrypt(void *buf, int size, void *dec_buf, int *dec_size,
                               void *key);
 
@@ -58,6 +58,8 @@ int wcnss_qmi_get_wlan_address(unsigned char *wlan_mac)
     int ret = 0;
     int i;
 
+    memset(&key, 0x0, sizeof(key));
+    memset(mac_crypted, 0x0, sizeof(mac_crypted));
     memset(mac_decrypted, 0x0, sizeof(mac_decrypted));
 
     ALOGD("Reading RSA key\n");
@@ -68,9 +70,9 @@ int wcnss_qmi_get_wlan_address(unsigned char *wlan_mac)
     }
 
     ALOGD("Reading crypted Wi-Fi MAC address\n");
-    ret = remote_oeminfo_read(RMT_OEMINFO_WIFI_MAC_ENC,
-                  sizeof(mac_crypted), mac_crypted);
-    if (ret != 1) {
+    ret = rmt_oeminfo_read(RMT_OEMINFO_WIFI_MAC_ENC, sizeof(mac_crypted),
+                           mac_crypted);
+    if (ret) {
         ALOGE("Failed to read crypted Wi-Fi MAC address ret=%d\n", ret);
         return -1;
     }
@@ -86,6 +88,13 @@ int wcnss_qmi_get_wlan_address(unsigned char *wlan_mac)
     if (mac_decrypted_size != sizeof(mac_decrypted)) {
         ALOGE("Failed to decrypt Wi-Fi MAC address mac_decrypted_size=%d\n",
               mac_decrypted_size);
+        return -1;
+    }
+
+    ALOGD("Checking CRC of decrypted Wi-Fi MAC address\n");
+    ret = crc_check(&mac_decrypted);
+    if (ret) {
+        ALOGE("Failed to check CRC of Wi-Fi MAC address ret=%d\n", ret);
         return -1;
     }
 
