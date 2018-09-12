@@ -23,7 +23,7 @@ include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES := \
     liblog \
     libhuawei_secure \
-    liboeminfo_oem_api
+    liboeminfo
 
 LOCAL_SRC_FILES := \
     wcnss_qmi.c
