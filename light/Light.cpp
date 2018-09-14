@@ -145,7 +145,7 @@ void Light::setSpeakerLightLocked(const LightState& state) {
     ret = oem_qmi_common_stream_from_modem_len(QMI_HUAWEI_NOT_ID, &config,
                                                sizeof(config), &buf, &bufSize);
 
-    if (ret != 1) {
+    if (ret != 0) {
         ALOGE("Failed to write notification LED ret=%d, buf_out_size=%zu\n",
               ret, bufSize);
     }
