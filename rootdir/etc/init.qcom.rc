@@ -38,6 +38,8 @@ on early-init
     write /sys/bus/msm_subsys/devices/subsys2/restart_level related
 
 on init
+    export LD_PRELOAD libshim_cutils.so
+
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 

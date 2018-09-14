@@ -171,13 +171,8 @@ BOARD_SEPOLICY_DIRS += \
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
-    /system/vendor/bin/mm-qcamera-daemon|libshim_cutils.so:\
     /system/vendor/bin/signinfolistener|libshim_signinfolistener.so:\
-    /system/vendor/bin/thermal-engine|libshim_cutils.so:\
-    /system/vendor/lib/hw/camera.msm8916.so|libshim_cutils.so:\
-    /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so:\
-    /system/vendor/lib64/sensors.kiwi.so|libshim_cutils.so:\
-    /system/vendor/lib64/hw/fingerprint.msm8916.so|libshim_cutils.so
+    /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so
 
 # Vendor Init
 TARGET_INIT_VENDOR_LIB := libinit_kiwi
