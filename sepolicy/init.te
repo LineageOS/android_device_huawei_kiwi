@@ -1,14 +1,12 @@
 allow init block_device:blk_file write;
 allow init mpctl_socket:sock_file write;
-allow init self:socket read;
 
 allow init block_device:blk_file setattr;
-allow init log_device:chr_file write;
 allow init mpctl_data_file:file append;
 allow init property_socket:sock_file write;
 allow init qmuxd:unix_stream_socket connectto;
 allow init qmuxd_socket:sock_file write;
-allow init self:socket { write bind create ioctl };
+allow init self:socket { read write bind create };
 allow init socket_device:sock_file { create setattr };
 allow init sysfs:lnk_file setattr;
 allow init sysfs_mpdecision:file getattr;
