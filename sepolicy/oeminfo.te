@@ -6,10 +6,8 @@ init_daemon_domain(oeminfo)
 allow oeminfo oem_block_device:blk_file rw_file_perms;
 allow oeminfo self:capability { fowner chown fsetid };
 
-allow oeminfo log_device:dir r_dir_perms;
-allow oeminfo log_device:chr_file w_file_perms;
 allow oeminfo proc_app_info:file r_file_perms;
-allow oeminfo self:socket { read bind create write ioctl };
+allow oeminfo self:socket { read bind create write };
 
 r_dir_file(oeminfo, sysfs);
 
