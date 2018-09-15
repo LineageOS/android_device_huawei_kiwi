@@ -27,3 +27,10 @@ LOCAL_MODULE := libshim_signinfolistener
 LOCAL_MODULE_TAGS := optional
 LOCAL_MULTILIB := 32
 include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := gps.c
+LOCAL_SHARED_LIBRARIES := libloc_core
+LOCAL_MODULE := libshim_libloc
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)

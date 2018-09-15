@@ -172,6 +172,7 @@ BOARD_SEPOLICY_DIRS += \
 # Shims
 TARGET_LD_SHIM_LIBS := \
     /system/vendor/bin/signinfolistener|libshim_signinfolistener.so:\
+    /system/vendor/lib64/liblbs_core.so|libshim_libloc.so:\
     /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so
 
 # Vendor Init
