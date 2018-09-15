@@ -1,3 +1,0 @@
-allow tee log_device:dir r_dir_perms;
-allow tee log_device:chr_file w_file_perms;
-
