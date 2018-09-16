@@ -4,3 +4,5 @@ type smartamp_device, dev_type;
 
 type fsc_block_device, dev_type;
 type oem_block_device, dev_type;
+
+type oeminfo_device, dev_type;
