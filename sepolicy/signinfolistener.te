@@ -11,4 +11,8 @@ allow signinfolistener ion_device:chr_file rw_file_perms;
 # crazy reading of system data files.
 allow signinfolistener system_data_file:file r_file_perms;
 
+# Somehow everyone wants to read the attributes of this
+# just ignore it
+dontaudit domain signinfolistener_exec:file getattr;
+
 init_daemon_domain(signinfolistener)

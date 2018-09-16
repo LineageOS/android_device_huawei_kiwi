@@ -1,4 +1,5 @@
 allow audioserver smartamp_device:chr_file rw_file_perms;
+allow audioserver sysfs:dir { open read };
 
 r_dir_file(audioserver, hw_audio_info_sysfs)
 r_dir_file(hal_audio_default, hw_audio_info_sysfs)
