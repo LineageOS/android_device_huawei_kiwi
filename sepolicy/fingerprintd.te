@@ -1,8 +1,8 @@
-allow fingerprintd fingerprint_device:chr_file rw_file_perms;
-allow fingerprintd fingerprint_sysfs:dir rw_dir_perms;
-allow fingerprintd fingerprint_sysfs:file rw_file_perms;
-allow fingerprintd tee_device:chr_file rw_file_perms;
+allow hal_fingerprint_default fingerprint_device:chr_file rw_file_perms;
+allow hal_fingerprint_default fingerprint_sysfs:dir rw_dir_perms;
+allow hal_fingerprint_default fingerprint_sysfs:file rw_file_perms;
+allow hal_fingerprint_default tee_device:chr_file rw_file_perms;
 
-#unix_socket_connect(fingerprintd, tee, tee);
-allow fingerprintd tee:unix_stream_socket connectto;
+#unix_socket_connect(hal_fingerprint_default, tee, tee);
+allow hal_fingerprint_default tee:unix_stream_socket connectto;
 
