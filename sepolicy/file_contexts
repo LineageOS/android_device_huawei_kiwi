@@ -19,7 +19,7 @@
 /system/vendor/bin/huawei_version                          u:object_r:oeminfo_exec:s0
 /system/vendor/bin/init.qcom.power.sh                      u:object_r:init-power-sh_exec:s0
 /system/vendor/bin/libqmi_oem_main                         u:object_r:libqmi_oem_main_exec:s0
-/system/vendor/bin/oeminfo_server                          u:object_r:oeminfo_exec:s0
+/system/vendor/bin/oeminfo_nvm_server                      u:object_r:oeminfo_exec:s0
 /system/vendor/bin/rmt_oeminfo                             u:object_r:oeminfo_exec:s0
 /system/vendor/bin/signinfolistener                        u:object_r:signinfolistener_exec:s0
 /system/vendor/bin/teecd                                   u:object_r:tee_exec:s0
