@@ -7,6 +7,7 @@
 /dev/i2c-1                                                 u:object_r:smartamp_device:s0
 /dev/rfkill                                                u:object_r:rfkill_device:s0
 
+/sys/bus/platform/drivers/hw_audio_info(/.*)?              u:object_r:hw_audio_info_sysfs:s0
 /sys/devices/platform/fingerprint(/.*)?                    u:object_r:fingerprint_sysfs:s0
 /sys/touch_screen/easy_wakeup_gesture                      u:object_r:gesture_sysfs:s0
 
