@@ -46,8 +46,6 @@ on init
     mkdir /persist 0771 system system
 
 on post-fs
-    symlink /sdcard /storage/sdcard0
-
     # Allow writing to the kernel trace log.
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
 
