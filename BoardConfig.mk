@@ -159,7 +159,6 @@ TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_kiwi
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/huawei/kiwi/ril
 TARGET_RIL_VARIANT := caf
 
 # SELinux
