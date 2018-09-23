@@ -9,7 +9,7 @@
 
 # Oem Info
 /dev/oinv(/.*)?                                            u:object_r:oeminfo_device:s0
-/dev/socket/oeminfo_nvm                                    u:object_r:oeminfo_device:s0
+/dev/socket/oeminfo_nvm                                    u:object_r:oeminfo_socket:s0
 /system/vendor/bin/huawei_version                          u:object_r:oeminfo_exec:s0
 /system/vendor/bin/oeminfo_nvm_server                      u:object_r:oeminfo_exec:s0
 /system/vendor/bin/rmt_oeminfo                             u:object_r:oeminfo_exec:s0
