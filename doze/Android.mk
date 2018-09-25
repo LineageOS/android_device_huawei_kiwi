@@ -16,8 +16,7 @@ LOCAL_STATIC_ANDROID_LIBRARIES := \
     android-support-v14-preference \
     android-support-v7-appcompat \
     android-support-v7-preference \
-    android-support-v7-recyclerview \
-    org.lineageos.platform.internal
+    android-support-v7-recyclerview
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
