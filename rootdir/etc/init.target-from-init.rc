@@ -145,11 +145,6 @@ on property:ro.build.hide="true"
 on property:ro.build.hide="false"
        write /proc/sys/kernel/hide_info 0
 
-service drm /system/bin/drmserver
-    class main
-    user drm
-    group drm system inet drmrpc sdcard_rw media_rw shell
-
 service oeminfo_nvm /system/vendor/bin/oeminfo_nvm_server
     class core
     user root
