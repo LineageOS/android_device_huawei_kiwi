@@ -1,0 +1,1 @@
+allow wcnss_service oeminfo:unix_stream_socket connectto;
