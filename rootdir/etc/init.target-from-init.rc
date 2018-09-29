@@ -8,33 +8,12 @@ on init
     mkdir /dev/frz
     mount cgroup none /dev/frz freezer
 
-# Create cgroup for pids
-    mkdir /sys/fs/cgroup/pids 0750 root system
-    mount cgroup none /sys/fs/cgroup/pids pids
-    mkdir /sys/fs/cgroup/pids/unconfirm_app 0750 root system
-    chown root system /sys/fs/cgroup/pids/unconfirm_app/cgroup.procs
-    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/cgroup.procs
-    chown root system /sys/fs/cgroup/pids/unconfirm_app/tasks
-    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/tasks
-    chown root system /sys/fs/cgroup/pids/unconfirm_app/pids.group_limit
-    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/pids.group_limit
-    chown root system /sys/fs/cgroup/pids/unconfirm_app/cgroup.event_control
-    chmod 0220 /sys/fs/cgroup/pids/unconfirm_app/cgroup.event_control
-
     chown system system /sys/module/mdss_dsi/parameters/dsi_status_disable
 
     chown root system /dev/block/mmcblk0p8
     chmod 0660 /dev/block/mmcblk0p8
 
 on post-fs-data
-    # Create log dir to collect logs.
-    mkdir /data/log 0751 system system
-    mkdir /data/log/fac_log 0755 system system
-    mkdir /data/log/android_logs 0755 system system
-    mkdir /data/log/tp_cap 0755 system system
-    mkdir /data/log/sleeplog 0755 system system
-    mkdir /data/log/sleeplog/powerlog 0755 system system
-
 # right trigger?
     mkdir /data/misc/wifi/load 0775 system system
     mkdir /data/misc/dts 0770 media media
@@ -135,16 +114,6 @@ on post-fs-data
     chown system system /sys/class/graphics/fb0/lcd_comform_mode
     chown system system /sys/class/graphics/fb0/lcd_support_mode
 
-    mkdir /data/log/sar_cap system system
-    chown system system /sys/bus/i2c/devices/0-0038/module_tpcolor
-    chown system system /sys/bus/i2c/devices/0-0052/module_tpcolor
-    chown media media /sys/bus/platform/drivers/qcom,ois/0.qcom,ois/ois_pixel
-
-on property:ro.build.hide="true"
-       write /proc/sys/kernel/hide_info 1
-on property:ro.build.hide="false"
-       write /proc/sys/kernel/hide_info 0
-
 service oeminfo_nvm /system/vendor/bin/oeminfo_nvm_server
     class core
     user root
@@ -173,12 +142,6 @@ service huawei_version /system/vendor/bin/huawei_version
     class core
     user root
     oneshot
-
-on property:ro.runmode=factory
-    mkdir /data/img 0777 media media
-    mkdir /data/camera 0777 camera camera
-    mkdir /data/misp 0777 root root
-    chmod 0777 /sys/bus/spi/devices/spi1.0/misp_config
 
 on property:persist.sys.hlcharging=true
     write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
