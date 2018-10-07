@@ -157,6 +157,10 @@ PRODUCT_PACKAGES += \
     FMRadio \
     libfmjni
 
+# For config.fs
+PRODUCT_PACKAGES += \
+    fs_config_files
+
 # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
