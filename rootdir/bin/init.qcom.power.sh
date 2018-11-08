@@ -16,22 +16,7 @@
 # limitations under the License.
 
 # Set devfreq parameters for MSM8939
-for devfreq_gov in /sys/class/devfreq/qcom,mincpubw*/governor
-do
-    echo "cpufreq" > $devfreq_gov
-done
-
-for devfreq_gov in /sys/class/devfreq/qcom,cpubw*/governor
-do
-    echo "bw_hwmon" > $devfreq_gov
-done
-
-for cpu_io_percent in /sys/class/devfreq/qcom,cpubw*/bw_hwmon/io_percent
-do
-    echo 20 > $cpu_io_percent
-done
-
-for gpu_bimc_io_percent in /sys/class/devfreq/qcom,gpubw*/bw_hwmon/io_percent
-do
-    echo 40 > $gpu_bimc_io_percent
-done
+echo "cpufreq" > /sys/class/devfreq/mincpubw/governor
+echo "bw_hwmon" > /sys/class/devfreq/cpubw/governor
+echo "20" > /sys/class/devfreq/cpubw/bw_hwmon/io_percent
+echo "40" > /sys/class/devfreq/gpubw/bw_hwmon/io_percent
