@@ -19,6 +19,7 @@ audio.offload.gapless.enabled=true
 vendor.audio.offload.buffer.size.kb=64
 
 # Bluetooth
+qcom.bluetooth.soc=smd
 ro.bluetooth.dun=true
 ro.bluetooth.hfp.ver=1.6
 ro.bluetooth.sap=true
