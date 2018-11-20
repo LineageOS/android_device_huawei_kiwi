@@ -9,11 +9,11 @@
 /dev/block/bootdevice/by-name/log        /log               vfat     nosuid,nodev,uid=1000,gid=1007,fmask=0007,dmask=0007         wait,check
 /dev/block/bootdevice/by-name/system     /system            ext4     ro,barrier=1                                                 wait,recoveryonly
 /dev/block/bootdevice/by-name/userdata   /data              f2fs     nosuid,nodev,noatime,inline_xattr                            latemount,wait,check,encryptable=footer,reservedsize=128M
-/dev/block/bootdevice/by-name/userdata   /data              ext4     nosuid,nodev,barrier=1,noauto_da_alloc                       latemount,wait,check,encryptable=footer,reservedsize=128M
+/dev/block/bootdevice/by-name/userdata   /data              ext4     nosuid,nodev,noatime,barrier=1,noauto_da_alloc               latemount,wait,check,encryptable=footer,reservedsize=128M
 /dev/block/bootdevice/by-name/cust       /cust              ext4     ro,nosuid,nodev,barrier=1,noauto_da_alloc                    wait
 /dev/block/bootdevice/by-name/cache      /cache             f2fs     nosuid,nodev,noatime,inline_xattr                            wait,check
-/dev/block/bootdevice/by-name/cache      /cache             ext4     nosuid,nodev,barrier=1                                       wait,check
-/dev/block/bootdevice/by-name/persist    /persist           ext4     nosuid,nodev,barrier=1                                       wait,check
+/dev/block/bootdevice/by-name/cache      /cache             ext4     nosuid,nodev,noatime,barrier=1                               wait,check
+/dev/block/bootdevice/by-name/persist    /persist           ext4     nosuid,nodev,noatime,barrier=1                               wait,check
 /devices/soc.0/7864900.sdhci/mmc_host/*  auto               auto     defaults                                                     voldmanaged=sdcard1:auto,encryptable=userdata
 #/dev/block/zram0                        none               swap     defaults                                                     zramsize=536870912,zramstreams=3
 /devices/platform/msm_hsusb*             auto               auto     defaults                                                     voldmanaged=usbdisk:auto
