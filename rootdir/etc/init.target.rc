@@ -163,4 +163,4 @@ on charger
     chmod 0664 /sys/class/power_supply/bms/current_now
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
     start vm_bms
-    load_all_props
+    load_system_props
