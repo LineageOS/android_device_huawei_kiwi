@@ -77,7 +77,31 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf \
-    $(LOCAL_PATH)/audio/mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_skuk.xml
+    $(LOCAL_PATH)/audio/mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_skuk.xml \
+    $(LOCAL_PATH)/audio/sound_param/kiw/Bluetooth_cal.acdb:system/etc/sound_param/kiw/Bluetooth_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw/General_cal.acdb:system/etc/sound_param/kiw/General_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw/Global_cal.acdb:system/etc/sound_param/kiw/Global_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw/Handset_cal.acdb:system/etc/sound_param/kiw/Handset_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw/Hdmi_cal.acdb:system/etc/sound_param/kiw/Hdmi_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw/Headset_cal.acdb:system/etc/sound_param/kiw/Headset_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw/Speaker_cal.acdb:system/etc/sound_param/kiw/Speaker_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw/nxp/Tfa9895-AAC.cnt:system/etc/sound_param/kiw/nxp/Tfa9895-AAC.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw/nxp/Tfa9895-GD.cnt:system/etc/sound_param/kiw/nxp/Tfa9895-GD.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw/nxp/Tfa9895-GK.cnt:system/etc/sound_param/kiw/nxp/Tfa9895-GK.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw/nxp/Tfa9895.cnt:system/etc/sound_param/kiw/nxp/Tfa9895.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw/nxp/Tfa9895_coefficient.config:system/etc/sound_param/kiw/nxp/Tfa9895_coefficient.config \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/Bluetooth_cal.acdb:system/etc/sound_param/kiw_l/Bluetooth_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/General_cal.acdb:system/etc/sound_param/kiw_l/General_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/Global_cal.acdb:system/etc/sound_param/kiw_l/Global_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/Handset_cal.acdb:system/etc/sound_param/kiw_l/Handset_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/Hdmi_cal.acdb:system/etc/sound_param/kiw_l/Hdmi_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/Headset_cal.acdb:system/etc/sound_param/kiw_l/Headset_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/Speaker_cal.acdb:system/etc/sound_param/kiw_l/Speaker_cal.acdb \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/nxp/Tfa9895-AAC.cnt:system/etc/sound_param/kiw_l/nxp/Tfa9895-AAC.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/nxp/Tfa9895-GD.cnt:system/etc/sound_param/kiw_l/nxp/Tfa9895-GD.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/nxp/Tfa9895-GK.cnt:system/etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/nxp/Tfa9895.cnt:system/etc/sound_param/kiw_l/nxp/Tfa9895.cnt \
+    $(LOCAL_PATH)/audio/sound_param/kiw_l/nxp/Tfa9895_coefficient.config:system/etc/sound_param/kiw_l/nxp/Tfa9895_coefficient.config
 
 # ANT+
 PRODUCT_PACKAGES += \
