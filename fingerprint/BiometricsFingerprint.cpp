@@ -22,7 +22,9 @@
 #include <hardware/fingerprint.h>
 #include "BiometricsFingerprint.h"
 
+#include <cstdlib>
 #include <inttypes.h>
+#include <thread>
 #include <unistd.h>
 
 namespace android {
@@ -44,7 +46,11 @@ BiometricsFingerprint::BiometricsFingerprint() : mClientCallback(nullptr), mDevi
     sInstance = this; // keep track of the most recent instance
     mDevice = openHal();
     if (!mDevice) {
-        ALOGE("Can't open HAL module");
+        using namespace std::chrono_literals;
+
+        ALOGE("Can't open HAL module. Exiting process...");
+        std::this_thread::sleep_for(500ms);
+        std::exit(EXIT_FAILURE);
     }
 }
 
