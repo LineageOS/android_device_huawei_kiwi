@@ -1,9 +1,0 @@
-type init-power-sh, domain;
-type init-power-sh_exec, exec_type, file_type;
-
-allow init-power-sh shell_exec:file { getattr read };
-allow init-power-sh sysfs:dir r_file_perms;
-allow init-power-sh sysfs:file rw_file_perms;
-
-init_daemon_domain(init-power-sh)
-
