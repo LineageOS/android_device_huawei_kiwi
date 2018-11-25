@@ -1,0 +1,5 @@
+# HAX
+allow bluetooth_loader device:dir { remove_name write };
+allow bluetooth_loader device:file { getattr open read unlink };
+allow bluetooth_loader oeminfo:unix_stream_socket connectto;
+allow bluetooth_loader socket_device:sock_file write;

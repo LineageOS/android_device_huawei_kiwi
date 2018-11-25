@@ -13,3 +13,8 @@ allow libqmi_oem_main self:socket { read create bind write };
 allow libqmi_oem_main sysfs:file r_file_perms;
 
 set_prop(libqmi_oem_main, debug_prop);
+
+# HAX
+allow libqmi_oem_main properties_device:dir { open read };
+allow libqmi_oem_main self:socket ioctl;
+allowxperm libqmi_oem_main self:socket ioctl { 0xc302 0xc304 };

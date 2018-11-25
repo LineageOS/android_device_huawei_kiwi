@@ -11,6 +11,16 @@ allow oeminfo self:capability { fowner chown fsetid };
 allow oeminfo proc_app_info:file r_file_perms;
 allow oeminfo self:socket { read bind create write };
 
+# HAX
+allow oeminfo block_device:dir search;
+allow oeminfo device:dir { add_name create setattr write };
+allow oeminfo device:file { create open setattr write };
+allow oeminfo properties_device:dir { open read };
+allow oeminfo socket_device:dir { add_name write };
+allow oeminfo socket_device:sock_file { create setattr };
+allow oeminfo self:socket ioctl;
+allowxperm oeminfo self:socket ioctl { 0xc304 };
+
 r_dir_file(oeminfo, sysfs);
 
 set_prop(oeminfo, hw_version_prop);
