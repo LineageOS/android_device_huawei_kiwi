@@ -56,6 +56,9 @@ ro.qualcomm.cabl=0
 ro.qcom.ad=1
 ro.qcom.ad.calib.data=/system/etc/calib_kiw.cfg
 
+# Fingerprint
+ro.fingerprint.cleanup.unused=false
+
 # Log
 log.tag.VM_BMS=WARN
 
