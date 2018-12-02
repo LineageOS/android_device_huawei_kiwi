@@ -45,12 +45,15 @@ on post-fs-data
 
     mkdir /data/midi 0770 media audio
 
+    # Touchscreen gestures & glove mode
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
     chown system system /sys/touch_screen/holster_touch_window
     chown system system /sys/touch_screen/glove_func/signal_disparity
     chown system system /sys/touch_screen/easy_wakeup_gesture
     chown system system /sys/touch_screen/easy_wakeup_supported_gestures
     chown system system /sys/touch_screen/easy_wakeup_position
+    chmod 0664 /sys/touch_screen/easy_wakeup_gesture
+    chmod 0664 /sys/touch_screen/glove_func/signal_disparity
 
     chown system system /sys/touch_screen/cyttsp5/command
     chown system system /sys/touch_screen/cyttsp5/status
