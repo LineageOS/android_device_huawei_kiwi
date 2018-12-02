@@ -80,6 +80,7 @@ qemu.hw.mainkeys=0
 ro.qcom.ad.sensortype=2
 ro.sf.lcd_density=480
 ro.vendor.extension_library=libqti-perfd-client.so
+ro.board.platform=msm8916
 
 # Performance
 ro.am.reschedule_service=true
