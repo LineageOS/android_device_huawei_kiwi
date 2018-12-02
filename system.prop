@@ -76,6 +76,7 @@ persist.timed.enable=true
 # Other
 dev.pm.dyn_samplingrate=1
 qemu.hw.mainkeys=0
+ro.board.platform=msm8916
 ro.qcom.ad.sensortype=2
 ro.sf.lcd_density=480
 ro.vendor.extension_library=libqti-perfd-client.so
