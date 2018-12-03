@@ -1,4 +1,6 @@
 # Audio
+audio.deep_buffer.media=true
+persist.vendor.audio.dualmic.config=endfire
 persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.fluence.voicerec=false
 persist.vendor.audio.fluence.speaker=true
@@ -16,6 +18,7 @@ audio.offload.min.duration.secs=30
 audio.offload.pcm.enable=true
 audio.offload.disable=false
 audio.offload.gapless.enabled=true
+audio.offload.video=true
 vendor.audio.offload.buffer.size.kb=64
 
 # Bluetooth
@@ -40,7 +43,6 @@ dalvik.vm.heapminfree=2m
 dalvik.vm.heapmaxfree=8m
 
 # Display
-dalvik.vm.heapsize=512m
 dalvik.vm.zygotemaxfailedboots=5
 debug.composition.type=c2d
 debug.cpurend.vsync=false
@@ -57,6 +59,7 @@ ro.opengles.version=196610
 ro.qualcomm.cabl=0
 ro.qcom.ad=1
 ro.qcom.ad.calib.data=/system/etc/calib_kiw.cfg
+sys.hwc.gpu_perf_mode=1
 
 # DRM
 drm.service.enabled=1
@@ -78,6 +81,8 @@ media.stagefright.enable-scan=true
 mm.enable.sec.smoothstreaming=true
 mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
+ro.config.media_vol_steps=20
+ro.config.vc_call_vol_steps=10 
 
 # Net
 persist.data.netmgrd.qos.enable=true
@@ -91,9 +96,6 @@ ro.sf.lcd_density=480
 ro.vendor.extension_library=libqti-perfd-client.so
 ro.board.platform=msm8916
 
-# Performance
-ro.am.reschedule_service=true
-
 # Radio
 DEVICE_PROVISIONED=1
 persist.data.ds_fmc_app.mode=0
@@ -101,6 +103,7 @@ persist.data.qmi.adb_logmask=0
 persist.omh.enabled=0
 persist.radio.apm_sim_not_pwdn=1
 persist.radio.force_nw_search=1
+persist.radio.force_on_dc=true
 persist.radio.msgtunnel.start=false
 persist.radio.no_wait_for_card=1
 persist.radio.rat_on=combine
