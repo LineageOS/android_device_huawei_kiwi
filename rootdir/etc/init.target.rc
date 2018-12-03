@@ -36,6 +36,9 @@ on early-init
     symlink /data/tombstones /tombstones
     mkdir /log 0770 system log
 
+on init
+    write /sys/module/lpm_levels/parameters/sleep_disabled Y
+
 on fs
     wait /dev/block/platform/soc.0/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc.0/${ro.boot.bootdevice} /dev/block/bootdevice
