@@ -4,4 +4,4 @@ service fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@1.0-servi
     # /data is mounted.
     class late_start
     user system
-    group system input
+    group system input uhid
