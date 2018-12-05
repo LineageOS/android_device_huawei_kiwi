@@ -1,0 +1,1 @@
+allow hal_wifi_default firmware_file:dir search;
