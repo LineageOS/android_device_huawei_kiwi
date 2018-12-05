@@ -1,1 +1,5 @@
 allow rild libqmi_oem_main:unix_stream_socket connectto;
+
+# rild is somehow trying to execute /system/bin/ip
+# we don't allow it and we don't want it logged all the time
+dontaudit rild system_file:file execute_no_trans;
