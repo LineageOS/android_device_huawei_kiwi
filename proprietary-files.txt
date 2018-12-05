@@ -448,7 +448,8 @@ etc/firmware/a420_pfp.fw:vendor/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw:vendor/firmware/a420_pm4.fw
 
 # Keystore
-vendor/lib64/hw/keystore.msm8916.so
+vendor/lib64/hw/keystore.msm8916.so|1236aef1d75b140e31697d531a389132064215f3
+vendor/lib64/libcrypto_keystore.so|054a62915d5df46254044caa49e988889b9e731c
 
 # Media
 vendor/lib/libOmxAacDec.so
