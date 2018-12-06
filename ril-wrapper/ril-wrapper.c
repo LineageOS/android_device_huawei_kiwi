@@ -101,11 +101,20 @@ static void onRequestCompleteShim(RIL_Token t, RIL_Errno e, void* response, size
     switch (request) {
         case RIL_REQUEST_SIGNAL_STRENGTH:
             if (responselen != sizeof(RIL_SignalStrength_v10_vendor)) {
-                ALOGE("%s: invalid response length", __func__);
+                ALOGE("%s: invalid response length of RIL_REQUEST_SIGNAL_STRENGTH", __func__);
                 goto do_not_handle;
             }
 
             responselen = transformResponse(response);
+            break;
+
+        case RIL_REQUEST_DEVICE_IDENTITY:
+            if (responselen != 5 * sizeof(char*)) {
+                ALOGE("%s: invalid response length of RIL_REQUEST_DEVICE_IDENTITY", __func__);
+                goto do_not_handle;
+            }
+
+            responselen = 4 * sizeof(char*);
             break;
     }
 
