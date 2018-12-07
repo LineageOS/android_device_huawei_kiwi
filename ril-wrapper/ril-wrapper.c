@@ -63,6 +63,8 @@ typedef struct RequestInfo {
 static const RIL_RadioFunctions* qmiRilFunctions;
 static const struct RIL_Env* ossRilEnv;
 
+static RIL_RadioFunctions shimmedRilFunctions;
+
 static size_t transformResponse(const void* response) {
     RIL_SignalStrength_v10_vendor vendorResponse = *(RIL_SignalStrength_v10_vendor*)response;
     RIL_SignalStrength_v10* rilResponse = (RIL_SignalStrength_v10*)response;
@@ -143,6 +145,22 @@ do_not_handle:
     ossRilEnv->OnUnsolicitedResponse(unsolResponse, data, datalen);
 }
 
+static void onRequestShim(int request, void* data, size_t datalen, RIL_Token t) {
+    if (request < 132) {
+        qmiRilFunctions->onRequest(request, data, datalen, t);
+        return;
+    }
+
+    ALOGD("Skipping unsupported request: %d", request);
+
+    RequestInfo* requestInfo = (RequestInfo*)t;
+    if (requestInfo) {
+        requestInfo->cancelled = 1;
+    }
+
+    ossRilEnv->OnRequestComplete(t, RIL_E_CANCELLED, NULL, 0);
+}
+
 const RIL_RadioFunctions* RIL_Init(const struct RIL_Env* env, int argc, char** argv) {
     RIL_RadioFunctions const* (*qmiRilInit)(const struct RIL_Env* env, int argc, char** argv);
     static struct RIL_Env shimmedRilEnv;
@@ -187,7 +205,10 @@ const RIL_RadioFunctions* RIL_Init(const struct RIL_Env* env, int argc, char** a
         goto fail_after_dlopen;
     }
 
-    return qmiRilFunctions;
+    shimmedRilFunctions = *qmiRilFunctions;
+    shimmedRilFunctions.onRequest = onRequestShim;
+
+    return &shimmedRilFunctions;
 
 fail_after_dlopen:
     dlclose(qmiRil);
