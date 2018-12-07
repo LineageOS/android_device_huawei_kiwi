@@ -1,6 +1,5 @@
 allow wcnss_service oeminfo:unix_stream_socket connectto;
 
-# HAX
-allow wcnss_service device:dir { remove_name write };
-allow wcnss_service device:file { getattr open read unlink };
-allow wcnss_service socket_device:sock_file write;
+allow wcnss_service oeminfo_device:dir { remove_name write search };
+allow wcnss_service oeminfo_device:file { getattr open read unlink };
+allow wcnss_service oeminfo_socket:sock_file write;

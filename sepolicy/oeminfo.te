@@ -2,6 +2,8 @@ type oeminfo, domain;
 type oeminfo_device, dev_type;
 type oeminfo_exec, exec_type, file_type;
 type oeminfo_socket, file_type;
+type_transition oeminfo socket_device:sock_file oeminfo_socket;
+type_transition oeminfo device:{ file dir } oeminfo_device;
 
 init_daemon_domain(oeminfo)
 
@@ -11,13 +13,14 @@ allow oeminfo self:capability { fowner chown fsetid };
 allow oeminfo proc_app_info:file r_file_perms;
 allow oeminfo self:socket { read bind create write };
 
+allow oeminfo oeminfo_device:dir { add_name create setattr write search };
+allow oeminfo oeminfo_device:file { create open setattr write };
+allow oeminfo oeminfo_socket:sock_file { create setattr };
+
 # HAX
 allow oeminfo block_device:dir search;
-allow oeminfo device:dir { add_name create setattr write };
-allow oeminfo device:file { create open setattr write };
 allow oeminfo properties_device:dir { open read };
-allow oeminfo socket_device:dir { add_name write };
-allow oeminfo socket_device:sock_file { create setattr };
+allow oeminfo socket_device:dir { add_name write }; # /dev/socket
 allow oeminfo self:socket ioctl;
 allowxperm oeminfo self:socket ioctl { 0xc304 };
 

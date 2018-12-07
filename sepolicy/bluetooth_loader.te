@@ -1,7 +1,6 @@
 r_dir_file(bluetooth_loader, bluetooth_data_file)
 
-# HAX
-allow bluetooth_loader device:dir { remove_name write };
-allow bluetooth_loader device:file { getattr open read unlink };
+allow bluetooth_loader oeminfo_device:dir { remove_name write search };
+allow bluetooth_loader oeminfo_device:file { getattr open read unlink };
 allow bluetooth_loader oeminfo:unix_stream_socket connectto;
-allow bluetooth_loader socket_device:sock_file write;
+allow bluetooth_loader oeminfo_socket:sock_file write;

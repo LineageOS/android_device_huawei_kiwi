@@ -5,5 +5,4 @@ allow system_server shell_exec:file { read execute open };
 allow system_server oeminfo:unix_stream_socket connectto;
 unix_socket_connect(system_server, qmuxd, libqmi_oem_main);
 
-# HAX
-allow system_server socket_device:sock_file write;
+allow system_server oeminfo_socket:sock_file write;
