@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "170af877_4df58816",
+        "filename": "device.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2018-12-08T18:15:45Z",
+      "side": 1,
+      "message": "that\u0027s not even a valid build target",
+      "range": {
+        "startLine": 197,
+        "startChar": 4,
+        "endLine": 197,
+        "endChar": 41
+      },
+      "revId": "4c21b50b34ddccdc9b06eed0fb642b7c3405bf85",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
