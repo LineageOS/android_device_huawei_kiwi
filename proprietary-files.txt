@@ -5,16 +5,16 @@ vendor/lib/libadsprpc.so
 vendor/lib/libfastcvopt.so
 
 # Audio
--lib64/libtfa9895.so:vendor/lib64/libtfa9895.so|54500df4e559836fa63e4876c60b491b8d79e33f
--lib/libtfa9895.so:vendor/lib/libtfa9895.so|d46bfefccbeefce982b83e59ecb48e71e169e2d7
+-lib64/libtfa9895.so:vendor/lib64/libtfa9895.so|210a4a98eaf1e466085de3d437cb8f921b443c46
+-lib/libtfa9895.so:vendor/lib/libtfa9895.so|5c036aaba7c5c2f8c89ac1b99d2a4cea15c66dd4
 vendor/lib64/libacdb-fts.so
-vendor/lib64/libacdbloader.so|265aaef07bc15c06de3e73c58b114ed7f7d169fa
+vendor/lib64/libacdbloader.so|c679ac2c0a574277932cdae2cd8eb88c6aed1991
 vendor/lib64/libacdbrtac.so
 vendor/lib64/libadiertac.so
 vendor/lib64/libaudcal.so
 vendor/lib64/libFlacSwDec.so
 vendor/lib/libacdb-fts.so
-vendor/lib/libacdbloader.so|d79585d1ec82b0711745fde6d5e034194b5f108f
+vendor/lib/libacdbloader.so|c5c10ba1692849d20732aa02bea0815909ce42e0
 vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
 vendor/lib/libaudcal.so
@@ -385,7 +385,7 @@ vendor/lib64/hw/flp.default.so|22300e06491cb1fdf9bbf8c816d3c789790d09b9
 vendor/lib64/libflp.so|4bd0052875205a4b106169ddd8451e2e0151a7fe
 vendor/lib64/libgeofence.so|5be57ed7ddb8005a06a0779c3104cacaf52f607b
 vendor/lib64/libizat_core.so|2516fd1cbaa2e2ec9e374076c907ab3aed345ba5
-vendor/lib64/liblbs_core.so|60f08a78db2f1e70b66b80c781d494d49aaf7773
+vendor/lib64/liblbs_core.so|2d1abd0c5c1bc972b54779da70fb4e52882fc3ec
 
 # Graphics - from crackling
 vendor/lib64/egl/eglsubAndroid.so|1043fd1935186ef1d54328e17bbbce810ba8e8fa
@@ -449,7 +449,7 @@ etc/firmware/a420_pm4.fw:vendor/firmware/a420_pm4.fw
 
 # Keystore
 vendor/lib64/hw/keystore.msm8916.so|1236aef1d75b140e31697d531a389132064215f3
-vendor/lib64/libcrypto_keystore.so|054a62915d5df46254044caa49e988889b9e731c
+vendor/lib64/libcrypto_keystore.so|0e8c6f235f09fb98e5eea15b25793b3c6cf50790
 
 # Media
 vendor/lib/libOmxAacDec.so
@@ -470,7 +470,7 @@ vendor/lib64/libmm-abl-oem.so
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
 vendor/lib64/libdiag.so
-vendor/lib64/libdsi_netctrl.so|359222d6ce386d38ffa0ac8366e4f0169f938683
+vendor/lib64/libdsi_netctrl.so|b6dc12ab50bdb5a1a2bbbddd76cb18b07b70accb
 vendor/lib64/libdsutils.so
 vendor/lib64/libidl.so
 vendor/lib64/libqcci_legacy.so
@@ -485,7 +485,7 @@ vendor/lib64/libqmiservices.so
 vendor/lib64/libqmi.so
 vendor/lib64/libsmemlog.so
 vendor/lib/libdiag.so
-vendor/lib/libdsi_netctrl.so|3473dcd25bde3b0d6aba752055c392bb3149515b
+vendor/lib/libdsi_netctrl.so|da9015997db1e2ab69b7ad35aaa26bb7ab075224
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libqcci_legacy.so
@@ -504,8 +504,8 @@ vendor/lib/libsmemlog.so
 global/ons/ons.bin
 -app/qcrilmsgtunnel/qcrilmsgtunnel.apk:vendor/app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 bin/imsqmidaemon:vendor/bin/imsqmidaemon
-bin/netmgrd:vendor/bin/netmgrd|45834a323a8b2347eee775541167add0501f91f8
-bin/qmuxd:vendor/bin/qmuxd|b6318a3fdac0e247b85695dfe92330296b7fc507
+bin/netmgrd:vendor/bin/netmgrd|339e2d8f8af401d993341a5a2bab34e70807cda4
+bin/qmuxd:vendor/bin/qmuxd|004ed171a192bad685bac2ef4004d419764efc59
 bin/radish:vendor/bin/radish
 bin/rmt_storage:vendor/bin/rmt_storage
 etc/permissions/qcnvitems.xml:vendor/etc/permissions/qcnvitems.xml|dd47edbccc24a5c254dca18250c0136ecab4f0d6
@@ -544,7 +544,7 @@ bin/oeminfo_nvm_server:vendor/bin/oeminfo_nvm_server
 bin/rmt_oeminfo:vendor/bin/rmt_oeminfo
 
 # Sensors
-lib64/hw/sensors.msm8916.so:vendor/lib64/sensors.kiwi.so|93c46534a930aa2e9e499d6fb26f0d84be5ea203
+lib64/hw/sensors.msm8916.so:vendor/lib64/sensors.kiwi.so|92709daf36551d6cf76c1a78aa6b6e1a39993b90
 lib/libdmd.so:vendor/lib/libdmd.so
 lib64/libdmd.so:vendor/lib64/libdmd.so
 vendor/etc/calmodule.cfg
@@ -567,7 +567,7 @@ bin/teecd:vendor/bin/teecd
 lib64/libteec.so:vendor/lib64/libteec.so
 
 # Thermal
-vendor/bin/thermal-engine|17a970c495eeff86c457ae4fd7ca067ba5536bd5
+vendor/bin/thermal-engine|95e447d95ccb9f45a4ff59d133c68530d5c730ff
 vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalioctl.so
 vendor/lib/libthermalclient.so
