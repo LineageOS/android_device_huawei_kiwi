@@ -507,7 +507,7 @@ bin/imsqmidaemon:vendor/bin/imsqmidaemon
 bin/netmgrd:vendor/bin/netmgrd|339e2d8f8af401d993341a5a2bab34e70807cda4
 bin/qmuxd:vendor/bin/qmuxd|004ed171a192bad685bac2ef4004d419764efc59
 bin/radish:vendor/bin/radish
-bin/rmt_storage:vendor/bin/rmt_storage
+bin/rmt_storage:vendor/bin/rmt_storage|08011978c658b72068edc3b47c215440af06c196
 etc/permissions/qcnvitems.xml:vendor/etc/permissions/qcnvitems.xml|dd47edbccc24a5c254dca18250c0136ecab4f0d6
 etc/permissions/qcrilhook.xml:vendor/etc/permissions/qcrilhook.xml|5a65b197fbc65e3e89e829d07da11904eae3e938
 -framework/qcnvitems.jar:vendor/framework/qcnvitems.jar
