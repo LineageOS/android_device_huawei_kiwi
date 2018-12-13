@@ -31,6 +31,7 @@ on post-fs-data
     chown system system /sys/touch_screen/easy_wakeup_gesture
     chown system system /sys/touch_screen/easy_wakeup_supported_gestures
     chown system system /sys/touch_screen/easy_wakeup_position
+    chown system system /sys/touch_screen/tap_to_wake
     chmod 0664 /sys/touch_screen/easy_wakeup_gesture
     chmod 0664 /sys/touch_screen/glove_func/signal_disparity
 

@@ -23,6 +23,7 @@
 
 /sys/bus/platform/drivers/hw_audio_info(/.*)?              u:object_r:hw_audio_info_sysfs:s0
 /sys/touch_screen/easy_wakeup_gesture                      u:object_r:gesture_sysfs:s0
+/sys/touch_screen/tap_to_wake                              u:object_r:gesture_sysfs:s0
 /system/vendor/bin/libqmi_oem_main                         u:object_r:libqmi_oem_main_exec:s0
 /system/vendor/bin/signinfolistener                        u:object_r:signinfolistener_exec:s0
 /system/vendor/bin/teecd                                   u:object_r:tee_exec:s0
