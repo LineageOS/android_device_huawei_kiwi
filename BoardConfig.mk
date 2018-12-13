@@ -126,8 +126,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # blockdev --getbsz /dev/block/mmcblk0p19
 TARGET_HAS_LEGACY_POWER_STATS := true
 TARGET_HAS_NO_WIFI_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
-BOARD_POWER_CUSTOM_BOARD_LIB := libpower_kiwi
-TARGET_POWER_SET_FEATURE_LIB := libpower_kiwi
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
