@@ -79,6 +79,9 @@ mmp.enable.3g2=true
 ro.config.media_vol_steps=20
 ro.config.vc_call_vol_steps=10 
 
+# Memory optimizations
+ro.vendor.qti.sys.fw.bservice_enable=true
+
 # Net
 persist.data.netmgrd.qos.enable=true
 persist.timed.enable=true
