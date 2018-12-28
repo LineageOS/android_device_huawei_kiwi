@@ -174,6 +174,9 @@ TARGET_INIT_VENDOR_LIB := libinit_kiwi
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
+# Extended Filesystem Support
+TARGET_EXFAT_DRIVER := sdfat
+
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HOSTAPD_DRIVER := NL80211
