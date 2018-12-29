@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfb3adb7_2d8507b5",
+        "filename": "twrp/recovery/root/etc/twrp.fstab",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 16219
+      },
+      "writtenOn": "2018-12-29T12:36:41Z",
+      "side": 1,
+      "message": "I was trying to use auto as in TeamWin repository but with no success:\nI:Can\u0027t probe device /dev/block/mmcblk0p26\nI:Unable to mount \u0027/data\u0027\nI:Actual block device: \u0027/dev/block/mmcblk0p26\u0027, current file system: \u0027auto\u0027",
+      "range": {
+        "startLine": 4,
+        "startChar": 14,
+        "endLine": 4,
+        "endChar": 18
+      },
+      "revId": "3d691911a4f5003a71ca5a04d8cd9ea84b9e8dbe",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
