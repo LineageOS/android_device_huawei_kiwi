@@ -102,8 +102,7 @@ PRODUCT_PACKAGES += \
 # Compatibility
 PRODUCT_PACKAGES += \
     libshim_cutils \
-    libshim_signinfolistener \
-    libshim_libloc
+    libshim_signinfolistener
 
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
