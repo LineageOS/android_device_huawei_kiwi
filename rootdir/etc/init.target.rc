@@ -54,8 +54,6 @@ on fs
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
 
-    mkdir /data/fpc 0700 system system
-
     wait /dev/block/bootdevice/by-name/oeminfo
     start oeminfo_nvm
 
@@ -79,6 +77,7 @@ on post-fs-data
     mkdir /persist/data/sfs 0700 system system
     mkdir /persist/data/tz 0700 system system
     mkdir /data/misc/dts 0770 media audio
+    mkdir /data/fpc 0700 system system
 
 # Start camera server as daemon
 service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
