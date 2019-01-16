@@ -11,7 +11,7 @@ on enable-low-power
     # Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/adj_max_shift 606
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 0
-    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 80640
 
     # HMP scheduler load tracking settings
     write /proc/sys/kernel/sched_window_stats_policy 3
