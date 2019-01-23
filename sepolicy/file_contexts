@@ -27,8 +27,3 @@
 /system/vendor/bin/libqmi_oem_main                         u:object_r:libqmi_oem_main_exec:s0
 /system/vendor/bin/signinfolistener                        u:object_r:signinfolistener_exec:s0
 /system/vendor/bin/teecd                                   u:object_r:tee_exec:s0
-
-# Power supply
-/sys/devices(/platform)?/soc\.0/[a-f0-9]+\.i2c/i2c-[0-9]+/[0-9]+-[a-f0-9]+/power_supply/battery(/.*)?	u:object_r:sysfs_battery_supply:s0
-/sys/devices(/platform)?/soc\.0/[a-f0-9]+\.i2c/i2c-[0-9]+/[0-9]+-[a-f0-9]+/power_supply/qpnp-dc(/.*)?	u:object_r:sysfs_usb_supply:s0
-/sys/devices(/platform)?/soc\.0/[a-f0-9]+\.usb/power_supply/usb(/.*)?									u:object_r:sysfs_usb_supply:s0
