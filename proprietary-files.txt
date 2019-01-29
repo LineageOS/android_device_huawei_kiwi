@@ -4,6 +4,10 @@ vendor/lib64/libadsprpc.so
 vendor/lib/libadsprpc.so
 vendor/lib/libfastcvopt.so
 
+# ANT
+-lib64/libantradio.so:vendor/lib64/libantradio.so|226f5531e2a43bd3d12008b964e007a30f2192a0
+-lib/libantradio.so:vendor/lib/libantradio.so|68152c633a1fa47801b352400d0850f3ffae2813
+
 # Audio
 -lib64/libtfa9895.so:vendor/lib64/libtfa9895.so|210a4a98eaf1e466085de3d437cb8f921b443c46
 -lib/libtfa9895.so:vendor/lib/libtfa9895.so|5c036aaba7c5c2f8c89ac1b99d2a4cea15c66dd4
