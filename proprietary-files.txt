@@ -452,9 +452,22 @@ vendor/lib64/hw/keystore.msm8916.so|1236aef1d75b140e31697d531a389132064215f3
 vendor/lib64/libcrypto_keystore.so|0e8c6f235f09fb98e5eea15b25793b3c6cf50790
 
 # Media
-vendor/lib/libOmxAacDec.so
-vendor/lib/libOmxEvrcDec.so
-vendor/lib/libOmxQcelp13Dec.so
+vendor/lib/libI420colorconvert.so|21208b4d6435c6b4e134a6d400fa424c2eebfd5b
+vendor/lib/libFileMux.so|3f742ba7dd266958e6d617034e804306dab20007
+vendor/lib/libmmosal.so|bdb2d79056d8f44d27440fdc9acc30055bff3475
+vendor/lib/libmmparser_lite.so|42c17ab88ed7320ce4327577d29f60850c09401a
+vendor/lib/libOmxAacDec.so|f3ed612537381ac63d01b8f84b08dc5919f9ccc0
+vendor/lib/libOmxAlacDec.so|d16657166dc1587b8e291e9c4b87001c39d3d0a5
+vendor/lib/libOmxAlacDecSw.so|cb4710cc401db822e773f794f6e9b6f139dbb25d
+vendor/lib/libOmxAmrwbplusDec.so|8fd33d911e35d2367888524c41ee5b0155fe2e7e
+vendor/lib/libOmxApeDec.so|39cba721ab052ba05aabae709bdad91a7e7397ac
+vendor/lib/libOmxApeDecSw.so|cc0a0df429d9690f77d314993188b96df66649c8
+vendor/lib/libOmxEvrcDec.so|6c0a94204a7583aba9bf8ad2bca713c86358b124
+vendor/lib/libOmxMux.so|a1202d73dd265875c79de67b9a8fb4fd49fb8e19
+vendor/lib/libOmxQcelp13Dec.so|6718dba214738f8962932b5c7057be9ce63d6c87
+vendor/lib/libOmxWmaDec.so|4c12c42865a2f3499005a735828b1b0c27488ca5
+vendor/lib/libOmxVpp.so|2502daba5b027ffafc7ce3b27580f8c6b2407014
+vendor/lib/libvpplibrary.so|e13326fe723e65fcda0b3805a6162c8f2ca06e36
 
 # Perf
 vendor/bin/perfd
@@ -566,11 +579,11 @@ etc/firmware/venus.mdt:vendor/firmware/venus.mdt
 bin/teecd:vendor/bin/teecd
 lib64/libteec.so:vendor/lib64/libteec.so
 
-# Thermal
-vendor/bin/thermal-engine|95e447d95ccb9f45a4ff59d133c68530d5c730ff
-vendor/lib64/libthermalclient.so
-vendor/lib64/libthermalioctl.so
-vendor/lib/libthermalclient.so
+# Thermal - from kipper TOS125B
+vendor/bin/thermal-engine|5d2739ab2ea6b7c3027befd8d295f938db14399a
+vendor/lib64/libthermalclient.so|c624da1923420a89f97e464ae2499d7fade4ab3c
+vendor/lib64/libthermalioctl.so|35f9078819a7ec2cbfb34f9170be55c4308feb10
+vendor/lib/libthermalclient.so|6c9bde1d2d2896b254ea412a256215cfc9e1640d
 
 # Time services
 -app/TimeService/TimeService.apk:vendor/app/TimeService/TimeService.apk
