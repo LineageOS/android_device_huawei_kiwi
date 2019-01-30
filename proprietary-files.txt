@@ -381,6 +381,7 @@ vendor/lib64/hw/gatekeeper.msm8916.so
 
 # GPS
 -lib64/libloc_api_v02.so:vendor/lib64/libloc_api_v02.so
+-lib64/libloc_ds_api.so:vendor/lib64/libloc_ds_api.so|e06cd5c399bf64d8f28d45ccd18b65c612b76625
 vendor/lib64/hw/flp.default.so|22300e06491cb1fdf9bbf8c816d3c789790d09b9
 vendor/lib64/libflp.so|4bd0052875205a4b106169ddd8451e2e0151a7fe
 vendor/lib64/libgeofence.so|5be57ed7ddb8005a06a0779c3104cacaf52f607b
@@ -452,20 +453,41 @@ vendor/lib64/hw/keystore.msm8916.so|1236aef1d75b140e31697d531a389132064215f3
 vendor/lib64/libcrypto_keystore.so|0e8c6f235f09fb98e5eea15b25793b3c6cf50790
 
 # Media
-vendor/lib/libOmxAacDec.so
-vendor/lib/libOmxEvrcDec.so
-vendor/lib/libOmxQcelp13Dec.so
+vendor/lib/libI420colorconvert.so|21208b4d6435c6b4e134a6d400fa424c2eebfd5b
+vendor/lib/libFileMux.so|3f742ba7dd266958e6d617034e804306dab20007
+vendor/lib/libmmosal.so|bdb2d79056d8f44d27440fdc9acc30055bff3475
+vendor/lib/libmmparser_lite.so|42c17ab88ed7320ce4327577d29f60850c09401a
+vendor/lib/libOmxAacDec.so|f3ed612537381ac63d01b8f84b08dc5919f9ccc0
+vendor/lib/libOmxAlacDec.so|d16657166dc1587b8e291e9c4b87001c39d3d0a5
+vendor/lib/libOmxAlacDecSw.so|cb4710cc401db822e773f794f6e9b6f139dbb25d
+vendor/lib/libOmxAmrwbplusDec.so|8fd33d911e35d2367888524c41ee5b0155fe2e7e
+vendor/lib/libOmxApeDec.so|39cba721ab052ba05aabae709bdad91a7e7397ac
+vendor/lib/libOmxApeDecSw.so|cc0a0df429d9690f77d314993188b96df66649c8
+vendor/lib/libOmxEvrcDec.so|6c0a94204a7583aba9bf8ad2bca713c86358b124
+vendor/lib/libOmxMux.so|a1202d73dd265875c79de67b9a8fb4fd49fb8e19
+vendor/lib/libOmxQcelp13Dec.so|6718dba214738f8962932b5c7057be9ce63d6c87
+vendor/lib/libOmxWmaDec.so|4c12c42865a2f3499005a735828b1b0c27488ca5
+vendor/lib/libOmxVpp.so|2502daba5b027ffafc7ce3b27580f8c6b2407014
+vendor/lib/libvpplibrary.so|e13326fe723e65fcda0b3805a6162c8f2ca06e36
 
 # Perf
+etc/permissions/com.qualcomm.qti.Performance.xml:vendor/etc/permissions/com.qualcomm.qti.Performance.xml|36b05c8238bb488a3210bbc0d2a4ed28784961f0
+framework/QPerformance.jar:vendor/framework/QPerformance.jar|d492a8f52938f72cf60a8ceda302b2bdebde2f92
 vendor/bin/perfd
 vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
+vendor/lib64/libqti_performance.so|e8cb74b3cd965d84f7e2953e6e6e6a3b9129be38
 
-# Postprocessing
-bin/mm-pp-daemon:vendor/bin/mm-pp-daemon
-vendor/lib64/libdisp-aba.so
--vendor/lib64/libmm-abl.so
-vendor/lib64/libmm-abl-oem.so
+# Postprocessing - from crackling TOS111B
+-app/colorservice/colorservice.apk:vendor/app/colorservice/colorservice.apk|78053d31ba4507448a3e5cc19ffbfd34cfa0aacb
+bin/mm-pp-daemon:vendor/bin/mm-pp-daemon|10739f24de0590bec5d618126891831716434912
+etc/permissions/com.qti.snapdragon.sdk.display.xml:vendor/etc/permissions/com.qti.snapdragon.sdk.display.xml|e4a3fdb2c7583074a7ca514606618195e0cf67ae
+framework/com.qti.snapdragon.sdk.display.jar:vendor/framework/com.qti.snapdragon.sdk.display.jar|80666d2527882115cac8a1661f698a3ce289cba7
+vendor/lib64/libdisp-aba.so|863c28e2df51bfd718213fc4fe8936427d1c1978
+vendor/lib64/libmm-abl.so|080c41038facd782f59432099ba40b900e729550
+vendor/lib64/libmm-abl-oem.so|c9e23be8b440356172db2b1a7fb875f8202fbab8
+vendor/lib64/libmm-disp-apis.so|f938117c7890076e726ab8eac0692e018e4f3cff
+vendor/lib64/libmm-qdcm.so|abb3a8030ac038645a1992b5cea36cc17b3da75f
 
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
@@ -566,11 +588,11 @@ etc/firmware/venus.mdt:vendor/firmware/venus.mdt
 bin/teecd:vendor/bin/teecd
 lib64/libteec.so:vendor/lib64/libteec.so
 
-# Thermal
-vendor/bin/thermal-engine|95e447d95ccb9f45a4ff59d133c68530d5c730ff
-vendor/lib64/libthermalclient.so
-vendor/lib64/libthermalioctl.so
-vendor/lib/libthermalclient.so
+# Thermal - from kipper TOS125B
+vendor/bin/thermal-engine|5d2739ab2ea6b7c3027befd8d295f938db14399a
+vendor/lib64/libthermalclient.so|c624da1923420a89f97e464ae2499d7fade4ab3c
+vendor/lib64/libthermalioctl.so|35f9078819a7ec2cbfb34f9170be55c4308feb10
+vendor/lib/libthermalclient.so|6c9bde1d2d2896b254ea412a256215cfc9e1640d
 
 # Time services
 -app/TimeService/TimeService.apk:vendor/app/TimeService/TimeService.apk
@@ -580,8 +602,10 @@ bin/time_daemon:vendor/bin/time_daemon
 vendor/lib64/libTimeService.so
 vendor/lib/libTimeService.so
 
-# Widevine - from angler - OPR6.170623.017 factory image
-vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90ab
+# Widevine - from LG v30s msm8998
+bin/hw/android.hardware.drm@1.0-service.widevine:vendor/bin/hw/android.hardware.drm@1.0-service.widevine|62dbed3b465a6abe33d03dd66cf89f3227766850
+etc/init/android.hardware.drm@1.0-service.widevine.rc:vendor/etc/init/android.hardware.drm@1.0-service.widevine.rc|51a3168a0dbc064d78ee11ca83614c0cd2e6daa5
+lib/libwvhidl.so:vendor/lib/libwvhidl.so|88ebba6280bd85e5bfea18efe2f685b0e1fb6f50
 
 # OTHER FIRMWARE
 etc/firmware/Alice_fw.bin:vendor/firmware/Alice_fw.bin
