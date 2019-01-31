@@ -472,7 +472,7 @@ vendor/lib/libvpplibrary.so|e13326fe723e65fcda0b3805a6162c8f2ca06e36
 
 # Perf
 etc/permissions/com.qualcomm.qti.Performance.xml:vendor/etc/permissions/com.qualcomm.qti.Performance.xml|36b05c8238bb488a3210bbc0d2a4ed28784961f0
-framework/QPerformance.jar:vendor/framework/QPerformance.jar|d492a8f52938f72cf60a8ceda302b2bdebde2f92
+-framework/QPerformance.jar:vendor/framework/QPerformance.jar|d492a8f52938f72cf60a8ceda302b2bdebde2f92
 vendor/bin/perfd
 vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
