@@ -474,11 +474,15 @@ vendor/bin/perfd
 vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
 
-# Postprocessing
-bin/mm-pp-daemon:vendor/bin/mm-pp-daemon
-vendor/lib64/libdisp-aba.so
--vendor/lib64/libmm-abl.so
-vendor/lib64/libmm-abl-oem.so
+# Postprocessing - from ether - N108.zip
+bin/mm-pp-daemon:vendor/bin/mm-pp-daemon|3a2f1710fb943a33e69ac8907e5707b38b6a604c
+vendor/lib64/libdisp-aba.so|d754cc134e64099e6deed139cbfaaa8cf1747d9b
+vendor/lib64/libmm-abl.so|735e1de6bb180967e3c52a0f350f65796472e0c9
+vendor/lib64/libmm-abl-oem.so|f135d87cf4491d4f73a540d7f33c434059c84039
+vendor/lib64/libmm-als.so|38e8f894216ab858a60ff9d50e86fa9fe6c1a224
+vendor/lib64/libmm-disp-apis.so|c6c38201635c9b09877ac752cf3370b6a354ba10
+vendor/lib64/libmm-qdcm.so|c7f1a51304f4cc5aaf507acb6285a46a71b973cf
+vendor/lib64/libsensor1.so|677086b02650955a572caf379f8125c80eb4fba2
 
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
