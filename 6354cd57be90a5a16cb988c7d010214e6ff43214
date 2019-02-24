@@ -22,6 +22,29 @@
       "revId": "6354cd57be90a5a16cb988c7d010214e6ff43214",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df673f2c_34bac619",
+        "filename": "manifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2019-02-24T12:21:58Z",
+      "side": 1,
+      "message": "This belongs to the trust change",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 10
+      },
+      "revId": "6354cd57be90a5a16cb988c7d010214e6ff43214",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
     }
   ]
 }
