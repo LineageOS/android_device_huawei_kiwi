@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce428f6d_97e1a3a3",
+        "filename": "manifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2019-02-24T11:59:22Z",
+      "side": 1,
+      "message": "This one doesn\u0027t seem to work. Got some log messages indicating it\u0027s waiting for this forever and screen won\u0027t turn on and off properly. With this removed I got it to work",
+      "range": {
+        "startLine": 290,
+        "startChar": 8,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "6354cd57be90a5a16cb988c7d010214e6ff43214",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
