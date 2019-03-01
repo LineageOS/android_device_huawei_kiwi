@@ -1,0 +1,2 @@
+allow hal_bluetooth_default mnt_vendor_file:dir r_dir_perms;
+r_dir_file(hal_bluetooth_default, persist_bluetooth_file)
