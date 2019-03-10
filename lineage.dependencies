@@ -10,5 +10,9 @@
   {
     "repository": "android_packages_apps_FlipFlap",
     "target_path": "packages/apps/FlipFlap"
+  },
+  {
+    "repository": "android_system_qcom",
+    "target_path": "system/qcom"
   }
 ]
