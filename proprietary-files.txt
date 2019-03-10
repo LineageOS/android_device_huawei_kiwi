@@ -52,11 +52,38 @@ etc/sound_param/kiw_l/nxp/Tfa9895-GK.cnt:vendor/etc/sound_param/kiw_l/nxp/Tfa989
 # Battery
 bin/vm_bms:vendor/bin/vm_bms
 
-# Bluetooth
-bin/hci_qcomm_init:vendor/bin/hci_qcomm_init
-lib64/libbtaddr.so:vendor/lib64/libbtaddr.so
-lib64/libbtpower.so:vendor/lib64/libbtpower.so
-vendor/lib64/libbtnv.so
+# Bluetooth + ANT & FM dependencies + aptX - from Huawei Nova 2 Lite
+vendor/bin/btnvtool|cbd1e44676de155d4acf71a1fc65e2c5507f564e
+vendor/bin/hci_qcomm_init|85a8298325570989f17f637c14f62324496d5b91
+vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti|d90624d621fe0bca4a9afd7a5f7c95ce549c0f6c
+vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc|1a2dc1c2d217f47b9c99a0afa9e4912abd32e381
+vendor/lib/com.qualcomm.qti.ant@1.0_vendor.so|1642850437d9208c17f1299b3468e207445587ec
+vendor/lib/com.qualcomm.qti.bluetooth_audio@1.0_vendor.so|70d3cd0df4fb7f66a07a30a9d81fdf60b83f4944
+vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so|7a11c09d7a9cf041cbb08058562550fb627c878b
+vendor/lib/hw/com.qualcomm.qti.ant@1.0-impl.so|c9ed4121b2307bd7294b115062ddbbe9637e553e
+vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so|6abad7338ac916a2e860ecbdd6f0ad980f786af8
+vendor/lib/libbt-hidlclient.so|e51af62f9420ddb43b5bad31bb59b232ea16b20c
+vendor/lib/libbtaddr.so|4bbec96ac799e28390f0856561617da87ffe1b3e
+vendor/lib/libbtcheck.so|3f6a32dd9b5c2266181b611af7922edc90d9b48f
+vendor/lib/libbthost_if.so|ec8c83fa33be68c37d90ee60f2029bf1b935c7ac
+vendor/lib/libbtinfo.so|3cd0ae537906156c59aa999b5970f33ad0277cf5
+vendor/lib/libbtnv.so|38a5bd16d33e3d825b1483b6c2092e6d988e3ac1
+vendor/lib/libbtpower.so|83f2f9722f94751d884eb69b51f8ebf16df16886
+vendor/lib/vendor.qti.hardware.fm@1.0_vendor.so|70d3cd0df4fb7f66a07a30a9d81fdf60b83f4944
+vendor/lib64/com.qualcomm.qti.ant@1.0_vendor.so|2e396fa6352ae74df689c1c2d876a836c3edd92e
+vendor/lib64/com.qualcomm.qti.bluetooth_audio@1.0_vendor.so|92299f188359efe3db0790dd474160fcc3a57db8
+vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so|a633fd3852ae675477d41249175b92cb293501e3
+vendor/lib64/hw/com.qualcomm.qti.ant@1.0-impl.so|5daee64f9e170fc5fe0e0a0cf6abb8c3956cf1ce
+vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so|3286d6ccda51a9052005143005e8a4c13c2b0eba
+vendor/lib64/libaptXHD_encoder.so|76eb03998f9b4f98029a4408076685892726e45a
+vendor/lib64/libaptX_encoder.so|a407a92a6eb467886c3970629ebcab4db95b7600
+vendor/lib64/libbt-hidlclient.so|f21b15355b03ff6bd39ddbd3d74ede4bd3fa2a37
+vendor/lib64/libbtaddr.so|5789d1cf0f6a70ea1dbec8e34aa41bc52015b757
+vendor/lib64/libbtcheck.so|ef2962e0eb8011567e24344d5ea0126ebfdc1dcb
+vendor/lib64/libbthost_if.so|89c33673bc5e405841a70ef24faca47c9eeaa1b0
+vendor/lib64/libbtinfo.so|0e04dee45fdfc3fda0c28b9521a7861549e42a31
+vendor/lib64/libbtnv.so|5c44d042722ccbb316c93d1c368b9c8184a740b4
+vendor/lib64/libbtpower.so|aa6f5d16673c281806e62b61ac8b40eb5549fbc4
 
 # Camera
 bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
