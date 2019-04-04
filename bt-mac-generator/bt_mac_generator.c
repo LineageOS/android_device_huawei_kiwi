@@ -27,9 +27,11 @@
 #include <cutils/properties.h>
 #include <sys/stat.h>
 
+#include <string.h>
+
 /* liboeminfo_oem_api.so */
 #define RMT_OEMINFO_BT_MAC_ENC 0x33
-extern int remote_oeminfo_read(int cell, int size, void* buf);
+extern int rmt_oeminfo_read(int cell, int size, void* buf);
 
 static int force_random = 0;
 static const char BDADDR_PATH[] = "/data/misc/bluedroid/qcomm_bda";
@@ -160,7 +162,7 @@ void get_mac_from_oeminfo() {
 
     // Wait till oeminfo successfully connect to socket
     while (retries-- > 0 && ret != 1) {
-        ret = remote_oeminfo_read(RMT_OEMINFO_BT_MAC_ENC, sizeof(bt_addr), bt_addr);
+        ret = rmt_oeminfo_read(RMT_OEMINFO_BT_MAC_ENC, sizeof(bt_addr), bt_addr);
         ALOGD("%s: remote_oeminfo_read result: ret = %d.(1 is success)", __func__, ret);
         usleep(1000000);
     }
