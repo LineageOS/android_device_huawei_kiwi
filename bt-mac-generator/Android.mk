@@ -23,7 +23,7 @@ LOCAL_SHARED_LIBRARIES := \
     libbase \
     libcutils \
     liblog \
-    liboeminfo_oem_api
+    liboeminfo
 
 LOCAL_MODULE := bt-mac-generator
 LOCAL_MODULE_TAGS := optional
