@@ -6,3 +6,4 @@ allow system_server oeminfo:unix_stream_socket connectto;
 unix_socket_connect(system_server, qmuxd, libqmi_oem_main);
 
 allow system_server oeminfo_socket:sock_file write;
+allow system_server default_android_hwservice:hwservice_manager find;
