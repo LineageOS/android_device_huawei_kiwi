@@ -27,3 +27,6 @@
 /system/vendor/bin/libqmi_oem_main                         u:object_r:libqmi_oem_main_exec:s0
 /system/vendor/bin/signinfolistener                        u:object_r:signinfolistener_exec:s0
 /system/vendor/bin/teecd                                   u:object_r:tee_exec:s0
+
+# Bluetooth
+/(vendor|system/vendor)/bin/bt-mac-generator               u:object_r:bt_mac_generator_exec:s0
