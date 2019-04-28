@@ -20,3 +20,9 @@ allow init fingerprint_sysfs:file setattr;
 
 # required for LD_SHIM_LIBS
 allow init { domain -lmkd -crash_dump }:process noatsecure;
+
+allow init oeminfo_socket:sock_file write;
+allow init oeminfo:unix_stream_socket connectto;
+allow init oeminfo_device:file { read open getattr };
+allow init sysfs:file setattr;
+allow init vendor_file:file execute_no_trans;
