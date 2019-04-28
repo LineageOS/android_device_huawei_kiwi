@@ -1,1 +1,2 @@
 allow mm-qcamerad system_data_file:dir w_dir_perms;
+allow mm-qcamerad mpctl_socket:dir search;
