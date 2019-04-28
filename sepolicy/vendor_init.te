@@ -1,0 +1,9 @@
+allow vendor_init block_device:blk_file setattr;
+allow vendor_init drm_data_file:dir { search setattr };
+allow vendor_init fingerprintd_data_file:dir { create setattr };
+allow vendor_init proc:file write;
+allow vendor_init rootfs:dir { add_name create setattr write };
+allow vendor_init sysfs:lnk_file setattr;
+allow vendor_init vfat:dir search;
+allow vendor_init vfat:file { open write };
+allow vendor_init wifi_data_file:dir { search setattr };
