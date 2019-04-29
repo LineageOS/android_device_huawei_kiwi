@@ -170,6 +170,9 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/bin/signinfolistener|libshim_signinfolistener.so:\
     /system/vendor/lib/libmmcamera_hdr_gb_lib.so|/system/vendor/lib/libmmqjpeg_codec.so
 
+# Snapdragon LLVM
+TARGET_USE_SDCLANG := true
+
 # TWRP
 ifeq ($(WITH_TWRP),true)
 include $(DEVICE_PATH)/twrp.mk
