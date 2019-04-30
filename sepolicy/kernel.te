@@ -1,3 +1,5 @@
 
 # ashmem shrinker causes this denial from kswapd
 allow kernel { untrusted_app priv_app }:fd use;
+
+allow kernel tmpfs:dir search;
