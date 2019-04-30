@@ -1,2 +1,5 @@
 allow hal_gnss_default ssr_device:chr_file { open read };
 allow hal_gnss_default location_data_file:fifo_file rw_file_perms;
+allow hal_gnss_default hal_gnss_default:udp_socket create;
+allow hal_gnss_default shell_exec:file { execute read open execute_no_trans getattr };
+allow hal_gnss_default system_file:file execute_no_trans;
