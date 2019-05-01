@@ -324,10 +324,10 @@ service ril-daemon3 /vendor/bin/hw/rild -c 3
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
     disabled
 
-service charger /charger
+service charger /system/bin/charger
     class charger
     group system graphics
-    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
 
 on ffbm
     trigger early-fs
