@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "639a6fa5_a022896e",
+        "filename": "rootdir/etc/init.target.rc",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2019-06-01T14:36:54Z",
+      "side": 1,
+      "message": "this trigger already exists at line L#66. Move the stuff there",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 10
+      },
+      "revId": "c9451f412cbdd9647d123d6e9074c9c84ac58daf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "289c791e_cfaddbe6",
+        "filename": "rootdir/etc/init.target.rc",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2019-06-01T14:36:54Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 96,
+        "startChar": 44,
+        "endLine": 96,
+        "endChar": 45
+      },
+      "revId": "c9451f412cbdd9647d123d6e9074c9c84ac58daf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
