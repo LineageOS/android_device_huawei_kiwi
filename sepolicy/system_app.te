@@ -1,1 +1,7 @@
 allow system_app gesture_sysfs:file rw_file_perms;
+allow system_app proc_pagetypeinfo:file { read open getattr };
+allow system_app sysfs_zram:dir search;
+allow system_app sysfs_zram:file { read open getattr };
+
+allow system_app storaged:binder call;
+allow system_app wificond:binder call;
