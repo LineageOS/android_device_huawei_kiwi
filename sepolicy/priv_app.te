@@ -1,0 +1,1 @@
+allow priv_app sysfs:file { read open getattr };
