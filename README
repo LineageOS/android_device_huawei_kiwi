@@ -1,1 +1,26 @@
-Device tree for Huawei Honor 5x
+Copyright (C) 2018 The LineageOS Project
+
+Device configuration for Huawei Honor 5X
+=========================================
+
+The Huawei Honor 5X (codenamed _"kiwi"_) is a high-end smartphone from Huawei.
+
+It was announced in October 2015. Release date was November 2015.
+
+## Device specifications
+
+Basic   | Spec Sheet
+-------:|:-------------------------
+SoC     | Qualcomm MSM8939v2 Snapdragon 616
+CPU     | Octa-core (4x1.2 GHz Cortex-A53 & 4x1.5 GHz Cortex-A53)
+GPU     | Adreno 405
+Memory  | 2/3 GB RAM
+Shipped Android Version | 5.1.1 with EMUI 3
+Storage | 16/32 GB
+Battery | Non-removable Li-Ion 3000 mAh battery
+Display | 1080 x 1920 pixels, 16:9 ratio, 5.5 inches, IPS LCD (~401 ppi density)
+Rear Camera  | 13 MP, f/2.0, 28mm (wide), AF, LED flash, HDR
+Front Camera | 5 MP, f/2.4, 22mm (wide)
+
+## Device picture
+![Honor 5X ](https://cdn2.gsmarena.com/vv/pics/huawei/huawei-honor-5x-1.jpg " Huawei Honor 5X in Grey")
