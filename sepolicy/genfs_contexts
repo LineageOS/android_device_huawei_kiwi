@@ -1,4 +1,4 @@
-genfscon proc /app_info u:object_r:proc_app_info:s0
+genfscon proc  /app_info                               u:object_r:proc_app_info:s0
 genfscon proc  /sys/kernel/sched_boost                 u:object_r:proc_kernel_sched:s0
 genfscon proc  /sys/kernel/sched_window_stats_policy   u:object_r:proc_kernel_sched:s0
 genfscon proc  /sys/kernel/sched_ravg_hist_size        u:object_r:proc_kernel_sched:s0
@@ -7,3 +7,6 @@ genfscon proc  /sys/kernel/sched_mostly_idle_load      u:object_r:proc_kernel_sc
 genfscon proc  /sys/kernel/sched_mostly_idle_nr_run    u:object_r:proc_kernel_sched:s0
 genfscon proc  /sys/kernel/sched_upmigrate             u:object_r:proc_kernel_sched:s0
 genfscon proc  /sys/kernel/sched_downmigrate           u:object_r:proc_kernel_sched:s0
+genfscon proc  /sys/kernel/sched_freq_inc_notify       u:object_r:proc_kernel_sched:s0
+genfscon proc  /sys/kernel/sched_freq_dec_notify       u:object_r:proc_kernel_sched:s0
+genfscon proc  /sys/kernel/printk                      u:object_r:proc_printk:s0

@@ -1,4 +1,5 @@
-r_dir_file(bluetooth_loader, bluetooth_data_file)
+allow bluetooth_loader bluetooth_data_file:dir rw_dir_perms;
+allow bluetooth_loader bluetooth_data_file:file create_file_perms;
 
 allow bluetooth_loader oeminfo_device:dir { remove_name write search };
 allow bluetooth_loader oeminfo_device:file { getattr open read unlink };
