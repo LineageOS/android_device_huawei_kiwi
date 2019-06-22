@@ -35,23 +35,6 @@ on post-fs-data
     chown system system /sys/touch_screen/cyttsp5/command
     chown system system /sys/touch_screen/cyttsp5/status
     chown system system /sys/touch_screen/cyttsp5/response
-    chown system system /sys/touch_screen/touch_mmi_test
-    chown system system /sys/touch_screen/touch_mmi_test/calibrate_idacs
-    chown system system /sys/touch_screen/touch_mmi_test/disable_single_tx
-    chown system system /sys/touch_screen/touch_mmi_test/enable_single_tx
-    chown system system /sys/touch_screen/touch_mmi_test/get_hid_desc
-    chown system system /sys/touch_screen/touch_mmi_test/get_sys_info
-    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_button
-    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_mut_raw
-    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_self_raw
-    chown system system /sys/touch_screen/touch_mmi_test/read_data_block_row
-    chown system system /sys/touch_screen/touch_mmi_test/resume_scan
-    chown system system /sys/touch_screen/touch_mmi_test/retrieve_data_structure
-    chown system system /sys/touch_screen/touch_mmi_test/short_test
-    chown system system /sys/touch_screen/touch_mmi_test/suspend_scan
-    chown system system /sys/touch_screen/touch_mmi_test/command
-    chown system system /sys/touch_screen/touch_mmi_test/status
-    chown system system /sys/touch_screen/touch_mmi_test/response
     restorecon /sys/class/leds/lcd-backlight/brightness
     restorecon /sys/class/power_supply/battery/charging_enabled
     restorecon /sys/class/graphics/fb0/inversion_mode
