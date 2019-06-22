@@ -42,9 +42,6 @@ on early-init
 on init
     export LD_PRELOAD libshim_cutils.so
 
-    # Set permissions for persist partition
-    mkdir /persist 0771 system system
-
 on post-fs
     # Allow writing to the kernel trace log.
     chmod 0222 /sys/kernel/debug/tracing/trace_marker

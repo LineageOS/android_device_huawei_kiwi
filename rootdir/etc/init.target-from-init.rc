@@ -1,9 +1,6 @@
 on early-init
     setprop persist.service.hbd.enable true
 
-on init
-    mkdir /cust
-
 # Create cgroup mount point for freezer
     mkdir /dev/frz
     mount cgroup none /dev/frz freezer
