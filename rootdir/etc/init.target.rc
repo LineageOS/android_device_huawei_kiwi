@@ -30,9 +30,6 @@
 import /vendor/etc/init/hw/init.target-from-init.rc
 import /vendor/etc/init/hw/init.qcom.power.rc
 
-on early-init
-    symlink /data/tombstones /tombstones
-
 on init
     write /sys/module/lpm_levels/parameters/sleep_disabled Y
 
