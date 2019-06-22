@@ -31,9 +31,7 @@ import /vendor/etc/init/hw/init.target-from-init.rc
 import /vendor/etc/init/hw/init.qcom.power.rc
 
 on early-init
-    mkdir /system 0777 root root
     symlink /data/tombstones /tombstones
-    mkdir /log 0770 system log
 
 on init
     write /sys/module/lpm_levels/parameters/sleep_disabled Y
@@ -50,9 +48,6 @@ on fs
 
     mkdir /persist/data 0700 system system
     restorecon_recursive /persist
-
-    mkdir /log/sdlog 0775 system system
-    write /log/sdlog/sd_err.log 0
 
     wait /dev/block/bootdevice/by-name/oeminfo
     start oeminfo_nvm
