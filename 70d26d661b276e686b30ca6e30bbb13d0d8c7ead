@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d06acd59_5b577995",
+        "filename": "sepolicy/system_app.te",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 15346
+      },
+      "writtenOn": "2019-06-23T03:15:36Z",
+      "side": 1,
+      "message": "No, ignore these. Or dontaudit them.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "70d26d661b276e686b30ca6e30bbb13d0d8c7ead",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
