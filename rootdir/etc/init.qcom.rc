@@ -93,9 +93,6 @@ on boot
     # change mode for CTS
     chmod 0664 /dev/smem_log
 
-    # Remove SUID bit for iproute2 ip tool
-    chmod 0755 /system/bin/ip
-
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
     # For bridgemgr daemon to inform the USB driver of the correct transport
