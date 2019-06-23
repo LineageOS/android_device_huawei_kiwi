@@ -16,9 +16,6 @@ on post-fs-data
     mkdir /data/misc/dts 0770 media media
     symlink /system/etc/srs/srs_processing.cfg /data/misc/dts/srs_processing.cfg
 
-    mkdir /data/drm/rights 0770 drm drm
-    mkdir /data/drm/widevine 0770 drm drm
-
     mkdir /data/midi 0770 media audio
 
     # Touchscreen gestures & glove mode
