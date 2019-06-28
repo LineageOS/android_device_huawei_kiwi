@@ -1,3 +1,4 @@
+type bluetooth_device, dev_type;
 type fingerprint_device, dev_type;
 type rfkill_device, dev_type;
 type smartamp_device, dev_type;
