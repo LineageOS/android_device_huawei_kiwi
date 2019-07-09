@@ -13,10 +13,8 @@ LOCAL_PRIVILEGED_MODULE := true
 LOCAL_USE_AAPT2 := true
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
-    android-support-v14-preference \
-    android-support-v7-appcompat \
-    android-support-v7-preference \
-    android-support-v7-recyclerview
+    androidx.core_core \
+    androidx.preference_preference
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
@@ -33,4 +31,3 @@ include frameworks/base/packages/SettingsLib/common.mk
 
 include $(BUILD_PACKAGE)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))

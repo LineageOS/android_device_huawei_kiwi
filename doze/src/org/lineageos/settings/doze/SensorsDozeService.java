@@ -31,9 +31,10 @@ import android.os.PowerManager.WakeLock;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
+
+import androidx.preference.PreferenceManager;
 
 public class SensorsDozeService extends Service {
 
