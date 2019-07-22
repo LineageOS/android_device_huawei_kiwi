@@ -49,6 +49,7 @@ debug.enable.sglscale=1
 debug.hwui.use_buffer_age=false
 debug.mdpcomp.logs=0
 debug.mdpcomp.idletime=600
+debug.sf.enable_gl_backpressure=1
 debug.sf.hw=0
 persist.demo.hdmirotationlock=false
 persist.hwc.mdpcomp.enable=true
