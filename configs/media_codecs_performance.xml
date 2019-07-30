@@ -102,5 +102,6 @@
             <Limit name="measured-frame-rate-1280x720" range="113-113" />
             <Limit name="measured-frame-rate-1920x1080" range="59-59" />
         </MediaCodec>
+        <MediaCodec name="OMX.google.opus.decoder" type="audio/opus" update="true" rank="100"/>
     </Decoders>
 </MediaCodecs>

@@ -289,6 +289,7 @@ _________________________________________________________________
             <Limit name="concurrent-instances" max="8" />
             <Feature name="adaptive-playback" />
         </MediaCodec>
+        <MediaCodec name="OMX.google.opus.decoder" type="audio/opus" update="true" rank="100"/>
     </Decoders>
     <Include href="media_codecs_google_video.xml" />
 </MediaCodecs>
