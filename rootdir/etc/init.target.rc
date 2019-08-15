@@ -33,6 +33,9 @@ import /vendor/etc/init/hw/init.qcom.power.rc
 on init
     write /sys/module/lpm_levels/parameters/sleep_disabled Y
 
+on early-init
+    write /sys/block/zram0/comp_algorithm lz4
+
 on fs
     wait /dev/block/platform/soc.0/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc.0/${ro.boot.bootdevice} /dev/block/bootdevice
