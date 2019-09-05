@@ -539,7 +539,6 @@ lib64/lib_oeminfo_interface.so:vendor/lib64/lib_oeminfo_interface.so
 -lib64/liboeminfo.so:vendor/lib64/liboeminfo.so
 lib64/libqmi_nv_api.so:vendor/lib64/libqmi_nv_api.so
 -lib64/libqmi_oem_api.so:vendor/lib64/libqmi_oem_api.so
-lib64/librmnetctl.so:vendor/lib64/librmnetctl.so
 lib64/libsecure_boot_keybox.so:vendor/lib64/libsecure_boot_keybox.so
 vendor/lib/libmdmdetect.so
 vendor/lib64/libcneapiclient.so
