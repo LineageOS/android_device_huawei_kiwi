@@ -91,6 +91,9 @@ TARGET_CONTINUOUS_SPLASH_ENABLED := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 TARGET_USES_ION := true
 
+# Extended Filesystem Support
+TARGET_EXFAT_DRIVER := sdfat
+
 # FM
 BOARD_HAVE_QCOM_FM := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
@@ -100,6 +103,9 @@ EXCLUDE_SERIF_FONTS := true
 
 # GPS
 TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
+
+# Hardware disk encryption (FDE)
+TARGET_HW_DISK_ENCRYPTION := true
 
 # HIDL
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
@@ -148,9 +154,6 @@ TARGET_RECOVERY_DENSITY := xhdpi
 # Release
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 
-# Hardware disk encryption (FDE)
-TARGET_HW_DISK_ENCRYPTION := true
-
 # Release tools
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_kiwi
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
@@ -174,9 +177,6 @@ TARGET_INIT_VENDOR_LIB := libinit_kiwi
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
-
-# Extended Filesystem Support
-TARGET_EXFAT_DRIVER := sdfat
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
