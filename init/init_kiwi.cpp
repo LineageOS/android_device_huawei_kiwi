@@ -30,6 +30,7 @@
 
 #include <android-base/logging.h>
 #include <android-base/properties.h>
+#include <android-base/strings.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -48,15 +49,26 @@ typedef struct {
     bool is_cdma;
 } match_t;
 
-void property_override(char const prop[], char const value[])
-{
-    prop_info *pi;
+// copied from build/tools/releasetools/ota_from_target_files.py
+// but with "." at the end and empty entry
+std::vector<std::string> ro_product_props_default_source_order = {
+    ".",
+    "product.",
+    "product_services.",
+    "odm.",
+    "vendor.",
+    "system.",
+};
 
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
+void property_override(char const prop[], char const value[], bool add = true)
+{
+    auto pi = (prop_info *) __system_property_find(prop);
+
+    if (pi != nullptr)
         __system_property_update(pi, value, strlen(value));
-    else
+    else if (add) {
         __system_property_add(prop, strlen(prop), value, strlen(value));
+    }
 }
 
 static match_t matches[] = {
@@ -168,9 +180,9 @@ static match_t matches[] = {
 
 static const int n_matches = sizeof(matches) / sizeof(matches[0]);
 
-static void property_set(const char *key, string value)
+static void property_set(const char *key, string value, bool add = true)
 {
-    property_override(key, value.c_str());
+    property_override(key, value.c_str(), add);
 }
 
 static bool contains(string str, string substr)
@@ -200,17 +212,27 @@ void vendor_load_properties()
         return;
     }
 
+    const auto set_ro_product_prop = [](const std::string &source,
+            const std::string &prop, const std::string &value) {
+        auto prop_name = "ro.product." + source + prop;
+        property_override(prop_name.c_str(), value.c_str(), false);
+    };
+
     property_set("ro.build.product", "kiwi");
-    property_set("ro.product.device", "kiwi");
-    property_set("ro.product.model", match->model);
     property_set("ro.build.description", match->description);
     property_set("ro.build.fingerprint", match->fingerprint);
 
+    for (const auto &source : ro_product_props_default_source_order) {
+        set_ro_product_prop(source, "device", "kiwi");
+        set_ro_product_prop(source, "model", match->model);
+        set_ro_product_prop(source, "name", match->model);
+    }
+
     // Also write vendor properties to avoid mismatch
-    property_set("ro.vendor.product.device", "kiwi");
-    property_set("ro.vendor.product.model", match->model);
-    property_set("ro.vendor.product.name", match->model);
-    property_set("ro.vendor.build.fingerprint", match->fingerprint);
+    property_set("ro.bootimage.build.fingerprint", match->fingerprint, false);
+    property_set("ro.odm.build.fingerprint", match->fingerprint, false);
+    property_set("ro.system.build.fingerprint", match->fingerprint, false);
+    property_set("ro.vendor.build.fingerprint", match->fingerprint, false);
 
     if (match->is_cdma) {
         property_set("telephony.lteOnCdmaDevice", "1");
