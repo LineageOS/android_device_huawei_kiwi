@@ -38,6 +38,12 @@
 /dev/smd7                 0660   bluetooth  bluetooth
 /dev/ccid_bridge          0660   system     system
 
+#bluetooth
+/dev/bluetooth            0660   bluetooth  bluetooth
+
+# fingerprint
+/dev/fpc1020              0660   system     system
+
 # permissions for CSVT
 /dev/smd11                0660   radio      radio
 

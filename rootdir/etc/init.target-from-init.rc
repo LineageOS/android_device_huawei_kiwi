@@ -11,13 +11,6 @@ on early-init
     chmod 0660 /dev/block/mmcblk0p8
 
 on post-fs-data
-# right trigger?
-    mkdir /data/misc/wifi/load 0775 system system
-    mkdir /data/misc/dts 0770 media media
-    symlink /system/etc/srs/srs_processing.cfg /data/misc/dts/srs_processing.cfg
-
-    mkdir /data/midi 0770 media audio
-
     # Touchscreen gestures & glove mode
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
     chown system system /sys/touch_screen/holster_touch_window
@@ -34,15 +27,12 @@ on post-fs-data
     chown system system /sys/touch_screen/cyttsp5/response
     restorecon /sys/class/leds/lcd-backlight/brightness
     restorecon /sys/class/power_supply/battery/charging_enabled
-    restorecon /sys/class/graphics/fb0/inversion_mode
     restorecon /sys/class/leds/green/brightness
     restorecon /sys/class/leds/red/brightness
     restorecon /sys/class/leds/blue/brightness
     restorecon /sys/class/hw_power/charger/charge_data/enable_charger
 
     #add for fingerprint
-    chown system system /dev/fpc1020
-    chmod 0660 /dev/fpc1020
     chown system system /sys/devices/platform/fingerprint/diag/result
     chown system system /sys/devices/platform/fingerprint/diag/navigation_enable
     chown system system /sys/devices/platform/fingerprint/diag/wakeup_enable
@@ -85,13 +75,6 @@ on post-fs-data
     chown system system /sys/devices/8789.huawei_hall_sensor/mmi_camera_hall_status
     chown root system /sys/devices/soc0/huawei_product
 
-    chown system system /sys/class/graphics/fb0/mipi_crc
-    chown system system /sys/class/graphics/fb0/inversion_mode
-    chown system system /sys/class/graphics/fb0/panel_status
-    chown system system /sys/class/graphics/fb0/lcd_checksum
-    chown system system /sys/class/graphics/fb0/lcd_comform_mode
-    chown system system /sys/class/graphics/fb0/lcd_support_mode
-
 service oeminfo_nvm /system/vendor/bin/oeminfo_nvm_server
     class core
     user root
@@ -124,6 +107,3 @@ service huawei_version /system/vendor/bin/huawei_version
 on property:persist.sys.hlcharging=true
     write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
     mkdir system/etc/tp_test_parameters
-
-on property:hw.accel.calib="true"
-    chmod 0664 /dev/input/event*
