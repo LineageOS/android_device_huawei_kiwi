@@ -11,13 +11,6 @@ on early-init
     chmod 0660 /dev/block/mmcblk0p8
 
 on post-fs-data
-# right trigger?
-    mkdir /data/misc/wifi/load 0775 system system
-    mkdir /data/misc/dts 0770 media media
-    symlink /system/etc/srs/srs_processing.cfg /data/misc/dts/srs_processing.cfg
-
-    mkdir /data/midi 0770 media audio
-
     # Touchscreen gestures & glove mode
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
     chown system system /sys/touch_screen/holster_touch_window

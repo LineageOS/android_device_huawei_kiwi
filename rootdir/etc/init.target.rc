@@ -83,7 +83,6 @@ on post-fs-data
     mkdir /tombstones/dsps 0771 system system
     mkdir /persist/data/sfs 0700 system system
     mkdir /persist/data/tz 0700 system system
-    mkdir /data/misc/dts 0770 media audio
     mkdir /data/fpc 0700 system system
 
 # Start camera server as daemon
