@@ -1,6 +1,6 @@
 type fingerprint_sysfs, sysfs_type, file_type;
 type gesture_sysfs, sysfs_type, file_type;
-type proc_app_info, file_type;
 type hw_audio_info_sysfs, sysfs_type, file_type;
-type proc_kernel_sched, fs_type;
+type proc_app_info, file_type, proc_type;
+type proc_kernel_sched, fs_type, proc_type;
 type proc_printk, fs_type, proc_type;
