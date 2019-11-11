@@ -1,0 +1,2 @@
+allow hal_lineage_livedisplay_qti pps_socket:sock_file w_file_perms;
+allow hal_lineage_livedisplay_qti mm-pp-daemon:unix_stream_socket connectto;
