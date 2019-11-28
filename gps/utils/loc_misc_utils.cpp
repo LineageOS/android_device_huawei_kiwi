@@ -33,6 +33,7 @@
 #include <ctype.h>
 
 #define LOG_NDDEBUG 0
+#undef LOG_TAG
 #define LOG_TAG "LocSvc_misc_utils"
 
 int loc_util_split_string(char *raw_string, char **split_strings_ptr,

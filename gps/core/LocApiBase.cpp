@@ -99,6 +99,7 @@ struct LocSsrMsg : public LocMsg {
     inline void locallog() {
         LOC_LOGV("LocSsrMsg");
     }
+    using LocMsg::log;
     inline virtual void log() {
         locallog();
     }
@@ -120,6 +121,7 @@ struct LocOpenMsg : public LocMsg {
         LOC_LOGV("%s:%d]: LocOpen Mask: %x\n",
                  __func__, __LINE__, mMask);
     }
+    using LocMsg::log;
     inline virtual void log() {
         locallog();
     }
