@@ -86,7 +86,7 @@ static const GpsInterface sLocEngInterface =
 };
 
 // Function declarations for sLocEngAGpsInterface
-static void loc_agps_init(AGpsCallbacks* callbacks);
+static void loc_agps_init(AGpsCallbacks* /*callbacks*/);
 static int  loc_agps_open(const char* apn);
 static int  loc_agps_closed();
 static int  loc_agps_open_failed();
@@ -134,11 +134,11 @@ static const GpsMeasurementInterface sLocEngGpsMeasurementInterface =
     loc_gps_measurement_close
 };
 
-static void loc_agps_ril_init( AGpsRilCallbacks* callbacks );
-static void loc_agps_ril_set_ref_location(const AGpsRefLocation *agps_reflocation, size_t sz_struct);
-static void loc_agps_ril_set_set_id(AGpsSetIDType type, const char* setid);
-static void loc_agps_ril_ni_message(uint8_t *msg, size_t len);
-static void loc_agps_ril_update_network_state(int connected, int type, int roaming, const char* extra_info);
+static void loc_agps_ril_init( AGpsRilCallbacks* /*callbacks*/ );
+static void loc_agps_ril_set_ref_location(const AGpsRefLocation* /*agps_reflocation*/, size_t /*sz_struct*/);
+static void loc_agps_ril_set_set_id(AGpsSetIDType /*type*/, const char* /*setid*/);
+static void loc_agps_ril_ni_message(uint8_t* /*msg*/, size_t /*len*/);
+static void loc_agps_ril_update_network_state(int /*connected*/, int /*type*/, int /*roaming*/, const char* /*extra_info*/);
 static void loc_agps_ril_update_network_availability(int avaiable, const char* apn);
 
 static const AGpsRilInterface sLocEngAGpsRilInterface =
@@ -154,8 +154,8 @@ static const AGpsRilInterface sLocEngAGpsRilInterface =
 
 static int loc_agps_install_certificates(const DerEncodedCertificate* certificates,
                                          size_t length);
-static int loc_agps_revoke_certificates(const Sha1CertificateFingerprint* fingerprints,
-                                        size_t length);
+static int loc_agps_revoke_certificates(const Sha1CertificateFingerprint* /*fingerprints*/,
+                                        size_t /*length*/);
 
 static const SuplCertificateInterface sLocEngAGpsCertInterface =
 {
@@ -236,9 +236,8 @@ extern "C" const GpsInterface* get_gps_interface()
         gss_fd = open("/dev/gss", O_RDONLY);
         if (gss_fd < 0) {
             LOC_LOGE("GSS open failed: %s\n", strerror(errno));
-        }
-        else {
-            LOC_LOGD("GSS open success! CAPABILITIES %0lx\n",
+        } else {
+            LOC_LOGD("GSS open success! CAPABILITIES %0x\n",
                      gps_conf.CAPABILITIES);
         }
         break;
@@ -249,7 +248,7 @@ extern "C" const GpsInterface* get_gps_interface()
     case GNSS_QCA1530:
         // qca1530 chip is present
         gps_conf.CAPABILITIES &= ~(GPS_CAPABILITY_MSA | GPS_CAPABILITY_MSB);
-        LOC_LOGD("qca1530 present: CAPABILITIES %0lx\n", gps_conf.CAPABILITIES);
+        LOC_LOGD("qca1530 present: CAPABILITIES %0x\n", gps_conf.CAPABILITIES);
         break;
     }
     return &sLocEngInterface;
@@ -989,10 +988,10 @@ void loc_ni_respond(int notif_id, GpsUserResponseType user_response)
 
 // Below stub functions are members of sLocEngAGpsRilInterface
 static void loc_agps_ril_init( AGpsRilCallbacks* callbacks ) {}
-static void loc_agps_ril_set_ref_location(const AGpsRefLocation *agps_reflocation, size_t sz_struct) {}
-static void loc_agps_ril_set_set_id(AGpsSetIDType type, const char* setid) {}
-static void loc_agps_ril_ni_message(uint8_t *msg, size_t len) {}
-static void loc_agps_ril_update_network_state(int connected, int type, int roaming, const char* extra_info) {}
+static void loc_agps_ril_set_ref_location(const AGpsRefLocation* /*agps_reflocation*/, size_t /*sz_struct*/) {}
+static void loc_agps_ril_set_set_id(AGpsSetIDType /*type*/, const char* /*setid*/) {}
+static void loc_agps_ril_ni_message(uint8_t* /*msg*/, size_t /*len*/) {}
+static void loc_agps_ril_update_network_state(int /*connected*/, int /*type*/, int /*roaming*/, const char* /*extra_info*/) {}
 
 /*===========================================================================
 FUNCTION    loc_agps_ril_update_network_availability
@@ -1026,11 +1025,11 @@ static int loc_agps_install_certificates(const DerEncodedCertificate* certificat
     EXIT_LOG(%d, ret_val);
     return ret_val;
 }
-static int loc_agps_revoke_certificates(const Sha1CertificateFingerprint* fingerprints,
-                                        size_t length)
+static int loc_agps_revoke_certificates(const Sha1CertificateFingerprint* /*fingerprints*/,
+                                        size_t /*length*/)
 {
     ENTRY_LOG();
-    LOC_LOGE("%s:%d]: agps_revoke_certificates not supported");
+    LOC_LOGE("%s:%d]: agps_revoke_certificates not supported", __func__, __LINE__);
     int ret_val = AGPS_CERTIFICATE_ERROR_GENERIC;
     EXIT_LOG(%d, ret_val);
     return ret_val;
@@ -1052,7 +1051,7 @@ static void loc_configuration_update(const char* config_data, int32_t length)
     EXIT_LOG(%s, VOID_RET);
 }
 
-static void local_loc_cb(UlpLocation* location, void* locExt)
+static void local_loc_cb(UlpLocation* location, void* /*locExt*/)
 {
     ENTRY_LOG();
     if (NULL != location) {
@@ -1065,7 +1064,7 @@ static void local_loc_cb(UlpLocation* location, void* locExt)
     EXIT_LOG(%s, VOID_RET);
 }
 
-static void local_sv_cb(GpsSvStatus* sv_status, void* svExt)
+static void local_sv_cb(GpsSvStatus* sv_status, void* /*svExt*/)
 {
     ENTRY_LOG();
     if (NULL != gps_sv_cb) {

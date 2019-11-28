@@ -75,9 +75,9 @@ LocEngAdapter::LocEngAdapter(LOC_API_ADAPTER_EVENT_MASK_T mask,
     mOwner(owner), mInternalAdapter(new LocInternalAdapter(this)),
     mUlp(new UlpProxyBase()), mNavigating(false),
     mSupportsAgpsRequests(false),
+    mPowerVote(0),
     mSupportsPositionInjection(false),
-    mSupportsTimeInjection(false),
-    mPowerVote(0)
+    mSupportsTimeInjection(false)
 {
     memset(&mFixCriteria, 0, sizeof(mFixCriteria));
     mFixCriteria.mode = LOC_POSITION_MODE_INVALID;
@@ -124,7 +124,7 @@ void LocEngAdapter::setXtraUserAgent() {
                      release, manufacture, model, board,
                      mContext->getIzatDevId(), chipsetsn, brand);
 
-            for (int i = 0; i < sizeof(userAgent) && userAgent[i]; i++) {
+            for (unsigned int i = 0; i < sizeof(userAgent) && userAgent[i]; i++) {
                 if (' ' == userAgent[i]) userAgent[i] = '#';
             }
 

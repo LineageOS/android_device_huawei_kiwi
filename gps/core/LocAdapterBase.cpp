@@ -67,7 +67,7 @@ void LocAdapterBase::handleEngineDownEvent()
 void LocAdapterBase::
     reportPosition(UlpLocation &location,
                    GpsLocationExtended &locationExtended,
-                   void* locationExt,
+                   void* /*locationExt*/,
                    enum loc_sess_status status,
                    LocPosTechMask loc_technology_mask) {
     if (mLocAdapterProxyBase == NULL ||
@@ -80,24 +80,24 @@ void LocAdapterBase::
 }
 
 void LocAdapterBase::
-    reportSv(QcomSvStatus &svStatus,
-             GpsLocationExtended &locationExtended,
-             void* svExt)
+    reportSv(QcomSvStatus& /*svStatus*/,
+             GpsLocationExtended& /*locationExtended*/,
+             void* /*svExt*/)
 DEFAULT_IMPL()
 
 
 void LocAdapterBase::
-    reportStatus(GpsStatusValue status)
+    reportStatus(GpsStatusValue /*status*/)
 DEFAULT_IMPL()
 
 
 void LocAdapterBase::
-    reportNmea(const char* nmea, int length)
+    reportNmea(const char* /*nmea*/, int /*length*/)
 DEFAULT_IMPL()
 
 bool LocAdapterBase::
-    reportXtraServer(const char* url1, const char* url2,
-                     const char* url3, const int maxlength)
+    reportXtraServer(const char* /*url1*/, const char* /*url2*/,
+                     const char* /*url3*/, const int /*maxlength*/)
 DEFAULT_IMPL(false)
 
 bool LocAdapterBase::
@@ -113,15 +113,15 @@ bool LocAdapterBase::
 DEFAULT_IMPL(false)
 
 bool LocAdapterBase::
-    requestATL(int connHandle, AGpsType agps_type)
+    requestATL(int /*connHandle*/, AGpsType /*agps_type*/)
 DEFAULT_IMPL(false)
 
 bool LocAdapterBase::
-    releaseATL(int connHandle)
+    releaseATL(int /*connHandle*/)
 DEFAULT_IMPL(false)
 
 bool LocAdapterBase::
-    requestSuplES(int connHandle)
+    requestSuplES(int /*connHandle*/)
 DEFAULT_IMPL(false)
 
 bool LocAdapterBase::
@@ -133,10 +133,10 @@ bool LocAdapterBase::
 DEFAULT_IMPL(false)
 
 bool LocAdapterBase::
-    requestNiNotify(GpsNiNotification &notify, const void* data)
+    requestNiNotify(GpsNiNotification& /*notify*/, const void* /*data*/)
 DEFAULT_IMPL(false)
 
 void LocAdapterBase::
-    reportGpsMeasurementData(GpsData &gpsMeasurementData)
+    reportGpsMeasurementData(GpsData& /*gpsMeasurementData*/)
 DEFAULT_IMPL()
 } // namespace loc_core
