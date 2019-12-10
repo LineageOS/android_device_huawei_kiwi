@@ -120,6 +120,9 @@ ro.use_data_netmgrd=true
 persist.radio.add_power_save=1
 persist.radio.modem.cap=7E442
 
+# Security patch level
+ro.lineage.build.vendor_security_patch=2016-05-01
+
 # Tethering
 sys.usb.rps_mask=10
 persist.sys.usb.config.extra=none
