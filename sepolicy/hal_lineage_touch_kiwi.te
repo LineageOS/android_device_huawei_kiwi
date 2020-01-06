@@ -1,0 +1,7 @@
+type hal_lineage_touch_kiwi, domain, coredomain;
+hal_server_domain(hal_lineage_touch_kiwi, hal_lineage_touch)
+
+type hal_lineage_touch_kiwi_exec, exec_type, file_type;
+init_daemon_domain(hal_lineage_touch_kiwi)
+
+allow hal_lineage_touch_kiwi gesture_sysfs:file rw_file_perms;
