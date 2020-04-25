@@ -18,33 +18,85 @@
 #define LOG_TAG "libwcnss_qmi"
 //#define LOG_NDEBUG 0
 
+#include <dlfcn.h>
 #include <cutils/log.h>
 #include <string.h>
 
-/* liboeminfo_oem_api.so */
-#define RMT_OEMINFO_WIFI_MAC_ENC 0x34
-extern int rmt_oeminfo_read(int cell, int size, void *buf);
+#include "wcnss_qmi.h"
 
-/* libhuawei_secure.so */
-struct otp_key {
-    uint8_t key1[0x104];
-    uint8_t key2[0x104];
-} __attribute__((packed));
+// liboeminfo
+int (*rmt_oeminfo_read)(int cell, int size, void *buf);
 
-extern int crc_check(void *key);
-extern int otp_data_read(void *key);
-extern int rsa_public_decrypt(void *buf, int size, void *dec_buf, int *dec_size,
-                              void *key);
+// libhuawei_secure
+int (*crc_check)(void *key);
+int (*otp_data_read)(void *key);
+int (*rsa_public_decrypt)(void *buf, int size, void *dec_buf, int *dec_size, void *key);
 
-#define MAC_SIZE 6
+void* oemApi;
+void* huaweiSecure;
 
 int wcnss_init_qmi(void)
 {
+    /* dlopen liboeminfo_oem_api and find the required functions */
+    oemApi = dlopen(OEM_INFO_LIB_NAME, RTLD_NOW);
+    if (!oemApi) {
+        ALOGE("%s: failed to load %s: %s\n", __func__, OEM_INFO_LIB_NAME, dlerror());
+        return -1;
+    }
+
+    rmt_oeminfo_read = dlsym(oemApi, "rmt_oeminfo_read");
+    if (!rmt_oeminfo_read) {
+        ALOGE("%s: failed to find rmt_oeminfo_read: %s\n", __func__, dlerror());
+        goto close_oem_api;
+    }
+
+    /* dlopen libhuawei_secure and find the required functions */
+    huaweiSecure = dlopen(HUAWEI_SECURE_LIB_NAME, RTLD_NOW);
+    if (!huaweiSecure) {
+        ALOGE("%s: failed to load %s: %s\n", __func__, HUAWEI_SECURE_LIB_NAME, dlerror());
+        return -1;
+    }
+
+    crc_check = dlsym(huaweiSecure, "crc_check");
+    if (!crc_check) {
+        ALOGE("%s: failed to find crc_check: %s\n", __func__, dlerror());
+        goto close_huawei_secure;
+    }
+
+    otp_data_read = dlsym(huaweiSecure, "otp_data_read");
+    if (!otp_data_read) {
+        ALOGE("%s: failed to find otp_data_read: %s\n", __func__, dlerror());
+        goto close_huawei_secure;
+    }
+
+    rsa_public_decrypt = dlsym(huaweiSecure, "rsa_public_decrypt");
+    if (!rsa_public_decrypt) {
+        ALOGE("%s: failed to find rsa_public_decrypt: %s\n", __func__, dlerror());
+        goto close_huawei_secure;
+    }
+
     return 0;
+
+close_huawei_secure:
+    dlclose(huaweiSecure);
+    huaweiSecure = NULL;
+
+close_oem_api:
+    dlclose(oemApi);
+    oemApi = NULL;
+
+    return -1;
 }
 
 void wcnss_qmi_deinit(void)
 {
+    if (oemApi) {
+        dlclose(oemApi);
+    }
+
+    if (huaweiSecure) {
+        dlclose(huaweiSecure);
+    }
 }
 
 int wcnss_qmi_get_wlan_address(unsigned char *wlan_mac)
@@ -61,6 +113,11 @@ int wcnss_qmi_get_wlan_address(unsigned char *wlan_mac)
     memset(&key, 0x0, sizeof(key));
     memset(mac_crypted, 0x0, sizeof(mac_crypted));
     memset(mac_decrypted, 0x0, sizeof(mac_decrypted));
+
+    if (!rmt_oeminfo_read || !crc_check || !otp_data_read || !rsa_public_decrypt) {
+        ALOGE("Failed earlier when finding functions, not reading MAC\n");
+        return -1;
+    }
 
     ALOGD("Reading RSA key\n");
     ret = otp_data_read(&key);
