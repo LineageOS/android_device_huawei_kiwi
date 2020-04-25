@@ -18,6 +18,7 @@
 
 #include "Light.h"
 
+#include <dlfcn.h>
 #include <log/log.h>
 
 namespace {
@@ -42,11 +43,7 @@ struct qmi_huawei_not {
 } __attribute__((packed));
 
 static constexpr int QMI_HUAWEI_NOT_ID = 0x8F;
-extern "C" int oem_qmi_common_stream_from_modem_len(int id,
-                                                    void *buf_in,
-                                                    size_t buf_in_size,
-                                                    void *buf_out,
-                                                    size_t *buf_out_size);
+
 } // anonymous namespace
 
 namespace android {
@@ -55,7 +52,7 @@ namespace light {
 namespace V2_0 {
 namespace implementation {
 
-Light::Light(std::ofstream&& backlight) :
+Light::Light(std::ofstream&& backlight, void* qmiApi) :
     mBacklight(std::move(backlight)) {
     auto attnFn(std::bind(&Light::setAttentionLight, this, std::placeholders::_1));
     auto backlightFn(std::bind(&Light::setBacklight, this, std::placeholders::_1));
@@ -65,6 +62,15 @@ Light::Light(std::ofstream&& backlight) :
     mLights.emplace(std::make_pair(Type::BACKLIGHT, backlightFn));
     mLights.emplace(std::make_pair(Type::BATTERY, batteryFn));
     mLights.emplace(std::make_pair(Type::NOTIFICATIONS, notifFn));
+
+    /*
+     * Get a reference to the oem_qmi_common_stream_from_modem_len
+     */
+    oem_qmi_common_stream_from_modem_len = reinterpret_cast<int (*)(int, void *, size_t,
+            void *, size_t *)>(dlsym(qmiApi, "oem_qmi_common_stream_from_modem_len"));
+    if (!oem_qmi_common_stream_from_modem_len) {
+        ALOGE("%s: failed to find oem_qmi_common_stream_from_modem_len\n", __func__);
+    }
 }
 
 // Methods from ::android::hardware::light::V2_0::ILight follow.
@@ -142,12 +148,13 @@ void Light::setSpeakerLightLocked(const LightState& state) {
         config.flashOffMs = state.flashOffMs;
     }
 
-    ret = oem_qmi_common_stream_from_modem_len(QMI_HUAWEI_NOT_ID, &config,
-                                               sizeof(config), &buf, &bufSize);
-
-    if (ret != 0) {
-        ALOGE("Failed to write notification LED ret=%d, buf_out_size=%zu\n",
-              ret, bufSize);
+    if (oem_qmi_common_stream_from_modem_len != nullptr) {
+        ret = oem_qmi_common_stream_from_modem_len(QMI_HUAWEI_NOT_ID, &config, sizeof(config),
+                                                   &buf, &bufSize);
+        if (ret != 0) {
+            ALOGE("Failed to write notification LED ret=%d, buf_out_size=%zu\n",
+                  ret, bufSize);
+        }
     }
 }
 

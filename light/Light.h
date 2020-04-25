@@ -30,7 +30,7 @@ namespace V2_0 {
 namespace implementation {
 
 struct Light : public ILight {
-    Light(std::ofstream&& backlight);
+    Light(std::ofstream&& backlight, void* qmiApi);
 
     // Methods from ::android::hardware::light::V2_0::ILight follow.
     Return<Status> setLight(Type type, const LightState& state)  override;
@@ -52,6 +52,9 @@ private:
 
     std::unordered_map<Type, std::function<void(const LightState&)>> mLights;
     std::mutex mLock;
+
+    int (*oem_qmi_common_stream_from_modem_len)(int id, void *buf_in,
+        size_t buf_in_size, void *buf_out, size_t *buf_out_size);
 };
 }  // namespace implementation
 }  // namespace V2_0

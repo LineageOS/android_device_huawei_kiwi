@@ -1,0 +1,31 @@
+soong_namespace {
+    imports: [
+        "vendor/huawei/kiwi",
+    ],
+}
+
+cc_binary {
+    name: "android.hardware.light@2.0-service.kiwi",
+    init_rc: ["android.hardware.light@2.0-service.kiwi.rc"],
+    defaults: ["hidl_defaults"],
+    relative_install_path: "hw",
+    
+    srcs: [
+        "service.cpp",
+        "Light.cpp",
+    ],
+
+    shared_libs: [
+        "libcutils",
+        "libdl",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "liblog",
+        "libhwbinder",
+        "libutils",
+        "android.hardware.light@2.0",
+    ],
+
+    vendor: true,
+}

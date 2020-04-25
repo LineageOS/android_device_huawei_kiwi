@@ -16,12 +16,17 @@
 
 #define LOG_TAG "android.hardware.light@2.0-service.kiwi"
 
+#include <dlfcn.h>
 #include <hidl/HidlTransportSupport.h>
 #include <utils/Errors.h>
 
 #include "Light.h"
 
+#define QMI_OEM_API_LIB_NAME "libqmi_oem_api.so"
+
 // libhwbinder:
+using android::OK;
+using android::status_t;
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 
@@ -32,6 +37,10 @@ using android::hardware::light::V2_0::implementation::Light;
 const static std::string kBacklightPath = "/sys/class/leds/lcd-backlight/brightness";
 
 int main() {
+    android::sp<ILight> service;
+    status_t status = OK;
+    void* qmiApi;
+
     std::ofstream backlight(kBacklightPath);
     if (!backlight) {
         int error = errno;
@@ -39,12 +48,20 @@ int main() {
         return -error;
     }
 
-    android::sp<ILight> service = new Light(std::move(backlight));
+    /*
+     * Open the qmi api.
+     */
+    qmiApi = dlopen(QMI_OEM_API_LIB_NAME, RTLD_NOW);
+    if (!qmiApi) {
+        ALOGE("%s: failed to load %s: %s\n", __func__, QMI_OEM_API_LIB_NAME, dlerror());
+        goto shutdown;
+    }
+    
+    service = new Light(std::move(backlight), qmiApi);
 
     configureRpcThreadpool(1, true);
 
-    android::status_t status = service->registerAsService();
-
+    status = service->registerAsService();
     if (status != android::OK) {
         ALOGE("Cannot register Light HAL service");
         return 1;
@@ -52,7 +69,14 @@ int main() {
 
     ALOGI("Light HAL Ready.");
     joinRpcThreadpool();
+
+shutdown:
+    if (qmiApi != nullptr) {
+        dlclose(qmiApi);
+    }
+
     // Under normal cases, execution will not reach this line.
     ALOGE("Light HAL failed to join thread pool.");
+
     return 1;
 }
