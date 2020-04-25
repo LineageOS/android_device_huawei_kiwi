@@ -185,10 +185,6 @@ void vendor_load_properties()
     string hwsim;
     match_t *match;
 
-    platform = GetProperty("ro.board.platform", "");
-    if (platform != ANDROID_TARGET)
-        return;
-
     ifstream app_info("/proc/app_info");
     if (app_info.is_open()) {
         while (getline(app_info, model) && !contains(model, "huawei_fac_product_name")) {
