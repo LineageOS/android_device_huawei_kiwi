@@ -17,6 +17,7 @@
 #define LOG_TAG "audio_amplifier"
 //#define LOG_NDEBUG 0
 
+#include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <cutils/log.h>
@@ -31,6 +32,8 @@
 
 #define UNUSED __attribute__ ((unused))
 
+#define TFA_LIB_NAME "libtfa9895.so"
+
 typedef struct amp_device {
     amplifier_device_t amp_dev;
     audio_mode_t mode;
@@ -38,9 +41,10 @@ typedef struct amp_device {
 
 static amp_device_t *amp_dev = NULL;
 
-extern int exTfa98xx_calibration(void);
-extern int exTfa98xx_speakeron(uint32_t);
-extern int exTfa98xx_speakeroff();
+int (*exTfa98xx_calibration)(void);
+int (*exTfa98xx_speakeron)(uint32_t);
+int (*exTfa98xx_speakeroff)(void);
+void *tfa;
 
 #define AMP_MIXER_CTL "Initial external PA"
 
@@ -112,6 +116,10 @@ static int amp_enable_output_devices(struct amplifier_device *device, uint32_t d
     if (is_smart_pa(devices)) {
         if (enable) {
             smart_pa_mode_t mode;
+            if (!exTfa98xx_speakeron) {
+                ALOGE("Failed, exTfa98xx_speakeron couldn't be found!");
+                return -1;
+            }
 
             switch(dev->mode) {
             case AUDIO_MODE_IN_CALL: mode = SMART_PA_FOR_VOICE; break;
@@ -123,6 +131,11 @@ static int amp_enable_output_devices(struct amplifier_device *device, uint32_t d
                 ALOGI("exTfa98xx_speakeron(%d) failed: %d\n", mode, ret);
             }
         } else {
+            if (!exTfa98xx_speakeroff) {
+                ALOGE("Failed, exTfa98xx_speakeroff couldn't be found!");
+                return -1;
+            }
+
             if ((ret = exTfa98xx_speakeroff()) != 0) {
                 ALOGI("exTfa98xx_speakeroff failed: %d\n", ret);
             }
@@ -138,6 +151,10 @@ static int amp_dev_close(hw_device_t *device)
     amp_device_t *dev = (amp_device_t *) device;
 
     free(dev);
+
+    if (tfa) {
+        dlclose(tfa);
+    }
 
     return 0;
 }
@@ -175,6 +192,30 @@ static int amp_module_open(const hw_module_t *module, const char *name UNUSED,
 
     *device = (hw_device_t *) amp_dev;
 
+    tfa = dlopen(TFA_LIB_NAME, RTLD_NOW);
+    if (!tfa) {
+        ALOGE("%s: failed to load %s: %s\n", __func__, TFA_LIB_NAME, dlerror());
+        return -1;
+    }
+
+    exTfa98xx_calibration = dlsym(tfa, "exTfa98xx_calibration");
+    if (!exTfa98xx_calibration) {
+        ALOGE("%s: failed to find exTfa98xx_calibration: %s\n", __func__, dlerror());
+        goto close_tfa;
+    }
+
+    exTfa98xx_speakeron = dlsym(tfa, "exTfa98xx_speakeron");
+    if (!exTfa98xx_speakeron) {
+        ALOGE("%s: failed to find exTfa98xx_speakeron: %s\n", __func__, dlerror());
+        goto close_tfa;
+    }
+
+    exTfa98xx_speakeroff = dlsym(tfa, "exTfa98xx_speakeroff");
+    if (!exTfa98xx_speakeroff) {
+        ALOGE("%s: failed to find exTfa98xx_speakeroff: %s\n", __func__, dlerror());
+        goto close_tfa;
+    }
+
     set_clocks_enabled(true);
     if ((ret = exTfa98xx_calibration()) != 0) {
         ALOGI("exTfa98xx_calibration failed: %d\n", ret);
@@ -182,6 +223,10 @@ static int amp_module_open(const hw_module_t *module, const char *name UNUSED,
     set_clocks_enabled(false);
 
     return 0;
+
+close_tfa:
+    dlclose(tfa);
+    return -1;
 }
 
 static struct hw_module_methods_t hal_module_methods = {

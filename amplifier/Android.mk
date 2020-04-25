@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SHARED_LIBRARIES := \
-	liblog libutils libcutils libtfa9895 libtinyalsa
+	libdl liblog libutils libcutils libtinyalsa
 
 LOCAL_HEADER_LIBRARIES := generated_kernel_headers
 
