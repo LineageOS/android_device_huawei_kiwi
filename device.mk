@@ -294,6 +294,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/_hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/_hals.conf
 
+# Soong Namespace
+PRODUCT_SOONG_NAMESPACES += \
+    device/huawei/kiwi/init \
+    device/huawei/kiwi/libshims \
+    device/huawei/kiwi/libwcnss_qmi \
+    device/huawei/kiwi/light \
+
 # Thermal
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
