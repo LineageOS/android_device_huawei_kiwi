@@ -15,7 +15,7 @@
  */
 
 #define LOG_TAG "audio_amplifier"
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 
 #include <dlfcn.h>
 #include <stdio.h>
