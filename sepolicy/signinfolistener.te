@@ -13,6 +13,6 @@ allow signinfolistener system_data_file:file r_file_perms;
 
 # Somehow everyone wants to read the attributes of this
 # just ignore it
-dontaudit domain signinfolistener_exec:file getattr;
+dontaudit domain signinfolistener_exec:file { read getattr };
 
 init_daemon_domain(signinfolistener)
