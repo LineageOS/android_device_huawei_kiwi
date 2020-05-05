@@ -1,1 +1,2 @@
 allow hal_wifi_default firmware_file:dir search;
+allow hal_wifi_default proc_net:file write;
