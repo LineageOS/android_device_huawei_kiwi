@@ -22,7 +22,8 @@ allow oeminfo block_device:dir search;
 allow oeminfo properties_device:dir { open read };
 allow oeminfo socket_device:dir { add_name write }; # /dev/socket
 allow oeminfo self:socket ioctl;
-allowxperm oeminfo self:socket ioctl { 0xc304 };
+allowxperm oeminfo self:socket ioctl IPC_ROUTER_IOCTL_BIND_CONTROL_PORT;
+allowxperm oeminfo oem_block_device:blk_file ioctl BLKGETSIZE;
 
 r_dir_file(oeminfo, sysfs);
 
