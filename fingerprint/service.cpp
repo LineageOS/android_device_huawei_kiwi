@@ -46,11 +46,13 @@ static void setProcessTitle(char* currentTitle, const char* newTitle) {
 int main(int, char** argv) {
     setProcessTitle(argv[0], "/system/bin/fingerprintd");
     android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
+    android::status_t err;
 
     configureRpcThreadpool(1, true /*callerWillJoin*/);
 
     if (bio != nullptr) {
-        bio->registerAsService();
+        err = bio->registerAsService();
+        ALOGE_IF(err != android::OK, "Cannot register %s: %d", IBiometricsFingerprint::descriptor, err);
     } else {
         ALOGE("Can't create instance of BiometricsFingerprint, nullptr");
     }
