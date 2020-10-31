@@ -292,7 +292,7 @@ AgpsState* AgpsReleasedState::onRsrcEvent(AgpsRsrcStatus event, void* data)
         Notification notification(subscriber, event, false);
         subscriber->notifyRsrcStatus(notification);
     }
-        // break;
+        [[fallthrough]];
     case RSRC_GRANTED:
     case RSRC_RELEASED:
     case RSRC_DENIED:
@@ -595,7 +595,7 @@ Servicer* Servicer :: getServicer(servicerType type, void *cb_func)
     }
 }
 
-int Servicer :: requestRsrc(void *cb_data)
+int Servicer :: requestRsrc(void* /*cb_data*/)
 {
     callback();
     return 0;
@@ -624,12 +624,12 @@ AgpsStateMachine::AgpsStateMachine(servicerType servType,
                                    void *cb_func,
                                    AGpsExtType type,
                                    bool enforceSingleSubscriber) :
+    mServicer(Servicer :: getServicer(servType, (void *)cb_func)),
     mStatePtr(new AgpsReleasedState(this)),mType(type),
     mAPN(NULL),
     mAPNLen(0),
     mBearer(AGPS_APN_BEARER_INVALID),
-    mEnforceSingleSubscriber(enforceSingleSubscriber),
-    mServicer(Servicer :: getServicer(servType, (void *)cb_func))
+    mEnforceSingleSubscriber(enforceSingleSubscriber)
 {
     linked_list_init(&mSubscribers);
 
@@ -688,7 +688,7 @@ void AgpsStateMachine::setAPN(const char* apn, unsigned int len)
     if (NULL != apn) {
         mAPN = new char[len+1];
         memcpy(mAPN, apn, len);
-        mAPN[len] = NULL;
+        mAPN[len] = 0;
 
         mAPNLen = len;
     } else {
@@ -812,7 +812,7 @@ bool AgpsStateMachine::hasActiveSubscribers() const
 //======================================================================
 // DSStateMachine
 //======================================================================
-void delay_callback(void *callbackData, int result)
+void delay_callback(void *callbackData, int /*result*/)
 {
     if(callbackData) {
         DSStateMachine *DSSMInstance = (DSStateMachine *)callbackData;
@@ -933,6 +933,7 @@ void DSStateMachine :: onRsrcEvent(AgpsRsrcStatus event)
             event = RSRC_DENIED;
             LOC_LOGE(" Switching event to RSRC_DENIED\n");
         }
+        [[fallthrough]];
     case RSRC_DENIED:
         mStatePtr = mStatePtr->onRsrcEvent(event, NULL);
         break;

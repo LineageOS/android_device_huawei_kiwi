@@ -30,6 +30,7 @@
 #define LOG_TAG "LocSvc_LocApiBase"
 
 #include <dlfcn.h>
+#include <inttypes.h>
 #include <LocApiBase.h>
 #include <LocAdapterBase.h>
 #include <log_util.h>
@@ -96,10 +97,10 @@ struct LocSsrMsg : public LocMsg {
         mLocApi->close();
         mLocApi->open(mLocApi->getEvtMask());
     }
-    inline void locallog() {
+    inline void locallog() const {
         LOC_LOGV("LocSsrMsg");
     }
-    inline virtual void log() {
+    inline virtual void log() const {
         locallog();
     }
 };
@@ -116,11 +117,11 @@ struct LocOpenMsg : public LocMsg {
     inline virtual void proc() const {
         mLocApi->open(mMask);
     }
-    inline void locallog() {
+    inline void locallog() const {
         LOC_LOGV("%s:%d]: LocOpen Mask: %x\n",
                  __func__, __LINE__, mMask);
     }
-    inline virtual void log() {
+    inline virtual void log() const {
         locallog();
     }
 };
@@ -128,8 +129,8 @@ struct LocOpenMsg : public LocMsg {
 LocApiBase::LocApiBase(const MsgTask* msgTask,
                        LOC_API_ADAPTER_EVENT_MASK_T excludedMask,
                        ContextBase* context) :
-    mExcludedMask(excludedMask), mMsgTask(msgTask),
-    mMask(0), mSupportedMsg(0), mContext(context)
+    mMsgTask(msgTask), mContext(context), mSupportedMsg(0),
+    mMask(0), mExcludedMask(excludedMask)
 {
     memset(mLocAdapters, 0, sizeof(mLocAdapters));
 }
@@ -235,7 +236,7 @@ void LocApiBase::reportPosition(UlpLocation &location,
     // print the location info before delivering
     LOC_LOGV("flags: %d\n  source: %d\n  latitude: %f\n  longitude: %f\n  "
              "altitude: %f\n  speed: %f\n  bearing: %f\n  accuracy: %f\n  "
-             "timestamp: %lld\n  rawDataSize: %d\n  rawData: %p\n  "
+             "timestamp: %" PRId64 "\n  rawDataSize: %d\n  rawData: %p\n  "
              "Session status: %d\n Technology mask: %u",
              location.gpsLocation.flags, location.position_source,
              location.gpsLocation.latitude, location.gpsLocation.longitude,
@@ -259,7 +260,7 @@ void LocApiBase::reportSv(QcomSvStatus &svStatus,
 {
     // print the SV info before delivering
     LOC_LOGV("num sv: %d\n  ephemeris mask: %dxn  almanac mask: %x\n  gps/glo/bds in use"
-             " mask: %x/%x/%x\n      sv: prn         snr       elevation      azimuth",
+             " mask: %x/%x/%" PRIx64 "\n      sv: prn         snr       elevation      azimuth",
              svStatus.num_svs, svStatus.ephemeris_mask,
              svStatus.almanac_mask, svStatus.gps_used_in_fix_mask,
              svStatus.glo_used_in_fix_mask, svStatus.bds_used_in_fix_mask);

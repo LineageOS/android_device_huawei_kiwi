@@ -267,7 +267,8 @@ public:
 // each subscriber is a AGPS client.  In the case of ATL, there could be
 // multiple clients from modem.  In the case of BIT, there is only one
 // cilent from BIT daemon.
-struct Subscriber {
+class Subscriber {
+public:
     const uint32_t ID;
     const AgpsStateMachine* mStateMachine;
     inline Subscriber(const int id,
@@ -377,7 +378,7 @@ struct WIFISubscriber : public Subscriber {
 
     virtual bool notifyRsrcStatus(Notification &notification);
 
-    inline virtual void setIPAddresses(uint32_t &v4, char* v6) {}
+    inline virtual void setIPAddresses(uint32_t& /*v4*/, char* /*v6*/) {}
 
     inline virtual void setIPAddresses(struct sockaddr_storage& addr)
     { addr.ss_family = AF_INET6; }
@@ -414,7 +415,7 @@ struct DSSubscriber : public Subscriber {
     {
         mIsInactive = false;
     }
-    inline virtual void setIPAddresses(uint32_t &v4, char* v6) {}
+    inline virtual void setIPAddresses(uint32_t& /*v4*/, char* /*v6*/) {}
     inline virtual void setIPAddresses(struct sockaddr_storage& addr)
     { addr.ss_family = AF_INET6; }
     virtual Subscriber* clone()
