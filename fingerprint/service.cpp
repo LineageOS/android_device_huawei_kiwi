@@ -49,10 +49,10 @@ int main(int, char** argv) {
 
     configureRpcThreadpool(1, true /*callerWillJoin*/);
 
-    if (bio != nullptr) {
-        bio->registerAsService();
-    } else {
+    if (bio == nullptr) {
         ALOGE("Can't create instance of BiometricsFingerprint, nullptr");
+    } else if (bio->registerAsService() != android::OK) {
+        ALOGE("Cannot register kiwi fingerprint service");
     }
 
     joinRpcThreadpool();
