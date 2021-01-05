@@ -2,5 +2,7 @@ on fs
     wait /dev/block/platform/soc.0/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc.0/${ro.boot.bootdevice} /dev/block/bootdevice
 
+    setprop sys.usb.ffs.aio_compat 1
+
 on property:init.svc.recovery=running
     trigger enable-low-power
