@@ -134,7 +134,6 @@ persist.radio.sib16_support=1
 persist.radio.use_nv_force=false
 ril.subscription.types=NV,RUIM
 rild.libpath=/system/vendor/lib64/libril-wrapper.so
-rild.libargs=-d /dev/smd0
 ro.config.AC_optimize_plmn_srch=true
 ro.config.dsds_mode=umts_gsm
 ro.config.eons_always_ap=false
