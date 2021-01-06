@@ -2,13 +2,9 @@
 /data/fpc(/.*)?                                            u:object_r:fingerprintd_data_file:s0
 /dev/fpc1020                                               u:object_r:fingerprint_device:s0
 /sys/devices/platform/fingerprint(/.*)?                    u:object_r:fingerprint_sysfs:s0
-/system/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@1\.0-service\.kiwi u:object_r:hal_fingerprint_default_exec:s0
 
 # Lights
 /sys/devices/soc\.0/gpio-leds\.[a-z0-9]+/leds(/.*)?        u:object_r:sysfs_leds:s0
-
-# Light hal
-/system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.kiwi u:object_r:hal_light_default_exec:s0
 
 # Oem Info
 /dev/oinv(/.*)?                                            u:object_r:oeminfo_device:s0
@@ -16,7 +12,6 @@
 /system/vendor/bin/huawei_version                          u:object_r:oeminfo_exec:s0
 /system/vendor/bin/oeminfo_nvm_server                      u:object_r:oeminfo_exec:s0
 /system/vendor/bin/rmt_oeminfo                             u:object_r:oeminfo_exec:s0
-
 
 /dev/block/platform/soc.0/7824900.sdhci/mmcblk0p18         u:object_r:fsc_block_device:s0
 /dev/block/platform/soc.0/7824900.sdhci/mmcblk0p9          u:object_r:oem_block_device:s0
@@ -34,5 +29,7 @@
 
 /dev/stune(/.*)?                                           u:object_r:cgroup:s0
 
-# Touchscreen HAL
-/system/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.kiwi u:object_r:hal_lineage_touch_kiwi_exec:s0
+# HALs
+/system/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@1\.0-service\.kiwi     u:object_r:hal_fingerprint_default_exec:s0
+/system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.kiwi                       u:object_r:hal_light_default_exec:s0
+/system/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.kiwi                         u:object_r:hal_lineage_touch_kiwi_exec:s0
