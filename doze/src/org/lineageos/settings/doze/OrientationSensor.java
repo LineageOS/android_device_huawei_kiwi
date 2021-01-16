@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
- * Copyright (c) 2017 The LineageOS Project
+ * Copyright (c) 2017-2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,13 @@ public class OrientationSensor implements SensorEventListener {
         void onEvent();
     }
 
+    public OrientationSensor(Context context, OrientationListener orientationListener) {
+        mSensorManager = context.getSystemService(SensorManager.class);
+        mAccelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER, false);
+        mMagneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD, false);
+        mOrientationListener = orientationListener;
+    }
+
     public boolean isFaceDown() {
         return mReady && mState == ORIENTATION_FACE_DOWN;
     }
@@ -61,19 +68,7 @@ public class OrientationSensor implements SensorEventListener {
         return mReady && mState == ORIENTATION_VERTICAL;
     }
 
-    public OrientationSensor(Context context, SensorManager sensorManager,
-            OrientationListener orientationListener) {
-        mEnabled = false;
-        reset();
-        mAccelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER, false);
-        mMagneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD, false);
-
-        mOrientationListener = orientationListener;
-        mSensorManager = sensorManager;
-    }
-
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
     public void onSensorChanged(SensorEvent event) {
         if (event.values.length == 0) return;
@@ -91,8 +86,8 @@ public class OrientationSensor implements SensorEventListener {
 
         if (mGravity != null && mMagnetic != null) {
             float[] rotationMatrix = new float[9];
-            if (SensorManager.getRotationMatrix(rotationMatrix, new float[9], mGravity, mMagnetic))
-            {
+            if (SensorManager.getRotationMatrix(rotationMatrix, new float[9], mGravity,
+                    mMagnetic)) {
                 float[] values = new float[3];
                 mState = ORIENTATION_UNKNOWN;
                 SensorManager.getOrientation(rotationMatrix, values);
@@ -122,29 +117,27 @@ public class OrientationSensor implements SensorEventListener {
         }
     }
 
-    public void enable() {
-        if (!mEnabled && mAccelerometerSensor != null && mMagneticFieldSensor != null) {
-            reset();
-            mState = ORIENTATION_UNKNOWN;
+    public void setEnabled(final boolean enabled) {
+        if (enabled == mEnabled || mAccelerometerSensor == null || mMagneticFieldSensor == null) {
+            return;
+        }
+        reset();
+        if (enabled) {
             mSensorManager.registerListener(this, mAccelerometerSensor,
                     ORIENTATION_DELAY, ORIENTATION_LATENCY);
             mSensorManager.registerListener(this, mMagneticFieldSensor,
                     ORIENTATION_DELAY, ORIENTATION_LATENCY);
-            mEnabled = true;
+        } else {
+            mSensorManager.unregisterListener(this, mAccelerometerSensor);
+            mSensorManager.unregisterListener(this, mMagneticFieldSensor);
         }
+        mEnabled = enabled;
     }
 
     public void reset() {
         mGravity = null;
         mMagnetic = null;
         mReady = false;
-    }
-
-    public void disable() {
-        if (mEnabled && mAccelerometerSensor != null && mMagneticFieldSensor != null) {
-            mSensorManager.unregisterListener(this,mAccelerometerSensor);
-            mSensorManager.unregisterListener(this, mMagneticFieldSensor);
-            mEnabled = false;
-        }
+        mState = ORIENTATION_UNKNOWN;
     }
 }
