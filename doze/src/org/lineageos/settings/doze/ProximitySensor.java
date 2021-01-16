@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
- * Copyright (c) 2017 The LineageOS Project
+ * Copyright (c) 2017-2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,22 +41,17 @@ public class ProximitySensor implements SensorEventListener {
         void onInit(boolean isNear, long timestamp);
     }
 
-    public ProximitySensor(Context context, SensorManager sensorManager,
-            ProximityListener proximitylistener) {
-        mEnabled = false;
-        reset();
-        mProximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY, true);
+    public ProximitySensor(Context context, ProximityListener proximitylistener) {
+        mSensorManager = context.getSystemService(SensorManager.class);
+        mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY, true);
 
         mProximityListener = proximitylistener;
-        mSensorManager = sensorManager;
-
         if (mProximitySensor != null) {
             mMaxRange = mProximitySensor.getMaximumRange();
         }
     }
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
     public void onSensorChanged(SensorEvent event) {
         if (event.values.length == 0) return;
@@ -77,23 +72,22 @@ public class ProximitySensor implements SensorEventListener {
         }
     }
 
-    public void enable() {
-        if (!mEnabled && mProximitySensor != null) {
-            mSensorManager.registerListener(this, mProximitySensor, PROXIMITY_DELAY,
-                    PROXIMITY_LATENCY);
-            mEnabled = true;
+    public void setEnabled(boolean enabled) {
+        if (enabled == mEnabled || mProximitySensor == null) {
+            return;
         }
+        reset();
+        if (enabled) {
+            mSensorManager.registerListener(this, mProximitySensor,
+                    PROXIMITY_DELAY, PROXIMITY_LATENCY);
+        } else {
+            mSensorManager.unregisterListener(this, mProximitySensor);
+        }
+        mEnabled = enabled;
     }
 
     public void reset() {
         mReady = false;
         mState = false;
-    }
-
-    public void disable() {
-        if (mEnabled && mProximitySensor != null) {
-            mSensorManager.unregisterListener(this, mProximitySensor);
-            mEnabled = false;
-        }
     }
 }
