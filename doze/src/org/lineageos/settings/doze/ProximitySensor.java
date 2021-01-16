@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
- * Copyright (c) 2017 The LineageOS Project
+ * Copyright (c) 2017-2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,22 +41,17 @@ public class ProximitySensor implements SensorEventListener {
         void onInit(boolean isNear, long timestamp);
     }
 
-    public ProximitySensor(Context context, SensorManager sensorManager,
-            ProximityListener proximitylistener) {
-        mEnabled = false;
-        reset();
-        mProximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY, true);
+    public ProximitySensor(Context context, ProximityListener proximitylistener) {
+        mSensorManager = context.getSystemService(SensorManager.class);
+        mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY, true);
 
         mProximityListener = proximitylistener;
-        mSensorManager = sensorManager;
-
         if (mProximitySensor != null) {
             mMaxRange = mProximitySensor.getMaximumRange();
         }
     }
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
     public void onSensorChanged(SensorEvent event) {
         if (event.values.length == 0) return;
