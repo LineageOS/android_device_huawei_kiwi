@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
- * Copyright (c) 2017-2021 The LineageOS Project
+ * Copyright (c) 2017-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,6 @@ public class SensorsDozeService extends Service {
     public static final boolean DEBUG = false;
     public static final String TAG = "SensorsDozeService";
 
-    private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
-
     private static final int HANDWAVE_DELTA_NS = 1000 * 1000 * 1000;
     private static final int PULSE_MIN_INTERVAL_MS = 5000;
     private static final int SENSORS_WAKELOCK_DURATION = 1000;
@@ -42,31 +40,23 @@ public class SensorsDozeService extends Service {
     private Context mContext;
     private OrientationSensor mOrientationSensor;
     private PickUpSensor mPickUpSensor;
-    private PowerManager mPowerManager;
     private ProximitySensor mProximitySensor;
     private WakeLock mSensorsWakeLock;
 
-    private boolean mDozeEnabled;
     private boolean mHandwaveDoze;
-    private boolean mHandwaveGestureEnabled;
     private boolean mPickUpDoze;
-    private boolean mPickUpGestureEnabled;
     private boolean mPickUpState;
     private boolean mPocketDoze;
-    private boolean mPocketGestureEnabled;
     private boolean mProximityNear;
     private long mLastPulseTimestamp;
     private long mLastStowedTimestamp;
 
-    private OrientationSensor.OrientationListener mOrientationListener =
-            new OrientationSensor.OrientationListener() {
-        public void onEvent() {
-            setOrientationSensor(false);
-            handleOrientation();
-        }
+    private final OrientationSensor.OrientationListener mOrientationListener = () -> {
+        setOrientationSensor(false);
+        handleOrientation();
     };
 
-    private PickUpSensor.PickUpListener mPickUpListener = new PickUpSensor.PickUpListener() {
+    private final PickUpSensor.PickUpListener mPickUpListener = new PickUpSensor.PickUpListener() {
         public void onEvent() {
             mPickUpState = mPickUpSensor.isPickedUp();
             handlePickUp();
@@ -77,7 +67,7 @@ public class SensorsDozeService extends Service {
         }
     };
 
-    private ProximitySensor.ProximityListener mProximityListener =
+    private final ProximitySensor.ProximityListener mProximityListener =
             new ProximitySensor.ProximityListener() {
         public void onEvent(boolean isNear, long timestamp) {
             mProximityNear = isNear;
@@ -101,9 +91,9 @@ public class SensorsDozeService extends Service {
         super.onCreate();
         mContext = this;
 
-        mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-        mSensorsWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                TAG + "WakeLock");
+        PowerManager powerManager = mContext.getSystemService(PowerManager.class);
+        mSensorsWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                TAG + ":WakeLock");
         mOrientationSensor = new OrientationSensor(mContext, mOrientationListener);
         mPickUpSensor = new PickUpSensor(mContext, mPickUpListener);
         mProximitySensor = new ProximitySensor(mContext, mProximityListener);
@@ -111,7 +101,7 @@ public class SensorsDozeService extends Service {
         IntentFilter intentScreen = new IntentFilter(Intent.ACTION_SCREEN_ON);
         intentScreen.addAction(Intent.ACTION_SCREEN_OFF);
         mContext.registerReceiver(mScreenStateReceiver, intentScreen);
-        if (!mPowerManager.isInteractive()) {
+        if (!powerManager.isInteractive()) {
             onDisplayOff();
         }
     }
@@ -318,7 +308,7 @@ public class SensorsDozeService extends Service {
         }
     }
 
-    private BroadcastReceiver mScreenStateReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mScreenStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {

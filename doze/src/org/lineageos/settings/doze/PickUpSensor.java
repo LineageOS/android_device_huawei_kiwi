@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
- * Copyright (c) 2017-2021 The LineageOS Project
+ * Copyright (c) 2017-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,16 +38,18 @@ public class PickUpSensor implements SensorEventListener {
     private static final float PICK_UP_SAFEZONE = 5;
     private static final float PICK_UP_THRESHOLD = 6;
 
+    private final Sensor mPickUpSensor;
+    private final PickUpListener mPickUpListener;
+    private final SensorManager mSensorManager;
+    private final ExecutorService mExecutorService;
+
     private boolean mEnabled;
     private boolean mReady;
     private int mState;
-    private Sensor mPickUpSensor;
-    private PickUpListener mPickUpListener;
-    private SensorManager mSensorManager;
-    private ExecutorService mExecutorService;
 
     public interface PickUpListener {
         void onEvent();
+
         void onInit();
     }
 
@@ -59,7 +61,8 @@ public class PickUpSensor implements SensorEventListener {
         mExecutorService = Executors.newSingleThreadExecutor();
     }
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
     public boolean isPickedUp() {
         return mReady && mState == PICK_UP_TRUE;

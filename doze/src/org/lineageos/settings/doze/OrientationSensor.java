@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
- * Copyright (c) 2017-2021 The LineageOS Project
+ * Copyright (c) 2017-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,16 +39,17 @@ public class OrientationSensor implements SensorEventListener {
     private static final float MATH_PI_1_4 = 0.785398F;
     private static final float MATH_PI_3_4 = 2.35619F;
 
+    private final OrientationListener mOrientationListener;
+    private final Sensor mAccelerometerSensor;
+    private final Sensor mMagneticFieldSensor;
+    private final SensorManager mSensorManager;
+    private final ExecutorService mExecutorService;
+
     private boolean mEnabled;
     private boolean mReady;
     private int mState;
-    private float mGravity[];
-    private float mMagnetic[];
-    private OrientationListener mOrientationListener;
-    private Sensor mAccelerometerSensor;
-    private Sensor mMagneticFieldSensor;
-    private SensorManager mSensorManager;
-    private ExecutorService mExecutorService;
+    private float[] mGravity;
+    private float[] mMagnetic;
 
     public interface OrientationListener {
         void onEvent();
@@ -75,7 +76,8 @@ public class OrientationSensor implements SensorEventListener {
         return mReady && mState == ORIENTATION_VERTICAL;
     }
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
     public void onSensorChanged(SensorEvent event) {
         if (event.values.length == 0) return;
